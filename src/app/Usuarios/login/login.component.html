@@ -1,0 +1,48 @@
+
+
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('../assets/bg-01.jpg');">
+			<div class="wrap-login100 ">	
+            <form class="login100-form validate-form p-b-33 p-t-5">
+            <mat-grid-list cols="1" rowHeight="70px">
+                <mat-grid-tile  >
+                <span class="login100-form-title ">
+					Login
+				</span>
+                </mat-grid-tile>
+                 <mat-grid-tile [colspan]="1" [rowspan]=1> 
+                  <mat-form-field style="width:90%" class="example-full" appearance="fill">
+                    <mat-label>Usuario</mat-label>
+                     <input name="username" [(ngModel)]="usuario.username" id="username"    matInput placeholder="" >
+                     </mat-form-field>
+                
+                 </mat-grid-tile>
+                 <mat-grid-tile [colspan]="1" [rowspan]=1> 
+                  <mat-form-field style="width:90%" class="example-full" appearance="fill">
+                    <mat-label>Password</mat-label>
+                     <input type="password" name="username"  [(ngModel)]="usuario.password"  matInput placeholder="" >
+                     </mat-form-field>
+                
+                 </mat-grid-tile>
+                
+                
+            
+                 <mat-grid-tile>
+                   <div class="form-group col-sm-6">
+            <button (click)="login()"> Iniciar Sesion</button>
+   
+            </div>
+                 </mat-grid-tile>
+             </mat-grid-list>
+				
+			
+
+         
+
+          
+
+				</form>
+			</div>
+		</div>
+	</div>
+	
