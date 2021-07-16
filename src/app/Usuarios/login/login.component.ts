@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
         
       
-        this.route.navigate(['archivos'])
+        this.route.navigate(['nav/archivos'])
         
       },err=>{
         if(err.status==400){

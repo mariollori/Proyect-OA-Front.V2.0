@@ -37,23 +37,6 @@ export class AuthService {
 
 
   login(usuario: Usuario): Observable<any> {
-   
-    /**Convertimos la info a base 64 */
-    //*const credenciales = btoa('angular' + ':' + '12345');
-    // const httHeaders = new HttpHeaders({
-      //'Content-Type': 'application/x-www-form-urlencoded',
-      //'Authorization': 'Basic ' + credenciales
-   // })
-   //let params = new HttpParams()
-  // .set('grant_type', 'password')
-   //   .set('username', usuario.username)
-     // .set('password', usuario.password);
-//
-
-   // console.log(params.toString());
-
-
-   // return this.http.post<any>(urlEndpoint, params.toString(), { headers: httHeaders });
    return this.http.post<any>(this.urlEndpoint + '/login', usuario);
   }
 

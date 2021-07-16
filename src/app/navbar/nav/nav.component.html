@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+ <div class="container-fluid">
+    <a class="navbar-brand" >Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+       
+        
+       
+      </ul>
+      <form class="d-flex">
+      <h5 id="user" *ngIf="nombre" >{{(nombre + ' '  +apellido) | uppercase}}</h5>
+      <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+          <mat-icon>person</mat-icon>
+        </button>
+       
+            <mat-menu #menu="matMenu">
+            
+                <button mat-menu-item [routerLink]="['archivos']" ><mat-icon>folder</mat-icon>Archivos</button>
+                  <button mat-menu-item [routerLink]="['mensajes']" ><mat-icon>email</mat-icon>Mensajes </button>
+                <button (click)="logout()"mat-menu-item><mat-icon>power_settings_new</mat-icon>Salir        </button>
+            </mat-menu>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
