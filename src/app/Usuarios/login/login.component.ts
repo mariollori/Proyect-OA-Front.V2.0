@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { Usuario } from '../../models/Usuario';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { Usuario } from '../../models/Usuario';
 export class LoginComponent implements OnInit {
   
   usuario: Usuario = new Usuario();
-  constructor(private auth: AuthService, private route: Router) {}
+  constructor(private auth: AuthService, private route: Router,private _snackBar: MatSnackBar) {}
 
 
   ngOnInit() {
@@ -37,9 +38,8 @@ export class LoginComponent implements OnInit {
         this.route.navigate(['nav/archivos'])
         
       },err=>{
-        if(err.status==400){
-          alert("Usuario o clave incorrecta")
-        }
+        this._snackBar.open('Usuario o Contraseña incorrectos', 'cerrar',{duration:2*1000});
+      
       }
     )
   }
