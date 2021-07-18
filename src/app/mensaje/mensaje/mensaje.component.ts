@@ -41,7 +41,7 @@ export class MensajeComponent implements OnInit {
       Swal.fire({
         
         icon: 'success',
-        title: 'Archivo guardado correctamente',
+        title: 'Mensaje enviado correctamente',
         showConfirmButton: false,
         timer: 1500
       })
