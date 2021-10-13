@@ -1,93 +1,403 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
 
-
-
-
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
-
-
-  
-  
-  
-  /*//////////////////////////////////////////////////////////////////
-  [ RESTYLE TAG ]*/
-  
-  * {
-      margin: 0px; 
-      padding: 0px; 
-      box-sizing: border-box;
-  }
-  
-
-  
-  
-  .container-login100 {
-    width: 100%;  
-    min-height: 100vh;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-  
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    position: relative;
-    z-index: 1;  
-  }
-  
-  .container-login100::before {
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: rgba(0,0,0,0.65);
-  }
-
-  .wrap-login100{
-      z-index: 2;
-      background: #fff;
-      width: 400px;
-      height: 300px;
-      
-      border-radius: 10px;
-      box-shadow: 0 5px 10px 0 rgb(40 50 5 / 1000%);
-  ;
-  }
-  button {
-    
-      color: white;
-    outline: none!important;
-    border: none;
-    border-radius: 30px;
-   
-    font-weight: bold;
-    background: -webkit-linear-gradient(right,#21d4fd,#b721ff,#21d4fd);
-    width: 100%;
-    height: 40px;
-    text-transform: uppercase;
-    font-size: 15px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Dosis', sans-serif;
 }
-.login100-form-title {
-    color: black;
-    font-size: large;
-    font-weight: bold;
+.logo{
+  font-weight: 700;
+  color:#00a99d ;
 }
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
+.padre{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+ 
+}
+.cabezera{
+  width: 400px;
+  margin-top: 20px;
+  margin-left: 40px;
   
-  .example-full-width {
-    width: 100%;
-  }
+  align-items: center;
+  display: flex;
+  height: 100px;
+}
+.hijouno{
+  width: 40%;
+
+  height: 100vh;
+  background-image: url('../login/imgLogin/formalogin.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+ 
+}
+.cuerpocard{
+  margin-top: 40px;
+  margin-left: 40px;
+  height: auto;
+  background-color: #000;
+  border-radius: 40px;
+  width: 400px;
+  
+  color: #949090;
+}
+.card{
+  padding: 10px;
+}
+#cuerpouno{
+  background-color: white;
+  width: inherit;
+  height: inherit;
+  top: 0;
+  padding: 5% 8%;
+  text-align: center;
+  left:40vw ;
+  position: absolute;
+  z-index: 3;
+  transition-property: display;
+  transition-duration: 1s;
+}
+
+
+.cardregister{
+  background-color: #00a99d;
+  width: 100%;
+  border-radius: 40px;
+  height: 100%;
+}
+.cardregister-top{
+  background-image: url("http://oidoamigo.org/wp-content/uploads/2021/05/Slider2.jpg");
+  background-size: cover;
+  border: 3px solid #585c68;
+  width: 100%;
+  height: 80%;
+  border-radius: 40px;
+}
+.title{
+  color: #00a99d;
+  font-weight: 700;
+
+}
+.subtitle{
+  color: #00a99d;
+  font-weight: 300;
+ 
+}
+.cardr-text{
+  height: auto;
+  width: auto;
+  margin-top: 10%;
+  margin-left: 40%;
+
+}
+
+.btncerrar{
+  border: 0;
+  margin-top: 20px;
+  font-weight: 600;
+  width: 200px;
+  height: 40px;
+  border-radius: 40px;
+
+}
+.cuerpodos{
+  position: absolute;
+ border: 3px solid #00a99d;
+  width: 100% inherit;
+  height: 100% inherit  ;
+  z-index: 1;
+  border-radius: 35px;
+}
+.headerdos{
+  text-align: center;
+  border-radius: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100% inherit;
+  height: 50px;
+  background-color: #00a99d;
+  color: white;
+  
+}
+.headerdos h2{
+  font-weight: 700;
+  
+}
+.hijodos{
+  width: 60%;
+  padding: 20px;
+  height: 100vh;
+  
+}
+
+
+#iconogeneral{
+  background-image: url('../login/imgLogin/oido2.jpg');
+  width: 100px;
+  margin-top: 20px;
+  margin-left: 20px;
+  height: 100px;
+  background-size: cover;
+  
+}
+body {
+  background: rgb(148, 144, 144);
+  width: 100% inherit;
+  height: 100% inherit;
+}
+
+.wrapper {
+  width: 650px;
+  height: 80%;
+  margin: 10px auto 10px;
+  
+}
+.stepperhz{
+  height: 100% inherit;
+  width: 100% inherit;
+  border-radius: 40px;
+}
+
+.wrapper .title {
+  font-size: 24px;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.container {
+  padding: 10px 30px;
+  display: flex;
+  
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.ansiedad{
+  background-image: url(../login/imgLogin/ansiedad.jpg);
+ 
+}
+.alimentacion{
+  background-image: url(../login/imgLogin/alimentacion.jpg);
+ 
+}
+.depresion{
+  background-image: url(../login/imgLogin/depresion.jpg);
+ 
+}
+.suicidio{
+  background-image: url(../login/imgLogin/suicidio.jpg);
+
+}
+.familiar{
+  background-image: url(../login/imgLogin/alimentacion.jpg);
+  
+}
+.fobia{
+  background-image: url(../login/imgLogin/fobia.jpg);
+  
+}
+.bulling{
+  background-image: url(../login/imgLogin/bulling.png);
+}
+.niño{
+  background-image: url(../login/imgLogin/niño.png);
+}
+.joven{
+  background-image: url(../login/imgLogin/joven.png);
+}
+.mayor{
+  background-image: url(../login/imgLogin/adultomayor.png);
+}
+.adulto{
+  background-image: url(../login/imgLogin/adulto.png);
+}
+#cancelbtn{
+  margin-right: 10px;
+}
+.card-style{
+  width: 50px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  margin: 0px auto;
+  height: 50px;
+}
+.container .option_item {
+  display: block;
+  position: relative;
+  
+  width: 125px;
+  height: 125px;
+  margin: 10px;
+}
+
+.container .option_item .checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 0;
+}
+
+.option_item .option_inner {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 5px;
+  text-align: center;
+  padding-top:25px;
+  cursor: pointer;
+  color: #585c68;
+  display: block;
+  border: 5px solid transparent;
+  position: relative;
+}
+
+.option_item .option_inner .icon {
+  margin-bottom: 10px;
+}
+
+.option_item .option_inner .icon .fab {
+  font-size: 32px;
+}
+
+.option_item .option_inner .name {
+  user-select: none;
+}
+
+
+
+
+
+#checkprincipal{
+  display: none;
+}
+#checksecundario{
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+.login-form{
+  width: 100%;
+  
+  height: 300px;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+
+
+
+.login-data {
+  text-align: center;
+  width: 60%;
+}
+
+.login-data h1 {
+  font-weight: 200;
+}
+
+.input-group {
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
+}
+
+.input-fill input {
+  border: none;
+  border-bottom: 3px solid #848f9a;
+  width: 100%;
+  height: 2rem;
+  font-size: 1.0625rem;
+  padding-left: 2rem;
+  line-height: 147.6%;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.input-fill input:focus {
+  outline: none;
+  border-color: #6c1aef;
+}
+
+.input-fill input:hover {
+  background-color: #e9ecef;
+}
+
+.input-fill input:focus + .input-label {
+  top: 0;
+  margin-bottom: 2rem;
+  color: #6c1aef;
+}
+
+.input-fill input:focus ~ i {
+  color: #6c1aef;
+}
+
+.input-fill .input-label {
+  position: absolute;
+  top: 15px;
+  left: 28px;
+  line-height: 147.6%;
+  color: #848f9a;
+  transition: top 0.2s;
+  font-weight: 700;
+}
+
+.input-fill i {
+  position: absolute;
+  top: 19px;
+  left: 0;
+  color: #848f9a;
+  font-size: 1.5rem;
+}
+
+.login-form a {
+  display: block;
+  width: 85%;
+  text-align: right;
+  text-decoration: none;
+  color: #848f9a;
+  margin-bottom: 1.3rem;
+  font-weight: 800;
+  transition: 0.3s ease-in-out all;
+  font-size: 18px;
+}
+
+.login-form a:hover {
+  color: #6c1aef;
+}
+
+.btn-login {
+  border-radius: 3rem;
+  width: 45%;
+  border: 1px solid #6c1aef;
+  line-height: 1.6rem;
+  font-size: 1.3rem;
+  background-color: #6c1aef;
+  color: #ffffff;
+  padding: 0.5rem 0;
+  transition: 0.3s ease-in-out all;
+  font-weight: 500;
+}
+
+.btn-login:hover {
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #6c1aef;
+}
+

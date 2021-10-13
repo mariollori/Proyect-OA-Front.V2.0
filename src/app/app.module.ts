@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {MatMenuModule} from '@angular/material/menu';
 
-
+import {MatStepperModule} from '@angular/material/stepper';
 import { LoginComponent } from './Usuarios/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatPaginatorModule } from '@angular/material';
@@ -20,6 +20,7 @@ import { ArchivoComponent } from './archivo/archivo.component';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import {MatTableModule} from '@angular/material/table';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -39,6 +40,8 @@ import { MensajeComponent } from './mensaje/mensaje/mensaje.component';
     MensajeComponent,
   ],
   imports: [
+    MatCheckboxModule,
+    MatStepperModule,
     MatTableModule,
     MatDialogModule,
     MatPaginatorModule,
@@ -47,6 +50,7 @@ import { MensajeComponent } from './mensaje/mensaje/mensaje.component';
     BrowserModule,
     MatInputModule,
     MatFormFieldModule, 
+   
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,

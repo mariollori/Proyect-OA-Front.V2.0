@@ -2,3 +2,14 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, 
+.mat-step-header .mat-step-icon-state-edit {
+    background-color: #00a99d !important;
+   color: white !important;
+}
+
+.mat-raised-button{
+    background-color: #00a99d !important;
+    color: white;
+  }
