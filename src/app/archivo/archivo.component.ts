@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { Archivo } from '../models/Archivo';
 import { ArchivoService } from '../services/archivo.service';
 import { UserService } from '../services/user.service';
-import { AuthService } from '../Usuarios/auth.service';
+import { AuthService } from '../services/auth.service';
 import { ModalComponent } from './modal/modal.component';
 
 

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { Usuario } from '../../models/Usuario';
 import { MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -8,7 +8,10 @@ import { element } from 'protractor';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css' ],
+  
+
+
 })
 export class LoginComponent implements OnInit {
 
@@ -18,7 +21,11 @@ export class LoginComponent implements OnInit {
   check3: boolean = false;   check4: boolean = false;
   check5: boolean = false;  check6: boolean = false;
   check8: boolean = false;check7: boolean = false;
+  generos = [
+    {value: 'hombre', viewValue: 'Hombre'},
+    {value: 'mujer', viewValue: 'Mujer'},
 
+  ];
 
  
 
@@ -243,7 +250,9 @@ export class LoginComponent implements OnInit {
   }
 
 
-
+  loginpsi(){
+    this.route.navigate(['/loginpsi'])
+  }
 
 
 

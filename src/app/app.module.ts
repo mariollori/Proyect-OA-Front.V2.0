@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-
+import {MatIconModule} from '@angular/material/icon';
 import { HttpClientModule} from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,7 +14,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatStepperModule} from '@angular/material/stepper';
 import { LoginComponent } from './Usuarios/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatPaginatorModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatGridListModule, MatPaginatorModule, MatRadioModule, MatSelectModule } from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import { ArchivoComponent } from './archivo/archivo.component';
 import { environment } from 'src/environments/environment';
@@ -29,6 +29,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { NavComponent } from './navbar/nav/nav.component';
 import { MensajeComponent } from './mensaje/mensaje/mensaje.component';
+import { CommonModule } from '@angular/common';
+import { LoginpsiComponent } from './Login/loginpsi/loginpsi.component';
 
 @NgModule({
   declarations: [
@@ -38,8 +40,12 @@ import { MensajeComponent } from './mensaje/mensaje/mensaje.component';
     ModalComponent,
     NavComponent,
     MensajeComponent,
+    LoginpsiComponent,
   ],
   imports: [
+    CommonModule,
+    MatIconModule,
+    MatRadioModule,
     MatCheckboxModule,
     MatStepperModule,
     MatTableModule,
@@ -57,14 +63,11 @@ import { MensajeComponent } from './mensaje/mensaje/mensaje.component';
     MatMenuModule,
     MatButtonModule,
     FormsModule,
-    MatIconModule,
+    MatSelectModule,
     HttpClientModule,
-   
     AppRoutingModule,
     MatSnackBarModule,
-   
     BrowserAnimationsModule,
-    
   ],
   entryComponents : [ ModalComponent ] , 
   providers: [],

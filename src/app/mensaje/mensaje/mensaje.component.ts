@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { Correo } from 'src/app/models/Correo';
 import { UserService } from 'src/app/services/user.service';
-import { AuthService } from 'src/app/Usuarios/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({

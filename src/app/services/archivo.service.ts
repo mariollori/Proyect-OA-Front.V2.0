@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { Observable } from 'rxjs';
 import { Archivo } from '../models/Archivo';
-import { AuthService } from '../Usuarios/auth.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
