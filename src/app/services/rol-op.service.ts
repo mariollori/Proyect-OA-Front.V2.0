@@ -11,31 +11,35 @@ export class RolOpService {
 
   constructor(private auth:AuthService,private http:HttpClient) { }
    url = 'http://localhost:5050/EX3/opcion'
-    headers = new HttpHeaders().set('x-token',this.auth.token);
+    
 
 
     // <<<<<-------------------------ROLES----------------------->>>>>>>
    getroles():Observable<Rol[]>{
    
-     return this.http.get<Rol[]>(this.url + '/listarrol',{headers:this.headers});
+     return this.http.get<Rol[]>(this.url + '/listarrol');
    }
 
    eliminarrol(id:number):Observable<string>{
-     return this.http.delete<string>(this.url + '/eliminarrol/' + id ,{headers:this.headers});
+     return this.http.delete<string>(this.url + '/eliminarrol/' + id );
    }
 
    getrolid(id:number):Observable<Rol>{
-    return this.http.get<Rol>(this.url + '/listarrolid/' + id ,{headers:this.headers});
+    return this.http.get<Rol>(this.url + '/listarrolid/' + id );
   }
 
    agregarrol(nombre:string):Observable<string>{
-     return this.http.post<string>(this.url +'/crearrol', {nombre},{headers:this.headers});
+     return this.http.post<string>(this.url +'/crearrol', {nombre});
 
    }
 
    modificarrol(idrol:number,nombre:string):Observable<String>{
-    return this.http.put<string>(this.url +'/modificarrol',{idrol,nombre} ,{headers:this.headers});
+    return this.http.put<string>(this.url +'/modificarrol',{idrol,nombre} );
    }
+   getopcionesdisponibles(id:number):Observable<Opciones[]>{
+    return this.http.get<Opciones[]>(this.url + '/listaropcdisponibles/' + id );
+  }
+
 
 
    
@@ -43,23 +47,29 @@ export class RolOpService {
 
     getopciones():Observable<Opciones[]>{
    
-      return this.http.get<Opciones[]>(this.url + '/listarop',{headers:this.headers});
+      return this.http.get<Opciones[]>(this.url + '/listarop');
     }
  
     eliminaropcion(id:number):Observable<string>{
-      return this.http.delete<string>(this.url + '/eliminarop/' + id ,{headers:this.headers});
+      return this.http.delete<string>(this.url + '/eliminarop/' + id );
     }
  
     getopcionid(id:number):Observable<Opciones>{
-     return this.http.get<Opciones>(this.url + '/listaropid/' + id ,{headers:this.headers});
+     return this.http.get<Opciones>(this.url + '/listaropid/' + id );
    }
  
     agregaropc(opcion:Opciones):Observable<string>{
-      return this.http.post<string>(this.url +'/crearop', {opcion},{headers:this.headers});
+      return this.http.post<string>(this.url +'/crearop', {opcion});
  
     }
  
     modificarop(opcion:Opciones):Observable<String>{
-     return this.http.put<string>(this.url +'/modificarop',{opcion} ,{headers:this.headers});
+     return this.http.put<string>(this.url +'/modificarop',{opcion} );
+    }
+
+
+    agregaropc_rol(idrol,idopcion):Observable<string>{
+      return this.http.post<string>(this.url +'/asignarop', {idrol,idopcion});
+ 
     }
 }

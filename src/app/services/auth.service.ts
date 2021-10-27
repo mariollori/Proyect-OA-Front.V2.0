@@ -110,12 +110,5 @@ export class AuthService {
     
   
   }
-  httpAutenticated():HttpHeaders{
-    let httpheaders = new HttpHeaders({ 'Content-Type': 'application/json'});
-    if(this.token!=null){
-      console.log(httpheaders.append('Authorization','Bearer' + this.token))
-      return  httpheaders.append('Authorization','Bearer' + this.token)
-    }
-    return httpheaders;
-  }
+
 }

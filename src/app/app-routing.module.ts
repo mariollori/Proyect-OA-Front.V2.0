@@ -22,9 +22,9 @@ const routes: Routes = [
 
   {path:'nav',component:NavComponent,children: [
     
-    {path:'perfil_user',component:DatosUserComponent},
+    {path:'perfil_user',component:DatosUserComponent,canActivate:[AuthGuard]},
 
-    {path:'gest_op',component:GestOpComponent},
+    {path:'gest_op',component:GestOpComponent,canActivate:[AuthGuard]},
   ],canActivate:[AuthGuard]},
  
   {path:'register-pac',component:RegistroPacienteComponent},

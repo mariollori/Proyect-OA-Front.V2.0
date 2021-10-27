@@ -7,6 +7,7 @@
 
   <div class="cuerpo_gestion">
      <div class="form">
+     <button   type="button" id="registerbtnrol" class="btn btn-bg-success" class="btn btn-primary" data-toggle="modal" data-target="#createrrolmodal"><mat-icon matSuffix>add</mat-icon></button>
      <label>Roles:</label>
          <select class="form-select"   [(ngModel)]="rolactual" >
          <option value="" selected>-- none --</option>
@@ -17,7 +18,8 @@
       <div class="buttons">
         <button  type="button" class="btn btn-danger" [disabled]="!rolactual" (click)="eliminarrol()">Eliminar</button>
       <button   type="button" class="btn btn-primary" [disabled]="!rolactual" (click)="getrol()" class="btn btn-primary" data-toggle="modal" data-target="#modifyrolmodal">Modificar</button>
-        <button   type="button" class="btn btn-success" class="btn btn-primary" data-toggle="modal" data-target="#createrrolmodal">Registrar</button>
+      <button   type="button" class="btn btn-primary" [disabled]="!rolactual" (click)="getopcionesdisponibles()" class="btn btn-primary" data-toggle="modal" data-target="#agregaropcionrol">Agregar opcion </button>
+        
      </div>
 
 
@@ -37,6 +39,7 @@
   <mat-tab label="Gestionar opciones"> 
  <div class="cuerpo_gestion">
      <div class="form">
+      <button   type="button"  id="registerbtnrol" class="btn btn-success" class="btn btn-primary" data-toggle="modal" data-target="#createropcmodal"><mat-icon matSuffix>add</mat-icon></button>
      <label>Opciones:</label>
          <select class="form-select"   [(ngModel)]="opcionactual"  >
          <option value="" selected>-- none --</option>
@@ -47,7 +50,7 @@
       <div class="buttons">
         <button  type="button" class="btn btn-danger" [disabled]="!opcionactual" (click)="eliminaropc()">Eliminar</button>
       <button   type="button" class="btn btn-primary" [disabled]="!opcionactual" (click)="getopcion()" class="btn btn-primary" data-toggle="modal" data-target="#modifyopcmodal">Modificar</button>
-        <button   type="button" class="btn btn-success" class="btn btn-primary" data-toggle="modal" data-target="#createropcmodal">Registrar</button>
+       
      </div>
 
 
@@ -97,6 +100,31 @@
   </div>
 </div>
 
+  <!-- Modal Agregar opcion a  Rol -->
+<div class="modal fade" id="agregaropcionrol"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h5 class="modal-title"  id="exampleModalLongTitle">Modificar Rol</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <label>Opciones Disponibles:</label>
+         <select class="form-select"   [(ngModel)]="opciondisp" *ngIf="opcionesdisponibles" >
+         <option value="" selected>-- none --</option>
+           <option *ngFor="let opc of opcionesdisponibles"  value="{{opc.idopcion}}">{{opc.nombre}}</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cerrarrol()" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" [disabled]="!opciondisp" (click)="asignarol_usuario()" data-dismiss="modal">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
  <!-- Modal Crear Rol-->
 <div class="modal fade" id="createrrolmodal"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">

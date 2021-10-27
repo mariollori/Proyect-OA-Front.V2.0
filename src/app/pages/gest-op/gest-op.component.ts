@@ -13,12 +13,18 @@ import Swal from 'sweetalert2';
 export class GestOpComponent implements OnInit {
 
   constructor(private rolserv:RolOpService) { }
+  // Variables para asignar opc a rol
+  opcionesdisponibles:Opciones[]=[];
+  opciondisp;
+  // Variables para gestion rol
   roles :Rol[] = [];
-  opciones:Opciones[]=[];
   rolupd:Rol = new Rol();
-  opcionupd:Opciones = new Opciones();
   rolactual;
+  // Variables para gestion de opciones
+  opciones:Opciones[]=[];
+  opcionupd:Opciones = new Opciones();
   opcionactual;
+
   ngOnInit(){
     
 this.getroles();
@@ -239,5 +245,25 @@ this.getopciones();
   }
   cerraropc(){
     this.opcionupd = new Opciones();
+  }
+
+
+  getopcionesdisponibles(){
+    this.rolserv.getopcionesdisponibles(this.rolactual).subscribe((data)=> this.opcionesdisponibles = data as Opciones[])
+  }
+
+  asignarol_usuario(){
+    this.rolserv.agregaropc_rol(this.rolactual,this.opciondisp).subscribe(
+      (data)=>{
+        Swal.fire(
+          'Agregado',
+          data.toString(),
+          'success'
+
+        )
+        this.getopciones();
+        this.opciondisp='';
+      }
+    )
   }
 }

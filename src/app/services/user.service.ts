@@ -17,8 +17,8 @@ export class UserService {
   urlEndpoint3 = "http://localhost:5050/EX3/opcion";
 
   getuser(idusuario):Observable<Persona>{
-    const headers = new HttpHeaders().set('x-token', this.auth.token);
-    return this.http.get<Persona>(this.urlEndpoint + '/' + idusuario,{headers:headers});
+   
+    return this.http.get<Persona>(this.urlEndpoint + '/' + idusuario);
   }
 
 
@@ -27,9 +27,9 @@ export class UserService {
     for (let index = 0; index < roles.length; index++) {
       idroles.push(roles[index].idrol)
     }
-    const headers = new HttpHeaders().set('x-token', this.auth.token);
+   
     let params = new HttpParams();
     params = params.append('roles', JSON.stringify(idroles));
-    return this.http.get<Opciones[]>(this.urlEndpoint3 + '/getopciones/', {headers:headers, params:params});
+    return this.http.get<Opciones[]>(this.urlEndpoint3 + '/getopciones/', {params:params});
   }
 }

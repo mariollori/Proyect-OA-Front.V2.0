@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import {MatIconModule} from '@angular/material/icon';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -34,6 +34,7 @@ import { LoginpsiComponent } from './Login/loginpsi/loginpsi.component';
 import { RegistroPacienteComponent } from './registros/registro-paciente/registro-paciente.component';
 import { DatosUserComponent } from './pages/Perfil/datos-user/datos-user.component';
 import { GestOpComponent } from './pages/gest-op/gest-op.component';
+import { AuthInterceptorService } from './interceptor/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,11 @@ import { GestOpComponent } from './pages/gest-op/gest-op.component';
     BrowserAnimationsModule,
   ],
   entryComponents : [  ] , 
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS,
+    useClass:AuthInterceptorService,
+    multi:true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

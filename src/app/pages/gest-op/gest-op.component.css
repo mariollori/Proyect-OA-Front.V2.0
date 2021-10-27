@@ -55,4 +55,15 @@ body{
     padding: 30px;
 }
 
+#registerbtnrol{
+    background-color: seagreen;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 60px;
+    
+}
+
 
