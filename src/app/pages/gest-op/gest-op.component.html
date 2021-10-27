@@ -8,7 +8,7 @@
   <div class="cuerpo_gestion">
      <div class="form">
      <label>Roles:</label>
-         <select class="form-select"   [(ngModel)]="rolactual" (click)="mostrar()" >
+         <select class="form-select"   [(ngModel)]="rolactual" >
          <option value="" selected>-- none --</option>
            <option *ngFor="let rol of roles"  value="{{rol.idrol}}">{{rol.nombre}}</option>
         </select>
@@ -16,7 +16,8 @@
 
       <div class="buttons">
         <button  type="button" class="btn btn-danger" [disabled]="!rolactual" (click)="eliminarrol()">Eliminar</button>
-      <button   type="button" class="btn btn-primary" [disabled]="!rolactual" class="btn btn-primary" data-toggle="modal" data-target="#modifyrolmodal">Modificar</button>
+      <button   type="button" class="btn btn-primary" [disabled]="!rolactual" (click)="getrol()" class="btn btn-primary" data-toggle="modal" data-target="#modifyrolmodal">Modificar</button>
+        <button   type="button" class="btn btn-success" class="btn btn-primary" data-toggle="modal" data-target="#createrrolmodal">Registrar</button>
      </div>
 
 
@@ -35,7 +36,27 @@
 
   <mat-tab label="Gestionar opciones"> 
  <div class="cuerpo_gestion">
+     <div class="form">
+     <label>Opciones:</label>
+         <select class="form-select"   [(ngModel)]="opcionactual"  >
+         <option value="" selected>-- none --</option>
+           <option *ngFor="let opcion of opciones"  value="{{opcion.idopcion}}">{{opcion.nombre}}</option>
+        </select>
+     </div>
+
+      <div class="buttons">
+        <button  type="button" class="btn btn-danger" [disabled]="!opcionactual" (click)="eliminaropc()">Eliminar</button>
+      <button   type="button" class="btn btn-primary" [disabled]="!opcionactual" (click)="getopcion()" class="btn btn-primary" data-toggle="modal" data-target="#modifyopcmodal">Modificar</button>
+        <button   type="button" class="btn btn-success" class="btn btn-primary" data-toggle="modal" data-target="#createropcmodal">Registrar</button>
+     </div>
+
+
+    
+
+     
   </div>
+
+
   </mat-tab>
 
 
@@ -50,7 +71,7 @@
 
 
 </body>
-  <!-- Modal -->
+  <!-- Modal Modificar Rol -->
 <div class="modal fade" id="modifyrolmodal"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -62,21 +83,22 @@
         </button>
       </div>
       <div class="modal-body">
-         <mat-form-field class="example-full-width" appearance="fill">
+         <mat-form-field class="example-full-width" appearance="fill" *ngIf="rolupd">
     <mat-label>Nombre</mat-label>
-    <input matInput placeholder="Rol" >
+    <input matInput placeholder="Rol" [(ngModel)]="rolupd.nombre">
+      <mat-icon matSuffix>article</mat-icon>
   </mat-form-field>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar cambios</button>
+        <button type="button" class="btn btn-secondary" (click)="cerrarrol()" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="modificarRol()" data-dismiss="modal">Guardar cambios</button>
       </div>
     </div>
   </div>
 </div>
 
- <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+ <!-- Modal Crear Rol-->
+<div class="modal fade" id="createrrolmodal"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -87,11 +109,93 @@
         </button>
       </div>
       <div class="modal-body">
-        
+           <mat-form-field class="example-full-width" appearance="fill" >
+    <mat-label>Nombre</mat-label>
+    <input matInput placeholder="Rol" [(ngModel)]="rolupd.nombre">
+      <mat-icon matSuffix>article</mat-icon>
+  </mat-form-field>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Crear</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cerrarrol()" >Cerrar</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal"  (click)="agregarrol()">Crear</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+ <!-- Modal  Modificar opciones-->
+<div class="modal fade" id="modifyopcmodal"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h5 class="modal-title"  id="exampleModalLongTitle">Modificar Opciones</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+      
+      
+         <mat-form-field class="example-full-width" appearance="fill" *ngIf="opcionupd">
+    <mat-label>Nombre</mat-label>
+    <input matInput placeholder="opcion" [(ngModel)]="opcionupd.nombre" >
+     <mat-icon matSuffix>badge</mat-icon>
+  </mat-form-field>
+   <mat-form-field class="example-full-width" appearance="fill" *ngIf="opcionupd">
+    <mat-label>Icono</mat-label>
+    <input matInput placeholder="icono" [(ngModel)]="opcionupd.icono" >
+     <mat-icon matSuffix>image</mat-icon>
+  </mat-form-field>
+   <mat-form-field class="example-full-width" appearance="fill" *ngIf="opcionupd">
+    <mat-label>Ruta</mat-label>
+    <input matInput placeholder="ruta" [(ngModel)]="opcionupd.ruta" >
+     <mat-icon matSuffix>http</mat-icon>
+  </mat-form-field>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cerraropc()" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="modificarOpc()" data-dismiss="modal">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- Modal Crear opciones-->
+<div class="modal fade" id="createropcmodal"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"  id="exampleModalLongTitle">Registrar Opciones</h5>
+      
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+           
+         <mat-form-field class="example-full-width" appearance="fill" *ngIf="opcionupd">
+    <mat-label>Nombre</mat-label>
+    <input matInput placeholder="opcion" [(ngModel)]="opcionupd.nombre" >
+     <mat-icon matSuffix>badge</mat-icon>
+  </mat-form-field>
+   <mat-form-field class="example-full-width" appearance="fill" *ngIf="opcionupd">
+    <mat-label>Icono</mat-label>
+    <input matInput placeholder="icono" [(ngModel)]="opcionupd.icono" >
+     <mat-icon matSuffix>image</mat-icon>
+  </mat-form-field>
+   <mat-form-field class="example-full-width" appearance="fill" *ngIf="opcionupd">
+    <mat-label>Ruta</mat-label>
+    <input matInput placeholder="ruta" [(ngModel)]="opcionupd.ruta" >
+     <mat-icon matSuffix>http</mat-icon>
+  </mat-form-field>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cerraropc()">Cerrar</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal"  (click)="agregarOpc()">Crear</button>
       </div>
     </div>
   </div>
