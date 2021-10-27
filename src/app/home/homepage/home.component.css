@@ -1,0 +1,283 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comfortaa', cursive;
+}
+.card{
+  padding-top: 8%;
+ background-color: rgba(0, 0, 0, 0);
+ border: 0;
+  width: 45vw;
+  
+  height: 70vh;
+}
+
+.card button{
+  outline: none;
+  border: none;
+  color: #00a99d;
+  width: 150px;
+  height: 40px;
+  
+  transition: 200ms ease-in-out;
+  border-radius: 20px;
+  font-weight: bolder;
+}
+.card button:hover{
+  background-color: #00695d;
+  color: white;
+}
+.card h1{
+  color: white;
+  font-weight: 900;
+  
+ }
+ .card p{
+  color: white;
+  font-weight: 900;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  
+ }
+.nav_var{
+  position: absolute;
+  color: white;
+
+  box-shadow: 5px -5px 0 2px #444;
+  z-index: 6;
+  width: 100vw;
+  height: 60px;
+  display: flex;
+  
+
+}
+.cabezera i{
+  color: #00a99d;
+  font-size: 20px;
+}
+.logo{
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 5px;
+  
+}
+.padre{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-image: url('../homepage/imghome/fondo1.png');
+  background-size: 100% 100%;
+  align-items: center;
+  padding-left: 20px;
+  
+  background-repeat: no-repeat;
+  animation-direction: alternate;
+  animation-duration: 10s;
+ 
+
+
+
+
+}
+.cabezera{
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  height: 50px;
+}
+.opacity{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+
+}
+
+.login-psico{
+  font-weight: 400;
+  border: none;
+  padding: 6px 10px 6px 10px;
+  display: flex;
+  background-color: white;
+  border-radius: 50px;
+  align-items: center;
+  transition-property: color, background-color; 
+  transition-duration: 0.5s;
+  color: black;
+  font-size: 15px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.login-psico i{
+ margin-left: 5px;
+ font-size: 15px;
+
+}
+.login-psico:hover{
+  background-color: black;
+  color: white;
+}
+.login-psico-div{
+  
+ display: flex;
+ justify-content: flex-end;
+ align-items: center;
+ margin-right: 20px;
+}
+
+.text-home{
+  font-size: 30px;
+  font-weight: 800;
+  position: absolute;
+  width: 30vw;
+  top: 25vh;
+  left: 5vw;
+  z-index: 4;
+  color: white
+}
+.text-home p{
+  text-shadow: 2px 2px 10px #666;
+}
+.cardregister{
+  background-color: #00a99d;
+  position: absolute;
+  text-align: center;
+  top:15vh;
+  left: 45vw;
+  z-index: 3;
+  box-shadow: 2px 2px 10px #666;
+  margin-top: 50px;
+  width: 50%;
+  border-radius: 40px;
+  height: 60%;
+}
+
+
+.subtitle{
+  color: #00a99d;
+  font-weight: 300;
+ 
+}
+.cardr-text{
+  height: auto;
+  width: auto;
+  margin-top: 10%;
+  margin-left: 40%;
+
+}
+
+.btncerrar{
+  border: 0;
+  margin-top: 20px;
+  font-weight: 600;
+  width: 200px;
+  height: 40px;
+  border-radius: 40px;
+  transition-property: width, height, font-size;
+
+}
+
+.btncerrar:hover{
+  margin-top: 15px;
+  width: 205px;
+  height: 45px;
+  font-size: 20px;
+
+}
+
+
+#iconogeneral{
+ background-image: url('imghome/logo.png'); 
+  width: 150px;
+  margin-top: 40px;
+  
+  margin-left: 20px;
+  height: 50px;
+  
+  background-size: 100% 100%;
+  
+}
+.menu_home{
+margin-left: 50px;
+
+}
+.title{
+  color: #00a99d;
+  font-weight: 700;
+}
+
+.btn-login{
+  margin-top: 40px;
+  margin-right: 100px;
+  color: #00a99d;
+  border-radius: 20px;
+  width: 100px;
+  height: 30px;
+  transition: 200ms ease-in-out;
+  border: none;
+}
+.btn-login:hover{
+  background-color: #00695d;
+  color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

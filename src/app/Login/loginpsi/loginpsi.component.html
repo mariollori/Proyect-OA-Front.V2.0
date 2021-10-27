@@ -1,1 +1,34 @@
-<p>loginpsi works!</p>
+<head>
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+
+<body>
+     <button id="btn-home" (click)="volver()"><mat-icon >home</mat-icon>Home</button>
+    <div class="center">
+      
+      <div class="body2">
+          <h4>Inicio de Sesion</h4>
+          <div class="img-fondo"></div>
+          <div class="formulario">
+                <div class="user">
+                  <input type="text" class="username" [(ngModel)]="usuario.username"  placeholder="Username"/>
+                </div>
+                <div class="pass">
+                   <input type="password" class="password"  [(ngModel)]="usuario.password"   placeholder="Password"/>
+                </div>
+                <button class = "login-btn"(click)="login()">Ingresar</button>
+    
+           </div>
+            
+    
+            
+          
+    
+      </div>
+    
+    </div>
+
+
+
+</body>

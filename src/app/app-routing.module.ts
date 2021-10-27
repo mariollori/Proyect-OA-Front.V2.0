@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ArchivoComponent } from './archivo/archivo.component';
-import { MensajeComponent } from './mensaje/mensaje/mensaje.component';
+
+
 import { NavComponent } from './navbar/nav/nav.component';
 
 
@@ -9,25 +9,31 @@ import { NavComponent } from './navbar/nav/nav.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
-import { LoginComponent } from './Usuarios/login/login.component';
+import { HomeComponent } from './home/homepage/home.component';
 import { LoginpsiComponent } from './Login/loginpsi/loginpsi.component';
+import { RegistroPacienteComponent } from './registros/registro-paciente/registro-paciente.component';
+import { DatosUserComponent } from './pages/Perfil/datos-user/datos-user.component';
+import { GestOpComponent } from './pages/gest-op/gest-op.component';
 
 
 const routes: Routes = [
-  {path:'',redirectTo:'login',pathMatch:'full'},
+  {path:'',redirectTo:'home',pathMatch:'full'},
   
 
   {path:'nav',component:NavComponent,children: [
-    {path:'archivos',component:ArchivoComponent,canActivate:[AuthGuard]},
-    {path:'mensajes',component:MensajeComponent,canActivate:[AuthGuard]},
+    
+    {path:'perfil_user',component:DatosUserComponent},
+
+    {path:'gest_op',component:GestOpComponent},
   ],canActivate:[AuthGuard]},
  
+  {path:'register-pac',component:RegistroPacienteComponent},
   {path:'loginpsi',component:LoginpsiComponent},
-  {path:'login',component:LoginComponent},
+  {path:'home',component:HomeComponent},
   /*NOTA: TODOS LAS RUTAS QUE ESTEN DESPUES DE NOTFOUND NO SE RECONOCERAN
   PORQUE?: PORQUE ** REDIGIRA A SU RUTA EN CASO DE NO ECONTRAR UNA Y
    COMO LAS RUTAS ESTAN DESPUES SE QUEDARA CON ESTA*/ 
-  {path:'**',component:LoginComponent},
+  {path:'**',component:HomeComponent},
  
  
 ];

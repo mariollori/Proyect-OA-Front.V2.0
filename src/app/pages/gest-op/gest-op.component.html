@@ -1,0 +1,99 @@
+<body>
+
+<mat-tab-group mat-align-tabs="center" color="accent"   backgroundColor="primary" mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+  
+  <mat-tab label=" Gestionar roles"> 
+
+
+  <div class="cuerpo_gestion">
+     <div class="form">
+     <label>Roles:</label>
+         <select class="form-select"   [(ngModel)]="rolactual" (click)="mostrar()" >
+         <option value="" selected>-- none --</option>
+           <option *ngFor="let rol of roles"  value="{{rol.idrol}}">{{rol.nombre}}</option>
+        </select>
+     </div>
+
+      <div class="buttons">
+        <button  type="button" class="btn btn-danger" [disabled]="!rolactual" (click)="eliminarrol()">Eliminar</button>
+      <button   type="button" class="btn btn-primary" [disabled]="!rolactual" class="btn btn-primary" data-toggle="modal" data-target="#modifyrolmodal">Modificar</button>
+     </div>
+
+
+    
+
+     
+  </div>
+
+
+
+  
+  
+  </mat-tab>
+
+
+
+  <mat-tab label="Gestionar opciones"> 
+ <div class="cuerpo_gestion">
+  </div>
+  </mat-tab>
+
+
+  <mat-tab label="Gestionar Rol-Usuario">
+   <div class="cuerpo_gestion">
+  </div>
+   </mat-tab>
+
+
+</mat-tab-group>
+
+
+
+</body>
+  <!-- Modal -->
+<div class="modal fade" id="modifyrolmodal"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h5 class="modal-title"  id="exampleModalLongTitle">Modificar Rol</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput placeholder="Rol" >
+  </mat-form-field>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"  id="exampleModalLongTitle">Registrar Rol</h5>
+      
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Crear</button>
+      </div>
+    </div>
+  </div>
+</div>
+   

@@ -12,37 +12,44 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 
 import {MatStepperModule} from '@angular/material/stepper';
-import { LoginComponent } from './Usuarios/login/login.component';
+import { HomeComponent } from './home/homepage/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatFormFieldModule, MatGridListModule, MatPaginatorModule, MatRadioModule, MatSelectModule } from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
-import { ArchivoComponent } from './archivo/archivo.component';
+import {MatTabsModule} from '@angular/material/tabs';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
+import {MatSidenavModule} from '@angular/material/sidenav';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { ModalComponent } from './archivo/modal/modal.component';
+
 import {MatDialogModule} from '@angular/material/dialog';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { NavComponent } from './navbar/nav/nav.component';
-import { MensajeComponent } from './mensaje/mensaje/mensaje.component';
+
 import { CommonModule } from '@angular/common';
 import { LoginpsiComponent } from './Login/loginpsi/loginpsi.component';
+import { RegistroPacienteComponent } from './registros/registro-paciente/registro-paciente.component';
+import { DatosUserComponent } from './pages/Perfil/datos-user/datos-user.component';
+import { GestOpComponent } from './pages/gest-op/gest-op.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    ArchivoComponent,
-    ModalComponent,
+    HomeComponent,
+    
+   
     NavComponent,
-    MensajeComponent,
+   
     LoginpsiComponent,
+    RegistroPacienteComponent,
+    DatosUserComponent,
+    GestOpComponent,
   ],
   imports: [
+    MatTabsModule,
     CommonModule,
     MatIconModule,
     MatRadioModule,
@@ -51,6 +58,7 @@ import { LoginpsiComponent } from './Login/loginpsi/loginpsi.component';
     MatTableModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatSidenavModule,
     NgxDocViewerModule,
     MatGridListModule,
     BrowserModule,
@@ -69,7 +77,7 @@ import { LoginpsiComponent } from './Login/loginpsi/loginpsi.component';
     MatSnackBarModule,
     BrowserAnimationsModule,
   ],
-  entryComponents : [ ModalComponent ] , 
+  entryComponents : [  ] , 
   providers: [],
   bootstrap: [AppComponent]
 })
