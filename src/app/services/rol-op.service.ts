@@ -72,4 +72,22 @@ export class RolOpService {
       return this.http.post<string>(this.url +'/asignarop', {idrol,idopcion});
  
     }
+
+    listarusuarios():Observable<any>{
+      return this.http.get<any>(this.url + '/listarusers');
+
+    }
+
+    agregarrol_user(idusuario,idrol):Observable<string>{
+      return this.http.post<string>(this.url +'/asignarrol', {idusuario,idrol});
+ 
+    }
+
+
+    getrolesdisponibles(id:number):Observable<Rol[]>{
+      return this.http.get<Rol[]>(this.url + '/listarrolesdisponibles/' + id );
+    }
+    getrolesactuales(id:number):Observable<Rol[]>{
+      return this.http.get<Rol[]>(this.url + '/listarrolesactuales/' + id );
+    }
 }

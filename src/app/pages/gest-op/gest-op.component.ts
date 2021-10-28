@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material';
 import { Opciones } from 'src/app/models/Opciones';
 import { Rol } from 'src/app/models/Rol';
 import { RolOpService } from 'src/app/services/rol-op.service';
 import Swal from 'sweetalert2';
+
+export interface UsuarioData {
+  idusuario:number;
+  nombre: string;
+  username: string;
+  apellido: string;
+}
 
 @Component({
   selector: 'app-gest-op',
@@ -24,9 +32,25 @@ export class GestOpComponent implements OnInit {
   opciones:Opciones[]=[];
   opcionupd:Opciones = new Opciones();
   opcionactual;
+  idusuarioactual;
+ // Variables para asignar rol a usuario
+ rolesdisponibles:Rol[]=[];
+  rolactualdisp;
+rolesactualesdeluser:Rol[]=[];
 
+  datausuario:UsuarioData[]=[];
+  dataSource;
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+ 
+
+
+  displayedColumns: string[] = ['nro', 'usuario', 'nombres', 'opciones','opciones2'];
   ngOnInit(){
-    
+    this.listarusuarios();
 this.getroles();
 this.getopciones();
   }
@@ -246,6 +270,10 @@ this.getopciones();
   cerraropc(){
     this.opcionupd = new Opciones();
   }
+  cerrarrolactual(){
+    this.rolactualdisp='';
+    this.opciondisp='';
+  }
 
 
   getopcionesdisponibles(){
@@ -265,5 +293,51 @@ this.getopciones();
         this.opciondisp='';
       }
     )
+  }
+
+
+  listarusuarios(){
+    this.rolserv.listarusuarios().subscribe(
+      (data)=>{
+        console.log(data)
+           this.datausuario= data as UsuarioData[] ;
+           this.dataSource=new MatTableDataSource(this.datausuario);
+      }
+    )
+  }
+
+  agregarrol_user(id){
+    this.idusuarioactual=id;
+    this.rolserv.getrolesdisponibles(id).subscribe(
+      (data)=>{
+        this.rolesdisponibles= data as Rol[];
+      }
+    )
+  }
+  asignaropc_usuario(){
+    this.rolserv.agregarrol_user(this.idusuarioactual,this.rolactualdisp).subscribe(
+      (data)=>{
+        Swal.fire(
+          'Agregado',
+          data.toString(),
+          'success'
+
+        )
+        this.rolactualdisp='';
+      }
+    )
+
+  }
+
+  listarrolesactuales(id){
+    this.rolserv.getrolesactuales(id).subscribe(
+      (data)=>{
+        console.log(data)
+           this.rolesactualesdeluser= data as Rol[] ;
+      }
+    )
+  }
+  cerrardata(){
+    this.rolesactualesdeluser=[];
   }
 }

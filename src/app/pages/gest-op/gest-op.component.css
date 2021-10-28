@@ -66,4 +66,27 @@ body{
     
 }
 
+/* Structure */
+table {
+    width: 70%;
+    
+  }
+  
+  .filter {
+    font-size: 14px;
+    width: 70%;
+    
+  }
+.cuerpo_gestion_dos{
+    width: 100%;
+    padding-left: 20%;
+    height: 40vh;
+    background-color: white;
+    
+}
+.detalle_rol{
+    
+    border: none;
+    color: gray;
+}
 
