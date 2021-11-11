@@ -93,7 +93,7 @@ body{
       display: flex;
       justify-content: center;
       align-items: center;
-    background-color: #49a0a1;
+    background-color: #992e45 ;
     height: 10vh;
      color: white;
 }
@@ -106,7 +106,7 @@ body{
 .cont-menu-title h3{
     
     font-weight: 700;
-    color: #00a99d;
+    color: #992e45 ;
 
 }
 
@@ -132,7 +132,7 @@ body{
 .nava{
    
    
-    color: #00a99d;
+    color: #992e45 ;
     margin-top: 10px;
     display: flex;
     height: 50px;
@@ -151,7 +151,7 @@ body{
 }
 .nava:hover{
     cursor: pointer;
-    background-color: #49a0a1;
+    background-color: #8f4757 ;
     border-radius: 10px;
     
     color: white;

@@ -34,9 +34,10 @@ export class GestOpComponent implements OnInit {
   opcionactual;
   idusuarioactual;
  // Variables para asignar rol a usuario
- rolesdisponibles:Rol[]=[];
+  rolesdisponibles:Rol[]=[];
   rolactualdisp;
-rolesactualesdeluser:Rol[]=[];
+  rolesactualesdeluser:Rol[]=[];
+  opcionesactualesdelrol:Opciones[]=[];
 
   datausuario:UsuarioData[]=[];
   dataSource;
@@ -44,15 +45,11 @@ rolesactualesdeluser:Rol[]=[];
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
- 
-
-
   displayedColumns: string[] = ['nro', 'usuario', 'nombres', 'opciones','opciones2'];
   ngOnInit(){
     this.listarusuarios();
-this.getroles();
-this.getopciones();
+    this.getroles();
+    this.getopciones();
   }
 
   getroles(){
@@ -337,7 +334,82 @@ this.getopciones();
       }
     )
   }
+  getopcionesrol(){
+    this.rolserv.getopcionesactuales(this.rolactual).subscribe(
+      (data)=>{
+        this.opcionesactualesdelrol= data as Opciones[];
+      }
+    )
+
+  }
   cerrardata(){
     this.rolesactualesdeluser=[];
+  }
+  cerraropcionesactuales(){
+    this.opcionesactualesdelrol=[];
+  }
+
+  eliminaropcion_rol(id){
+    Swal.fire({
+      title: 'Esta seguro?',
+      text: "No se puede deshacer una vez eliminado.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+      
+        this.rolserv.deleteopcionrol(id).subscribe(
+          (data)=>{
+            Swal.fire(
+              'Eliminado',
+              data,
+              'success'
+            ) 
+          },(e)=>{
+           
+              Swal.fire(
+                'Opss',
+                'No se pudo eliminar',
+                'error'
+              )
+          }
+        )
+      }
+    })
+  }
+
+  eliminarrol_user(id){
+    Swal.fire({
+      title: 'Esta seguro?',
+      text: "No se puede deshacer una vez eliminado.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+      
+        this.rolserv.deleteroluser(id).subscribe(
+          (data)=>{
+            Swal.fire(
+              'Eliminado',
+              data,
+              'success'
+            ) 
+          },(e)=>{
+           
+              Swal.fire(
+                'Opss',
+                'No se pudo eliminar',
+                'error'
+              )
+          }
+        )
+      }
+    })
   }
 }

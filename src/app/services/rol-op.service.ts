@@ -90,4 +90,14 @@ export class RolOpService {
     getrolesactuales(id:number):Observable<Rol[]>{
       return this.http.get<Rol[]>(this.url + '/listarrolesactuales/' + id );
     }
+    getopcionesactuales(id:number):Observable<Opciones[]>{
+      return this.http.get<Opciones[]>(this.url + '/listaropcionesactuales/' + id );
+    }
+
+   deleteopcionrol(id:number):Observable<any>{
+      return this.http.delete<any>(this.url + '/eliminaropcrol/' + id );
+    }
+    deleteroluser(id:number):Observable<any>{
+      return this.http.delete<any>(this.url + '/eliminarroluser/' + id );
+    }
 }
