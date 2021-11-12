@@ -12,10 +12,13 @@ body{
     background-image:url('./fondo4.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    z-index: 1;
+    
 
     
 }
+
+
+
 #btn-home{
 
 border: none;
@@ -55,7 +58,6 @@ transition: 100ms ease;
     position: absolute;
     z-index:5;
 }
-
 
 .body2{
     width: 100%;

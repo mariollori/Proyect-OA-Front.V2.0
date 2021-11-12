@@ -35,6 +35,8 @@ import { RegistroPacienteComponent } from './registros/registro-paciente/registr
 import { DatosUserComponent } from './pages/Perfil/datos-user/datos-user.component';
 import { GestOpComponent } from './pages/gest-op/gest-op.component';
 import { AuthInterceptorService } from './interceptor/auth-interceptor.service';
+import { SpinnerLoaderComponent } from './snipper/spinner-loader/spinner-loader.component';
+import { SpinnerBlancComponent } from './snipper/spinner-blanc/spinner-blanc.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { AuthInterceptorService } from './interceptor/auth-interceptor.service';
     RegistroPacienteComponent,
     DatosUserComponent,
     GestOpComponent,
+    SpinnerLoaderComponent,
+    SpinnerBlancComponent,
   ],
   imports: [
     MatTabsModule,

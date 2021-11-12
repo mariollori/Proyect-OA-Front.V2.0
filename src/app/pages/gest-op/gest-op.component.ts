@@ -19,7 +19,7 @@ export interface UsuarioData {
   styleUrls: ['./gest-op.component.css']
 })
 export class GestOpComponent implements OnInit {
-
+  cargando=false;
   constructor(private rolserv:RolOpService) { }
   // Variables para asignar opc a rol
   opcionesdisponibles:Opciones[]=[];
@@ -327,8 +327,10 @@ export class GestOpComponent implements OnInit {
   }
 
   listarrolesactuales(id){
+    this.cargando=true
     this.rolserv.getrolesactuales(id).subscribe(
       (data)=>{
+        this.cargando=false;
         console.log(data)
            this.rolesactualesdeluser= data as Rol[] ;
       }

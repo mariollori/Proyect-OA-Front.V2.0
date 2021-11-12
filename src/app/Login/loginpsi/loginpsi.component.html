@@ -2,8 +2,8 @@
  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-
-<body>
+<app-spinner-loader *ngIf="cargando"></app-spinner-loader>
+<body id="bod">
      <button id="btn-home" (click)="volver()"><mat-icon >home</mat-icon>Home</button>
     <div class="center">
       
