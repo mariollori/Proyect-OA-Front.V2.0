@@ -14,6 +14,8 @@ import { LoginpsiComponent } from './Login/loginpsi/loginpsi.component';
 import { RegistroPacienteComponent } from './registros/registro-paciente/registro-paciente.component';
 import { DatosUserComponent } from './pages/Perfil/datos-user/datos-user.component';
 import { GestOpComponent } from './pages/gest-op/gest-op.component';
+import { RegistrarAtencionComponent } from './pages/registrar_atencion/registrar-atencion/registrar-atencion.component';
+import { GestUsersComponent } from './pages/gest-users/gest-users/gest-users.component';
 
 
 const routes: Routes = [
@@ -23,7 +25,9 @@ const routes: Routes = [
   {path:'nav',component:NavComponent,children: [
     
     {path:'perfil_user',component:DatosUserComponent,canActivate:[AuthGuard]},
-
+    {path:'registro_pac',component:RegistrarAtencionComponent,canActivate:[AuthGuard]},
+    {path:'gest_users',component:GestUsersComponent,canActivate:[AuthGuard]},
+    
     {path:'gest_op',component:GestOpComponent,canActivate:[AuthGuard]},
   ],canActivate:[AuthGuard]},
  

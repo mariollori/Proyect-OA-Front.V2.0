@@ -7,4 +7,13 @@ export class Paciente{
     motivo:string;
     fecha:Date;
     estado:string;
-    edad:string;}
+    edad:string;
+
+
+    
+    religion:string;
+    ciudad:string;
+    fecha_nacimiento:Date;
+    grado_educacion:string;
+    ocupacion:string;
+}

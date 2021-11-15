@@ -1,17 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material';
+
 import { Opciones } from 'src/app/models/Opciones';
 import { Rol } from 'src/app/models/Rol';
 import { RolOpService } from 'src/app/services/rol-op.service';
 import Swal from 'sweetalert2';
 
-export interface UsuarioData {
-  idusuario:number;
-  nombre: string;
-  username: string;
-  apellido: string;
-}
 
 @Component({
   selector: 'app-gest-op',
@@ -20,6 +13,7 @@ export interface UsuarioData {
 })
 export class GestOpComponent implements OnInit {
   cargando=false;
+  opcionesactualesdelrol:Opciones[]=[];
   constructor(private rolserv:RolOpService) { }
   // Variables para asignar opc a rol
   opcionesdisponibles:Opciones[]=[];
@@ -32,22 +26,17 @@ export class GestOpComponent implements OnInit {
   opciones:Opciones[]=[];
   opcionupd:Opciones = new Opciones();
   opcionactual;
-  idusuarioactual;
+  
  // Variables para asignar rol a usuario
-  rolesdisponibles:Rol[]=[];
+ 
   rolactualdisp;
-  rolesactualesdeluser:Rol[]=[];
-  opcionesactualesdelrol:Opciones[]=[];
-
-  datausuario:UsuarioData[]=[];
-  dataSource;
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  
+  cerrarrolactual(){
+    this.rolactualdisp='';
+    this.opciondisp='';
   }
-  displayedColumns: string[] = ['nro', 'usuario', 'nombres', 'opciones','opciones2'];
   ngOnInit(){
-    this.listarusuarios();
+  
     this.getroles();
     this.getopciones();
   }
@@ -163,8 +152,10 @@ export class GestOpComponent implements OnInit {
 
   
   getopcion(){
+    this.cargando=true
     this.rolserv.getopcionid(this.opcionactual).subscribe(
       (data)=>{
+        this.cargando=false
            
         this.opcionupd = data[0] as Opciones;
         console.log(this.opcionupd)
@@ -267,16 +258,27 @@ export class GestOpComponent implements OnInit {
   cerraropc(){
     this.opcionupd = new Opciones();
   }
-  cerrarrolactual(){
-    this.rolactualdisp='';
-    this.opciondisp='';
-  }
+
 
 
   getopcionesdisponibles(){
     this.rolserv.getopcionesdisponibles(this.rolactual).subscribe((data)=> this.opcionesdisponibles = data as Opciones[])
   }
 
+  
+
+
+ 
+  getopcionesrol(){
+    this.cargando=true
+    this.rolserv.getopcionesactuales(this.rolactual).subscribe(
+      (data)=>{
+        this.cargando=false
+        this.opcionesactualesdelrol= data as Opciones[];
+      }
+    )
+
+  }
   asignarol_usuario(){
     this.rolserv.agregaropc_rol(this.rolactual,this.opciondisp).subscribe(
       (data)=>{
@@ -290,62 +292,6 @@ export class GestOpComponent implements OnInit {
         this.opciondisp='';
       }
     )
-  }
-
-
-  listarusuarios(){
-    this.rolserv.listarusuarios().subscribe(
-      (data)=>{
-        console.log(data)
-           this.datausuario= data as UsuarioData[] ;
-           this.dataSource=new MatTableDataSource(this.datausuario);
-      }
-    )
-  }
-
-  agregarrol_user(id){
-    this.idusuarioactual=id;
-    this.rolserv.getrolesdisponibles(id).subscribe(
-      (data)=>{
-        this.rolesdisponibles= data as Rol[];
-      }
-    )
-  }
-  asignaropc_usuario(){
-    this.rolserv.agregarrol_user(this.idusuarioactual,this.rolactualdisp).subscribe(
-      (data)=>{
-        Swal.fire(
-          'Agregado',
-          data.toString(),
-          'success'
-
-        )
-        this.rolactualdisp='';
-      }
-    )
-
-  }
-
-  listarrolesactuales(id){
-    this.cargando=true
-    this.rolserv.getrolesactuales(id).subscribe(
-      (data)=>{
-        this.cargando=false;
-        console.log(data)
-           this.rolesactualesdeluser= data as Rol[] ;
-      }
-    )
-  }
-  getopcionesrol(){
-    this.rolserv.getopcionesactuales(this.rolactual).subscribe(
-      (data)=>{
-        this.opcionesactualesdelrol= data as Opciones[];
-      }
-    )
-
-  }
-  cerrardata(){
-    this.rolesactualesdeluser=[];
   }
   cerraropcionesactuales(){
     this.opcionesactualesdelrol=[];
@@ -383,35 +329,5 @@ export class GestOpComponent implements OnInit {
     })
   }
 
-  eliminarrol_user(id){
-    Swal.fire({
-      title: 'Esta seguro?',
-      text: "No se puede deshacer una vez eliminado.",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Eliminar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-      
-        this.rolserv.deleteroluser(id).subscribe(
-          (data)=>{
-            Swal.fire(
-              'Eliminado',
-              data,
-              'success'
-            ) 
-          },(e)=>{
-           
-              Swal.fire(
-                'Opss',
-                'No se pudo eliminar',
-                'error'
-              )
-          }
-        )
-      }
-    })
-  }
+ 
 }

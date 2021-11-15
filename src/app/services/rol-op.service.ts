@@ -8,10 +8,17 @@ import { Opciones } from '../models/Opciones';
   providedIn: 'root'
 })
 export class RolOpService {
-
+  urlEndpoint1 = "http://localhost:5050/EX3/psicologo";
   constructor(private auth:AuthService,private http:HttpClient) { }
    url = 'http://localhost:5050/EX3/opcion'
-    
+     ///-------------------------Psicologos******************-------------------------------------
+  getpsicologos():Observable<any>{
+   
+    return this.http.get<any>(this.urlEndpoint1 + '/getsolpsi');
+  }
+ 
+
+
 
 
     // <<<<<-------------------------ROLES----------------------->>>>>>>

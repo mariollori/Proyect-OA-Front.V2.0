@@ -1,0 +1,229 @@
+<head>
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ </head>
+
+<body>
+    <div class="card-body">
+        <div class="header">
+            <h5>Lista de Pacientes Asignados</h5>
+        </div>
+         <app-spinner-blanc *ngIf="cargando"></app-spinner-blanc>
+        <div class="list-cards" *ngIf="!cargando">
+
+            <mat-card *ngFor="let pac of datalist" class="card">
+                <mat-card-title-group>
+                  <mat-card-title>{{pac.nombre | uppercase}}</mat-card-title>
+                  <mat-card-subtitle>Paciente</mat-card-subtitle>
+                  <img mat-card-xl-image *ngIf="pac.genero=='H'" class="img"  src="assets/pach.png">
+                   <img mat-card-xl-image  *ngIf="pac.genero=='M'"  class="img"  src='assets/pacm.png'>
+                </mat-card-title-group>
+                
+                <mat-card-content class="content">
+                    <h6>Descripcion de consulta:</h6>
+                    <p class="text">
+                        {{pac.descripcion}}
+                    </p>
+                </mat-card-content>
+                <mat-card-actions class="btns">
+                  <button  class="btn-class" mat-flat-button color="primary" data-toggle="modal" data-target="#register_aten" (click)="verificarsesiones(pac.idasignacion,pac.idpaciente)">Registrar Atencion</button>
+                    
+                    <button mat-flat-button  class="btn-class" color="basic">Cancelar Atencion</button>
+                </mat-card-actions>
+            </mat-card>
+              
+          
+        </div>
+    </div>
+</body>
+
+<!-- Modal -->
+<div class="modal fade" id="register_aten" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title w-100 text-center " id="exampleModalLongTitle">Registro de Atencion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+         <app-spinner-blanc *ngIf="cargando"></app-spinner-blanc>
+        <div class="modal-body" *ngIf="!cargando">
+        <div class="imgregister">
+          <img class="imagenreg" src="assets/registerimg.png">
+        </div>
+
+
+        <div class="formregister">
+        <mat-horizontal-stepper class="stepperhz" [linear]="!isLinear" #stepper>
+            <mat-step [stepControl]="firstFormGroup" *ngIf="counter==0">
+              <ng-template matStepLabel style="font-size:35px">    <div class="stepper-label"> Datos del paciente </div></ng-template>
+                 <form [formGroup]="datapaciente" class="forms">
+         <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Religion</mat-label>
+            <input matInput type="text" formControlName="religion" >
+             <mat-icon matSuffix>church</mat-icon>
+             	<mat-error *ngIf="datapaciente.get('religion').hasError('required')" >*requerido</mat-error>            
+         </mat-form-field>
+          
+           <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Ciudad</mat-label>
+            <input matInput  type="text" formControlName="ciudad" >
+             <mat-icon matSuffix>location_city</mat-icon>
+             <mat-error *ngIf="datapaciente.get('ciudad').hasError('required')" >*requerido</mat-error>            
+         </mat-form-field>
+         
+           
+             <mat-form-field appearance="fill">
+               <mat-label>Fecha de Nacimiento</mat-label>
+               <input matInput type="date" formControlName="fecha_nacimiento" disabled>
+               
+               <mat-error *ngIf="datapaciente.get('fecha_nacimiento').hasError('required')" >*requerido</mat-error>            
+             </mat-form-field>
+          
+              
+            <mat-form-field appearance="fill">
+                <mat-label>Grado de educacion</mat-label>
+                <mat-select formControlName="grado_educacion" name="food">
+                    <mat-option value="primaria">Primaria</mat-option>
+                    <mat-option value="secundaria">Secundaria</mat-option>
+                    <mat-option value="universidad">Universidad</mat-option>
+                </mat-select>
+            </mat-form-field>              
+          
+
+          
+            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Edad</mat-label>
+              <input matInput  type="text" formControlName="edad"   >
+              <mat-icon matSuffix>directions_run</mat-icon>
+               <mat-error *ngIf="datapaciente.get('edad').hasError('required')" >*requerido</mat-error>            
+             </mat-form-field>
+         
+
+            <mat-form-field class="example-full-width" appearance="fill">
+               <mat-label>Ocupacion</mat-label>
+               <input matInput  type="text" formControlName="ocupacion"    >
+               <mat-icon matSuffix>work</mat-icon>
+             </mat-form-field>
+            </form>
+             <div class="btns-form">
+           <button   mat-button class="btn-step"  matStepperNext>Siguiente  <mat-icon matSuffix>arrow_forward</mat-icon></button>
+             </div>
+                       
+             </mat-step>
+            
+            <mat-step [stepControl]="secondFormGroup" >
+               <ng-template matStepLabel> <div class="stepper-label">Datos de la atencion </div></ng-template>
+
+
+                 <form [formGroup]="datosatencion" class="forms2">
+                 <div class="mediumclass">
+                   <mat-label>Sesion Nro.   </mat-label>
+                 <input   type="text" formControlName="nro_sesion"  class="sesion"  >
+                 </div>
+                
+
+          
+
+
+             <mat-form-field class="example-full-width" appearance="fill">
+               <mat-label>Condicion</mat-label>
+               <input matInput  type="text" formControlName="condicion"    >
+               <mat-icon matSuffix>thermostat</mat-icon>
+                 <mat-error *ngIf="datosatencion.get('condicion').hasError('required')" >*requerido</mat-error>            
+             </mat-form-field>
+           
+            
+
+            <mat-form-field class="example-full-width "  appearance="fill">
+               <mat-label>Evidencia</mat-label>
+               <input matInput  type="text"  formControlName="evidencia" >
+               <mat-icon matSuffix>link</mat-icon>
+                <mat-error *ngIf="datosatencion.get('evidencia').hasError('required')" >*requerido</mat-error>            
+             </mat-form-field>
+            
+
+             <mat-form-field class="example-full-width" appearance="fill" class="largeclass">
+               <mat-label>Observaciones</mat-label>
+                 <textarea matInput  formControlName="observaciones" placeholder="Ex. It makes me feel..."></textarea>
+               <mat-icon matSuffix>content_paste</mat-icon>
+                <mat-error *ngIf="datosatencion.get('observaciones').hasError('required')" >*requerido</mat-error>            
+             </mat-form-field>
+             <div  *ngIf="counter==2">
+             <mat-slide-toggle [(ngModel)]="derivacion" [ngModelOptions]="{standalone: true}" name="derivacion"
+          class="example-margin"
+          [color]="color"
+          [checked]="checked"
+          [disabled]="disabled">
+       ¿Derivar con especialista?
+      </mat-slide-toggle>
+             
+              </div>               
+                
+                
+          
+          
+      
+
+         </form>
+             <div class="btns-form"  *ngIf="counter==0">
+                    <button   mat-button class="btn-step"  matStepperPrevious><mat-icon matSuffix>arrow_back</mat-icon>Atras  </button>
+                    <button   mat-button class="btn-step"  matStepperNext>Siguiente  <mat-icon matSuffix>arrow_forward</mat-icon></button>
+              </div>
+              <div class="btns-form"  *ngIf="counter==1">
+                    <button   mat-button class="btn-step"  matStepperNext>Siguiente  <mat-icon matSuffix>arrow_forward</mat-icon></button>
+              </div>
+                <div class="btns-form"  *ngIf="counter==2">
+                    <button  mat-button class="btn-step"   (click)="registraratencion()" [disabled]=" datosatencion.invalid ">Guardar<mat-icon matSuffix>save</mat-icon></button>
+              </div>
+           
+             </mat-step>
+
+            
+            <mat-step *ngIf="counter!=2">
+
+             <ng-template matStepLabel ><div class="stepper-label">Proxima Atencion </div></ng-template>
+              <form [formGroup]="fechaatencion">
+
+           <mat-form-field appearance="fill" disabled>
+               <mat-label>Proxima Sesion</mat-label>
+               <input matInput type="date" formControlName="fecha"   disable>
+              
+             
+               <mat-error *ngIf="fechaatencion.get('fecha').hasError('required')" >*requerido</mat-error>            
+             </mat-form-field>
+          
+         </form>
+             
+                 <div class="btns-form"  *ngIf="counter==0">
+                    <button   mat-button class="btn-step"  matStepperPrevious><mat-icon matSuffix>arrow_back</mat-icon>Atras  </button>
+                    <button   mat-button class="btn-step" (click)="registraratencion()" [disabled]="datapaciente.invalid || datosatencion.invalid || fechaatencion.invalid  "  matStepperNext>Guardar  <mat-icon matSuffix>save</mat-icon></button>
+              </div>
+              <div class="btns-form"  *ngIf="counter==1">
+                <button   mat-button class="btn-step"  matStepperPrevious><mat-icon matSuffix>arrow_back</mat-icon>Atras  </button>
+                    <button   mat-button class="btn-step" (click)="registraratencion()" [disabled]="datosatencion.invalid || fechaatencion.invalid  "  matStepperNext>Guardar <mat-icon matSuffix>save</mat-icon></button>
+              </div>
+
+                 
+       
+             </mat-step>
+        </mat-horizontal-stepper>
+        
+
+       
+
+      
+
+
+      
+     
+           
+        </div>       
+
+        
+      
+      </div>
+      
+    </div>
+  </div>
+</div>

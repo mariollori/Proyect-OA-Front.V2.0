@@ -1,13 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
-
+@import 'material-icons/iconfont/material-icons.css';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
+.cdk-global-overlay-wrapper, .cdk-overlay-container { z-index: 9999!important; } 
 .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, 
 .mat-step-header .mat-step-icon-state-edit {
-    background-color: #00a99d !important;
+    background-color: #992e45 !important;
    color: white !important;
 }
 

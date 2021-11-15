@@ -1,7 +1,3 @@
-<head>
- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-
 
 <nav class="navbar navbar-expand-lg bg " style="color:white;background-color:#992e45 ">
  <div class="container-fluid">
@@ -51,7 +47,7 @@ menu
 	   </div>
       <div class="cont-menu-nav" *ngIf="roles">
        <div class="nava" *ngFor="let op of roles" routerLink="{{op.ruta}}" (click)="cerrar()">
-         <a >{{op.nombre}}</a><mat-icon >{{op.icono}}</mat-icon>
+         <a >{{op.nombre}}</a><mat-icon>{{op.icono}}</mat-icon>
        </div>
      
 	   </div>	
