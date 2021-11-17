@@ -1,0 +1,11 @@
+.ti{
+text-align: center;
+}
+.container{
+  margin-top: 50px;
+}
+
+.modal-body{
+  display: flex;
+  justify-content: space-around;
+}

@@ -1,0 +1,67 @@
+<div class="container">
+<h1>Panel de Estado de Atenciones</h1>
+
+<!--Select-->
+<mat-form-field appearance="fill" >
+  <mat-label>Estado</mat-label>
+  <mat-select  [(ngModel)]="opcion" >
+      <mat-option value="Sin Asignar" (click)="buscar()">Sin Asignar</mat-option>
+      <mat-option value="En proceso" (click)="buscar()">Asignado</mat-option>
+      <mat-option value="Finalizado" (click)="buscar()">Finalizado</mat-option>
+      <mat-option value="Ayuda" (click)="buscar()">Nesecita Ayuda Especial</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<!--Tabla-->
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col" class="ti">#</th>
+      <th scope="col" class="ti">Nombre y Apellidos</th>
+      <th scope="col" class="ti">Detalle</th>
+      <th scope="col" class="ti">Telefono / Celular</th>
+      <th scope="col" class="ti">Estado</th>
+      <th scope="col" class="ti" *ngIf="opcion!='En proceso'">Asignar Paciente</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let paciente of pacientes; let i= index">
+      <td  class="ti">{{i+1}}</td>
+      <td>{{paciente.nombre + '' + apellido}}</td>
+      <td class="ti">{{paciente.motivo}}</td>
+      <td class="ti">{{paciente.telefono}}</td>
+      <td class="ti">{{paciente.estado}}</td>
+      <td class="ti"><img src="https://img.icons8.com/color/30/000000/scale-tool.png" style="cursor: pointer;" *ngIf="paciente.estado!='En proceso'" data-toggle="modal" data-target="#exampleModalCenter"/></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle" style="text-align: center; color:rgb(58, 69, 221)">¿A QUE ESPECIALISTA DESEA DERIVAR?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+        <a href="" [routerLink]="['/nav/psicologo']" (click)="cerrarModal()" ><img src="https://img.icons8.com/color/48/000000/psychology.png"/></a>
+        <p>Psicologo</p>
+      </div>
+      <div>
+        <a href="" [routerLink]="['/nav/pastor']" (click)="cerrarModal()"><img src="https://img.icons8.com/color/48/000000/the-pope.png"/></a>
+        <p>Pastor</p>
+      </div>
+      <div>
+        <a href="" [routerLink]="['/nav/estudiante']" (click)="cerrarModal()"><img src="https://img.icons8.com/color/48/000000/student-male--v1.png"/></a>
+        <p>Estudiante</p>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
