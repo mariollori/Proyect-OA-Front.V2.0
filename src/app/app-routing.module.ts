@@ -42,8 +42,8 @@ const routes: Routes = [
 
 
     {path:'asignacion', component:AsignacionComponent,canActivate:[AuthGuard]},
-    {path:'estudiante', component:PastorComponent,canActivate:[AuthGuard]},
-    {path:'pastor', component:EstudianteComponent,canActivate:[AuthGuard]},
+    {path:'pastor', component:PastorComponent,canActivate:[AuthGuard]},
+    {path:'estudiante', component:EstudianteComponent,canActivate:[AuthGuard]},
     {path:'psicologo', component:PsicologoComponent,canActivate:[AuthGuard]},
   ],canActivate:[AuthGuard]},
 

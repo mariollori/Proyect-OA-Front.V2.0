@@ -1,6 +1,134 @@
+*{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 .ti{
   text-align: center;
   }
   .container{
     margin-top: 50px;
   }
+
+  table {
+    width: 100%;
+
+    max-height: 10px;
+    overflow-y: scroll;
+    margin: 0 auto;
+  }
+  
+  .mat-row .mat-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+  }
+  
+  .mat-row:hover .mat-cell {
+    border-color: currentColor;
+  }
+  
+ 
+  .highlight{
+    background: #992e45;
+    color: aliceblue;
+    font-weight: bold; /* green */
+  }
+
+
+  .mat-column-nombre {
+   
+    font-weight: bold;
+  }
+  .body{
+   padding-left: 5%;
+   padding-right: 5%;
+    width: 90%;
+    height: 80%;
+    margin: 0 auto;
+
+  }
+
+h2{
+  margin: 20px 0px 10px 10px;
+  display: flex;
+  justify-content: flex-start;
+  width: auto;
+  align-items: center;
+}
+
+img{
+  margin-right: 20px;
+}
+
+
+.filter{
+  margin-left: 15px;
+}
+
+.infoaboutper{
+ 
+  width: 100%;
+  height: 50px;
+  margin-top: 15px;
+  border-radius: 10px;
+  justify-content: flex-end;
+  align-items: center;
+  display: flex;
+}
+
+
+.show{
+  margin-right: 30px;
+}
+
+.infoaboutper h5{
+  margin-bottom: 0;
+  margin-right: 15px;
+}
+
+.cancelar{
+  background-color: rgb(238, 74, 74);
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.asignar{
+  background-color: rgb(10, 146, 236);
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+
+
+.pacientedata{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ 
+  border-radius: 10px;
+  padding: 8px;
+  width: 60%;
+  color: black;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.pacientedata h5{
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+.pacientedata input{
+  color: black;
+  padding-left: 10px;
+  margin-left: 10px;
+  text-transform: capitalize;
+  border-radius: 10px;
+}
+
+

@@ -1,52 +1,88 @@
-<!--Tabla-->
-<div class="container" style="margin-top:50px">
-  <h1 style="text-align: center;">Estudiantes Disponibles</h1><br>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col" class="ti">#</th>
-      <th scope="col" class="ti">Nombre y Apellidos</th>
-      <th scope="col" class="ti">Especialidad</th>
-      <th scope="col" class="ti">Ciclo </th>
-      <th scope="col" class="ti">Grupo</th>
-      <th scope="col" class="ti">Codigo</th>
-      <th scope="col" class="ti">Seleccionar</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let estudiante of estudiantes; let i= index">
-      <td  class="ti">{{i+1}}</td>
-      <td class="ti">{{estudiante.nombre + '' + apellido}}</td>
-      <td class="ti">{{estudiante.especialidad}}</td>
-      <td class="ti">{{estudiante.ciclo}}</td>
-      <td class="ti">{{estudiante.grupo}}</td>
-      <td class="ti">{{estudiante.codigo}}</td>
-      <td class="ti"><img src="https://img.icons8.com/color/30/000000/ok--v1.png" cursor="pointer" data-toggle="modal" data-target="#exampleModalCenter" /></td>
-    </tr>
-  </tbody>
-</table>
-</div>
+<div class="body">
 
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+  <h2 style="text-align: center;"><img
+      src="https://img.icons8.com/color/48/000000/student-male--v1.png" />Estudiantes
+    Disponibles</h2><br>
+    <div class="pacientedata">
+       <h5> Paciente:</h5>
+       <input type="text" class="show" [(ngModel)]="pacienteseleccionado.nombre + ' ' + pacienteseleccionado.apellido "  disabled>
+       <h5> Motivo:</h5>
+       <input type="text" class="show" [(ngModel)]="pacienteseleccionado.motivo"  disabled>
     </div>
+  <div class="mat-elevation-z8 tablegen">
+    <mat-form-field class="filter" appearance="standard">
+      <mat-label>Buscar..</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="nombre de
+        usuario" #input />
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" *ngIf="estudiantes"
+      class="mat-elevation-z8 demo-table">
+      <!-- Position Column -->
+      <ng-container matColumnDef="nro">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell  [ngClass]="{'highlight': element.nombre == estudianteselect.nombre}"  *matCellDef="let element;let i=index">{{i+1}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre y Apellidos</th>
+        <td mat-cell       [ngClass]="{'highlight': element.nombre == estudianteselect.nombre}" *matCellDef="let row,let element">{{(element.nombre + ' ' + element.apellido) | titlecase}}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="especialidad">
+        <th mat-header-cell *matHeaderCellDef>Especialidad</th>
+        <td mat-cell       [ngClass]="{'highlight': element.nombre == estudianteselect.nombre}" *matCellDef="let row,let element">{{element.especialidad}}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="ciclo">
+        <th mat-header-cell *matHeaderCellDef>Ciclo</th>
+        <td mat-cell       [ngClass]="{'highlight': element.nombre == estudianteselect.nombre}" *matCellDef="let row,let element">{{element.ciclo}}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="grupo">
+        <th mat-header-cell *matHeaderCellDef>Grupo</th>
+        <td mat-cell       [ngClass]="{'highlight': element.nombre == estudianteselect.nombre}" *matCellDef="let row,let element">{{element.grupo}}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="codigo">
+        <th mat-header-cell *matHeaderCellDef>Codigo</th>
+        <td mat-cell       [ngClass]="{'highlight': element.nombre == estudianteselect.nombre}" *matCellDef="let row,let element">{{element.codigo}}</td>
+      </ng-container>
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        [ngClass]="{'highlight':row.nombre == estudianteselect.nombre}"
+        (click)="select(row)"></tr>
+
+    </table>
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[3, 5]"showFirstLastButtons
+      aria-label="Select page of periodic elements">
+    </mat-paginator>
+
   </div>
+
+  <div class="infoaboutper">
+  
+    <h5>Estudiante:</h5>
+    <input type="text" class="show"  [(ngModel)]="estudianteselect.nombre"  disabled>
+    <button class="cancelar" (click)="cancelar()">
+          Cancelar
+    </button>
+    <button class="asignar" >
+          Asignar
+    </button>
+  </div>
+
 </div>
+
+
+
+
+
