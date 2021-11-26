@@ -75,6 +75,10 @@ transition: 100ms ease;
     background-repeat: no-repeat;
     height: 100px;
 }
+
+
+
+
 h4{
     margin-top: 50px;
     color: #00a99d;
@@ -89,11 +93,23 @@ h4{
     height: 40%;
 }
 
-.pass,.user{
+.user{
    
     margin-top: 20px;
 }
 
+.pass{
+    margin-top: 20px;
+    width: 100%;
+    height: 20%;
+
+}
+.eye{
+    position: absolute;
+    transform: translate(0,38%);
+    right: 22%;
+    font-size: 20px;
+}
 .username{
     background-color: rgba(102, 102, 102, 0.3);
     background-image: url('baseline_person_black_24dp.png');

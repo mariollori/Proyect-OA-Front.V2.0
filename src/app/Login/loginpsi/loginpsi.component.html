@@ -15,9 +15,11 @@
                   <input type="text" class="username" [(ngModel)]="usuario.username"  placeholder="Username"/>
                 </div>
                 <div class="pass">
-                   <input type="password" class="password"  [(ngModel)]="usuario.password"   placeholder="Password"/>
+                   <input [type]="show_button ? 'text' : 'password'" class="password"   [(ngModel)]="usuario.password"   placeholder="Password"/>
+                    <mat-icon class="eye" (click)="changeicon()" style="cursor:pointer">{{show_eye? 'visibility_off' : 'visibility'}}</mat-icon>
                 </div>
-                <button class = "login-btn"(click)="login()">Ingresar</button>
+             
+               <button class = "login-btn"(click)="login()">Ingresar</button>
     
            </div>
             

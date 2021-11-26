@@ -11,9 +11,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./loginpsi.component.css']
 })
 export class LoginpsiComponent implements OnInit {
-
-  
-
+  show_eye: Boolean = false;
+  show_button: Boolean = false;
   constructor(private auth: AuthService, private route: Router, private _snackBar: MatSnackBar) { }
   cargando=false;
    son = document.querySelector('div.modal-backdrop');
@@ -26,12 +25,12 @@ export class LoginpsiComponent implements OnInit {
       
   }
 
-
- 
-  
   usuario: Usuario = new Usuario();
 
-
+  changeicon(){
+   this.show_button=!this.show_button
+   this.show_eye=!this.show_eye
+  }
   login(): void {
 
     console.log(this.usuario);

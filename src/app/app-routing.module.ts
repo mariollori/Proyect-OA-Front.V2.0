@@ -16,6 +16,7 @@ import { DatosUserComponent } from './pages/Perfil/datos-user/datos-user.compone
 import { GestOpComponent } from './pages/gest-op/gest-op.component';
 import { RegistrarAtencionComponent } from './pages/registrar_atencion/registrar-atencion/registrar-atencion.component';
 import { GestUsersComponent } from './pages/gest-users/gest-users/gest-users.component';
+import { Prueba1Component } from './prueba/prueba1/prueba1.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,8 @@ const routes: Routes = [
     {path:'perfil_user',component:DatosUserComponent,canActivate:[AuthGuard]},
     {path:'registro_pac',component:RegistrarAtencionComponent,canActivate:[AuthGuard]},
     {path:'gest_users',component:GestUsersComponent,canActivate:[AuthGuard]},
+    
+    {path:'prueba1',component:Prueba1Component,canActivate:[AuthGuard]},
     
     {path:'gest_op',component:GestOpComponent,canActivate:[AuthGuard]},
   ],canActivate:[AuthGuard]},

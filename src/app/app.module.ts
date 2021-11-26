@@ -41,6 +41,8 @@ import { SpinnerBlancComponent } from './snipper/spinner-blanc/spinner-blanc.com
 import { RegistrarAtencionComponent } from './pages/registrar_atencion/registrar-atencion/registrar-atencion.component';
 import {MatCardModule} from '@angular/material/card';
 import { GestUsersComponent } from './pages/gest-users/gest-users/gest-users.component';
+import { Prueba1Component } from './prueba/prueba1/prueba1.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,10 +59,12 @@ import { GestUsersComponent } from './pages/gest-users/gest-users/gest-users.com
     SpinnerBlancComponent,
     RegistrarAtencionComponent,
     GestUsersComponent,
+    Prueba1Component,
   ],
   imports: [
     MatNativeDateModule,
     MatDatepickerModule,
+    MatTooltipModule,
     MatCardModule,
     MatSlideToggleModule,
     MatTabsModule,

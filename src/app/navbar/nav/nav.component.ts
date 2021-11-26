@@ -30,7 +30,7 @@ export class NavComponent implements OnInit {
     )
 
 
-    this.service.getuser(this.auth.usuario.idpersonal).subscribe(
+    this.service.getuserbyid(this.auth.usuario.idpersonal).subscribe(
       data=>{
         console.log(this.auth.usuario.toString());
       this.nombre= data[0].nombre;

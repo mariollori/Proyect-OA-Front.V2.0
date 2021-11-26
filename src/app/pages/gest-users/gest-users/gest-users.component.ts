@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { core } from '@angular/compiler';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { Opciones } from 'src/app/models/Opciones';
 import { Rol } from 'src/app/models/Rol';
+import { Usuario } from 'src/app/models/Usuario';
 import { RolOpService } from 'src/app/services/rol-op.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
 export interface UsuarioData {
@@ -18,9 +21,18 @@ export interface UsuarioData {
   styleUrls: ['./gest-users.component.css']
 })
 export class GestUsersComponent implements OnInit {
+  usuario:Usuario=new Usuario();
+  detalleelemetn:any;
+  usuarioelement:any;
+  activo=false;
+  
   rolactualdisp;
-  constructor(private rolserv:RolOpService) { }
+  @ViewChild(MatPaginator, { static: true }) paginador: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginador2: MatPaginator;
+  
+  constructor(private rolserv:RolOpService, private userserv:UserService) { }
   datausuario:UsuarioData[]=[];
+  usuarios:Usuario[]=[];
   datapsi:any[]=[];
   dataSource;
   dataSource2;
@@ -68,6 +80,7 @@ cargando=false;
         console.log(data)
            this.datausuario= data as UsuarioData[] ;
            this.dataSource=new MatTableDataSource(this.datausuario);
+           this.dataSource.paginator= this.paginador2;
       }
     )
   }
@@ -75,8 +88,11 @@ cargando=false;
     this.rolserv.getpsicologos().subscribe(
       (data)=>{
         console.log(data)
+
            this.datapsi= data as any[] ;
            this.dataSource2=new MatTableDataSource(this.datapsi);
+           this.dataSource2.paginator= this.paginador;
+
       }
     )
   }
@@ -103,7 +119,7 @@ cargando=false;
       (data)=>{
         this.rolesdisponibles= data as Rol[];
       }
-    )
+    );
   }
 
   eliminarrol_user(id){
@@ -136,5 +152,82 @@ cargando=false;
         )
       }
     })
+  }
+
+
+
+  detallepsi(element:any){
+    this.detalleelemetn=element;
+
+  }
+
+  async crearuser(element:any){
+    this.cargando=true;
+    this.usuarioelement= element
+     this.userserv.getusers().subscribe(
+      
+      (data)=>{ 
+        this.usuarios=data;
+          this.cargando=false
+
+          var usuarioname=element.nombre;
+          var passwordname=element.nombre;
+          var encontrado=0;
+          var condicion=1;
+          do {
+            this.usuarios.find(
+              user => {
+                if (  user.username ==  usuarioname.replace(" ", "").toLowerCase()) {
+                  console.log(true);
+                  encontrado = 1;
+                  this.activo=false;
+                } else {
+                  console.log(usuarioname);
+                  encontrado = 0;
+                }
+              }
+            )
+            var num=Math.floor(Math.random()*101);
+            if(encontrado==1){
+              usuarioname = usuarioname.concat(num.toString());
+              this.usuario.username=usuarioname.replace(" ","").toLocaleLowerCase();
+            
+              this.usuario.password=passwordname.replace(" ","").toLocaleLowerCase();
+              this.activo=true;
+            }else{
+              console.log(encontrado)
+              console.log(this.usuarios)
+              condicion = 0;
+              this.activo=true;
+              this.usuario.username=usuarioname.replace(" ","").toLocaleLowerCase();
+              this.usuario.password=passwordname.replace(" ","").toLocaleLowerCase();
+             
+            }
+          } while (condicion==1);
+            
+            this.usuario.idpersonal= element.idpersonal;
+    }
+    )
+   
+   
+      
+ 
+  }
+
+
+  guardarusuario(){
+    console.log(this.usuario, this.usuarioelement.correo)
+    this.userserv.crearusuario(this.usuario.username,this.usuario.password,this.usuario.idpersonal,this.usuarioelement.correo).subscribe(
+      data=>{
+        Swal.fire(
+          'Registrardo',
+          data,
+          'success'
+        );
+        document.getElementById('crearuser').click();
+        this.listarpsicologos();
+        this.listarusuarios();
+      }
+    )
   }
 }

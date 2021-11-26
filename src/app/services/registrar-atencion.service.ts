@@ -10,7 +10,6 @@ export class RegistrarAtencionService {
 
   constructor(private http:HttpClient) { }
 
-
   getlistpac(idpersonal):Observable<any>{
    
     return this.http.get<any>(this.urlEndpoint3 + '/listarpacasig/' + idpersonal);
@@ -38,9 +37,9 @@ export class RegistrarAtencionService {
    
     return this.http.post<String>(this.urlEndpoint3 + '/registrardata3' ,{atencion,id,derivacion});
   }
-  getatencion_pend(idpersonal):Observable<any>{
+  getatencion_pend(idpersonal):Observable<any[]>{
    
-    return this.http.get<any>(this.urlEndpoint3 + '/listatencion_pend/' + idpersonal);
+    return this.http.get<any[]>(this.urlEndpoint3 + '/listatencion_pend/' + idpersonal);
   }
  
 
