@@ -1,0 +1,26 @@
+<!--Tabla-->
+<div class="container" style="margin-top:50px">
+  <h1 style="text-align: center;">Pastores Disponibles</h1><br>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col" class="ti">#</th>
+      <th scope="col" class="ti">Nombre y Apellidos</th>
+      <th scope="col" class="ti">Especialidad</th>
+      <th scope="col" class="ti">Universidad </th>
+      <th scope="col" class="ti">Grado Acadenico</th>
+      <th scope="col" class="ti">Seleccionar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pastor of pastores; let i= index">
+      <td  class="ti">{{i+1}}</td>
+      <td class="ti">{{pastores.nombre + '' + apellido}}</td>
+      <td class="ti">{{pastores.especialidad}}</td>
+      <td class="ti">{{pastores.universidad}}</td>
+      <td class="ti">{{pastores.grado_academico}}</td>
+      <td class="ti"><img src="https://img.icons8.com/color/30/000000/ok--v1.png" cursor="pointer"  /></td>
+    </tr>
+  </tbody>
+</table>
+</div>

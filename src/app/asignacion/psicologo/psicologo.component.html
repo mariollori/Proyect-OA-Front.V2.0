@@ -1,0 +1,28 @@
+<!--Tabla-->
+<div class="container" style="margin-top:50px">
+  <h1 style="text-align: center;">Psicologos Disponibles</h1><br>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col" class="ti">#</th>
+      <th scope="col" class="ti">Nombre y Apellidos</th>
+      <th scope="col" class="ti">Especialidad</th>
+      <th scope="col" class="ti">Colegiatura</th>
+      <th scope="col" class="ti">Grado Acadenico</th>
+      <th scope="col" class="ti">N° Colegiatura</th>
+      <th scope="col" class="ti">Seleccionar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let psicologo of psicologos; let i= index">
+      <td  class="ti">{{i+1}}</td>
+      <td class="ti">{{psicologo.nombre + '' + apellido}}</td>
+      <td class="ti">{{psicologo.especialidad}}</td>
+      <td class="ti">{{psicologo.colegiatura}}</td>
+      <td class="ti">{{psicologo.grado_academico}}</td>
+      <td class="ti">{{psicologo.n_colegiatura}}</td>
+      <td class="ti"><img src="https://img.icons8.com/color/30/000000/ok--v1.png" cursor="pointer"  /></td>
+    </tr>
+  </tbody>
+</table>
+</div>

@@ -41,16 +41,29 @@ import { SpinnerBlancComponent } from './snipper/spinner-blanc/spinner-blanc.com
 import { RegistrarAtencionComponent } from './pages/registrar_atencion/registrar-atencion/registrar-atencion.component';
 import {MatCardModule} from '@angular/material/card';
 import { GestUsersComponent } from './pages/gest-users/gest-users/gest-users.component';
+
+
 import { Prueba1Component } from './prueba/prueba1/prueba1.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+
+
+import { AsignacionComponent } from './asignacion/asignacion.component';
+import { PastorComponent } from './asignacion/pastor/pastor.component';
+import { PsicologoComponent } from './asignacion/psicologo/psicologo.component';
+import { EstudianteComponent } from './asignacion/estudiante/estudiante.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    
-   
+    AsignacionComponent,
+    PastorComponent,
+    PsicologoComponent,
+    EstudianteComponent,
+
     NavComponent,
-   
+
     LoginpsiComponent,
     RegistroPacienteComponent,
     DatosUserComponent,
@@ -81,8 +94,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatGridListModule,
     BrowserModule,
     MatInputModule,
-    MatFormFieldModule, 
-   
+    MatFormFieldModule,
+
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
@@ -95,7 +108,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatSnackBarModule,
     BrowserAnimationsModule,
   ],
-  entryComponents : [  ] , 
+  entryComponents : [  ] ,
   providers: [{
     provide:HTTP_INTERCEPTORS,
     useClass:AuthInterceptorService,
