@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Dosis', sans-serif;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
   }
 
 #user{
@@ -94,7 +94,8 @@ body{
     width: 100%;
 
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
+      padding-left: 20px;
       align-items: center;
     background-color: #992e45 ;
     height: 10vh;

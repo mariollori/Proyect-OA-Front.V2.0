@@ -69,13 +69,14 @@
   </div>
 
   <div class="infoaboutper">
-  
+   
+   
     <h5>Estudiante:</h5>
     <input type="text" class="show"  [(ngModel)]="estudianteselect.nombre"  disabled>
-    <button class="cancelar" (click)="cancelar()">
+    <button  mat-flat-button (click)="cancelar()">
           Cancelar
     </button>
-    <button class="asignar" >
+    <button  mat-raised-button  (click)="asignarpaciente()" [disabled]="estudianteselect.length<1" >
           Asignar
     </button>
   </div>

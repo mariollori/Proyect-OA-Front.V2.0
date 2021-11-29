@@ -29,7 +29,7 @@
   
  
   .highlight{
-    background: #992e45;
+    background: #62808c;
     color: aliceblue;
     font-weight: bold; /* green */
   }
@@ -86,24 +86,22 @@ img{
   margin-right: 15px;
 }
 
-.cancelar{
-  background-color: rgb(238, 74, 74);
-  color: white;
+.mat-flat-button{
+  background-color: #dc3545 !important;
+  color: white !important;
+  margin-right: 15px
+  ;
   font-weight: bold;
-  border: none;
-  padding: 5px;
-  border-radius: 5px;
-  margin-right: 15px;
 }
-
-.asignar{
-  background-color: rgb(10, 146, 236);
-  color: white;
+.mat-raised-button{
+  background-color: #ffb74d !important;
+  color: white !important;
   font-weight: bold;
-  border: none;
-  padding: 5px;
-  border-radius: 5px;
-  margin-right: 15px;
+}
+.mat-raised-button:disabled{
+  font-weight: bold;
+  background-color: #dcdcdc !important;
+  color: #a3a3a3 !important;
 }
 
 

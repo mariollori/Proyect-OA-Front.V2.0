@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AsignacionService } from 'src/app/services/asignacion.service';
+import Swal from 'sweetalert2';
 
 export class Personal {
   idpersonal: number;
@@ -24,7 +25,7 @@ export class PastorComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: string[] = ['nro', 'nombre', 'especialidad', 'universidad', 'grado_academico'];
   dataSource;
-  pastorselec = '';
+  pastorselec:Personal = new Personal();
   pacienteseleccionado;
   pastores: Personal[] = [];
   constructor(private servicio: AsignacionService,private rutaActiva:ActivatedRoute,private route:Router) { }
@@ -58,9 +59,26 @@ applyFilter(event: Event) {
 
 
  cancelar(){
-   this.pastorselec='';
+   this.pastorselec=new Personal();
    this.pacienteseleccionado =null;
    this.route.navigate(['/nav/asignacion']);
  }
+
+
+ 
+
+ asignarpaciente(){
+  var idpaciente =Number(this.pacienteseleccionado.idpaciente);
+ this.servicio.asignarpac_estud(this.pastorselec.idpersonal,idpaciente).subscribe(
+   data=>{
+     Swal.fire(
+       'Asignado',
+       data.toString(),
+       'success'
+     )
+     this.route.navigate(['nav/asignacion'])
+   }
+ )
+}
 
 }

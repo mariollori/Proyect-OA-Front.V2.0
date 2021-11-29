@@ -43,7 +43,7 @@ menu
 	<div class="cont-menu" id="cont-menu">
      <div class="cont-menu-title">
        <h5>Menu Principal</h5>
-       <label for="btn-menu" (click)="cerrar()" class="material-icons">sort</label>
+     
 	   </div>
       <div class="cont-menu-nav" *ngIf="roles">
        <div class="nava" *ngFor="let op of roles" routerLink="{{op.ruta}}" (click)="cerrar()">

@@ -124,98 +124,58 @@
 }
 .cardrigth h5{
     text-transform: capitalize;
+    margin-top: 10px;
+    margin-bottom: 0;
     font-weight: bold;
     color: white;
 }
 .info{
     width: 100%;
 }
-.descripcion{
+.descripciondiv{
+    
     width: 100%;
-    margin: 0px 10px 0px 10px;
+    padding: 5px 20px 5px 20px;
     color: white;
-    height: 50px;
+    
+    height: 10vh ;
+}
+.descripciondiv p{
+    max-height: 10vh;
+    margin-bottom: 20px;
+    overflow: hidden;
+    margin: 0;
+    text-overflow: ellipsis;
+    line-height: 21px;
+}
+.infopaciente{
+    margin-top: 5px;
+  width: 100%;
+    height: 5vh;
     display: flex;
     flex-direction: row;
+    
 }
-.telefono{
+.pacdetail{
+  display: flex;
+  align-items: center;
+  width: 33.3%;
+  justify-content: center;
+  flex-direction: row;
+  color: white;
+}
+.pacdetail mat-icon{
+    color: #f7d063;
+    font-size: 20px;
     display: flex;
- width: 100%;
- height: 30px;
- flex-direction: row;
- color: white;
- margin: 0px 10px 0px 10px;
+    align-items: center;
+    margin-right: 5px;
 }
-.motivo{
- display: flex;
- width: 100%;
- flex-direction: row;
- height: 30px;
- color: white;
- margin: 0px 10px 0px 10px;
-
- 
-}
-.motivo1{
-     display: flex;
-     margin: 0;
-     width: 50%;
-     align-items: center;
-}
-.motivo2{
-    display: flex;
-    width: 50%;
+.pacdetail p{
     margin: 0;
-    align-items: center;
-}
-.motivo mat-icon{
-    margin:0;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-}
-.telefono mat-icon{
-    margin:0;
-       font-size: 18px;
-       display: flex;
-       align-items: center;
-
-}
-.motivo p{
-    margin-bottom: 5px;
-}
-.descripcion mat-icon{
-    margin:0;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
+    
 }
 
-.descripcion p{
-    height:50px;
-    overflow: hidden;
-    padding-right: 10px;
-   
-    text-overflow: ellipsis;
-}
-.motivo label{
-    display: flex;
-    width: 50%;
-    align-items: center;
-}
-
-.telefono label{
-    display: flex;
-    width: 25%;
-    align-items: center;
-}
-
-.descripcion label{
-    display: flex;
-    width: 25%;
-    align-items: flex-start;
-}
- 
 
 
 

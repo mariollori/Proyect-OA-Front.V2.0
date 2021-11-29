@@ -65,13 +65,14 @@
   </div>
 
   <div class="infoaboutper">
-  
+   
+    
     <h5>Pastor:</h5>
     <input type="text" class="show"  [(ngModel)]="pastorselec.nombre"  disabled>
-    <button class="cancelar" (click)="cancelar()">
+    <button  mat-flat-button (click)="cancelar()">
           Cancelar
     </button>
-    <button class="asignar" >
+    <button mat-raised-button (click)="asignarpaciente()" [disabled]="pastorselec.length<1">
           Asignar
     </button>
   </div>

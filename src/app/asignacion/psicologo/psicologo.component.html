@@ -23,36 +23,36 @@
       <!-- Position Column -->
       <ng-container matColumnDef="nro">
         <th mat-header-cell *matHeaderCellDef>No.</th>
-        <td mat-cell *matCellDef="let element;let i=index">{{i+1}}</td>
+        <td mat-cell [ngClass]="{'highligth': element.nombre == especialistaselec.nombre}" *matCellDef="let element;let i=index">{{i+1}}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef>Nombre y Apellidos</th>
-        <td mat-cell *matCellDef="let element">{{(element.nombre + ' ' + element.apellido) |  titlecase}}</td>
+        <td mat-cell [ngClass]="{'highligth': element.nombre == especialistaselec.nombre}" *matCellDef="let element">{{(element.nombre + ' ' + element.apellido) |  titlecase}}</td>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="especialidad">
         <th mat-header-cell *matHeaderCellDef>Especialidad</th>
-        <td mat-cell *matCellDef="let element">{{element.especialidad}}</td>
+        <td mat-cell [ngClass]="{'highligth': element.nombre == especialistaselec.nombre}" *matCellDef="let element">{{element.especialidad}}</td>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="colegiatura">
         <th mat-header-cell *matHeaderCellDef>Colegiatura</th>
-        <td mat-cell *matCellDef="let element">{{element.colegiatura}}</td>
+        <td mat-cell  [ngClass]="{'highligth': element.nombre == especialistaselec.nombre}" *matCellDef="let element">{{element.colegiatura}}</td>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="n_colegiatura">
         <th mat-header-cell *matHeaderCellDef>Nro Colegiatura</th>
-        <td mat-cell *matCellDef="let element">{{element.n_colegiatura}}</td>
+        <td mat-cell [ngClass]="{'highligth': element.nombre == especialistaselec.nombre}" *matCellDef="let element">{{element.n_colegiatura}}</td>
       </ng-container>
 
       <ng-container matColumnDef="grado_academico">
         <th mat-header-cell *matHeaderCellDef>Grado Academico</th>
-        <td mat-cell *matCellDef="let element">{{element.grado_academico}}</td>
+        <td mat-cell [ngClass]="{'highligth': element.nombre == especialistaselec.nombre}" *matCellDef="let element">{{element.grado_academico}}</td>
       </ng-container>
 
 
@@ -72,12 +72,11 @@
   
     <h5>Especialista:</h5>
     <input type="text" class="show"  [(ngModel)]="especialistaselec.nombre"  disabled>
-    <button class="cancelar" (click)="cancelar()">
+    <button mat-flat-button (click)="cancelar()">
           Cancelar
     </button>
-    <button class="asignar" >
-          Asignar
-    </button>
+    <button mat-raised-button (click)="asignarpaciente()" [disabled]="especialistaselec.length<1"  >Asignar</button>
+   
   </div>
 
 </div>

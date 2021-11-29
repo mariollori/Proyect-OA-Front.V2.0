@@ -21,34 +21,27 @@
           </div>
           <div class="cardrigth">
             <h5>{{pac.nombre }}</h5>
-
             <form class="info">
-              <div class="form-group motivo">
-                <div class="motivo1">
-                  <label for="staticEmail">Motivo &nbsp;&nbsp;<mat-icon
-                    class="icontool">pan_tool</mat-icon>:</label>
-                <p>{{pac.motivo}}</p>
-                </div >
-                <div class="motivo2">
-                  <label for="staticEmail">Telefono &nbsp;&nbsp;<mat-icon class="icontool1" matTooltipPosition="above"
-                    matTooltip="{{pac.telefono}}">phone</mat-icon>:</label>
-                    <p>{{pac.telefono}}</p>
-                </div>
-            
-              
-
+              <div class="descripciondiv">
+                    <p>{{pac.descripcion}}</p>
               </div>
-              <div class="telefono">
-
-                <label>Correo&nbsp;&nbsp; <mat-icon class="icontool">email</mat-icon>:</label>
+             
+            </form>
+            <div class="infopaciente">
+              <div class="pacdetail">
+                <mat-icon  matTooltipPosition="above"
+                matTooltip="{{pac.telefono}}">phone</mat-icon>
+              <p>{{pac.telefono}}</p>
+              </div>
+              <div class="pacdetail">
+                <mat-icon >email</mat-icon>
                 <p>{{pac.correo}}</p>
               </div>
-              <div class="form-group descripcion">
-                <label for="inputPassword">Descripcion&nbsp;&nbsp;<mat-icon
-                    class="icontool">description</mat-icon>:</label>
-                <p>{{pac.descripcion}}</p>
+              <div class="pacdetail">
+                <mat-icon >pan_tool</mat-icon>
+                <p>{{pac.motivo}}</p>
               </div>
-            </form>
+            </div>
             <div class="botones">
               <button class="registerbtn" color="primary" data-toggle="modal"
                 data-target="#register_aten"
@@ -72,7 +65,7 @@
                 <th scope="col" class="ti">Nombre y Apellidos</th>
                 <th scope="col" class="ti">Fecha</th>
                 <th scope="col" class="ti">Hora</th>
-
+                <th scope="col" class="ti">Modificar</th>
               </tr>
             </thead>
             <tbody>
@@ -80,8 +73,14 @@
                 <td class="ti">{{i+1}}</td>
                 <td>{{aten.nombre + ' ' + aten.apellido}}</td>
                 <td class="ti">{{aten.fecha_sesion | date:'dd/MM/yyyy'}}</td>
-                <td class="ti"></td>
-
+                <td class="ti">{{aten.hora}}</td>
+                <td class="ti"><img
+                  src="https://www.pngitem.com/pimgs/m/34-341449_transparent-tumblr-clipart-eye-png-png-download.png"
+                  style="cursor: pointer;width: 30px;height: 30px;margin-left:
+                  20px;"
+                  (click)="asignaridfecha(aten.idregistro_aten,aten.fecha_sesion,aten.hora)"
+                  data-toggle="modal"
+                  data-target="#modificarfecha" /> </td>
               </tr>
             </tbody>
           </table>
@@ -103,7 +102,7 @@ $(document).ready(function(){
 <!-- Modal largo xd -->
 <div class="modal fade bd-example-modal-lg" id="register_aten" tabindex="-1"
   role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg"role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle"><img
@@ -115,7 +114,7 @@ $(document).ready(function(){
         </button>
       </div>
       <app-spinner-blanc *ngIf="cargando2"></app-spinner-blanc>
-      <div class="modal-body"*ngIf="!cargando2">
+      <div class="modal-body" *ngIf="!cargando2">
         <div class="imgregister">
           <img class="imagenreg" src="assets/atencionpsi.png" />
         </div>
@@ -229,7 +228,7 @@ $(document).ready(function(){
               <mat-error
                 *ngIf="fechaatencion.get('fecha').hasError('required')">*requerido</mat-error>
             </mat-form-field>
-            <p>Hora: <input type="time" name="eta" /></p>
+            <p>Hora: <input type="time"  formControlName="hora"  name="eta" /></p>
           </form>
         </div>
 
@@ -289,6 +288,48 @@ $(document).ready(function(){
             data-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-basic asdasd"
             (click)="cancelaratencion()">Guardar<mat-icon class="icon"
+              matSuffix>save</mat-icon></button>
+        </div>
+
+
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Modificarfecha -->
+<div class="modal fade" id="modificarfecha" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modificar Sesion</h5>
+        <button type="button" class="close" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+       
+    
+         
+      
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Proxima Sesion:</label>
+          <input  type="date"   [(ngModel)]="fechaactual" />
+          <p>Hora: <input type="time"   [(ngModel)]="horaactual"  /></p>
+        </div>
+        <div class="footer">
+          <button type="button" class="btn btn-basic asdasd"
+            data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-basic asdasd"
+            (click)=" guardarfechamodif()">Modificar<mat-icon class="icon"
               matSuffix>save</mat-icon></button>
         </div>
 

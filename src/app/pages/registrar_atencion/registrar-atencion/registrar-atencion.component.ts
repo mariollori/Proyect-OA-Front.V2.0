@@ -23,8 +23,12 @@ export class RegistrarAtencionComponent implements OnInit {
   idatencionactual;
   counter;
   idpac;
+  hora;
   paciente= new Paciente();
   idasignacion;
+  idatencion;
+  fechaactual:Date;
+  horaactual;
   atencion=new Atencion();
   datapaciente:FormGroup;
   fechaatencion:FormGroup;
@@ -45,6 +49,7 @@ export class RegistrarAtencionComponent implements OnInit {
     });
     this.fechaatencion = new FormGroup({
       fecha: new FormControl('', Validators.required),
+      hora:new FormControl('',Validators.required)
     });
 
     this.datosatencion = new FormGroup({
@@ -75,7 +80,13 @@ export class RegistrarAtencionComponent implements OnInit {
     )
   }
 
+  asignaridfecha(id,fecha,hora){
+console.log(fecha)
+    this.idatencion = id;
+    this.fechaactual = fecha;
+    this.horaactual = hora;
 
+  }
 
 
   verificarsesiones(idasignacion,idpacc){
@@ -112,12 +123,15 @@ export class RegistrarAtencionComponent implements OnInit {
     console.log(this.counter)
     switch (this.counter) {
       case 0:
+
         this.proximafecha= this.fechaatencion.controls['fecha'].value;
+        this.hora= this.fechaatencion.controls['hora'].value;
+        console.log(this.hora)
         this.paciente= this.datapaciente.value;
         this.paciente.idpaciente= this.idpac;
         this.atencion= this.datosatencion.value;
         this.atencion.nro_sesion=this.counter+1;
-        this.registerserv.registrardata1(this.paciente,this.atencion, this.idasignacion, this.proximafecha).subscribe(data=>{
+        this.registerserv.registrardata1(this.paciente,this.atencion, this.idasignacion, this.proximafecha,this.hora).subscribe(data=>{
           console.log(data);
           this.cargando2=false;
           this.getatenciones_pend();
@@ -135,11 +149,12 @@ export class RegistrarAtencionComponent implements OnInit {
 
         break;
       case 1:   
+      this.hora= this.fechaatencion.controls['hora'].value;
       this.proximafecha= this.fechaatencion.controls['fecha'].value;
       this.atencion= this.datosatencion.value;
       this.atencion.nro_sesion=this.counter+1;
       this.atencion.idregistro_aten=this.idatencionactual;
-      this.registerserv.registrardata2(this.atencion, this.idasignacion, this.proximafecha).subscribe(data=>{
+      this.registerserv.registrardata2(this.atencion, this.idasignacion, this.proximafecha,this.hora).subscribe(data=>{
         console.log(data);
         this.cargando2=false;
         this.getatenciones_pend();
@@ -160,7 +175,7 @@ export class RegistrarAtencionComponent implements OnInit {
         this.atencion= this.datosatencion.value;
       this.atencion.idregistro_aten=this.idatencionactual;
       this.atencion.nro_sesion=this.counter+1;
-      this.registerserv.registrardata3(this.atencion, this.idpac, this.derivacion).subscribe(
+      this.registerserv.registrardata3(this.atencion, this.idpac, this.derivacion,this.token.usuario.idpersonal).subscribe(
         data=>{ 
           console.log(data)
 
@@ -206,7 +221,7 @@ export class RegistrarAtencionComponent implements OnInit {
         const cancelacion= new Cancelacion();
         cancelacion.idasignacion=this.detallecancelacion.idasignacion;
         cancelacion.motivo=this.motivocancelar;
-        this.serv.crearcancelacion(cancelacion,this.detallecancelacion.idpaciente).subscribe(
+        this.serv.crearcancelacion(cancelacion,this.detallecancelacion.idpaciente,this.token.usuario.idpersonal).subscribe(
           data=>{
             Swal.fire(
               'Atencion Cancelada',
@@ -217,6 +232,21 @@ export class RegistrarAtencionComponent implements OnInit {
             this.getatenciones_pend();
             this.llamarpacientes();
             document.getElementById('cancelaratencion').click();
+          }
+        )
+      }
+
+
+      guardarfechamodif(){
+        this.registerserv.updatefecha(this.fechaactual,this.idatencion,this.horaactual).subscribe(
+          data=>{
+               Swal.fire(
+                  'Fecha Modificada',
+                data.toString(),
+                'success'
+               )
+               document.getElementById('modificarfecha').click();
+               this.getatenciones_pend();
           }
         )
       }

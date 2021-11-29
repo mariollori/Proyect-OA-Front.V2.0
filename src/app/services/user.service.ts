@@ -49,7 +49,7 @@ export class UserService {
     return this.http.get<any>(this.urlEndpoint + '/getestados/estado/', { params:params})
    }
 
-   crearcancelacion(cancelacion:Cancelacion,idpaciente):Observable<any>{
-    return this.http.post<any>(this.urlEndpoint + '/crearcancelacion/post', { cancelacion,idpaciente})
+   crearcancelacion(cancelacion:Cancelacion,idpaciente,idpersonal):Observable<any>{
+    return this.http.post<any>(this.urlEndpoint + '/crearcancelacion/post', { cancelacion,idpaciente,idpersonal})
    }
 }

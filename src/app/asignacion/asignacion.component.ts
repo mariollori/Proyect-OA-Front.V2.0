@@ -1,16 +1,21 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Data } from '@angular/router';
 import { AsignacionService } from '../services/asignacion.service';
 
 export interface DataPac {
-  idpaciente:number;
+  idpersonal: number;
   nombre: string;
-  apellido:string;
-  motivo: string;
-  telefono: string;
-  descripcion:string
-  estado: string;
+  apellido: string;
+  especialidad: string;
+  ciclo: number;
+  grupo: number;
+  codigo: string;
+  tipo:string;
+  estado: number;
+  universidad: string;
+  grado_academico: string;
   }
 @Component({
   selector: 'app-asignacion',
@@ -25,45 +30,104 @@ export interface DataPac {
   ],
 })
 export class AsignacionComponent implements OnInit {
-  dataSource;
-  
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
- 
+  dataSource:MatTableDataSource<DataPac>;
+  dataSource2:MatTableDataSource<DataPac>;
+  psi_asig:any='';
+  ultimodetalle:any='';
+  @ViewChild('MatPaginator1' ,{ static: true }) paginator: MatPaginator;
+  @ViewChild('MatPaginator2', { static: true }) paginator2: MatPaginator;
+  @ViewChild('TableOneSort', {static: true}) tableOneSort: MatSort;
+  @ViewChild('TableTwoSort', {static: true}) tableOneSort2: MatSort;
   columnsToDisplay = [ 'nombre', 'motivo', 'telefono','estado','asignacion'];
+  columnsToDisplay2 = [ 'nombre', 'motivo', 'telefono','estado','detalle'];
   expandedElement: DataPac | null;
-  constructor(private servicio: AsignacionService) { }
-  opcion: string = "";
+  expandedElement2: DataPac | null;
+  constructor(private servicio: AsignacionService) {
+    this.dataSource = new MatTableDataSource;
+
+    this.dataSource2 = new MatTableDataSource;
+   }
+  opcion: string = '';
   pacientes: DataPac[] = [];
+  pacientes2: DataPac[] = [];
   pacseleccionado;
   ngOnInit() {
-    this.servicio.getAsignaciones("Sin Asignar").subscribe(
+    
+    this.opcion='Sin Asignar'
+    this.servicio.getAsignaciones(this.opcion).subscribe(
       data => {
         this.pacientes = data as DataPac[];
-        this.dataSource= new  MatTableDataSource(this.pacientes);
+        this.dataSource.data= this.pacientes as DataPac[];
         this.dataSource.paginator = this.paginator;
-        console.log(this.pacientes);
+        this.dataSource.sort = this.tableOneSort;
       }
     );
 
   }
 
- asignarelement(row){
-   this.expandedElement = row as DataPac;
- }
+
   buscar(){
-    console.log(this.opcion);
-    this.servicio.getAsignaciones(this.opcion).subscribe(
-      data => {
-        this.pacientes = data;
-        this.dataSource= new  MatTableDataSource(this.pacientes);
-        this.dataSource.paginator = this.paginator;
-        console.log(this.pacientes);
-      }
-    );
+    switch (this.opcion) {
+      case 'Sin Asignar':
+        this.servicio.getAsignaciones(this.opcion).subscribe(
+          data => {
+            this.pacientes = data as DataPac[];
+            this.dataSource.data= this.pacientes as DataPac[];
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.tableOneSort;
+          }
+        );
+        break;
+        case 'En Proceso':
+          
+        this.servicio.getAsignaciones(this.opcion).subscribe(
+          data => {
+            this.pacientes = data as DataPac[];
+            this.dataSource.data= this.pacientes as DataPac[];
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.tableOneSort;
+            console.log(data)
+
+          }
+          );
+          break;
+          case 'Finalizado':
+            this.servicio.getAsignaciones(this.opcion).subscribe(
+              data => {
+                this.pacientes = data as DataPac[];
+                this.dataSource.data= this.pacientes as DataPac[];
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.tableOneSort;
+                console.log(data)
+    
+              }
+            );
+        break;
+        case 'Derivado':
+            this.servicio.getAsignaciones(this.opcion).subscribe(
+              data => {
+                this.pacientes = data as DataPac[];
+                this.dataSource.data= this.pacientes as DataPac[];
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.tableOneSort;
+                console.log(data)
+    
+              }
+            );
+        break;
+    
+      default:
+        break;
+    }
+  
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  applyFilter2(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource2.filter = filterValue.trim().toLowerCase();
   }
   cerrarModal() {
     document.getElementById('exampleModalCenter').click();
@@ -71,5 +135,27 @@ export class AsignacionComponent implements OnInit {
   seleccionarpac(paciente){
     this.pacseleccionado =paciente;
 
+  }
+
+  verasignacion(id){
+    this.servicio.getpsi_asignado(id).subscribe(
+      data=>{
+        this.psi_asig=data[0];
+      }
+    )
+  }
+
+  verultimaobser(id){
+    this.servicio.getpsi_asignado(id).subscribe(
+      data=>{
+        this.psi_asig=data[0];
+      }
+    )
+    this.servicio.get_last_condition(id).subscribe(
+      data=>{
+        console.log(data)
+        this.ultimodetalle= data[0]
+      }
+    )
   }
 }

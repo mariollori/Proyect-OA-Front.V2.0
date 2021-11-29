@@ -3,6 +3,7 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AsignacionService } from 'src/app/services/asignacion.service';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 export class Personal {
   idpersonal:number;
   nombre: string;
@@ -25,7 +26,7 @@ export class EstudianteComponent implements OnInit {
  
 displayedColumns: string[] = ['nro', 'nombre', 'especialidad', 'ciclo','grupo','codigo'];
 dataSource;
-estudianteselect='';
+estudianteselect:Personal = new Personal();
 pacienteseleccionado;
 
 constructor(private route:Router,private service:UserService,private servicio: AsignacionService,private rutaActiva: ActivatedRoute) { }
@@ -56,9 +57,23 @@ applyFilter(event: Event) {
 
 
  cancelar(){
-   this.estudianteselect='';
+   this.estudianteselect=new Personal();
    this.pacienteseleccionado =null;
    this.route.navigate(['/nav/asignacion']);
  }
 
+
+ asignarpaciente(){
+   var idpaciente =Number(this.pacienteseleccionado.idpaciente);
+  this.servicio.asignarpac_estud(this.estudianteselect.idpersonal,idpaciente).subscribe(
+    data=>{
+      Swal.fire(
+        'Asignado',
+        data.toString(),
+        'success'
+      )
+      this.route.navigate(['nav/asignacion'])
+    }
+  )
+ }
 }

@@ -46,7 +46,7 @@ import { GestUsersComponent } from './pages/gest-users/gest-users/gest-users.com
 import { Prueba1Component } from './prueba/prueba1/prueba1.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
-
+import { MatSortModule } from '@angular/material/sort';
 import { AsignacionComponent } from './asignacion/asignacion.component';
 import { PastorComponent } from './asignacion/pastor/pastor.component';
 import { PsicologoComponent } from './asignacion/psicologo/psicologo.component';
@@ -77,6 +77,7 @@ import { EstudianteComponent } from './asignacion/estudiante/estudiante.componen
   imports: [
     MatNativeDateModule,
     MatDatepickerModule,
+    MatSortModule,
     MatTooltipModule,
     MatCardModule,
     MatSlideToggleModule,
