@@ -23,6 +23,8 @@ import { AsignacionComponent } from './asignacion/asignacion.component';
 import { PastorComponent } from './asignacion/pastor/pastor.component';
 import { EstudianteComponent } from './asignacion/estudiante/estudiante.component';
 import { PsicologoComponent } from './asignacion/psicologo/psicologo.component';
+import { PerfilDatoComponent } from './perfil-dato/perfil-dato.component';
+import { RegDatoPsicologoComponent } from './reg-dato-psicologo/reg-dato-psicologo.component';
 
 
 
@@ -45,9 +47,12 @@ const routes: Routes = [
     {path:'pastor', component:PastorComponent,canActivate:[AuthGuard]},
     {path:'estudiante', component:EstudianteComponent,canActivate:[AuthGuard]},
     {path:'psicologo', component:PsicologoComponent,canActivate:[AuthGuard]},
+    /*  PERFIL DEL USUARIO O PSICOLOGO UNA VEZ QUE SE REGISTRE */
+    {path:'perfil', component:PerfilDatoComponent,canActivate:[AuthGuard]},
   ],canActivate:[AuthGuard]},
 
   {path:'register-pac',component:RegistroPacienteComponent},
+  {path:'reg_dato_psicologo',component:RegDatoPsicologoComponent},
   {path:'loginpsi',component:LoginpsiComponent},
   {path:'home',component:HomeComponent},
   /*NOTA: TODOS LAS RUTAS QUE ESTEN DESPUES DE NOTFOUND NO SE RECONOCERAN

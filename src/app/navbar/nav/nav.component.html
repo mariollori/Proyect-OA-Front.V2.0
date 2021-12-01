@@ -1,54 +1,73 @@
-
-<nav class="navbar navbar-expand-lg bg " style="color:white;background-color:#992e45 ">
- <div class="container-fluid">
-    <div class="btn-menu" >
-			<label for="btn-menu" (click)="cerrar()"><span class="material-icons">
-menu
-</span>
-</label>
-		</div>
-    <a class="navbar-brand"  style="color:white;"><img id="img" src="https://s3.amazonaws.com/files.patmos.upeu.edu.pe/statics/app-assets/images/logo-upeu-blanco.png"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav
+  class="navbar navbar-expand-lg bg"
+  style="color: white; background-color: #992e45"
+>
+  <div class="container-fluid">
+    <div class="btn-menu">
+      <label for="btn-menu" (click)="cerrar()"
+        ><span class="material-icons"> menu </span>
+      </label>
+    </div>
+    <a class="navbar-brand" style="color: white"
+      ><img
+        id="img"
+        src="https://s3.amazonaws.com/files.patmos.upeu.edu.pe/statics/app-assets/images/logo-upeu-blanco.png"
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      </ul>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
       <form class="d-flex">
-       <h5 id="user" *ngIf="nombre" >{{(nombre ) | uppercase}}</h5>
-        <button mat-mini-fab  class=" btn-user" color="green" [matMenuTriggerFor]="menu">
-          
-        </button>
-       
-            <mat-menu #menu="matMenu">
-            
-                <button mat-menu-item [routerLink]="['perfil_user']" ><mat-icon>person</mat-icon>Perfil</button>
-              
-                <button (click)="logout()"mat-menu-item><mat-icon>power_settings_new</mat-icon>Salir</button>
-            </mat-menu>
+        <h5 id="user" *ngIf="nombre">{{ nombre | uppercase }}</h5>
+        <button
+          mat-mini-fab
+          class="btn-user"
+          color="green"
+          [matMenuTriggerFor]="menu"
+        ></button>
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item [routerLink]="['perfil']">
+            <mat-icon>person</mat-icon>Perfil
+          </button>
+
+          <button (click)="logout()" mat-menu-item>
+            <mat-icon>power_settings_new</mat-icon>Salir
+          </button>
+        </mat-menu>
       </form>
     </div>
   </div>
 </nav>
 <body>
- 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </body>
 
-<input type="checkbox" id="btn-menu">
-   <div class="container-menu" (click)="cerrar()" id="container-menu">
+<input type="checkbox" id="btn-menu" />
+<div class="container-menu" (click)="cerrar()" id="container-menu"></div>
 
-   </div>   
-
-	<div class="cont-menu" id="cont-menu">
-     <div class="cont-menu-title">
-       <h5>Menu Principal</h5>
-     
-	   </div>
-      <div class="cont-menu-nav" *ngIf="roles">
-       <div class="nava" *ngFor="let op of roles" routerLink="{{op.ruta}}" (click)="cerrar()">
-         <a >{{op.nombre}}</a><mat-icon>{{op.icono}}</mat-icon>
-       </div>
-     
-	   </div>	
-	</div>
+<div class="cont-menu" id="cont-menu">
+  <div class="cont-menu-title">
+    <h5>Menu Principal</h5>
+  </div>
+  <div class="cont-menu-nav" *ngIf="roles">
+    <div
+      class="nava"
+      *ngFor="let op of roles"
+      routerLink="{{ op.ruta }}"
+      (click)="cerrar()"
+    >
+      <a>{{ op.nombre }}</a
+      ><mat-icon>{{ op.icono }}</mat-icon>
+    </div>
+  </div>
+</div>
