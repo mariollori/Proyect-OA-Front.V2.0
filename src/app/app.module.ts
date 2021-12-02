@@ -27,7 +27,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule} from '@angular/material/dialog';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
+
 import { NavComponent } from './navbar/nav/nav.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
@@ -41,9 +41,6 @@ import { SpinnerBlancComponent } from './snipper/spinner-blanc/spinner-blanc.com
 import { RegistrarAtencionComponent } from './pages/registrar_atencion/registrar-atencion/registrar-atencion.component';
 import {MatCardModule} from '@angular/material/card';
 import { GestUsersComponent } from './pages/gest-users/gest-users/gest-users.component';
-
-
-import { Prueba1Component } from './prueba/prueba1/prueba1.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { MatSortModule } from '@angular/material/sort';
@@ -51,6 +48,14 @@ import { AsignacionComponent } from './asignacion/asignacion.component';
 import { PastorComponent } from './asignacion/pastor/pastor.component';
 import { PsicologoComponent } from './asignacion/psicologo/psicologo.component';
 import { EstudianteComponent } from './asignacion/estudiante/estudiante.component';
+
+
+
+import { ReportesComponent } from './reportes/reportes/reportes.component';
+import { ChartsModule, ThemeService } from 'ng2-charts';
+
+
+
 
 
 @NgModule({
@@ -63,6 +68,7 @@ import { EstudianteComponent } from './asignacion/estudiante/estudiante.componen
     EstudianteComponent,
 
     NavComponent,
+    
 
     LoginpsiComponent,
     RegistroPacienteComponent,
@@ -72,12 +78,15 @@ import { EstudianteComponent } from './asignacion/estudiante/estudiante.componen
     SpinnerBlancComponent,
     RegistrarAtencionComponent,
     GestUsersComponent,
-    Prueba1Component,
+    ReportesComponent,
+    
   ],
   imports: [
     MatNativeDateModule,
     MatDatepickerModule,
     MatSortModule,
+   
+    ChartsModule,
     MatTooltipModule,
     MatCardModule,
     MatSlideToggleModule,
@@ -91,7 +100,7 @@ import { EstudianteComponent } from './asignacion/estudiante/estudiante.componen
     MatDialogModule,
     MatPaginatorModule,
     MatSidenavModule,
-    NgxDocViewerModule,
+
     MatGridListModule,
     BrowserModule,
     MatInputModule,
@@ -114,7 +123,7 @@ import { EstudianteComponent } from './asignacion/estudiante/estudiante.componen
     provide:HTTP_INTERCEPTORS,
     useClass:AuthInterceptorService,
     multi:true
-  }],
+  },ThemeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

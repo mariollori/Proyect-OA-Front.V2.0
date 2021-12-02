@@ -71,6 +71,11 @@ applyFilter(event: Event) {
   var idpaciente =Number(this.pacienteseleccionado.idpaciente);
  this.servicio.asignarpac_estud(this.pastorselec.idpersonal,idpaciente).subscribe(
    data=>{
+     this.servicio.enviarmensaje(this.pastorselec.idpersonal,this.pacienteseleccionado.nombre).subscribe(
+       data=>{
+         console.log(data)
+       }
+     )
      Swal.fire(
        'Asignado',
        data.toString(),

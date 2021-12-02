@@ -67,6 +67,11 @@ export class PsicologoComponent implements OnInit {
     var idpaciente =Number(this.pacienteseleccionado.idpaciente);
    this.servicio.asignarpac_estud(this.especialistaselec.idpersonal,idpaciente).subscribe(
      data=>{
+      this.servicio.enviarmensaje(this.especialistaselec.idpersonal,this.pacienteseleccionado.nombre).subscribe(
+        data=>{
+          console.log(data)
+        }
+      )
        Swal.fire(
          'Asignado',
          data.toString(),
