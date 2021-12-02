@@ -48,6 +48,8 @@ import { AsignacionComponent } from './asignacion/asignacion.component';
 import { PastorComponent } from './asignacion/pastor/pastor.component';
 import { PsicologoComponent } from './asignacion/psicologo/psicologo.component';
 import { EstudianteComponent } from './asignacion/estudiante/estudiante.component';
+import { PerfilDatoComponent } from './perfil-dato/perfil-dato.component';
+import { RegDatoPsicologoComponent } from './reg-dato-psicologo/reg-dato-psicologo.component';
 
 
 
@@ -78,8 +80,13 @@ import { ChartsModule, ThemeService } from 'ng2-charts';
     SpinnerBlancComponent,
     RegistrarAtencionComponent,
     GestUsersComponent,
+
     ReportesComponent,
-    
+
+  
+    PerfilDatoComponent,
+    RegDatoPsicologoComponent,
+
   ],
   imports: [
     MatNativeDateModule,
