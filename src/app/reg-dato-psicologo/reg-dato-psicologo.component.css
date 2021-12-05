@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Comfortaa", cursive;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 
 .fondo {
@@ -39,16 +39,18 @@
   align-items: center;
 
   justify-content: center;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
   width: 100% inherit;
-  height: 40px;
+  height: 60px;
+background-color: #edc261;
 
-  color: #00a99d;
+  color: #ffffff;
 }
 .header-tittle h2 {
   font-weight: 400;
   font-size: 25px;
-  margin-left: 20px;
-  margin-top: 20px;
+
 }
 
 /* estilos al button volver al Home   */
@@ -82,4 +84,107 @@
 .button-return button mat-icon {
   margin-right: 5px;
   margin-bottom: 7px;
+}
+.personaldata{
+
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  height: 80%;
+  flex-direction:column;
+}
+.personaldata mat-icon{
+  color: #00a99d;
+}
+.example-full-width{
+  margin-left: 10px;
+  margin-right:   10px;
+  width: 45%;
+}
+
+.tipoesp{
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-right: 40px;
+  padding-left: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+.tipoesp label{
+  font-weight: bold;
+  font-size: 18px;
+  color: darkcyan;
+}
+
+mat-horizontal-stepper{
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.btngroup{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.siguiente{
+  background-color: darkcyan !important;
+  color: white;
+  margin-right: 50px;
+
+}
+.siguiente mat-icon{
+  margin-left: 5px;
+}
+
+.horarioadd{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.horarioadd label{
+  font-size: 18px;
+  font-weight: bold;
+  
+  margin-right: 10px;
+}
+.horarioadd input{
+  margin-right: 20px;
+}
+.horarioadd .boton{
+  background-color: cadetblue;
+  padding-left: 4px;
+  padding-right: 10px;
+  color: white;
+}
+
+ul{
+ list-style: none;margin-top: 20px;margin-left: 20px;
+}
+li{
+  display: flex;align-items: center;height: 40px;border-radius: 10px;padding-left: 20px;
+  margin-bottom: 15px;
+background: linear-gradient(cadetblue,#dabd7b);
+}
+
+.atras{
+  background-color: teal;
+  color: white;
+}
+
+.form2horario{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 65vh;
+}
+
+.savebtn{
+  background-color: #edc261;
+  
+  color: white;
+  margin-left: 15px;
+  
 }

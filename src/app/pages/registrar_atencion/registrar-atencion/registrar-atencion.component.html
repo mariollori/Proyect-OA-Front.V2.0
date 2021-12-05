@@ -122,7 +122,7 @@ $(document).ready(function(){
         <div class="form1" *ngIf="counter==0">
           <h5>Datos Personales<img src="assets/datospersonal.png" /></h5>
           <form [formGroup]="datapaciente" class="forms">
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="example-full-width" >
               <mat-label>Religion</mat-label>
               <input matInput type="text" formControlName="religion" />
               <mat-icon matSuffix>church</mat-icon>
@@ -130,7 +130,7 @@ $(document).ready(function(){
                 *ngIf="datapaciente.get('religion').hasError('required')">*requerido</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="example-full-width" >
               <mat-label>Ciudad</mat-label>
               <input matInput type="text" formControlName="ciudad" />
               <mat-icon matSuffix>location_city</mat-icon>
@@ -138,7 +138,7 @@ $(document).ready(function(){
                 *ngIf="datapaciente.get('ciudad').hasError('required')">*requerido</mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
+            <mat-form-field >
               <mat-label>Fecha de Nacimiento</mat-label>
               <input matInput type="date" formControlName="fecha_nacimiento"
                 disabled />
@@ -147,7 +147,7 @@ $(document).ready(function(){
                 *ngIf="datapaciente.get('fecha_nacimiento').hasError('required')">*requerido</mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
+            <mat-form-field >
               <mat-label>Grado de educacion</mat-label>
               <mat-select formControlName="grado_educacion" name="food">
                 <mat-option value="primaria">Primaria</mat-option>
@@ -156,14 +156,14 @@ $(document).ready(function(){
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="example-full-width" >
               <mat-label>Edad</mat-label>
               <input matInput type="text" formControlName="edad" />
               <mat-icon matSuffix>directions_run</mat-icon>
               <mat-error *ngIf="datapaciente.get('edad').hasError('required')">*requerido</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="example-full-width" >
               <mat-label>Ocupacion</mat-label>
               <input matInput type="text" formControlName="ocupacion" />
               <mat-icon matSuffix>work</mat-icon>
@@ -179,7 +179,7 @@ $(document).ready(function(){
               <input type="text" formControlName="nro_sesion" class="sesion" />
             </div>
 
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="example-full-width" >
               <mat-label>Condicion</mat-label>
               <input matInput type="text" formControlName="condicion" />
               <mat-icon matSuffix>thermostat</mat-icon>
@@ -187,7 +187,7 @@ $(document).ready(function(){
                 *ngIf="datosatencion.get('condicion').hasError('required')">*requerido</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="example-full-width" >
               <mat-label>Evidencia</mat-label>
               <input matInput type="text" formControlName="evidencia" />
               <mat-icon matSuffix>link</mat-icon>
@@ -195,7 +195,7 @@ $(document).ready(function(){
                 *ngIf="datosatencion.get('evidencia').hasError('required')">*requerido</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width" appearance="fill"
+            <mat-form-field class="example-full-width" 
               class="largeclass">
               <mat-label>Observaciones</mat-label>
               <textarea matInput formControlName="observaciones"
@@ -222,8 +222,8 @@ $(document).ready(function(){
         <div class="form1" *ngIf="counter!=2">
           <h5>Proxima Sesion<img src="assets/horario.jpg" /></h5>
           <form [formGroup]="fechaatencion" class="horario">
-            <mat-form-field appearance="fill" disabled>
-              <mat-label>Proxima Sesion</mat-label>
+            <mat-form-field class="especial"  disabled>
+              <mat-label>Fecha de Sesion</mat-label>
               <input matInput type="date" formControlName="fecha" disable />
               <mat-error
                 *ngIf="fechaatencion.get('fecha').hasError('required')">*requerido</mat-error>

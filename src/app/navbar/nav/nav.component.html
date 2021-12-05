@@ -1,6 +1,6 @@
 <nav
   class="navbar navbar-expand-lg bg"
-  style="color: white; background-color: #992e45"
+  style="color: white; background-color: #01a89e "
 >
   <div class="container-fluid">
     <div class="btn-menu">
@@ -28,15 +28,13 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
       <form class="d-flex">
         <h5 id="user" *ngIf="nombre">{{ nombre | uppercase }}</h5>
-        <button
-          mat-mini-fab
-          class="btn-user"
-          color="green"
-          [matMenuTriggerFor]="menu"
-        ></button>
+ 
+        <img  mat-mini-fab
+        class="btn-user" [src]="this.imagenserv.nombre" [matMenuTriggerFor]="menu">
+      
 
         <mat-menu #menu="matMenu">
-          <button mat-menu-item [routerLink]="['perfil']">
+          <button mat-menu-item [routerLink]="['perfil_user']">
             <mat-icon>person</mat-icon>Perfil
           </button>
 
@@ -49,6 +47,7 @@
   </div>
 </nav>
 <body>
+ 
   <router-outlet></router-outlet>
 </body>
 

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Rol } from 'src/app/models/Rol';
 import { Opciones } from 'src/app/models/Opciones';
+import { DatosUserComponent } from 'src/app/pages/Perfil/datos-user/datos-user.component';
+import { ImagenService } from 'src/app/services/imagen.service';
 
 @Component({
   selector: 'app-nav',
@@ -12,21 +14,26 @@ import { Opciones } from 'src/app/models/Opciones';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+ 
   nombre;
   action:string='ok';
   apellido;
+  
+  
+
   click:boolean = false;
   roles:Opciones[]=[];
-  constructor(private auth:AuthService,private route:Router,private service:UserService,private _snackBar: MatSnackBar) { }
-
+  constructor(private auth:AuthService,private route:Router,private service:UserService,private _snackBar: MatSnackBar,public imagenserv:ImagenService) { }
+ 
   ngOnInit() {
    
+
     this.service.getopciones(this.auth.rol).subscribe(
       data=>{
         console.log(data)
         this.roles=data as Opciones[];
-
       }
+
     )
 
 
@@ -35,6 +42,7 @@ export class NavComponent implements OnInit {
         console.log(this.auth.usuario.toString());
       this.nombre= data[0].nombre;
     this.apellido =data[0].apellido;
+
     this.openSnackBar()
   }
   

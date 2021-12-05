@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Dosis', sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
   }
 
   body{
@@ -13,26 +13,317 @@
 
 
   }
-  .card-body{
-      width: 80vw;
-      height: 80vh;
-      margin: 0 auto;
-      border-radius: 20px;
-      box-shadow: 2px 2px 5px #666;
-      background-color: white;
-
+  .imgback{
+    width: 10.2%;
+    height: 21.5%;
+    top: 21vh;
+    opacity: 0;
+    left: 15.2vw;
+    display: flex;
+    margin: 20px auto 0px auto;
+    border-radius: 50%;
+    transition: ease;
+    position: absolute;
+    z-index: 5;
+   
+    transition-duration: 0.5s; 
+  }
+  .imgback:hover{
+      opacity: 1;
+      background: url('upload.gif') rgba(117, 117, 116, 0.4);
+      background-size: 60% 60%;
+      background-position:50% 50%;
+      background-repeat: no-repeat;
   }
 .circular-img{
-    width: 100px;
-    height: 100px;
+    width: 40%;
+    height: 53%;
+    display: flex;
+    margin: 20px auto 0px auto;
     border-radius: 50%;
-    background-image: url('circularimg.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: absolute;
-    top: 11vh;
-    left: 45vw;
+ 
+}
+
+.circular-img img{
+ 
+    width: 100%;
+    height: 100%;
+   
+    border-radius: 50%;
+}
+
+.fotoclass{
+    width: 100%;
+   
+    height: 50%;
+}
+.schooldata{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding:20px;
+    width: 100%;
+    height: 35%;
+  
+
+    margin-top: 10px;
+}
+
+.schooldata div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+.schooldata label{
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
     
+}
+.schooldata input{
+    padding-left: 10px;
+    border-radius: 10px;
+}
+.toplist{
+    padding-top: 80px;
+    
+}
+ul{
+    display: flex;
+
+    
+   }
+   li a{
+       width: 200px;
+       text-decoration: none;
+       padding-top: 10px;
+       padding-right: 10px;
+       font-size: large;
+       padding-left: 10px;
+       padding-bottom: 10px;
+       font-weight: bold;
+       color: black;
+   }
+   
+ .datapersonal{
+     display: flex;
+     flex-wrap: wrap;
+     width: 100%;
+     height: 35%;
+     padding-top: 10px;
+     padding-left: 20px;
+        padding-right: 20px;
+        margin-bottom: 10px;
+ }
+
+ .datapersonal mat-form-field{
+     
+ }
+
+ mat-icon{
+     color: #fab044;;
+     margin-right: 10px;
+ }
+ .card-body{
+    width: 85vw;
+    height: 80vh;
+    margin: 0 auto;
+    
+    display: flex;
+    box-shadow: 2px 2px 5px #666;
+    background-color: white;
+
+}
+
+ .cardrigth{
+     width: 30%;
+     height: 100%;
+     background: #01a89e
+ }
+.cardleft{
+    width: 70%;
+   
+    padding-left: 30px;
+    padding-top: 30px;
+    padding-right: 30px;
+    height: 100%;
+}
+.cardrigth h3{
+    margin: 20px auto 0px auto;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+
+h4 {
+    overflow: hidden;
+    text-align: start;
+    color: #87cbcc;
+    font-weight: bold;
+}
+
+.academic:before,
+.academic:after {
+    background-color: rgba(255, 255, 255, 1);
+    content: "";
+
+    
+    display: inline-block;
+    height: 2px;
+    border-radius: 50%;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+}
+.academic:before {
+    right: 0.5em;
+    margin-left: -50%;
+}
+.academic:after {
+    left: 0.5em;
+    margin-right: -50%;
+}
+
+h4:before,
+h4:after {
+    background-color: #01a89e;
+    content: "";
+
+    
+    display: inline-block;
+    height: 2px;
+    border-radius: 50%;
+    position: relative;
+    vertical-align: middle;
+    width: 65%;
+}
+h4:before {
+    right: 0.5em;
+    margin-left: -50%;
+}
+h4:after {
+    left: 0.5em;
+    margin-right: -50%;
+}
+
+input{
+    border:none;
+    outline: none;
+}
+.item{
+    display: flex;
+    width: 49%;
+    height: 30px;
+    margin-right: 15px;
+    margin-bottom: 15px ;
+    align-items: center;
+}
+.item label{
+    display: flex;
+    margin-right: 15px;
+    align-items: center;
+}
+
+fieldset{
+    width: 49%;
+}
+
+.horarioadd{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .horarioadd label{
   
+    
+    margin-right: 10px;
+  }
+  .horarioadd input{
+    margin-right: 20px;
+  }
+  .horarioadd .boton{
+    background-color: cadetblue;
+    padding-left: 4px;
+    padding-right: 10px;
+    color: white;
+  }
   
+  ul{
+   list-style: none;
+   margin-top: 20px;
+   margin-left: 20px;
+   display: flex;
+   height: 200px;
+   max-height: 200px;
+   overflow-y:scroll;
+   padding: 10px;
+   flex-direction: column;
+  }
+  li{
+    display: flex;align-items: center;height: 40px;border-radius: 10px;padding-left: 20px;
+    min-height: 40px;
+    margin-bottom: 15px;
+    width: 100%;
+  background: linear-gradient(to top, rgb(1 168 158) 0%, #a7c2c5 100%);
+  }
+
+  .savebtns{
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+
+  }
+  .savebtns2{
+      width: 100%;
+      display: flex;
+     
+      margin-top: 20px;
+      justify-content: center;
+  }
+  .editbtn{
+    background-color: #3a94bb;
+    width: 7vw;
+    border-radius: 10px;
+    height: 30px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    color: white;
+  }
+  .editbtn mat-icon{
+      margin-left: 8px;
+  }
+
+  .btn1{
+   
+    background-color: rgb(209, 68, 68);
+    width: 7vw;
+    border-radius: 10px;
+    height: 30px;
+    margin-left: 20%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+  }
+.btn2{
+    background-color:  #3a94bb;
+    width: 7vw;
+    border-radius: 10px;
+    height: 30px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    color: white;
 }

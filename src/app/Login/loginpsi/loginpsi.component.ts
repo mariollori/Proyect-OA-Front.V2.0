@@ -42,11 +42,13 @@ export class LoginpsiComponent implements OnInit {
       this.auth.login(this.usuario).subscribe(
         response => {
           this.cargando=false;
+        
           console.log(JSON.parse(atob(response.token.split('.')[1])))
           this.auth.guardartoken(response.token);
           this.auth.guardarrol(response.token);
-          this.auth.guardarusuario(response.token)
-          this.route.navigate(['nav/perfil_user'])
+          this.auth.guardarusuario(response.token);
+         
+          this.route.navigate(['nav/perfil_user']);
         }, err => {
           this.cargando=false;
           this._snackBar.open('Usuario o Contraseña incorrectos', 'Cerrar', { duration: 2 * 1000 });

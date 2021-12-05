@@ -70,7 +70,7 @@ applyFilter(event: Event) {
      
       Swal.fire(
         'Asignado',
-        data.toString(),
+        data['message'].toString(),
         'success'
       )
       this.route.navigate(['nav/asignacion'])

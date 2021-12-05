@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Comfortaa', cursive;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
   }
  
   
@@ -92,17 +92,18 @@ transition: 100ms ease;
     
     justify-content: center;
     width: 100% inherit;
-    height: 40px;
+    height: 60px;
+    background-color: #fab044;
+    border-top-left-radius:40px ;
+    border-top-right-radius: 40px;
     
-    
-    color: #00a99d;
+    color: white;
     
   }
   .headerdos h2{
     font-weight: 400;
     font-size: 25px;
-    margin-left: 20px;
-    margin-top: 20px;
+   
     
   }
 
@@ -154,20 +155,23 @@ transition: 100ms ease;
     
   }
   
+  .bulling{
+    background-image: url(../registro-paciente/imgPac/bulling.png);
+  }
+.deficit{
+  background-image: url(../registro-paciente/imgPac/deficit.jpg);
+}
+.bipolaridad{
+  background-image: url(../registro-paciente/imgPac/bipolaridad.jpg);
+}
+.fobia{
+  background-image: url(../registro-paciente/imgPac/fobia.jpg);
+}
+.trastorno{
+  background-image: url(../registro-paciente/imgPac/transtorno.png);
+}
   
- 
-  .niño{
-    background-image: url(../registro-paciente/imgPac/niño.png);
-  }
-  .joven{
-    background-image: url(../registro-paciente/imgPac/joven.png);
-  }
-  .mayor{
-    background-image: url(../registro-paciente/imgPac/adultomayor.png);
-  }
-  .adulto{
-    background-image: url(../registro-paciente/imgPac/adulto.png);
-  }
+
   #cancelbtn{
     margin-right: 10px;
   }

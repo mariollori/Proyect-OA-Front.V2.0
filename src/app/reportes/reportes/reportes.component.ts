@@ -1,5 +1,5 @@
-import { Component,  OnInit,  } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component,  OnInit, ViewChild,  } from '@angular/core';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 import { Personal } from 'src/app/asignacion/pastor/pastor.component';
 import { ChartDataSets, ChartOptions, ChartType,  } from 'chart.js';
@@ -28,6 +28,7 @@ nombrecompleto;
   personal: Personal[] = [];
   displayedColumns: string[] = ['nro', 'nombre', 'especialidad', 'universidad', 'telefono', 'detalle'];
   constructor(private service: ReporteService) { }
+  @ViewChild( MatPaginator ,{ static: true }) paginator: MatPaginator;
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -38,6 +39,7 @@ nombrecompleto;
       data => {
         this.personal = data as Personal[];
         this.dataSource = new MatTableDataSource(this.personal);
+        this.dataSource.paginator = this.paginator;
       }
     )
   }

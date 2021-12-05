@@ -75,7 +75,7 @@
     <button mat-flat-button (click)="cancelar()">
           Cancelar
     </button>
-    <button mat-raised-button (click)="asignarpaciente()" [disabled]="especialistaselec.length<1"  >Asignar</button>
+    <button mat-raised-button (click)="asignarpaciente()" [disabled]="especialistaselec.length>0 ? null :'disabled' "   >Asignar</button>
    
   </div>
 

@@ -15,48 +15,46 @@ import Swal from 'sweetalert2';
 })
 export class RegistroPacienteComponent implements OnInit {
   check1: boolean = false; check2: boolean = false;
-  mayor: boolean = false; adulto: boolean = false;
-  joven: boolean = false; niño: boolean = false;
-  check3: boolean = false;   check4: boolean = false;
-  check5: boolean = false
+  check6: boolean = false; check8: boolean = false;
+  check7: boolean = false; check9: boolean = false;
+  check3: boolean = false; check4: boolean = false;
+  check5: boolean = false; check10: boolean = false;
 
-  
-  persona:Persona;
-  paciente:Paciente;
-  
 
-  private array : Map<String,HTMLElement> = new Map();
-  private array2: Map<String,HTMLElement> = new Map();
+  persona: Persona;
+  paciente: Paciente;
 
- 
+
+  private array: Map<String, HTMLElement> = new Map();
+  private array2: Map<String, HTMLElement> = new Map();
+
+
   firstFormGroup: FormGroup;
 
-  secondFormGroup: FormGroup;
 
-  registerform:FormGroup;
-  edad:string;
-  motivo:string;
-  
+
+  registerform: FormGroup;
+
+  motivo: string;
+
   descripcion2 = new FormControl('', Validators.required);
-  constructor(private _formBuilder: FormBuilder,private route: Router, private pacienteserv:PersonaService) { }
+  constructor(private _formBuilder: FormBuilder, private route: Router, private pacienteserv: PersonaService) { }
 
   ngOnInit() {
-   
+
     this.firstFormGroup = new FormGroup({
-      firstCtrl : new FormControl('', Validators.requiredTrue)
+      firstCtrl: new FormControl('', Validators.requiredTrue)
     });
-    this.secondFormGroup = new FormGroup({
-      secondCtrl: new FormControl('', Validators.requiredTrue)
-    });
-    
+
+
     this.registerform = new FormGroup({
       nombre: new FormControl('', Validators.required),
       apellido: new FormControl('', Validators.required),
-      correo: new FormControl('', [Validators.required,Validators.email]),
-      genero: new FormControl('', ),
-      dni: new FormControl('',Validators.maxLength(8) ),
+      correo: new FormControl('', [Validators.required, Validators.email]),
+      genero: new FormControl('',),
+      dni: new FormControl('', Validators.maxLength(8)),
       telefono: new FormControl('', Validators.required)
-      
+
     });
   }
 
@@ -66,121 +64,136 @@ export class RegistroPacienteComponent implements OnInit {
     switch (i) {
       case 1:
         this.check1 = !this.check1;
-        this.check2 = false, this.check3 = false;
-        this.check4 = false, this.check5 = false;
-        
-      
-       
-        this.cambiarclases("alimentacion",this.check1);
+       this.check2 = false;
+        this.check6 = false; this.check7 = false;
+        this.check8 = false; this.check9 = false;
+        this.check3 = false; this.check4 = false;
+        this.check5 = false; this.check10 = false;
+
+
+
+        this.cambiarclases("alimentacion", this.check1);
         break;
       case 2:
         this.check2 = !this.check2;
-        this.check1 = false, this.check3 = false;
-        this.check4 = false,
-        this.check5 = false
-       
-        
-        this.cambiarclases("ansiedad",this.check2);
+        this.check1 = false; 
+    this.check6 = false; this.check7 = false;
+    this.check8 = false; this.check9 = false;
+    this.check3 = false; this.check4 = false;
+    this.check5 = false; this.check10 = false;
+
+
+        this.cambiarclases("ansiedad", this.check2);
         break;
       case 3:
         this.check3 = !this.check3;
-        this.check1 = false, this.check2 = false;
-        this.check4 = false,
-        this.check5 = false
-      
-        this.cambiarclases("depresion",this.check3);
+        this.check1 = false; this.check2 = false;
+        this.check6 = false; this.check7 = false;
+        this.check8 = false; this.check9 = false;
+         this.check4 = false;
+        this.check5 = false; this.check10 = false;
+
+        this.cambiarclases("depresion", this.check3);
         break;
       case 4:
         this.check4 = !this.check4;
-        this.check1 = false, this.check3 = false;
-        this.check2 = false,
-        this.check5 = false
-      
-        this.cambiarclases("suicidio",this.check4);
+        this.check1 = false; this.check2 = false;
+    this.check6 = false; this.check7 = false;
+    this.check8 = false; this.check9 = false;
+    this.check3 = false;    this.check5 = false; this.check10 = false;
+
+        this.cambiarclases("suicidio", this.check4);
         break;
       case 5:
-        this.check5 =!this.check5;
-        this.check1 = false, this.check3 = false;
-        this.check4 = false,
-        this.check2 = false
-      
-        this.cambiarclases("familiar",this.check5);
+        this.check5 = !this.check5;
+        this.check1 = false; this.check2 = false;
+    this.check6 = false; this.check7 = false;
+    this.check8 = false; this.check9 = false;
+    this.check3 = false; this.check4 = false;
+  this.check10 = false;
+
+        this.cambiarclases("familiar", this.check5);
         break;
-    
-     
-      default:
+      case 6:
+        this.check6 = !this.check6;
+        this.check1 = false; this.check2 = false;
+        this.check5 = false; this.check7 = false;
+        this.check8 = false; this.check9 = false;
+        this.check3 = false; this.check4 = false;
+      this.check10 = false;
+
+        this.cambiarclases("bulling", this.check6);
         break;
-    }
-  }
-  seleccionaredad(i: number) {
-    switch (i) {
-      case 1:
-        this.mayor = !this.mayor;
-        this.adulto = false, this.joven = false;
-        this.niño = false,
-        this.cambiarclasesedad("mayor",this.mayor);
+      case 7:
+        this.check7 = !this.check7;
+        this.check1 = false; this.check2 = false;
+        this.check6 = false; this.check5 = false;
+        this.check8 = false; this.check9 = false;
+        this.check3 = false; this.check4 = false;
+      this.check10 = false;
+
+        this.cambiarclases("deficit", this.check7);
         break;
-      case 2:
-        this.adulto = !this.adulto;
-        this.mayor = false, this.joven = false;
-        this.niño = false,
-        this.cambiarclasesedad("adulto",this.adulto);
+      case 8:
+        this.check8 = !this.check8;
+        this.check1 = false; this.check2 = false;
+        this.check6 = false; this.check7 = false;
+        this.check5 = false; this.check9 = false;
+        this.check3 = false; this.check4 = false;
+      this.check10 = false;
+        this.cambiarclases("bipolaridad", this.check8);
         break;
-      case 3:
-        this.joven = !this.joven;
-        this.adulto = false, this.mayor = false;
-        this.niño = false,
-        this.cambiarclasesedad("joven",this.joven);
+      case 9:
+        this.check9 = !this.check9;
+        this.check1 = false; this.check2 = false;
+        this.check6 = false; this.check7 = false;
+        this.check8 = false; this.check5 = false;
+        this.check3 = false; this.check4 = false;
+      this.check10 = false;
+        this.cambiarclases("fobia", this.check9);
         break;
-      case 4:
-        this.niño = !this.niño;
-        this.adulto = false, this.joven = false;
-        this.mayor = false,
-        this.cambiarclasesedad("niño",this.niño);
+      case 10:
+        this.check10 = !this.check10;
+        this.check1 = false; this.check2 = false;
+    this.check6 = false; this.check7 = false;
+    this.check8 = false; this.check9 = false;
+    this.check3 = false; this.check4 = false;
+  this.check5 = false;
+        this.cambiarclases("trastorno", this.check10);
         break;
+
+
       default:
         break;
     }
   }
 
-  
-  cambiarclases(nombre:string, valor:boolean){
-    this.motivo=nombre;
-    this.array.forEach(element=>{  
-      if(element.classList.contains(nombre) && valor!=false){
-        element.style.backgroundColor="#00a99d";
-        element.style.color="white";
-        element.style.border=" 3px solid white"
-       this.verificarchecks()
-      }else{
-        element.style.backgroundColor="white";
-        element.style.color="black";
-      
+
+
+  cambiarclases(nombre: string, valor: boolean) {
+    this.motivo = nombre;
+    this.array.forEach(element => {
+      if (element.classList.contains(nombre) && valor != false) {
+        element.style.backgroundColor = "#00a99d";
+        element.style.color = "white";
+        element.style.border = " 3px solid white"
+        this.verificarchecks()
+      } else {
+        element.style.backgroundColor = "white";
+        element.style.color = "black";
+
         this.verificarchecks()
       }
     });
-   }
+  }
 
-   cambiarclasesedad(nombre:string, valor:boolean){
-     this.edad =nombre ;
-    this.array2.forEach(element=>{  
-      if(element.classList.contains(nombre) && valor!=false){
-        element.style.backgroundColor="#00a99d";
-        element.style.color="white";
-        element.style.border=" 3px solid white"
-       this.verificaredad()
-      }else{
-       
-        element.style.backgroundColor="white";
-        element.style.color="black";
-        this.verificaredad()
-      }
-    });
-   }
 
 
   verificarchecks() {
-    if (this.check1 == false && this.check2 == false && this.check3 == false && this.check4 == false && this.check5 == false  ) {
+    if (this.check1 == false && this.check2 == false && this.check3 == false && this.check4 == false && this.check5 == false
+      && this.check6 == false && this.check7 == false &&
+      this.check8 == false && this.check9 == false && this.check10 == false
+    ) {
       this.firstFormGroup.get('firstCtrl').setValidators(Validators.required);
       this.firstFormGroup.get('firstCtrl').updateValueAndValidity();
     } else {
@@ -189,79 +202,66 @@ export class RegistroPacienteComponent implements OnInit {
     }
 
   }
-  verificaredad() {
-    if (this.mayor == false && this.joven == false && this.adulto == false && this.niño == false) {
-      this.secondFormGroup.get('secondCtrl').setValidators(Validators.required);
-      this.secondFormGroup.get('secondCtrl').updateValueAndValidity();
-    } else {
-      this.secondFormGroup.get('secondCtrl').clearValidators();
-      this.secondFormGroup.get('secondCtrl').updateValueAndValidity();
-    }
 
-  }
-  crearlista1(){
-    
-    this.array.set("ansiedad",document.getElementById("ansiedad"));
-    this.array.set("depresion",document.getElementById("depresion"));
-    this.array.set("suicidio",document.getElementById("suicidio"));
-    this.array.set("alimentacion",document.getElementById("alimentacion"));
-    this.array.set("familiar",document.getElementById("familiar"));
-  
+  crearlista1() {
 
+    this.array.set("ansiedad", document.getElementById("ansiedad"));
+    this.array.set("depresion", document.getElementById("depresion"));
+    this.array.set("suicidio", document.getElementById("suicidio"));
+    this.array.set("alimentacion", document.getElementById("alimentacion"));
+    this.array.set("familiar", document.getElementById("familiar"));
+    this.array.set("bulling", document.getElementById("bulling"));
+    this.array.set("deficit", document.getElementById("deficit"));
+    this.array.set("bipolaridad", document.getElementById("bipolaridad"));
+    this.array.set("fobia", document.getElementById("fobia"));
+    this.array.set("bulling", document.getElementById("trastorno"));
   }
 
-  crearlista2(){
-    this.array2.set("joven",document.getElementById("joven"));
-    this.array2.set("mayor",document.getElementById("mayor"));
-    this.array2.set("adulto",document.getElementById("adulto"));
-    this.array2.set("niño",document.getElementById("niño"));
-  }
-  cerrar2(){
-    this.crearlista2();
-  }
 
-  volver(){
+
+
+  volver() {
     this.route.navigate(['home'])
   }
 
-  guardarpaciente(){
-    this.persona=this.registerform.value;
+  guardarpaciente() {
+    this.persona = this.registerform.value;
     this.paciente = new Paciente();
-    this.paciente.descripcion= this.descripcion2.value;
-    this.paciente.edad = this.edad;
+    this.paciente.descripcion = this.descripcion2.value;
+
     this.paciente.motivo = this.motivo;
 
-    this.pacienteserv.crearpersona(this.persona,this.paciente).subscribe(
-      (data)=>{
+    this.pacienteserv.crearpersona(this.persona, this.paciente).subscribe(
+      (data) => {
         Swal.fire({
           icon: 'success',
           title: '',
           text: data.toString(),
         })
         this.reset()
-       
+
 
 
       }
     )
 
 
-    
-  
-    }
 
-    reset(){
-      this.check1=  false; this.check2 = false;
-      this.mayor= false; this.adulto = false;
-      this.joven= false; this.niño = false;
-      this.check3=  false;   this.check4 = false;
-      this.check5= false;
-      this.verificaredad();
-      this.verificarchecks();
-      this.cambiarclases("",false);
-      this.cambiarclasesedad("",false);
-      this.registerform.reset();
-      this.descripcion2.reset();
-      
-    }
+
+  }
+
+  reset() {
+    this.check1 = false; this.check2 = false;
+    this.check6 = false; this.check7 = false;
+    this.check8 = false; this.check9 = false;
+    this.check3 = false; this.check4 = false;
+    this.check5 = false; this.check10 = false;
+
+    this.verificarchecks();
+    this.cambiarclases("", false);
+
+    this.registerform.reset();
+    this.descripcion2.reset();
+
+  }
 }

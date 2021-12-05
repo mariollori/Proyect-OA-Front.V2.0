@@ -24,7 +24,9 @@
 <mat-horizontal-stepper class="stepperhz" [linear]="!isLinear" #stepper>
                 <mat-step [stepControl]="firstFormGroup">
                     <form [formGroup]="firstFormGroup">
-                        <ng-template matStepLabel>Motivo</ng-template>
+                        <ng-template matStepLabel>
+                            <label style="font-size: 18px;font-weight: bold;" >Motivo</label>
+                        </ng-template>
                         <body>
                             <input type="checkbox" formControlName="firstCtrl" [checked]="ischeck" id="checkprincipal" />
 
@@ -62,7 +64,46 @@
                                         <input type="checkbox" class="checkbox" (click)="seleccionaritems(5)" />
                                         <div class="option_inner familiar" id="familiar">
                                             <div class="familiar card-style"></div>
-                                            <div class="name">Familiar</div>
+                                            <div class="name">Problemas Familiares</div>
+                                        </div>
+                                    </label>
+
+
+
+
+                                    <label class="option_item">
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(6)" />
+                                        <div class="option_inner bulling" id="bulling">
+                                            <div class="bulling card-style"></div>
+                                            <div class="name">Bulling</div>
+                                        </div>
+                                    </label>
+                                    <label class="option_item">
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(7)" />
+                                        <div class="option_inner deficit" id="deficit">
+                                            <div class="deficit card-style"></div>
+                                            <div class="name">Deficit de atencion</div>
+                                        </div>
+                                    </label>
+                                    <label class="option_item">
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(8)" />
+                                        <div class="option_inner bipolaridad" id="bipolaridad">
+                                            <div class="bipolaridad card-style"></div>
+                                            <div class="name">Bipolaridad</div>
+                                        </div>
+                                    </label>
+                                    <label class="option_item">
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(9)" />
+                                        <div class="option_inner fobia" id="fobia">
+                                            <div class="fobia card-style"></div>
+                                            <div class="name">Fobia</div>
+                                        </div>
+                                    </label>
+                                    <label class="option_item">
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(10)" />
+                                        <div class="option_inner trastorno" id="trastorno">
+                                            <div class="trastorno card-style"></div>
+                                            <div class="name">Trastornos de sueño</div>
                                         </div>
                                     </label>
                                   
@@ -76,80 +117,32 @@
                         </div>
                     </form>
                 </mat-step>
-                <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
-                    <form [formGroup]="secondFormGroup">
-                        <ng-template matStepLabel>Tipo de Paciente</ng-template>
-                        <body>
-                            <input type="checkbox" formControlName="secondCtrl"  id="checksecundario" />
-
-                            <div class="wrapper">
-                                
-                                <div class="container">
-                                    <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaredad(1)" />
-                                        <div class="option_inner mayor" id="mayor">
-                                            <div class="mayor card-style"></div>
-                                            <div class="name">Mayor</div>
-                                        </div>
-                                    </label>
-                                    <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaredad(2)" />
-                                        <div class="option_inner adulto" id="adulto">
-                                            <div class="adulto card-style"></div>
-                                            <div class="name">Adulto</div>
-                                        </div>
-                                    </label>
-                                    <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaredad(3)" />
-                                        <div class="option_inner joven" id="joven">
-                                            <div class="joven card-style"></div>
-                                            <div class="name">Joven</div>
-                                        </div>
-                                    </label>
-                                    <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaredad(4)" />
-                                        <div class="option_inner niño" id="niño">
-                                            <div class="niño card-style"></div>
-                                            <div class="name">Niño</div>
-                                        </div>
-                                    </label>
-                                  
-                                </div>
-                            </div>
-                        </body>
-
-                        <div class="btn-block-prob">
-                             <button mat-raised-button id="cancelbtn" class="btn-step" matStepperPrevious>Back</button>
-                             <button mat-raised-button   class="btn-step" matStepperNext>Siguiente</button>
-                        </div>
-                        
-                            
-                        
-                    </form>
-                </mat-step>
+                
                 <mat-step>
-                    <ng-template matStepLabel>Datos</ng-template>
+                    <ng-template matStepLabel>
+                        <label style="font-size: 18px;font-weight: bold;" >Datos Personal</label>
+                    </ng-template>
                        <form [formGroup]="registerform" class="login-form">
-                            <mat-form-field   class="example-full-width " appearance="fill">
+                            <mat-form-field   class="example-full-width " >
                               <mat-label >Nombres(*)</mat-label>
                               <input matInput formControlName="nombre" placeholder="Jorge Benavides" >
                               	<mat-error *ngIf="registerform.get('nombre').hasError('required')" >*requerido</mat-error>
                               <mat-icon matSuffix>person</mat-icon>
                             </mat-form-field >
-                             <mat-form-field   class="example-full-width" appearance="fill">
+                             <mat-form-field   class="example-full-width" >
                               <mat-label>Apellidos(*)</mat-label>
                               <input matInput formControlName="apellido" placeholder="Soledad Lopez" >
                               	<mat-error *ngIf="registerform.get('apellido').hasError('required')" >*requerido</mat-error>
                                 <mat-icon matSuffix>person_outline</mat-icon>
                             </mat-form-field>
-                             <mat-form-field  class="example-full-width" appearance="fill">
+                             <mat-form-field  class="example-full-width" >
                               <mat-label>Correo electronico(*)</mat-label>
                               <input matInput  formControlName="correo" placeholder="example@gmail.com" >
                               	<mat-error *ngIf="registerform.get('correo').hasError('required')" >*requerido</mat-error>
                                   	<mat-error *ngIf="registerform.get('correo').hasError('email')" >*Introdusca un correo valido</mat-error>
                               <mat-icon matSuffix>email</mat-icon>
                             </mat-form-field>
-                            <mat-form-field   class="example-full-width" appearance="fill">
+                            <mat-form-field   class="example-full-width" >
                                 <mat-label>Genero</mat-label>
                                 <mat-icon matSuffix>group</mat-icon>
                                 <mat-select  formControlName="genero">
@@ -162,19 +155,19 @@
                                 </mat-select>
                                 	
                               </mat-form-field>
-                             <mat-form-field  class="example-full-width" appearance="fill">
+                             <mat-form-field  class="example-full-width" >
                               <mat-label>Telefono(*)</mat-label>
                               <input matInput formControlName="telefono" type="number"   onKeyPress="if(this.value.length==9) return false;" placeholder="999999999" >
                               	<mat-error *ngIf="registerform.get('telefono').hasError('required')" >*requerido</mat-error>
                                  <mat-icon matSuffix>call</mat-icon>
                             </mat-form-field>
-                             <mat-form-field   class="example-full-width" appearance="fill">
+                             <mat-form-field   class="example-full-width" >
                               <mat-label>Dni</mat-label>
                               <input matInput type="number"   onKeyPress="if(this.value.length==8) return false;"  formControlName="dni" placeholder="88888888" >
                                 <mat-icon matSuffix>payment</mat-icon>
                             </mat-form-field>
 
-                            <mat-form-field  class="large" appearance="fill">
+                            <mat-form-field  class="large" >
                               <mat-label>Descripcion(*)</mat-label>
                                <mat-icon matSuffix>description</mat-icon>
                               <textarea matInput [formControl]="descripcion2" placeholder="El motivo de la consulta presente es para ....."></textarea>

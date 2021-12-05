@@ -38,8 +38,8 @@ export class AsignacionComponent implements OnInit {
   @ViewChild('MatPaginator2', { static: true }) paginator2: MatPaginator;
   @ViewChild('TableOneSort', {static: true}) tableOneSort: MatSort;
   @ViewChild('TableTwoSort', {static: true}) tableOneSort2: MatSort;
-  columnsToDisplay = [ 'nombre', 'motivo', 'telefono','estado','asignacion'];
-  columnsToDisplay2 = [ 'nombre', 'motivo', 'telefono','estado','detalle'];
+  columnsToDisplay = [ 'nombre', 'motivo','genero', 'telefono','estado','asignacion'];
+  columnsToDisplay2 = [ 'nombre', 'motivo','genero',  'telefono','estado','detalle'];
   expandedElement: DataPac | null;
   expandedElement2: DataPac | null;
   constructor(private servicio: AsignacionService) {

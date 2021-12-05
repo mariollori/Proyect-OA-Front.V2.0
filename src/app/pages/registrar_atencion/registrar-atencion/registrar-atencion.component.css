@@ -114,7 +114,7 @@
 .cardrigth{
     
     height: 100%;
-    background-color: #992e45;
+    background-color: #01a89e ;
     display: flex;
     flex-direction: column;
    
@@ -191,7 +191,7 @@
       height: 100%;    
 }
 .registerbtn{
-     background-color: #ac0d30;
+     background-color: #fab044;
      font-weight: bold;
     color: white;
     border: 0;
@@ -248,10 +248,10 @@ background-color: rgb(219, 219, 219);
     color: #666;
 }
 mat-icon{
-    color: #992e45;
+    color: #01a89e;
 }
 .color{
-    background-color: #992e45;
+    background-color: #01a89e;
 }
 
 .imgregister{
@@ -338,7 +338,7 @@ mat-icon{
 }
 
 mat-form-field{
-    width: 250px;
+    width: 90%;
 }
 
 .titles{
@@ -383,7 +383,7 @@ mat-form-field{
 }
 
 .btn-step2{
-    background-color: #992e45;
+    background-color: #01a89e;
     color: white;
     margin-right: 10px;
     width: 100%;
@@ -401,4 +401,8 @@ mat-form-field{
 .sesion{
     margin-left: 10px;
     text-align: center;
+}
+
+.especial{
+    width: 60%;
 }

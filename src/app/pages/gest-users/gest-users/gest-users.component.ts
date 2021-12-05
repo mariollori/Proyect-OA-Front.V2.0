@@ -25,10 +25,11 @@ export class GestUsersComponent implements OnInit {
   detalleelemetn:any;
   usuarioelement:any;
   activo=false;
-  
+
+
   rolactualdisp;
-  @ViewChild(MatPaginator, { static: true }) paginador: MatPaginator;
-  @ViewChild(MatPaginator, { static: true }) paginador2: MatPaginator;
+  @ViewChild('MatPaginator1', { static: true }) paginador: MatPaginator;
+  @ViewChild('MatPaginator2', { static: true }) paginador2: MatPaginator;
   
   constructor(private rolserv:RolOpService, private userserv:UserService) { }
   datausuario:UsuarioData[]=[];
@@ -80,7 +81,7 @@ cargando=false;
         console.log(data)
            this.datausuario= data as UsuarioData[] ;
            this.dataSource=new MatTableDataSource(this.datausuario);
-           this.dataSource.paginator= this.paginador2;
+           this.dataSource.paginator= this.paginador;
       }
     )
   }
@@ -91,7 +92,7 @@ cargando=false;
 
            this.datapsi= data as any[] ;
            this.dataSource2=new MatTableDataSource(this.datapsi);
-           this.dataSource2.paginator= this.paginador;
+           this.dataSource2.paginator= this.paginador2;
 
       }
     )
@@ -161,26 +162,28 @@ cargando=false;
 
   }
 
-  async crearuser(element:any){
+  crearuser(element:any){
     this.cargando=true;
     this.usuarioelement= element
      this.userserv.getusers().subscribe(
-      
       (data)=>{ 
-        this.usuarios=data;
+        console.log(data)
+         this.usuarios=data;
           this.cargando=false
 
-          var usuarioname=element.nombre;
-          var passwordname=element.nombre;
+          var usuarioname=element.nombre.replace(" ", "").toLowerCase();
+          var passwordname=element.nombre.replace(" ", "").toLowerCase();
           var encontrado=0;
           var condicion=1;
           do {
             this.usuarios.find(
               user => {
-                if (  user.username ==  usuarioname.replace(" ", "").toLowerCase()) {
+                if ( usuarioname === user.username  ) {
                   console.log(true);
+                  console.log(user.username);
                   encontrado = 1;
                   this.activo=false;
+                  return true;
                 } else {
                   console.log(usuarioname);
                   encontrado = 0;
@@ -190,17 +193,17 @@ cargando=false;
             var num=Math.floor(Math.random()*101);
             if(encontrado==1){
               usuarioname = usuarioname.concat(num.toString());
-              this.usuario.username=usuarioname.replace(" ","").toLocaleLowerCase();
-            
-              this.usuario.password=passwordname.replace(" ","").toLocaleLowerCase();
+              this.usuario.username=usuarioname
+             console.log(usuarioname)
+              this.usuario.password=passwordname
               this.activo=true;
             }else{
               console.log(encontrado)
               console.log(this.usuarios)
               condicion = 0;
               this.activo=true;
-              this.usuario.username=usuarioname.replace(" ","").toLocaleLowerCase();
-              this.usuario.password=passwordname.replace(" ","").toLocaleLowerCase();
+              this.usuario.username=usuarioname
+              this.usuario.password=passwordname
              
             }
           } while (condicion==1);

@@ -29,7 +29,7 @@
   
  
   .highligth{
-    background: #992e45;
+    background: #000000;
     color: aliceblue;
     font-weight: bold; /* green */
   }
@@ -86,14 +86,14 @@ img{
   margin-right: 15px;
 }
 .mat-flat-button{
-  background-color: #dc3545 !important;
+  background-color: #4c636d !important;
   color: white !important;
   margin-right: 15px
   ;
   font-weight: bold;
 }
 .mat-raised-button{
-  background-color: #ffd54f !important;
+  background-color: #01a89e !important;
   color: white !important;
   font-weight: bold;
 }

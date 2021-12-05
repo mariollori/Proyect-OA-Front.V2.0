@@ -17,7 +17,7 @@
       </mat-form-field>
 
       <!--Select-->
-      <mat-form-field appearance="fill" class="buscador">
+      <mat-form-field class="buscador">
         <mat-label>Estado</mat-label>
         <mat-select [(ngModel)]="opcion">
           <mat-option value="Sin Asignar" (click)="buscar()">Sin Asignar</mat-option>
@@ -47,6 +47,12 @@
             <th mat-header-cell *matHeaderCellDef>Motivo</th>
             <td mat-cell *matCellDef="let element"> {{element.motivo |
               titlecase}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="genero">
+            <th mat-header-cell *matHeaderCellDef>Genero</th>
+            <td mat-cell *matCellDef="let element"> {{element.genero == 'H' ?
+              'Hombre' : 'Mujer' }}
             </td>
           </ng-container>
           <ng-container matColumnDef="telefono">
@@ -97,7 +103,7 @@
                 src="https://img.icons8.com/color/30/000000/scale-tool.png"
                 (click)="seleccionarpac(element)" style="cursor: pointer;"
                 data-toggle="modal"
-                data-target="#exampleModalCenter" />  </td>
+                data-target="#exampleModalCenter" /> </td>
           </ng-container>
           <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let element"
@@ -269,9 +275,9 @@
   role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color: currentColor;">
         <h5 class="modal-title" id="exampleModalLongTitle"
-          style="color:#c5c5c5">Datos
+          style="color:white;">Datos
           de Especialista Asignado</h5>
         <button type="button" class="close" data-dismiss="modal"
           aria-label="Close">
@@ -279,12 +285,9 @@
         </button>
       </div>
       <div class="modal-body detailbody">
-        <div class="detailleft">
-          <img src="assets/infomedico.png" alt="">
 
-        </div>
         <div class="detailrigth">
-          <h6 style="text-align: center;font-weight: bold;color:
+          <h4 style="text-align: center;font-weight: bold;color:
             #c5c5c5;text-transform: capitalize;">
             <img style="width: 30px;height: 30px;"
               *ngIf="psi_asig.tipo=='psicologo'"
@@ -296,7 +299,7 @@
               *ngIf="psi_asig.tipo=='estudiante'"
               src="https://img.icons8.com/color/48/000000/student-male--v1.png"
               />
-            {{psi_asig.nombre + ' ' + psi_asig.apellido}}</h6>
+            {{psi_asig.nombre + ' ' + psi_asig.apellido}}</h4>
           <div class="group-item" *ngIf="psi_asig.tipo=='pastor'">
             <div class="item-info"><label>Telefono:</label><input disabled
                 [(ngModel)]="psi_asig.telefono"></div>
@@ -352,7 +355,7 @@
   role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color: currentColor;">
         <h5 class="modal-title" id="exampleModalLongTitle"
           style="color:#c5c5c5">Datos
           de Especialista Asignado</h5>
@@ -362,12 +365,9 @@
         </button>
       </div>
       <div class="modal-body detailbody">
-        <div class="detailleft">
-          <img src="assets/infomedico.png" alt="">
 
-        </div>
         <div class="detailrigth">
-          <h6 style="text-align: center;font-weight: bold;color:
+          <h4 style="text-align: center;font-weight: bold;color:
             #c5c5c5;text-transform: capitalize;">
             <img style="width: 30px;height: 30px;"
               *ngIf="psi_asig.tipo=='psicologo'"
@@ -379,7 +379,7 @@
               *ngIf="psi_asig.tipo=='estudiante'"
               src="https://img.icons8.com/color/48/000000/student-male--v1.png"
               />
-            {{psi_asig.nombre + ' ' + psi_asig.apellido}}</h6>
+            {{psi_asig.nombre + ' ' + psi_asig.apellido}}</h4>
           <div class="group-item" *ngIf="psi_asig.tipo=='pastor'">
             <div class="item-info"><label>Telefono:</label><input disabled
                 [(ngModel)]="psi_asig.telefono"></div>
@@ -391,15 +391,18 @@
                 [(ngModel)]="psi_asig.universidad" disabled></div>
             <div class="item-info"><label>Grado Academico:</label><input
                 [(ngModel)]="psi_asig.grado_academico" disabled></div>
-            <div class="item-info">
-              <label for="">Condicion Final:</label>
-              <textarea name="" id="" cols="25" rows="3" disabled
-                [(ngModel)]="ultimodetalle.condicion"></textarea>
-            </div>
-            <div class="item-info">
-              <label for="">Observaciones:</label>
-              <textarea name="" id="" cols="25" rows="3" disabled
-                [(ngModel)]="ultimodetalle.observaciones"></textarea>
+            <div class="detalleobse">
+              <div class="item-info">
+                <label for="">Condicion Final:</label>
+                <input disabled
+                  [(ngModel)]="ultimodetalle.condicion">
+              </div>
+              <div class="item-info-lg">
+                <label style="color: #c5c5c5; font-weight: bold;">Observaciones:</label>
+                <textarea name="" id="" cols="90" rows="3" disabled
+                  [(ngModel)]="ultimodetalle.observaciones"></textarea>
+              </div>
+
             </div>
 
           </div>
@@ -414,15 +417,18 @@
                 [(ngModel)]="psi_asig.n_colegiatura" disabled></div>
             <div class="item-info"><label>Grado Academico:</label><input
                 [(ngModel)]="psi_asig.grado_academico" disabled></div>
-            <div class="item-info">
-              <label for="">Condicion Final:</label>
-              <textarea name="" id="" cols="25" rows="3" disabled
-                [(ngModel)]="ultimodetalle.condicion"></textarea>
-            </div>
-            <div class="item-info">
-              <label for="">Observaciones:</label>
-              <textarea name="" id="" cols="25" rows="3" disabled
-                [(ngModel)]="ultimodetalle.observaciones"></textarea>
+            <div class="detalleobse">
+              <div class="item-info">
+                <label for="">Condicion Final:</label>
+                <input disabled
+                  [(ngModel)]="ultimodetalle.condicion">
+              </div>
+              <div class="item-info-lg">
+                <label style="color: #c5c5c5; font-weight: bold;">Observaciones:</label>
+                <textarea name="" id="" cols="90" rows="3" disabled
+                  [(ngModel)]="ultimodetalle.observaciones"></textarea>
+              </div>
+
             </div>
 
           </div>
@@ -437,15 +443,16 @@
                 [(ngModel)]="psi_asig.ciclo + '/' + psi_asig.grupo" disabled></div>
             <div class="item-info"><label>Codigo:</label><input
                 [(ngModel)]="psi_asig.codigo" disabled></div>
+
             <div class="detalleobse">
               <div class="item-info">
                 <label for="">Condicion Final:</label>
-                <textarea name="" id="" cols="25" rows="3" disabled
-                  [(ngModel)]="ultimodetalle.condicion"></textarea>
+                <input disabled
+                  [(ngModel)]="ultimodetalle.condicion">
               </div>
-              <div class="item-info">
-                <label for="">Observaciones:</label>
-                <textarea name="" id="" cols="25" rows="3" disabled
+              <div class="item-info-lg">
+                <label style="color: #c5c5c5; font-weight: bold;">Observaciones:</label>
+                <textarea name="" id="" cols="90" rows="3" disabled
                   [(ngModel)]="ultimodetalle.observaciones"></textarea>
               </div>
 
