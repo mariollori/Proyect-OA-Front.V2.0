@@ -66,9 +66,9 @@ export class DatosUserComponent implements OnInit {
         this.tipo=data[0].tipo;
         this.personal = data[0];
         if(data[0].foto==null){
-          this.imagenserv.nombre='circularimg.png'
+          this.imagenserv.nombre='https://s3.amazonaws.com/files.patmos.upeu.edu.pe/img/upload/fotos/80/no_photo.jpg'
           var doc = document.getElementById('imagendeperfil')
-          doc.setAttribute('src','circularimg.png')
+          doc.setAttribute('src','https://s3.amazonaws.com/files.patmos.upeu.edu.pe/img/upload/fotos/80/no_photo.jpg')
         }else{
           this.service.mostrarimagenfirebase(data[0].foto).subscribe(
             data=>{

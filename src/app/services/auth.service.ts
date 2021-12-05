@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Rol } from '../models/Rol';
 
 import { Usuario } from '../models/Usuario';
+import { ImagenService } from './imagen.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { Usuario } from '../models/Usuario';
 export class AuthService {
   urlEndpoint = "http://localhost:5050/EX3/auth";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private image:ImagenService) { }
   private _usuario: Usuario;
   private _rol:Rol[];
   private _token :string;
@@ -107,6 +108,7 @@ export class AuthService {
     sessionStorage.removeItem('usuario');
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('rol');
+    this.image.nombre=''
     
   
   }
