@@ -108,8 +108,8 @@ export class AuthService {
     sessionStorage.removeItem('usuario');
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('rol');
+    localStorage.clear();
     this.image.nombre=''
-    
   
   }
 

@@ -25,4 +25,13 @@ export class ReporteService {
    
     return this.http.get<any[]>(this.urlEndpoint + "estadisticas/fecha" ,{params:{id:id,fechai:fechai,fechaf:fechaf}});
   }
+  getestadisticatotal(tipo): Observable<any[]> {
+    return this.http.get<any[]>(this.urlEndpoint + "estadisticastotales/" + tipo);
+  }
+
+  getestadisticatotal_fecha(tipo,fechai,fechaf): Observable<any[]> {
+  
+   
+    return this.http.get<any[]>(this.urlEndpoint + "estadisticastotales/fecha" ,{params:{tipo:tipo,fechai:fechai,fechaf:fechaf}});
+  }
 }

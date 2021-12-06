@@ -24,6 +24,7 @@ export class DatosUserComponent implements OnInit {
   imgCodified: string;
   tipo;
   // Form de datos personales
+  nombrecompleto;
   registerform:FormGroup;
   persona:Persona = new Persona();
   personal:Personal_ayuda= new Personal_ayuda();
@@ -55,6 +56,7 @@ export class DatosUserComponent implements OnInit {
       data=>{
         console.log(data);
         this.registerform.setValue(data[0]);
+        this.nombrecompleto= data[0].nombre + ' ' + data[0].apellido;
       }
     )
 
@@ -69,11 +71,13 @@ export class DatosUserComponent implements OnInit {
           this.imagenserv.nombre='https://s3.amazonaws.com/files.patmos.upeu.edu.pe/img/upload/fotos/80/no_photo.jpg'
           var doc = document.getElementById('imagendeperfil')
           doc.setAttribute('src','https://s3.amazonaws.com/files.patmos.upeu.edu.pe/img/upload/fotos/80/no_photo.jpg')
+          localStorage.setItem('imagen','https://s3.amazonaws.com/files.patmos.upeu.edu.pe/img/upload/fotos/80/no_photo.jpg')
         }else{
           this.service.mostrarimagenfirebase(data[0].foto).subscribe(
             data=>{
-              this.imagenserv.nombre=data
+           this.imagenserv.nombre=data;
               var doc = document.getElementById('imagendeperfil')
+              localStorage.setItem('imagen',data)
               doc.setAttribute('src',data)
             }
           )

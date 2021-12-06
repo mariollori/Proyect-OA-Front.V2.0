@@ -10,7 +10,7 @@
     <div class="cardrigth">
       <div class="fotoclass">
        
-        <h3>Mario Llori Santiago Rodrigo</h3>
+        <h3>{{nombrecompleto}}</h3>
         <div class="circular-img" >
           <img  id="imagendeperfil" >
         </div>
@@ -106,7 +106,7 @@
         </div>
       </form>
 
-      <form class="schooldata" *ngIf="tipo=='psicologo'">
+      <form class="schooldata" *ngIf="tipo=='psicologo'" style="margin-top: 0px;">
         <fieldset [disabled]="!editstate2">
           <div>
             <label><mat-icon matSuffix>account_balance</mat-icon> Universidad: </label>
@@ -117,7 +117,7 @@
         <fieldset [disabled]="!editstate2">
           <div>
             <label> <mat-icon matSuffix>grade</mat-icon>Especialidad: </label>
-            <input  [(ngModel)]="personal.correo" name="correo" type="text"
+            <input  [(ngModel)]="personal.especialidad" name="correo" type="text"
               >
           </div>
         </fieldset>
@@ -137,14 +137,14 @@
               capitalize;" >
           </div>
         </fieldset>
-        <div *ngIf="!editstate2" class="savebtns2">
+        <div *ngIf="!editstate2" class="savebtns2" style="margin-top: 0;">
           <button (click)="activar2()"  style="padding: 5px;display: flex;justify-content: center;align-items: center;" type="button" class="btn btn-light">
             Editar<mat-icon style="margin: 0;font-size: 18px;height: auto;" matSuffix>edit</mat-icon> 
           </button>
         </div>
   
   
-        <div *ngIf="editstate2" class="savebtns2">
+        <div *ngIf="editstate2" class="savebtns2"  style="margin-top: 0;">
           <button (click)="desactive2()" class="btn1">
             <mat-icon matSuffix>block</mat-icon> Cancelar
           </button>

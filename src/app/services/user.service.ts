@@ -18,6 +18,9 @@ export class UserService {
   urlEndpoint2 = "http://localhost:5050/EX3/persona";
   urlEndpoint3 = "http://localhost:5050/EX3/opcion";
   urlEndpoint4 = "http://localhost:5050/EX3/psicologo";
+  eliminarsolicitud(idpersonal,idpersona):Observable<any>{
+    return this.http.post<any>(this.urlEndpoint4 + '/deletepersona', { idpersonal,idpersona})
+   }
 
   getuserbyid(idusuario):Observable<Persona>{
    

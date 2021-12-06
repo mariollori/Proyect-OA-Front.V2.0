@@ -52,7 +52,7 @@
                                 <button type="button" data-toggle="modal"
                                     data-target="#detallerol"
                                     (click)="listarrolesactuales(element.idusuario)"
-                                    class="detalle_rol"><mat-icon matSuffix>visibility</mat-icon></button>
+                                    class="detalle_rol"><mat-icon style="color: royalblue;" matSuffix>visibility</mat-icon></button>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="opciones2">
@@ -61,7 +61,7 @@
                                 <button type="button" class="detalle_rol"
                                     data-toggle="modal"
                                     data-target="#agregarroluser"
-                                    (click)="agregarrol_user(element.idusuario)"><mat-icon
+                                    (click)="agregarrol_user(element.idusuario)"><mat-icon style="color: green;"
                                         matSuffix>control_point</mat-icon></button>
                             </td>
                         </ng-container>
@@ -117,13 +117,13 @@
                         </ng-container>
 
                         <ng-container matColumnDef="grupo">
-                            <th mat-header-cell *matHeaderCellDef>Grupo</th>
-                            <td mat-cell *matCellDef="let element">{{element.grupo}}</td>
+                            <th mat-header-cell *matHeaderCellDef>Telefono</th>
+                            <td mat-cell *matCellDef="let element">{{element.telefono}}</td>
                         </ng-container>
 
                         <ng-container matColumnDef="ciclo">
-                            <th mat-header-cell *matHeaderCellDef>Ciclo</th>
-                            <td mat-cell *matCellDef="let element">{{element.ciclo}}</td>
+                            <th mat-header-cell *matHeaderCellDef>Correo</th>
+                            <td mat-cell *matCellDef="let element">{{element.correo}}</td>
                         </ng-container>
 
                         <!-- Symbol Column -->
@@ -133,15 +133,24 @@
                                 <button type="button" data-toggle="modal"
                                     data-target="#detallepsi"
                                     (click)="detallepsi(element)"
-                                    class="detalle_rol"><mat-icon matSuffix>visibility</mat-icon></button>
+                                    class="detalle_rol"><mat-icon style="color: royalblue;" matSuffix>visibility</mat-icon></button>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="opciones2">
                             <th mat-header-cell *matHeaderCellDef>Crear Usuario</th>
                             <td mat-cell *matCellDef="let element">
                                 <button type="button" class="detalle_rol"
-                                    data-toggle="modal" data-target="#crearuser"(click)="crearuser(element)"><mat-icon
+                                    data-toggle="modal" data-target="#crearuser"(click)="crearuser(element)"><mat-icon style="color: teal;"
                                         matSuffix>group_add</mat-icon></button>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="opciones3">
+                            <th mat-header-cell *matHeaderCellDef>Rechazar Solicitud</th>
+                            <td mat-cell *matCellDef="let element">
+                                <button type="button" class="detalle_rol"
+                                   (click)="rechazarsol(element)" ><mat-icon
+                                     style="color: red;"   matSuffix>delete</mat-icon></button>
                             </td>
                         </ng-container>
 
@@ -261,7 +270,7 @@
     <div class="modal-dialog"role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLongTitle">Detalles de
+                <h6 class="modal-title" id="exampleModalLongTitle">   <img width="40" height="40" style="margin-right: 20px;border-radius: 50%;" src="assets/solicitante.png">Detalles de
                     la Solicitud</h6>
                 <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close">
@@ -271,47 +280,57 @@
             <app-spinner-blanc *ngIf="cargando"></app-spinner-blanc>
             <div class="modal-body" *ngIf="!cargando">
 
-                <img class="imgsol" src="assets/solicitante.jpg">
+             
                 <div class="detalledata" *ngIf="detalleelemetn" style="width:
                     100%;">
+                   
 
-                    <mat-form-field class="example-full-width largesize"
-                        appearance="fill">
-                        <mat-label> Nombres del Solicitante</mat-label>
-                        <input matInput placeholder="Ex. Pizza" value="Sushi"
-                            [(ngModel)]="detalleelemetn.nombre + ' ' +
-                            detalleelemetn.apellido" disabled>
-                    </mat-form-field>
+                      <h4 style="text-align: center;font-weight: bold;color:
+                      #c5c5c5;text-transform: capitalize; margin-right: 0;margin-left: 0; width: 100%;margin-bottom: 25px;">
+                      <img style="width: 30px;height: 30px;"
+                        *ngIf="detalleelemetn.tipo=='psicologo'"
+                        src="https://img.icons8.com/color/48/000000/psychology.png" />
+                      <img style="width: 30px;height: 30px;"
+                        *ngIf="detalleelemetn.tipo=='pastor'"
+                        src="https://img.icons8.com/color/48/000000/the-pope.png" />
+                      <img style="width: 30px;height: 30px;"
+                        *ngIf="detalleelemetn.tipo=='estudiante'"
+                        src="https://img.icons8.com/color/48/000000/student-male--v1.png"
+                        />
+                      {{detalleelemetn.nombre + ' ' + detalleelemetn.apellido}}</h4>
+                    <div class="group-item" *ngIf="detalleelemetn.tipo=='pastor'">
+                      <div class="item-info"><label>Especialidad:</label><input
+                          [(ngModel)]="detalleelemetn.especialidad" disabled></div>
+                      <div class="item-info"><label>Universidad:</label><input
+                          [(ngModel)]="detalleelemetn.universidad" disabled></div>
+                      <div class="item-info"><label>Grado Academico:</label><input
+                          [(ngModel)]="detalleelemetn.grado_academico" disabled></div>
+          
+                    </div>
+                    <div *ngIf="detalleelemetn.tipo=='psicologo'" class="group-item">
+                  
+                      <div class="item-info"><label>Especialidad:</label><input
+                          [(ngModel)]="detalleelemetn.especialidad" disabled></div>
+                          <div class="item-info"><label>Universidad:</label><input
+                            [(ngModel)]="detalleelemetn.universidad" disabled></div>
+                      <div class="item-info"><label>Colegiatura:</label><input
+                          [(ngModel)]="detalleelemetn.n_colegiatura" disabled></div>
+                      <div class="item-info"><label>Grado Academico:</label><input
+                          [(ngModel)]="detalleelemetn.grado_academico" disabled></div>
+          
+                    </div>
+                    <div *ngIf="detalleelemetn.tipo=='estudiante'" class="group-item">
+                      <div class="item-info"><label>Ciclo/Grupo:</label><input
+                          [(ngModel)]="detalleelemetn.ciclo + '/' + detalleelemetn.grupo" disabled></div>
+                      <div class="item-info"><label>Codigo:</label><input
+                          [(ngModel)]="detalleelemetn.codigo" disabled></div>
+          
+                    </div>
 
-                    <mat-form-field class="example-full-width"
-                        appearance="fill">
-                        <mat-label>Correo</mat-label>
-                        <input matInput placeholder="Ex. Pizza" value="Sushi"
-                            [(ngModel)]="detalleelemetn.correo" disabled>
-                    </mat-form-field>
-
-                    <mat-form-field class="example-full-width"
-                        appearance="fill">
-                        <mat-label>Especialidad</mat-label>
-                        <input matInput placeholder="Ex. Pizza" value="Sushi"
-                            [(ngModel)]="detalleelemetn.especialidad" disabled>
-                    </mat-form-field>
-
-                    <mat-form-field class="example-full-width"
-                        appearance="fill">
-                        <mat-label>Universidad</mat-label>
-                        <input matInput placeholder="Ex. Pizza" value="Sushi"
-                            [(ngModel)]="detalleelemetn.universidad" disabled>
-                    </mat-form-field>
-
-                    <mat-form-field class="example-full-width"
-                        appearance="fill">
-                        <mat-label>Telefono</mat-label>
-                        <input matInput placeholder="Ex. Pizza" value="Sushi"
-                            [(ngModel)]="detalleelemetn.telefono" disabled>
-                    </mat-form-field>
 
 
+
+                 
 
 
                 </div>

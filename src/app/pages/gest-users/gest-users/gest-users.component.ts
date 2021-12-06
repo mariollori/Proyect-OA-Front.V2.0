@@ -52,7 +52,7 @@ cargando=false;
     this.dataSource2.filter = filterValue.trim().toLowerCase();
   }
   displayedColumns: string[] = ['nro', 'usuario', 'nombres', 'opciones','opciones2'];
-  displayedColumns2: string[] = ['nro', 'nombres', 'tipo', 'grupo','ciclo','opciones','opciones2'];
+  displayedColumns2: string[] = ['nro', 'nombres', 'tipo', 'grupo','ciclo','opciones','opciones2','opciones3'];
   ngOnInit() {
     this.listarusuarios();
     this.listarpsicologos();
@@ -232,5 +232,49 @@ cargando=false;
         this.listarusuarios();
       }
     )
+  }
+
+  rechazarsol(element){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Esta Seguro de eliminar la solicitud?',
+     
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si,eliminar!',
+      cancelButtonText: 'No, cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userserv.eliminarsolicitud(element.idpersonal,element.idpersona).subscribe(
+          data=>{
+            swalWithBootstrapButtons.fire(
+              'Eliminado!',
+              'Se elimino la solicitud.',
+              'success'
+            )
+            this.listarpsicologos()
+          }
+        )
+      
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado',
+          'Se cancelo la peticion',
+          'error'
+        )
+      }
+    })
+   
   }
 }

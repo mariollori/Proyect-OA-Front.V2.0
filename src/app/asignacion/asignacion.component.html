@@ -95,8 +95,8 @@
             <th mat-header-cell *matHeaderCellDef>Ver detalle</th>
             <td mat-cell class="imgasignar" *matCellDef="let element"> <img
                 src="https://www.pngitem.com/pimgs/m/34-341449_transparent-tumblr-clipart-eye-png-png-download.png"
-                style="cursor: pointer;width: 30px;height: 30px;margin-left:
-                20px;"
+                style="cursor: pointer;width: 30px;height: 30px;margin-right:
+                30px;"
                 (click)="verultimaobser(element.idpaciente)"
                 data-toggle="modal"
                 data-target="#detalleultimo" /><img
@@ -300,6 +300,11 @@
               src="https://img.icons8.com/color/48/000000/student-male--v1.png"
               />
             {{psi_asig.nombre + ' ' + psi_asig.apellido}}</h4>
+          <div style="width: 100%;text-align: center;">
+
+            <img [src]='imagenpsi' width="150" style="border-radius: 50%;"
+              height="150" alt="">
+          </div>
           <div class="group-item" *ngIf="psi_asig.tipo=='pastor'">
             <div class="item-info"><label>Telefono:</label><input disabled
                 [(ngModel)]="psi_asig.telefono"></div>
@@ -331,8 +336,7 @@
                 [(ngModel)]="psi_asig.telefono" disabled></div>
             <div class="item-info"><label>Correo:</label><input
                 [(ngModel)]="psi_asig.correo" disabled></div>
-            <div class="item-info"><label>Especialidad:</label> <input
-                [(ngModel)]="psi_asig.especialidad" disabled></div>
+
             <div class="item-info"><label>Ciclo/Grupo:</label><input
                 [(ngModel)]="psi_asig.ciclo + '/' + psi_asig.grupo" disabled></div>
             <div class="item-info"><label>Codigo:</label><input
@@ -380,87 +384,113 @@
               src="https://img.icons8.com/color/48/000000/student-male--v1.png"
               />
             {{psi_asig.nombre + ' ' + psi_asig.apellido}}</h4>
-          <div class="group-item" *ngIf="psi_asig.tipo=='pastor'">
-            <div class="item-info"><label>Telefono:</label><input disabled
-                [(ngModel)]="psi_asig.telefono"></div>
-            <div class="item-info"><label>Correo:</label><input disabled
-                [(ngModel)]="psi_asig.correo"></div>
-            <div class="item-info"><label>Especialidad:</label><input
-                [(ngModel)]="psi_asig.especialidad" disabled></div>
-            <div class="item-info"><label>Universidad:</label><input
-                [(ngModel)]="psi_asig.universidad" disabled></div>
-            <div class="item-info"><label>Grado Academico:</label><input
-                [(ngModel)]="psi_asig.grado_academico" disabled></div>
-            <div class="detalleobse">
-              <div class="item-info">
-                <label for="">Condicion Final:</label>
-                <input disabled
-                  [(ngModel)]="ultimodetalle.condicion">
+          <div style="width: 100%;text-align: center;">
+
+            <img [src]='imagenpsi2' width="150" style="border-radius: 50%;"
+              height="150" alt="">
+          </div>
+
+          <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-top: 20px;">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab"
+                href="#home" role="tab" aria-controls="home"
+                aria-selected="true"><img src="assets/personal.jpg"
+                  style="width: 3ox;height: 30px;margin-right: 10px;" alt="">
+                Datos Personales</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="tab"
+                href="#profile" role="tab" aria-controls="profile"
+                aria-selected="false"><img src="assets/acedemico.jpg"
+                  style="width: 3ox;height: 30px; margin-right: 10px;" alt="">Reportes de Sesiones</a>
+            </li>
+
+          </ul>
+
+
+
+
+
+
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel"
+              aria-labelledby="home-tab">
+              <div class="group-item" *ngIf="psi_asig.tipo=='pastor'">
+                <div class="item-info"><label>Telefono:</label><input disabled
+                    [(ngModel)]="psi_asig.telefono"></div>
+                <div class="item-info"><label>Correo:</label><input disabled
+                    [(ngModel)]="psi_asig.correo"></div>
+                <div class="item-info"><label>Especialidad:</label><input
+                    [(ngModel)]="psi_asig.especialidad" disabled></div>
+                <div class="item-info"><label>Universidad:</label><input
+                    [(ngModel)]="psi_asig.universidad" disabled></div>
+                <div class="item-info"><label>Grado Academico:</label><input
+                    [(ngModel)]="psi_asig.grado_academico" disabled></div>
               </div>
-              <div class="item-info-lg">
-                <label style="color: #c5c5c5; font-weight: bold;">Observaciones:</label>
-                <textarea name="" id="" cols="90" rows="3" disabled
-                  [(ngModel)]="ultimodetalle.observaciones"></textarea>
+
+
+              <div *ngIf="psi_asig.tipo=='psicologo'" class="group-item">
+                <div class="item-info"><label>Telefono:</label><input
+                    [(ngModel)]="psi_asig.telefono" disabled></div>
+                <div class="item-info"><label>Correo:</label><input
+                    [(ngModel)]="psi_asig.correo" disabled></div>
+                <div class="item-info"><label>Especialidad:</label><input
+                    [(ngModel)]="psi_asig.especialidad" disabled></div>
+                <div class="item-info"><label>Colegiatura:</label><input
+                    [(ngModel)]="psi_asig.n_colegiatura" disabled></div>
+                <div class="item-info"><label>Grado Academico:</label><input
+                    [(ngModel)]="psi_asig.grado_academico" disabled></div>
+              </div>
+
+
+              <div *ngIf="psi_asig.tipo=='estudiante'" class="group-item">
+                <div class="item-info"><label>Telefono:</label><input
+                    [(ngModel)]="psi_asig.telefono" disabled></div>
+                <div class="item-info"><label>Correo:</label><input
+                    [(ngModel)]="psi_asig.correo" disabled></div>
+                <div class="item-info"><label>Especialidad:</label> <input
+                    [(ngModel)]="psi_asig.especialidad" disabled></div>
+                <div class="item-info"><label>Ciclo/Grupo:</label><input
+                    [(ngModel)]="psi_asig.ciclo + '/' + psi_asig.grupo" disabled></div>
+                <div class="item-info"><label>Codigo:</label><input
+                    [(ngModel)]="psi_asig.codigo" disabled></div>
               </div>
 
             </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" style="padding: 10px;"
+              aria-labelledby="profile-tab">
 
-          </div>
-          <div *ngIf="psi_asig.tipo=='psicologo'" class="group-item">
-            <div class="item-info"><label>Telefono:</label><input
-                [(ngModel)]="psi_asig.telefono" disabled></div>
-            <div class="item-info"><label>Correo:</label><input
-                [(ngModel)]="psi_asig.correo" disabled></div>
-            <div class="item-info"><label>Especialidad:</label><input
-                [(ngModel)]="psi_asig.especialidad" disabled></div>
-            <div class="item-info"><label>Colegiatura:</label><input
-                [(ngModel)]="psi_asig.n_colegiatura" disabled></div>
-            <div class="item-info"><label>Grado Academico:</label><input
-                [(ngModel)]="psi_asig.grado_academico" disabled></div>
-            <div class="detalleobse">
-              <div class="item-info">
-                <label for="">Condicion Final:</label>
-                <input disabled
-                  [(ngModel)]="ultimodetalle.condicion">
-              </div>
-              <div class="item-info-lg">
-                <label style="color: #c5c5c5; font-weight: bold;">Observaciones:</label>
-                <textarea name="" id="" cols="90" rows="3" disabled
-                  [(ngModel)]="ultimodetalle.observaciones"></textarea>
-              </div>
+              <div *ngFor="let sesion of sesiones" style="width: 100%;">
+                <div class="atencionesreg">
+                   <label class="linea"><span>Nro Sesion: {{sesion.nro_sesion}}</span></label>
+                   <div class="detalleobse">
+                    <div class="detalle2">
+                      <div>
+                        <label for="" style="margin-right: 15px;">Condicion Final:</label>
+                        <input disabled style="margin-right: 25px;"
+                          [(ngModel)]="sesion.condicion">
+                      </div>
+                      <div>
+                        <label  style="margin-right: 15px;" for="">Evidencia Final:</label>
+                        <a href="sesion.evidencia">{{sesion.evidencia}}</a>
+                       
+                      </div>
+                    </div>
+                    <div class="item-info-lg">
+                      <label style="color: #c5c5c5; font-weight: bold;">Observaciones:</label>
+                      <textarea name="" id="" cols="90" rows="3" disabled
+                        [(ngModel)]="sesion.observaciones"></textarea>
+                    </div>
+      
+                  </div>
 
-            </div>
+                </div>
+                
 
-          </div>
-          <div *ngIf="psi_asig.tipo=='estudiante'" class="group-item">
-            <div class="item-info"><label>Telefono:</label><input
-                [(ngModel)]="psi_asig.telefono" disabled></div>
-            <div class="item-info"><label>Correo:</label><input
-                [(ngModel)]="psi_asig.correo" disabled></div>
-            <div class="item-info"><label>Especialidad:</label> <input
-                [(ngModel)]="psi_asig.especialidad" disabled></div>
-            <div class="item-info"><label>Ciclo/Grupo:</label><input
-                [(ngModel)]="psi_asig.ciclo + '/' + psi_asig.grupo" disabled></div>
-            <div class="item-info"><label>Codigo:</label><input
-                [(ngModel)]="psi_asig.codigo" disabled></div>
-
-            <div class="detalleobse">
-              <div class="item-info">
-                <label for="">Condicion Final:</label>
-                <input disabled
-                  [(ngModel)]="ultimodetalle.condicion">
-              </div>
-              <div class="item-info-lg">
-                <label style="color: #c5c5c5; font-weight: bold;">Observaciones:</label>
-                <textarea name="" id="" cols="90" rows="3" disabled
-                  [(ngModel)]="ultimodetalle.observaciones"></textarea>
               </div>
 
             </div>
-
-
           </div>
-
 
 
         </div>

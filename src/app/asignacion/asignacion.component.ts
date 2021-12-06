@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Data } from '@angular/router';
 import { AsignacionService } from '../services/asignacion.service';
+import { RegDatoPsicologoService } from '../services/reg-dato-psicologo.service';
 
 export interface DataPac {
   idpersonal: number;
@@ -30,10 +31,13 @@ export interface DataPac {
   ],
 })
 export class AsignacionComponent implements OnInit {
+  imagenpsi;
+  imagenpsi2
   dataSource:MatTableDataSource<DataPac>;
   dataSource2:MatTableDataSource<DataPac>;
   psi_asig:any='';
   ultimodetalle:any='';
+  sesiones:any[]=[];
   @ViewChild('MatPaginator1' ,{ static: true }) paginator: MatPaginator;
   @ViewChild('MatPaginator2', { static: true }) paginator2: MatPaginator;
   @ViewChild('TableOneSort', {static: true}) tableOneSort: MatSort;
@@ -42,7 +46,7 @@ export class AsignacionComponent implements OnInit {
   columnsToDisplay2 = [ 'nombre', 'motivo','genero',  'telefono','estado','detalle'];
   expandedElement: DataPac | null;
   expandedElement2: DataPac | null;
-  constructor(private servicio: AsignacionService) {
+  constructor(private servicio: AsignacionService,private imageserv:RegDatoPsicologoService) {
     this.dataSource = new MatTableDataSource;
 
     this.dataSource2 = new MatTableDataSource;
@@ -140,7 +144,23 @@ export class AsignacionComponent implements OnInit {
   verasignacion(id){
     this.servicio.getpsi_asignado(id).subscribe(
       data=>{
-        this.psi_asig=data[0];
+        if(data[0].foto==null){
+          
+          this.imagenpsi='https://s3.amazonaws.com/files.patmos.upeu.edu.pe/img/upload/fotos/80/no_photo.jpg';
+          
+          this.psi_asig=data[0];
+        }else{
+          
+          this.psi_asig=data[0];
+          this.imageserv.mostrarimagenfirebase(data[0].foto).subscribe(
+            data2=>{
+
+              this.imagenpsi=data2;
+            }
+          )
+        }
+
+          
       }
     )
   }
@@ -148,13 +168,29 @@ export class AsignacionComponent implements OnInit {
   verultimaobser(id){
     this.servicio.getpsi_asignado(id).subscribe(
       data=>{
-        this.psi_asig=data[0];
+        if(data[0].foto==null){
+          
+          this.imagenpsi2='https://s3.amazonaws.com/files.patmos.upeu.edu.pe/img/upload/fotos/80/no_photo.jpg';
+          
+          this.psi_asig=data[0];
+        }else{
+          
+          this.psi_asig=data[0];
+          this.imageserv.mostrarimagenfirebase(data[0].foto).subscribe(
+            data2=>{
+
+              this.imagenpsi2=data2;
+            }
+          )
+         
+        }
+
       }
     )
     this.servicio.get_last_condition(id).subscribe(
       data=>{
         console.log(data)
-        this.ultimodetalle= data[0]
+        this.sesiones= data
       }
     )
   }
