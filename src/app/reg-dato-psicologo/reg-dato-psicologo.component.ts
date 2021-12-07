@@ -129,7 +129,7 @@ agregarhorario(){
           )
           break;
           case 'pastor':
-            this.personal_ayuda = this.estudiante.value;
+            this.personal_ayuda = this.pastor.value;
             this.persona = this.registerform.value;
             this.persona.tipo = this.tipo;
             this.service.crear_datos_psicologo(this.persona,this.personal_ayuda,this.horarios).subscribe(

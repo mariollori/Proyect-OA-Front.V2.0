@@ -24,7 +24,7 @@ export class EstudianteComponent implements OnInit {
   estudiantes: Personal[] = [];
   @ViewChild(MatPaginator,{static:true}) paginator: MatPaginator;
  
-displayedColumns: string[] = ['nro', 'nombre', 'especialidad', 'ciclo','grupo','codigo'];
+displayedColumns: string[] = ['nro', 'nombre',  'ciclo','grupo','codigo'];
 dataSource;
 estudianteselect:Personal = new Personal();
 pacienteseleccionado;

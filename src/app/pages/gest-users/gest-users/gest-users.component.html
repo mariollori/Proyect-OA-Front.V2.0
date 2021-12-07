@@ -299,12 +299,11 @@
                         />
                       {{detalleelemetn.nombre + ' ' + detalleelemetn.apellido}}</h4>
                     <div class="group-item" *ngIf="detalleelemetn.tipo=='pastor'">
-                      <div class="item-info"><label>Especialidad:</label><input
-                          [(ngModel)]="detalleelemetn.especialidad" disabled></div>
-                      <div class="item-info"><label>Universidad:</label><input
-                          [(ngModel)]="detalleelemetn.universidad" disabled></div>
-                      <div class="item-info"><label>Grado Academico:</label><input
-                          [(ngModel)]="detalleelemetn.grado_academico" disabled></div>
+                      <div class="item-info"><label>Campo:</label><input
+                          [(ngModel)]="detalleelemetn.campo" disabled></div>
+                      <div class="item-info"><label>Distrito:</label><input
+                          [(ngModel)]="detalleelemetn.distrito" disabled></div>
+                  
           
                     </div>
                     <div *ngIf="detalleelemetn.tipo=='psicologo'" class="group-item">

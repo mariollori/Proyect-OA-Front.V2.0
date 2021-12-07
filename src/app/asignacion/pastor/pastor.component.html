@@ -22,33 +22,29 @@
       <!-- Position Column -->
       <ng-container matColumnDef="nro">
         <th mat-header-cell *matHeaderCellDef>No.</th>
-        <td mat-cell [ngClass]="{'highligth': row.nombre == pastorselec.nombre}" *matCellDef="let row,let element;let i=index">{{i+1}}</td>
+        <td mat-cell [ngClass]="{'highligth': element.nombre == pastorselec.nombre}" *matCellDef="let element;let i=index">{{i+1}}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef>Nombre y Apellidos</th>
-        <td mat-cell [ngClass]="{'highligth': row.nombre == pastorselec.nombre}" *matCellDef="let row,let element">{{element.nombre + ' ' + element.apellido}}</td>
+        <td mat-cell [ngClass]="{'highligth': element.nombre == pastorselec.nombre}" *matCellDef="let element">{{element.nombre + ' ' + element.apellido}}</td>
       </ng-container>
 
       <!-- Weight Column -->
-      <ng-container matColumnDef="especialidad">
-        <th mat-header-cell *matHeaderCellDef>Especialidad</th>
-        <td mat-cell[ngClass]="{'highligth': row.nombre == pastorselec.nombre}" *matCellDef="let row,let element">{{element.especialidad}}</td>
+      <ng-container matColumnDef="distrito">
+        <th mat-header-cell *matHeaderCellDef>Ditrito</th>
+        <td mat-cell  [ngClass]="{'highligth': element.nombre == pastorselec.nombre}" *matCellDef="let element">{{element.distrito}}</td>
       </ng-container>
 
       <!-- Symbol Column -->
-      <ng-container matColumnDef="universidad">
-        <th mat-header-cell *matHeaderCellDef>Universidad</th>
-        <td mat-cell[ngClass]="{'highligth': row.nombre == pastorselec.nombre}" *matCellDef="let row,let element">{{element.universidad}}</td>
+      <ng-container matColumnDef="campo">
+        <th mat-header-cell *matHeaderCellDef>Campo</th>
+        <td mat-cell [ngClass]="{'highligth': element.nombre == pastorselec.nombre}" *matCellDef="let element">{{element.campo}}</td>
       </ng-container>
 
       <!-- Symbol Column -->
-      <ng-container matColumnDef="grado_academico">
-        <th mat-header-cell *matHeaderCellDef>Grado Academico</th>
-        <td mat-cell  [ngClass]="{'highligth': row.nombre == pastorselec.nombre}" *matCellDef="let row,let element">{{element.grado_academico}}</td>
-      </ng-container>
-
+    
     
 
 

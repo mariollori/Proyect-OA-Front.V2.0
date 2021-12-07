@@ -21,44 +21,40 @@
       <!-- Position Column -->
       <ng-container matColumnDef="nro">
         <th mat-header-cell *matHeaderCellDef>No.</th>
-        <td mat-cell  [ngClass]="{'highlight': element.nombre == estudianteselect.nombre}"  *matCellDef="let element;let i=index">{{i+1}}</td>
+        <td mat-cell  [ngClass]="{'highlight': element == estudianteselect}"  *matCellDef="let element;let i=index">{{i+1}}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef>Nombre y Apellidos</th>
-        <td mat-cell       [ngClass]="{'highlight': element.nombre == estudianteselect.nombre}" *matCellDef="let row,let element">{{(element.nombre + ' ' + element.apellido) | titlecase}}</td>
+        <td mat-cell       [ngClass]="{'highlight': element == estudianteselect}" *matCellDef="let row,let element">{{(element.nombre + ' ' + element.apellido) | titlecase}}</td>
       </ng-container>
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="especialidad">
-        <th mat-header-cell *matHeaderCellDef>Especialidad</th>
-        <td mat-cell       [ngClass]="{'highlight': element.nombre == estudianteselect.nombre}" *matCellDef="let row,let element">{{element.especialidad}}</td>
-      </ng-container>
+
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="ciclo">
         <th mat-header-cell *matHeaderCellDef>Ciclo</th>
-        <td mat-cell       [ngClass]="{'highlight': element.nombre == estudianteselect.nombre}" *matCellDef="let row,let element">{{element.ciclo}}</td>
+        <td mat-cell       [ngClass]="{'highlight': element == estudianteselect}" *matCellDef="let row,let element">{{element.ciclo}}</td>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="grupo">
         <th mat-header-cell *matHeaderCellDef>Grupo</th>
-        <td mat-cell       [ngClass]="{'highlight': element.nombre == estudianteselect.nombre}" *matCellDef="let row,let element">{{element.grupo}}</td>
+        <td mat-cell       [ngClass]="{'highlight': element == estudianteselect}" *matCellDef="let row,let element">{{element.grupo}}</td>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="codigo">
         <th mat-header-cell *matHeaderCellDef>Codigo</th>
-        <td mat-cell       [ngClass]="{'highlight': element.nombre == estudianteselect.nombre}" *matCellDef="let row,let element">{{element.codigo}}</td>
+        <td mat-cell       [ngClass]="{'highlight': element == estudianteselect}" *matCellDef="let row,let element">{{element.codigo}}</td>
       </ng-container>
 
 
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-        [ngClass]="{'highlight':row.nombre == estudianteselect.nombre}"
+        [ngClass]="{'highlight':row == estudianteselect}"
         (click)="select(row)"></tr>
 
     </table>

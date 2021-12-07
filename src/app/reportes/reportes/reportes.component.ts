@@ -138,6 +138,7 @@ nombrecompleto;
     this.service.getestadistica(id).subscribe(
       
       data => {
+        console.log(data)
         for (let index = 0; index < data.length; index++) {
           
           if (data[index].estado=='Cancelado') {

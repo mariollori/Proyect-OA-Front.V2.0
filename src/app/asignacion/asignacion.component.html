@@ -1,4 +1,7 @@
-
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+</head>
 
 <body>
 
@@ -310,12 +313,10 @@
                 [(ngModel)]="psi_asig.telefono"></div>
             <div class="item-info"><label>Correo:</label><input disabled
                 [(ngModel)]="psi_asig.correo"></div>
-            <div class="item-info"><label>Especialidad:</label><input
-                [(ngModel)]="psi_asig.especialidad" disabled></div>
-            <div class="item-info"><label>Universidad:</label><input
-                [(ngModel)]="psi_asig.universidad" disabled></div>
-            <div class="item-info"><label>Grado Academico:</label><input
-                [(ngModel)]="psi_asig.grado_academico" disabled></div>
+            <div class="item-info"><label>Distrito:</label><input
+                [(ngModel)]="psi_asig.distrito" disabled></div>
+            <div class="item-info"><label>Campo:</label><input
+                [(ngModel)]="psi_asig.campo" disabled></div>
 
           </div>
           <div *ngIf="psi_asig.tipo=='psicologo'" class="group-item">
@@ -420,12 +421,10 @@
                     [(ngModel)]="psi_asig.telefono"></div>
                 <div class="item-info"><label>Correo:</label><input disabled
                     [(ngModel)]="psi_asig.correo"></div>
-                <div class="item-info"><label>Especialidad:</label><input
-                    [(ngModel)]="psi_asig.especialidad" disabled></div>
-                <div class="item-info"><label>Universidad:</label><input
-                    [(ngModel)]="psi_asig.universidad" disabled></div>
-                <div class="item-info"><label>Grado Academico:</label><input
-                    [(ngModel)]="psi_asig.grado_academico" disabled></div>
+                <div class="item-info"><label>Campo:</label><input
+                    [(ngModel)]="psi_asig.campo" disabled></div>
+                <div class="item-info"><label>Distrito:</label><input
+                    [(ngModel)]="psi_asig.distrito" disabled></div>
               </div>
 
 
@@ -448,8 +447,6 @@
                     [(ngModel)]="psi_asig.telefono" disabled></div>
                 <div class="item-info"><label>Correo:</label><input
                     [(ngModel)]="psi_asig.correo" disabled></div>
-                <div class="item-info"><label>Especialidad:</label> <input
-                    [(ngModel)]="psi_asig.especialidad" disabled></div>
                 <div class="item-info"><label>Ciclo/Grupo:</label><input
                     [(ngModel)]="psi_asig.ciclo + '/' + psi_asig.grupo" disabled></div>
                 <div class="item-info"><label>Codigo:</label><input
@@ -470,9 +467,9 @@
                         <input disabled style="margin-right: 25px;"
                           [(ngModel)]="sesion.condicion">
                       </div>
-                      <div>
-                        <label  style="margin-right: 15px;" for="">Evidencia Final:</label>
-                        <a href="sesion.evidencia">{{sesion.evidencia}}</a>
+                      <div style="display: flex;flex-direction: row;align-items: center;">
+                        <label   style="margin-right: 15px;display: flex;align-items: center;margin-bottom: 0;" for="">Evidencia Final:</label>
+                        <a style="display: flex;align-items: center;" href="{{sesion.evidencia}}">Mostrar evidencia <mat-icon>launch</mat-icon></a>
                        
                       </div>
                     </div>

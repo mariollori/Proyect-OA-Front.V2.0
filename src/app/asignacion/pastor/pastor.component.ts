@@ -9,6 +9,8 @@ export class Personal {
   nombre: string;
   apellido: string;
   especialidad: string;
+  distrito:string;
+  campo:string;
   ciclo: number;
   grupo: number;
   codigo: string;
@@ -23,7 +25,7 @@ export class Personal {
 })
 export class PastorComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  displayedColumns: string[] = ['nro', 'nombre', 'especialidad', 'universidad', 'grado_academico'];
+  displayedColumns: string[] = ['nro', 'nombre', 'distrito', 'campo'];
   dataSource;
   pastorselec:Personal = new Personal();
   pacienteseleccionado;

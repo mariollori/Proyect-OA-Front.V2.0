@@ -24,7 +24,7 @@ import { EstudianteComponent } from './asignacion/estudiante/estudiante.componen
 import { PsicologoComponent } from './asignacion/psicologo/psicologo.component';
 import { ReportesComponent } from './reportes/reportes/reportes.component';
 import { RegDatoPsicologoComponent } from './reg-dato-psicologo/reg-dato-psicologo.component';
-import { PerfilDatoComponent } from './perfil-dato/perfil-dato.component';
+
 
 
 
@@ -48,7 +48,7 @@ const routes: Routes = [
     {path:'estudiante', component:EstudianteComponent,canActivate:[AuthGuard]},
     {path:'psicologo', component:PsicologoComponent,canActivate:[AuthGuard]},
     /*  PERFIL DEL USUARIO O PSICOLOGO UNA VEZ QUE SE REGISTRE */
-    {path:'perfil', component:PerfilDatoComponent,canActivate:[AuthGuard]},
+  
   ],canActivate:[AuthGuard]},
 
   {path:'register-pac',component:RegistroPacienteComponent},

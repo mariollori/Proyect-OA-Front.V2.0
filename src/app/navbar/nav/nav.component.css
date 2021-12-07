@@ -33,7 +33,7 @@
     height: 40px;
     display: flex;
     justify-content: center;
-  border-radius: 50%;
+ 
     align-items: center;
     margin-right: 10px;
 }
@@ -95,7 +95,7 @@ body{
       justify-content: flex-start;
       padding-left: 20px;
       align-items: center;
-    background-color:   #fab044 ;
+    background-color:   #363443 ;
     height: 10vh;
      color: white;
 }

@@ -214,7 +214,7 @@ export class RegistroPacienteComponent implements OnInit {
     this.array.set("deficit", document.getElementById("deficit"));
     this.array.set("bipolaridad", document.getElementById("bipolaridad"));
     this.array.set("fobia", document.getElementById("fobia"));
-    this.array.set("bulling", document.getElementById("trastorno"));
+    this.array.set("transtorno", document.getElementById("trastorno"));
   }
 
 
@@ -239,9 +239,12 @@ export class RegistroPacienteComponent implements OnInit {
           text: data.toString(),
         })
         this.reset()
-
-
-
+      },(error)=>{
+        Swal.fire({
+          icon: 'success',
+          title: '',
+          text: 'Dni duplicado.'
+        })
       }
     )
 
