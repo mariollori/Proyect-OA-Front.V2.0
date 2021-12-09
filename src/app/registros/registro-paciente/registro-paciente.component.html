@@ -21,14 +21,14 @@
 
 
 
-<mat-horizontal-stepper class="stepperhz" [linear]="!isLinear" #stepper>
+<mat-horizontal-stepper class="stepperhz" [linear]="!islinear" #stepper>
                 <mat-step [stepControl]="firstFormGroup">
                     <form [formGroup]="firstFormGroup">
                         <ng-template matStepLabel>
                             <label style="font-size: 18px;font-weight: bold;" >Motivo</label>
                         </ng-template>
                         <body>
-                            <input type="checkbox" formControlName="firstCtrl" [checked]="ischeck" id="checkprincipal" />
+                            
 
                             <div class="wrapper">
                                 <div class="container">

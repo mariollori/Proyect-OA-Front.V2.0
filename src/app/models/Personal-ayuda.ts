@@ -7,6 +7,8 @@ export class Personal_ayuda{
   n_colegiatura:string;
   especialidad:string;
   ciclo:number;
+  campo:string;
+  distrito:string;
   codigo:string;
   grupo:number;
   estado:number;
