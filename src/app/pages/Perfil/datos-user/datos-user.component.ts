@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Horario_psicologo } from 'src/app/models/Horario_psicologo';
 import { Persona } from 'src/app/models/Persona';
 import { Personal_ayuda } from 'src/app/models/personal-ayuda';
+
 import { AuthService } from 'src/app/services/auth.service';
 import { ImagenService } from 'src/app/services/imagen.service';
 import { RegDatoPsicologoService } from 'src/app/services/reg-dato-psicologo.service';
