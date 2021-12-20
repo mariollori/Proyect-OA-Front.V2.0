@@ -56,9 +56,26 @@ import { RegDatoPsicologoComponent } from './reg-dato-psicologo/reg-dato-psicolo
 import { ReportesComponent } from './reportes/reportes/reportes.component';
 import { ChartsModule, ThemeService } from 'ng2-charts';
 
-
-
-
+//****************** Primeng */
+import {BadgeModule} from 'primeng/badge'
+import {TableModule} from 'primeng/table'
+import {FilterService} from 'primeng/api';
+import {AvatarModule} from 'primeng/avatar';
+import {ButtonModule} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
+import {InputTextModule} from 'primeng/inputtext';
+import {CascadeSelectModule} from 'primeng/cascadeselect';
+import {TieredMenuModule} from 'primeng/tieredmenu';
+import {MenuItem} from 'primeng/api';
+import {MenuModule} from 'primeng/menu';
+import {CardModule} from 'primeng/card';
+import {TabViewModule} from 'primeng/tabview';
+import {RatingModule} from 'primeng/rating';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
+import {DividerModule} from 'primeng/divider';
+import {FieldsetModule} from 'primeng/fieldset';
 
 @NgModule({
   declarations: [
@@ -70,7 +87,7 @@ import { ChartsModule, ThemeService } from 'ng2-charts';
     EstudianteComponent,
 
     NavComponent,
-    
+        
 
     LoginpsiComponent,
     RegistroPacienteComponent,
@@ -89,13 +106,26 @@ import { ChartsModule, ThemeService } from 'ng2-charts';
 
   ],
   imports: [
+    CardModule,
+    ButtonModule,
     MatNativeDateModule,
+    ToastModule,
+    RatingModule,
+    CascadeSelectModule,
     MatDatepickerModule,
+  InputTextModule,
+  TabViewModule,
+    BadgeModule,
+    AvatarModule,
+    FieldsetModule,
     MatSortModule,
-   
+   TableModule,
+   TieredMenuModule,
+MenuModule,
     ChartsModule,
     MatTooltipModule,
     MatCardModule,
+    DividerModule,
     MatSlideToggleModule,
     MatTabsModule,
     CommonModule,
@@ -107,12 +137,12 @@ import { ChartsModule, ThemeService } from 'ng2-charts';
     MatDialogModule,
     MatPaginatorModule,
     MatSidenavModule,
-
+    DialogModule,
     MatGridListModule,
     BrowserModule,
     MatInputModule,
     MatFormFieldModule,
-
+    ScrollPanelModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
@@ -126,7 +156,7 @@ import { ChartsModule, ThemeService } from 'ng2-charts';
     BrowserAnimationsModule,
   ],
   entryComponents : [  ] ,
-  providers: [{
+  providers: [FilterService,MessageService,{
     provide:HTTP_INTERCEPTORS,
     useClass:AuthInterceptorService,
     multi:true

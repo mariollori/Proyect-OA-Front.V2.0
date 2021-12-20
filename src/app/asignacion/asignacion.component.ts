@@ -31,6 +31,18 @@ export interface DataPac {
   ],
 })
 export class AsignacionComponent implements OnInit {
+  display: boolean = false;
+  displayResponsive:boolean=false;
+  displayResponsive2:boolean=false;
+  showDialog() {
+      this.display = true;
+  }
+  showResponsiveDialog(){
+this.displayResponsive=true;
+  }
+  showResponsiveDialog2(){
+    this.displayResponsive2=true;
+  }
   imagenpsi;
   imagenpsi2
   dataSource:MatTableDataSource<DataPac>;
@@ -56,7 +68,7 @@ export class AsignacionComponent implements OnInit {
   pacientes2: DataPac[] = [];
   pacseleccionado;
   ngOnInit() {
-    
+   
     this.opcion='Sin Asignar'
     this.servicio.getAsignaciones(this.opcion).subscribe(
       data => {
@@ -71,6 +83,7 @@ export class AsignacionComponent implements OnInit {
 
 
   buscar(){
+    console.log(this.opcion)
     switch (this.opcion) {
       case 'Sin Asignar':
         this.servicio.getAsignaciones(this.opcion).subscribe(
@@ -86,6 +99,7 @@ export class AsignacionComponent implements OnInit {
           
         this.servicio.getAsignaciones(this.opcion).subscribe(
           data => {
+            console.log(data)
             this.pacientes = data as DataPac[];
             this.dataSource.data= this.pacientes as DataPac[];
             this.dataSource.paginator = this.paginator;
@@ -144,14 +158,15 @@ export class AsignacionComponent implements OnInit {
   verasignacion(id){
     this.servicio.getpsi_asignado(id).subscribe(
       data=>{
-        if(data[0].foto==null){
-          
+        if(data[0].foto=== null){
+          console.log('asdsad')
           this.imagenpsi='https://s3.amazonaws.com/files.patmos.upeu.edu.pe/img/upload/fotos/80/no_photo.jpg';
           
           this.psi_asig=data[0];
         }else{
           
           this.psi_asig=data[0];
+          console.log(data[0].foto)
           this.imageserv.mostrarimagenfirebase(data[0].foto).subscribe(
             data2=>{
 

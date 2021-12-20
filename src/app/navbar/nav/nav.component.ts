@@ -7,6 +7,7 @@ import { Rol } from 'src/app/models/Rol';
 import { Opciones } from 'src/app/models/Opciones';
 import { DatosUserComponent } from 'src/app/pages/Perfil/datos-user/datos-user.component';
 import { ImagenService } from 'src/app/services/imagen.service';
+import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-nav',
@@ -20,14 +21,20 @@ export class NavComponent implements OnInit {
   apellido;
   
   
-
+  items: MenuItem[];
   click:boolean = false;
   roles:Opciones[]=[];
-  constructor(private auth:AuthService,private route:Router,private service:UserService,private _snackBar: MatSnackBar,public imagenserv:ImagenService) { }
+  constructor(private auth:AuthService,private route:Router,private service:UserService,private _snackBar: MatSnackBar,public imagenserv:ImagenService,private messageService:MessageService) { }
  
   ngOnInit() {
-   
-
+    this.items = [
+      {label: 'Perfil', icon: 'pi pi-fw pi-user', command: () => {
+        this.enviarperfil();
+    }},
+      {label: 'Logout', icon: 'pi pi-fw pi-power-off', command: () => {
+        this.logout();
+    }}
+  ];
     this.service.getopciones(this.auth.rol).subscribe(
       data=>{
         console.log(data)
@@ -40,41 +47,28 @@ export class NavComponent implements OnInit {
     this.service.getuserbyid(this.auth.usuario.idpersonal).subscribe(
       data=>{
         console.log(this.auth.usuario.toString());
-      this.nombre= data[0].nombre;
+      this.nombre= data[0].nombre + ' ' + data[0].apellido;
     this.apellido =data[0].apellido;
 
-    this.openSnackBar()
+    this.showSuccess()
   }
   
     )
   }
+  showSuccess() {
+    this.messageService.add({severity:'success', summary: 'Bienvenido', detail: `Bienvenido   ${this.nombre}  `});
+}
   logout(){
     this.auth.logout();
     
     this.route.navigate(['loginpsi'])
+  }
+  enviarperfil(){
+    this.route.navigate(['nav/perfil_user'])
   }
   openSnackBar() {
     this._snackBar.open('Bienvenido ' + this.nombre + ' ' + this.apellido
     , this.action,{ duration: 2 * 1000 });
   }
 
-  cerrar(){
-
-    const side: HTMLElement = document.getElementById('container-menu');
-    const btn :HTMLElement = document.getElementById('cont-menu');
-    console.log(this.click)
-    if(this.click!=true){
-      side.style.opacity = "1";
-      side.style.visibility = 'visible'; //visibility
-      btn.style.left = '0'
-      this.click=true;
-    }else{
-      side.style.opacity = '0';
-      side.style.visibility = 'hidden'; //visibility
-      btn.style.left = '-250px'
-      this.click=false;
-    }
-
-   
-  }
 }

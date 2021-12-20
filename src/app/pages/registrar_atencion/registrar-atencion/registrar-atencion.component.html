@@ -7,53 +7,91 @@
     <div class="header">
       <h5><img class="imgheader" src="assets/paciente.png">Pacientes Asignados</h5>
     </div>
+
     <app-spinner-blanc *ngIf="cargando"></app-spinner-blanc>
     <div class="body-content" *ngIf="!cargando">
 
-      <div class="list-cards" *ngIf="!cargando">
+
+      <p-scrollPanel [style]="{width: '50vw', height: '100%'}"
+        *ngIf="!cargando">
+       
+         
 
         <div *ngFor="let pac of datalist" class="card">
-          <div class="cardleft">
-            <span *ngIf="pac.genero=='H'" class="badge badge-pill badge-info">Hombre</span>
-            <span *ngIf="pac.genero=='M'" class="badge badge-pill badge-danger">Mujer</span>
-            <img *ngIf="pac.genero=='H'" class="img" src="assets/pach.png" />
-            <img *ngIf="pac.genero=='M'" class="img" src="assets/pacm.png" />
+          
+          <div class="cardleft" *ngIf="pac.genero=='H'">
+            <div class="left1">
+              <span  style="text-transform: uppercase;background-color: rgba(0,0,0,0.3);" class="badge badge-secondary">Hombre</span>
+              <img class="img" src="https://bootdey.com/img/Content/avatar/avatar6.png" />
+              <span style="text-transform: uppercase;background-color: rgba(0,0,0,0.3);" class="badge badge-secondary">{{pac.motivo}}</span>
+            </div>
+            
+            <div class="left2">
+              <h5 style="text-align: center;font-weight: bold;margin-top: 10px;font-size: 30px;text-transform: capitalize;">{{pac.nombre }}</h5>
+              <div style="display: flex;flex-direction: row;justify-content: space-around;margin-top: 20px;">
+                <div style="display: flex;align-items: center;flex-direction: column;" >
+                  <mat-icon style="font-size: 30px;color: rgba(0,0,0,0.5);;margin-bottom: 15px;">phone</mat-icon>
+                  <p style="color: rgba(0,0,0,0.5);;font-weight: bold;">{{pac.telefono}}</p>
+                </div>
+                <div style="display: flex;align-items: center;flex-direction: column;">
+                  <mat-icon style="font-size: 30px; color: rgba(0,0,0,0.5);;margin-bottom: 15px;">email</mat-icon>
+                  <p style="color: rgba(0,0,0,0.5);;font-weight: bold;"> {{pac.correo}}</p>
+  
+                </div>
+              </div>
+              <div style="width: 100%;height: 40px;background-color: yellow;">
+                <button color="primary" data-toggle="modal" style="width: 50%;height: 100%;border: none;background-color: white;font-weight: bold;"
+                  data-target="#register_aten"
+                  (click)="verificarsesiones(pac.idasignacion,pac.idpaciente)">Registrar
+                  Atencion</button>
+                <button  color="basic" data-toggle="modal" style="width: 50%;height: 100%;border: none;background-color: #afdfe5;font-weight: bold;"
+                  data-target="#cancelaratencion" (click)="detallecancelar(pac)">Cancelar
+                  Atencion</button>
+              </div>
+            </div>
+          </div>
+          <div class="cardleftM" *ngIf="pac.genero=='M'">
+            <div class="left1">
+              <span  style="text-transform: uppercase;background-color: rgba(0,0,0,0.3);" class="badge badge-secondary">Mujer</span>
+              <img class="img" src="https://armeniahotel.com.co/wp-content/uploads/2017/07/avatars-1-06.jpg" />
+              <span style="text-transform: uppercase;background-color: rgba(0,0,0,0.3);" class="badge badge-secondary">{{pac.motivo}}</span>
+            </div>
+            <div class="left2">
+              <h5 style="text-align: center;font-weight: bold;margin-top: 10px;font-size: 30px;text-transform: capitalize;">{{pac.nombre }}</h5>
+              <div style="display: flex;flex-direction: row;justify-content: space-around;margin-top: 20px;">
+                <div style="display: flex;align-items: center;flex-direction: column;" >
+                  <mat-icon style="font-size: 30px;color: rgba(0,0,0,0.5);;margin-bottom: 15px;">phone</mat-icon>
+                  <p style="color: rgba(0,0,0,0.5);;font-weight: bold;">{{pac.telefono}}</p>
+                </div>
+                <div style="display: flex;align-items: center;flex-direction: column;">
+                  <mat-icon style="font-size: 30px; color: rgba(0,0,0,0.5);;margin-bottom: 15px;">email</mat-icon>
+                  <p style="color: rgba(0,0,0,0.5);;font-weight: bold;"> {{pac.correo}}</p>
+  
+                </div>
+              </div>
+              <div style="width: 100%;height: 40px;background-color: yellow;">
+                <button color="primary" data-toggle="modal" style="width: 50%;height: 100%;border: none;background-color: white;font-weight: bold;"
+                  data-target="#register_aten"
+                  (click)="verificarsesiones(pac.idasignacion,pac.idpaciente)">Registrar
+                  Atencion</button>
+                <button  color="basic" data-toggle="modal" style="width: 50%;height: 100%;border: none;background-color: #afdfe5;font-weight: bold;"
+                  data-target="#cancelaratencion" (click)="detallecancelar(pac)">Cancelar
+                  Atencion</button>
+              </div>
+            </div>
           </div>
           <div class="cardrigth">
-            <h5>{{pac.nombre }}</h5>
-            <form class="info">
-              <div class="descripciondiv">
-                    <p>{{pac.descripcion}}</p>
-              </div>
-             
-            </form>
-            <div class="infopaciente">
-              <div class="pacdetail">
-                <mat-icon  matTooltipPosition="above"
-                matTooltip="{{pac.telefono}}">phone</mat-icon>
-              <p>{{pac.telefono}}</p>
-              </div>
-              <div class="pacdetail">
-                <mat-icon >email</mat-icon>
-                <p>{{pac.correo}}</p>
-              </div>
-              <div class="pacdetail">
-                <mat-icon >pan_tool</mat-icon>
-                <p>{{pac.motivo}}</p>
-              </div>
-            </div>
-            <div class="botones">
-              <button class="registerbtn" color="primary" data-toggle="modal"
-                data-target="#register_aten"
-                (click)="verificarsesiones(pac.idasignacion,pac.idpaciente)">Registrar
-                Atencion</button>
-              <button class="cancelbtn" color="basic" data-toggle="modal"
-                data-target="#cancelaratencion" (click)="detallecancelar(pac)">Cancelar
-                Atencion</button>
-            </div>
+            <h5 style="text-align: center;font-weight: bold;margin-top: 10px;font-size: 30px;text-transform: capitalize;">{{pac.nombre }}</h5>
+            <p style="text-transform: capitalize;text-align: start;width: 100%; padding-left: 20px;height: 40%;">
+              {{pac.descripcion}}
+         </p>
+            <p style="width: 100%;text-align: end;padding-right: 25px;">Mouse sobre la tarjeta para mas info</p>
           </div>
         </div>
-      </div>
+
+      </p-scrollPanel>
+
+
       <div class="listproximasS">
         <h5><img class="imgheader" src="assets/proximas.jpg">Proximas Sesiones</h5>
         <div class="proximassesiones">
@@ -75,12 +113,12 @@
                 <td class="ti">{{aten.fecha_sesion | date:'dd/MM/yyyy'}}</td>
                 <td class="ti">{{aten.hora}}</td>
                 <td class="ti"><img
-                  src="https://www.pngitem.com/pimgs/m/34-341449_transparent-tumblr-clipart-eye-png-png-download.png"
-                  style="cursor: pointer;width: 30px;height: 30px;margin-left:
-                  20px;"
-                  (click)="asignaridfecha(aten.idregistro_aten,aten.fecha_sesion,aten.hora)"
-                  data-toggle="modal"
-                  data-target="#modificarfecha" /> </td>
+                    src="https://www.pngitem.com/pimgs/m/34-341449_transparent-tumblr-clipart-eye-png-png-download.png"
+                    style="cursor: pointer;width: 30px;height: 30px;margin-left:
+                    20px;"
+                    (click)="asignaridfecha(aten.idregistro_aten,aten.fecha_sesion,aten.hora)"
+                    data-toggle="modal"
+                    data-target="#modificarfecha" /> </td>
               </tr>
             </tbody>
           </table>
@@ -98,7 +136,6 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();   
 });
 </script>
-
 <!-- Modal largo xd -->
 <div class="modal fade bd-example-modal-lg" id="register_aten" tabindex="-1"
   role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -122,7 +159,7 @@ $(document).ready(function(){
         <div class="form1" *ngIf="counter==0">
           <h5>Datos Personales<img src="assets/datospersonal.png" /></h5>
           <form [formGroup]="datapaciente" class="forms">
-            <mat-form-field class="example-full-width" >
+            <mat-form-field class="example-full-width">
               <mat-label>Religion</mat-label>
               <input matInput type="text" formControlName="religion" />
               <mat-icon matSuffix>church</mat-icon>
@@ -130,7 +167,7 @@ $(document).ready(function(){
                 *ngIf="datapaciente.get('religion').hasError('required')">*requerido</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width" >
+            <mat-form-field class="example-full-width">
               <mat-label>Ciudad</mat-label>
               <input matInput type="text" formControlName="ciudad" />
               <mat-icon matSuffix>location_city</mat-icon>
@@ -138,7 +175,7 @@ $(document).ready(function(){
                 *ngIf="datapaciente.get('ciudad').hasError('required')">*requerido</mat-error>
             </mat-form-field>
 
-            <mat-form-field >
+            <mat-form-field>
               <mat-label>Fecha de Nacimiento</mat-label>
               <input matInput type="date" formControlName="fecha_nacimiento"
                 disabled />
@@ -147,7 +184,7 @@ $(document).ready(function(){
                 *ngIf="datapaciente.get('fecha_nacimiento').hasError('required')">*requerido</mat-error>
             </mat-form-field>
 
-            <mat-form-field >
+            <mat-form-field>
               <mat-label>Grado de educacion</mat-label>
               <mat-select formControlName="grado_educacion" name="food">
                 <mat-option value="primaria">Primaria</mat-option>
@@ -156,14 +193,14 @@ $(document).ready(function(){
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width" >
+            <mat-form-field class="example-full-width">
               <mat-label>Edad</mat-label>
               <input matInput type="text" formControlName="edad" />
               <mat-icon matSuffix>directions_run</mat-icon>
               <mat-error *ngIf="datapaciente.get('edad').hasError('required')">*requerido</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width" >
+            <mat-form-field class="example-full-width">
               <mat-label>Ocupacion</mat-label>
               <input matInput type="text" formControlName="ocupacion" />
               <mat-icon matSuffix>work</mat-icon>
@@ -179,7 +216,7 @@ $(document).ready(function(){
               <input type="text" formControlName="nro_sesion" class="sesion" />
             </div>
 
-            <mat-form-field class="example-full-width" >
+            <mat-form-field class="example-full-width">
               <mat-label>Condicion</mat-label>
               <input matInput type="text" formControlName="condicion" />
               <mat-icon matSuffix>thermostat</mat-icon>
@@ -187,7 +224,7 @@ $(document).ready(function(){
                 *ngIf="datosatencion.get('condicion').hasError('required')">*requerido</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width" >
+            <mat-form-field class="example-full-width">
               <mat-label>Evidencia</mat-label>
               <input matInput type="text" formControlName="evidencia" />
               <mat-icon matSuffix>link</mat-icon>
@@ -195,7 +232,7 @@ $(document).ready(function(){
                 *ngIf="datosatencion.get('evidencia').hasError('required')">*requerido</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width" 
+            <mat-form-field class="example-full-width"
               class="largeclass">
               <mat-label>Observaciones</mat-label>
               <textarea matInput formControlName="observaciones"
@@ -208,8 +245,7 @@ $(document).ready(function(){
             <div *ngIf="counter==2">
               <mat-slide-toggle [(ngModel)]="derivacion"
                 [ngModelOptions]="{standalone: true}" name="derivacion"
-                class="example-margin" 
-                >
+                class="example-margin">
                 ¿Derivar con especialista?
               </mat-slide-toggle>
             </div>
@@ -222,13 +258,13 @@ $(document).ready(function(){
         <div class="form1" *ngIf="counter!=2">
           <h5>Proxima Sesion<img src="assets/horario.jpg" /></h5>
           <form [formGroup]="fechaatencion" class="horario">
-            <mat-form-field class="especial"  disabled>
+            <mat-form-field class="especial" disabled>
               <mat-label>Fecha de Sesion</mat-label>
               <input matInput type="date" formControlName="fecha" disable />
               <mat-error
                 *ngIf="fechaatencion.get('fecha').hasError('required')">*requerido</mat-error>
             </mat-form-field>
-            <p>Hora: <input type="time"  formControlName="hora"  name="eta" /></p>
+            <p>Hora: <input type="time" formControlName="hora" name="eta" /></p>
           </form>
         </div>
 
@@ -316,20 +352,20 @@ $(document).ready(function(){
       </div>
       <div class="modal-body">
 
-       
-    
-         
-      
+
+
+
+
         <div class="form-group">
           <label for="exampleFormControlTextarea1">Proxima Sesion:</label>
-          <input  type="date"   [(ngModel)]="fechaactual" />
-          <p>Hora: <input type="time"   [(ngModel)]="horaactual"  /></p>
+          <input type="date" [(ngModel)]="fechaactual" />
+          <p>Hora: <input type="time" [(ngModel)]="horaactual" /></p>
         </div>
         <div class="footer">
           <button type="button" class="btn btn-basic asdasd"
             data-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-basic asdasd"
-            (click)=" guardarfechamodif()">Modificar<mat-icon class="icon"
+            (click)="guardarfechamodif()">Modificar<mat-icon class="icon"
               matSuffix>save</mat-icon></button>
         </div>
 

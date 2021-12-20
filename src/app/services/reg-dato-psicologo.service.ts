@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { Persona } from '../models/Persona';
-import { Personal_ayuda } from '../models/personal-ayuda';
+import { Personal_ayuda } from '../models/Personal';
 import { Horario_psicologo } from '../models/Horario_psicologo';
 import { AngularFireStorage } from '@angular/fire/storage';
 

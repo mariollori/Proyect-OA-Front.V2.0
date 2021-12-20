@@ -4,12 +4,17 @@
 body{
     width: 100%;
     height: 100%;
+    background-color: #f1f0f6   ;
+    padding-top: 30px;
 }
 .container{
     width: 100%;
-
+    border-radius: 10px;
+       background-color: white;
+       padding-top: 30px;
     height: 95%;
-    margin: 20px auto 20px auto;
+    
+    
     
 }
 .container img{

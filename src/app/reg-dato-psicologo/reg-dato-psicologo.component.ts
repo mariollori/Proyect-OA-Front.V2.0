@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Horario_psicologo } from '../models/Horario_psicologo';
 import { Persona } from '../models/Persona';
-import { Personal_ayuda } from '../models/personal-ayuda';
+import { Personal_ayuda } from '../models/Personal';
 
 import { RegDatoPsicologoService } from '../services/reg-dato-psicologo.service';
 export class Horario{

@@ -241,7 +241,7 @@ export class RegistroPacienteComponent implements OnInit {
         this.reset()
       },(error)=>{
         Swal.fire({
-          icon: 'success',
+          icon: 'error',
           title: '',
           text: 'Dni duplicado.'
         })

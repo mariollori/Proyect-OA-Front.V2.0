@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Horario_psicologo } from 'src/app/models/Horario_psicologo';
 import { Persona } from 'src/app/models/Persona';
-import { Personal_ayuda } from 'src/app/models/personal-ayuda';
+import { Personal_ayuda } from 'src/app/models/Personal';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { ImagenService } from 'src/app/services/imagen.service';
@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class DatosUserComponent implements OnInit {
   editstate=false;
-  
+  val:number=2;
   editstate2=false;
   constructor(private service:RegDatoPsicologoService,private token:AuthService,private imagenserv:ImagenService) { }
   idpersona;
