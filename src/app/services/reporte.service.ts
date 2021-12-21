@@ -9,7 +9,7 @@ export class ReporteService {
 
   constructor(private http:HttpClient) { }
 
-  urlEndpoint = "http://localhost:5050/reporte/";
+  urlEndpoint = "https://proyectooa-backend.herokuapp.com/reporte/";
 
   getAsignaciones(tipo): Observable<any[]> {
     let params = new HttpParams().set("tipo",tipo);

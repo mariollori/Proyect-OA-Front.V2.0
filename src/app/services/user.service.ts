@@ -14,10 +14,10 @@ import { Cancelacion } from '../models/Cancelacion';
 export class UserService {
 
   constructor(private http:HttpClient,private auth:AuthService) { }
-  urlEndpoint = "http://localhost:5050/EX3/usuario";
-  urlEndpoint2 = "http://localhost:5050/EX3/persona";
-  urlEndpoint3 = "http://localhost:5050/EX3/opcion";
-  urlEndpoint4 = "http://localhost:5050/EX3/psicologo";
+  urlEndpoint = "https://proyectooa-backend.herokuapp.com/usuario";
+  urlEndpoint2 = "https://proyectooa-backend.herokuapp.com/persona";
+  urlEndpoint3 = "https://proyectooa-backend.herokuapp.com/opcion";
+  urlEndpoint4 = "https://proyectooa-backend.herokuapp.com/psicologo";
   eliminarsolicitud(idpersonal,idpersona):Observable<any>{
     return this.http.post<any>(this.urlEndpoint4 + '/deletepersona', { idpersonal,idpersona})
    }

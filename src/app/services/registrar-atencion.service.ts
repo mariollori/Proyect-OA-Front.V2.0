@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RegistrarAtencionService {
-  urlEndpoint3 = "http://localhost:5050/EX3/paciente";
+  urlEndpoint3 = "https://proyectooa-backend.herokuapp.com/EX3/paciente";
 
   constructor(private http:HttpClient) { }
 

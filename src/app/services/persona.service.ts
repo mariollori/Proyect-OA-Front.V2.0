@@ -13,7 +13,7 @@ export class PersonaService {
   constructor(private http:HttpClient,private auth:AuthService) { }
 
 
-  urlEndpoint = "http://localhost:5050/EX3/persona";
+  urlEndpoint = "https://proyectooa-backend.herokuapp.com/EX3/persona";
 
   crearpersona(persona:Persona,paciente:Paciente):Observable<String>{
     console.log(persona)

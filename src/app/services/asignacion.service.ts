@@ -10,14 +10,14 @@ export class AsignacionService {
 
   constructor(private http: HttpClient ) { }
 
-  urlEndpoint = "http://localhost:5050/asignacion/get";
+  urlEndpoint = "https://proyectooa-backend.herokuapp.com/asignacion/get";
 
   getAsignaciones(estado): Observable<any[]> {
     let params = new HttpParams().set("estado",estado);
     return this.http.get<any[]>(this.urlEndpoint+"/estado" , { params:params});
 
   }
-  urlEndpoint2 = "http://localhost:5050/asignacion/";
+  urlEndpoint2 = "https://proyectooa-backend.herokuapp.com/asignacion/";
 
   
   getpsi_asignado(id): Observable<any> {
