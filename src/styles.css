@@ -23,3 +23,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-left: 20vw !important;
     
 }
+
+.p-dialog-header {
+ background-color: #458fcd;
+}
+.p-datatable-header {
+  background: #01a89e;
+}
