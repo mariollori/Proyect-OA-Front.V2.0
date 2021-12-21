@@ -283,6 +283,11 @@ fieldset{
 }
 
 
-.p-tabview .p-tabview-nav {
-    margin-left: 50px !important;
+
+
+
+.p-tabview-nav {
+
+    margin-left: 20vw !important;
+   
 }
