@@ -1,11 +1,13 @@
 import { Component,  OnInit, ViewChild,  } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+
 
 import { Personal } from 'src/app/asignacion/pastor/pastor.component';
 import { ChartDataSets, ChartOptions, ChartType,  } from 'chart.js';
 import { BaseChartDirective, Label } from 'ng2-charts';
 import { ReporteService } from 'src/app/services/reporte.service';
 import { max } from 'rxjs/operators';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 export class Datagraph{
   data:number;
   label:String
@@ -26,8 +28,10 @@ nombrecompleto;
   atend = 0;
   asignados = 0;
   cancelado = 0;
-  personal: Personal[] = [];
+  personal;
+  
   displayedColumns: string[] = ['nro', 'nombre', 'especialidad', 'universidad', 'telefono', 'detalle'];
+  dtOptions: any;
   constructor(private service: ReporteService) { }
   @ViewChild( MatPaginator ,{ static: true }) paginator: MatPaginator;
   applyFilter(event: Event) {
@@ -36,12 +40,44 @@ nombrecompleto;
   }
   @ViewChild(BaseChartDirective,{static:true}) chart: BaseChartDirective;
   ngOnInit() {
+    this.dtOptions = {
+      responsive:true,
+      pagingType: 'full_numbers',
+      pageLength: 6,
+      language:{
+        "decimal":        "",
+        "emptyTable":     "No hay ningun registro existente..",
+        "info":           "",
+        "infoEmpty":      "",
+        "infoFiltered":   "(Coincidencias de _MAX_  entradas)",
+        "infoPostFix":    "",
+        "thousands":      ",",
+        "lengthMenu":     "Show _MENU_ entries",
+        "loadingRecords": "Cargando...",
+        "processing":     "Procesando...",
+        "search":         "Buscar usuario:",
+        "zeroRecords":    "Ningun resultado encontrado",
+        "paginate": {
+            "first":      "<i class='fas fa-step-backward'></i>",
+            "last":       "<i class='fas fa-step-forward'></i>",
+            "next":       "<i class='fas fa-chevron-right'></i>",
+            "previous":   "<i class='fas fa-chevron-left'></i>"
+        },
+        "aria": {
+            "sortAscending":  ": activate to sort column ascending",
+            "sortDescending": ": activate to sort column descending"
+        }
+    },
+      ordering:false,
+      lengthChange:false,
+      
+      processing: false
+    };
     this.opcion = 'estudiante'
     this.service.getAsignaciones('estudiante').subscribe(
       data => {
         this.personal = data as Personal[];
-        this.dataSource = new MatTableDataSource(this.personal);
-        this.dataSource.paginator = this.paginator;
+        
       }
     )
   }
@@ -93,10 +129,11 @@ nombrecompleto;
 
   
   buscar() {
+    this.personal = 0;
     this.service.getAsignaciones(this.opcion).subscribe(
       data => {
         this.personal = data as Personal[];
-        this.dataSource = new MatTableDataSource(this.personal);
+       
       }
     )
   }

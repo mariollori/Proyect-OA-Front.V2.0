@@ -1,7 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { Data } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+
+
 import { AsignacionService } from '../services/asignacion.service';
 import { RegDatoPsicologoService } from '../services/reg-dato-psicologo.service';
 
@@ -18,6 +21,9 @@ export interface DataPac {
   universidad: string;
   grado_academico: string;
   }
+  export interface Estado{
+    name:string
+  }
 @Component({
   selector: 'app-asignacion',
   templateUrl: './asignacion.component.html',
@@ -30,10 +36,14 @@ export interface DataPac {
     ]),
   ],
 })
+
 export class AsignacionComponent implements OnInit {
   display: boolean = false;
+  nro_s=0;
   displayResponsive:boolean=false;
   displayResponsive2:boolean=false;
+  displayResponsive3:boolean=false;
+  values:any[]=[{name:'Sin Asignar'},{name:'En Proceso'},{name:'Finalizado'},{name:'Derivado'}]
   showDialog() {
       this.display = true;
   }
@@ -43,11 +53,15 @@ this.displayResponsive=true;
   showResponsiveDialog2(){
     this.displayResponsive2=true;
   }
+  showResponsiveDialog3(){
+    this.displayResponsive3=true;
+  }
   imagenpsi;
   imagenpsi2
   dataSource:MatTableDataSource<DataPac>;
   dataSource2:MatTableDataSource<DataPac>;
   psi_asig:any='';
+  pac_asig:any='';
   ultimodetalle:any='';
   sesiones:any[]=[];
   @ViewChild('MatPaginator1' ,{ static: true }) paginator: MatPaginator;
@@ -63,15 +77,16 @@ this.displayResponsive=true;
 
     this.dataSource2 = new MatTableDataSource;
    }
-  opcion: string = '';
+  opcion: Estado;
   pacientes: DataPac[] = [];
   pacientes2: DataPac[] = [];
   pacseleccionado;
   ngOnInit() {
    
-    this.opcion='Sin Asignar'
-    this.servicio.getAsignaciones(this.opcion).subscribe(
+    this.opcion={name:'Sin Asignar'}
+    this.servicio.getAsignaciones(this.opcion.name).subscribe(
       data => {
+        console.log(data);
         this.pacientes = data as DataPac[];
         this.dataSource.data= this.pacientes as DataPac[];
         this.dataSource.paginator = this.paginator;
@@ -83,10 +98,11 @@ this.displayResponsive=true;
 
 
   buscar(){
-    console.log(this.opcion)
-    switch (this.opcion) {
+    console.log(this.opcion.name);
+    
+    switch (this.opcion.name) {
       case 'Sin Asignar':
-        this.servicio.getAsignaciones(this.opcion).subscribe(
+        this.servicio.getAsignaciones(this.opcion.name).subscribe(
           data => {
             this.pacientes = data as DataPac[];
             this.dataSource.data= this.pacientes as DataPac[];
@@ -97,7 +113,7 @@ this.displayResponsive=true;
         break;
         case 'En Proceso':
           
-        this.servicio.getAsignaciones(this.opcion).subscribe(
+        this.servicio.getAsignaciones(this.opcion.name).subscribe(
           data => {
             console.log(data)
             this.pacientes = data as DataPac[];
@@ -110,7 +126,7 @@ this.displayResponsive=true;
           );
           break;
           case 'Finalizado':
-            this.servicio.getAsignaciones(this.opcion).subscribe(
+            this.servicio.getAsignaciones(this.opcion.name).subscribe(
               data => {
                 this.pacientes = data as DataPac[];
                 this.dataSource.data= this.pacientes as DataPac[];
@@ -122,7 +138,7 @@ this.displayResponsive=true;
             );
         break;
         case 'Derivado':
-            this.servicio.getAsignaciones(this.opcion).subscribe(
+            this.servicio.getAsignaciones(this.opcion.name).subscribe(
               data => {
                 this.pacientes = data as DataPac[];
                 this.dataSource.data= this.pacientes as DataPac[];
@@ -150,6 +166,22 @@ this.displayResponsive=true;
   cerrarModal() {
     document.getElementById('exampleModalCenter').click();
   }
+
+  search(event) {
+     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+     let filtered : any[] = [];
+     let query = event.query;
+
+     for(let i = 0; i < this.values.length; i++) {
+         let country = this.values[i];
+         if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+             filtered.push(country);
+         }
+     }
+
+     this.values = filtered;
+  
+}
   seleccionarpac(paciente){
     this.pacseleccionado =paciente;
 
@@ -183,6 +215,7 @@ this.displayResponsive=true;
   verultimaobser(id){
     this.servicio.getpsi_asignado(id).subscribe(
       data=>{
+        console.log(data);
         if(data[0].foto==null){
           
           this.imagenpsi2='https://s3.amazonaws.com/files.patmos.upeu.edu.pe/img/upload/fotos/80/no_photo.jpg';
@@ -208,5 +241,11 @@ this.displayResponsive=true;
         this.sesiones= data
       }
     )
+  }
+  changeses(id:number){
+      this.nro_s=id;
+  }
+  asignarpac(element){
+    this.pac_asig=element;
   }
 }

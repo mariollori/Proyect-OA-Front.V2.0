@@ -1,49 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    font-family: 'Poppins', sans-serif;
   }
 
   body{
-      width: 100%;
-      height: 100%;
-      background-color:#f1f0f6;
-      padding-top: 5vh;
+     
+      background-color:transparent;
+      padding-top: 10vh;
+     
 
 
   }
-  .imgback{
-    width: 13.5vw;
-    height: 29.5vh;
-    top: 14vh;
-    opacity: 0;
-    left: 12vw;
+  .nav-pills .nav-link.active{
+    color: hsl(176deg 100% 32%);
+  
+    background-color: white;
+}
+.nav-pills .nav-link.active::before{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:2px;
+  background-color:hsl(176deg 100% 32%);
+}
+.col-3{
+  min-width: 100%;
+}
+.col-3 a{
+  padding: 15px;
+}
+.nav-pills .nav-link {
+    position: relative;
+    border-radius: 0.25rem;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    width: 150px;
+    font-size: 14px;
+    color: #adb5bd;
+  
+  
+    margin-top: 1px;
+}
+  .container{
+    min-width: 85vw;
+    height: 85vh;
+    margin: 0 auto;
     display: flex;
-    margin: 20px auto 0px auto;
-  border-radius: 50%;
+    background-color: transparent;
+    
+}
+.left-content{
+  width: 300px;
+  height: 100%;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background: white;
+  position: relative;
+  border-radius: 5px;
+  border-left: 5px solid #20b2aa;
+  }
+
+.left-content h3{
+  color: white;
+  text-align: center;
+  width: 100%;
+  background:#00ccbe;
+  font-size: 15px;
+padding: 10px 10px;
+
+}
+  
+  .profile-img{
+    
+    width: 300px;
+    position: relative;
+    height: 240px;
+    padding: 20px 50px;
+    text-align: center;
+  
+}
+.profile-img img{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border: 5px solid white ;
+
+     height: 100%;
+     width: 100%;
+     image-rendering: optimizeQuality;
+    
+
+  }
+  .uploadfoto{
+    width: 200px;
+    position: relative;
+    border-radius: 10px;
+    margin: 0 auto;
+    cursor: pointer;
+    color: #adb5bd;
+    height: 40px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-left: 50px;
+    display: flex;
+    background: white;
+    align-items: center;
+    justify-content: space-evenly;
+    border: none;
+    transition: background-color .5s .3s, color .5s .5s;
+  }
+  .uploadfoto:hover{
+    background-color: #20b2aa;
+    color: white;
+  }
+  .imgback{
+   
+    align-items: center;
+    height: 85%;
+    width: 65%;
+    top: 25px;
+    opacity: 0;
+    left: 25px;
+    display: flex;
+   
+  padding: 25px;
     transition: ease;
     position: absolute;
     z-index: 3;
    
     transition-duration: 0.5s; 
   }
-  .imgback:hover{
-      opacity: 1;
-      background: url('upload.gif') rgba(117, 117, 116, 0.4);
-      background-size: cover;
-      background-position:50% 50%;
-      background-repeat: no-repeat;
-  }
-.circular-img{
-    width: 17%;
-    height: 30vh;
-    display: flex;
-    margin: 20px auto 0px 30px;
-    
   
- 
+
+  .menu-opt{
+    
+    width: 100%;
+    padding: 15px 20px;
+   
+  }
+  .rigth-content{
+    width: 75%;
+    margin-left: 25px;
+    height: 100%;
+  }
+.head-right{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background: white;
+  height: 20%;
+  padding: 10px 35px;
+  border-left: 5px solid #20b2aa;
+  margin-bottom: 15px;
 }
+.head-right h3{
+  margin-top: 5px;
+  color: #00ccbe;
+}
+  .tab-content{
+    background: white;
+    height: 70%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 5px;
+  }
+  .nav-pills{
+    background: white;
+    padding: 5px 10px 0px 10px;
+  }
+  .datapersonal{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 35%;
+    padding: 35px;
+       margin-bottom: 10px;
+}
+
 .profilename{
     width: 80%;
     height: 100%;
@@ -58,14 +190,6 @@
    
     height: 100%;
 }
-.circular-img img{
-  border-radius: 50%;
-    width: 98%;
-    height: 100%;
-    border: 3px solid white ;
-    
-}
-
 
 .schooldata{
     display: flex;
@@ -118,55 +242,11 @@ ul{
        color: black;
    }
    
- .datapersonal{
-     display: flex;
-     flex-wrap: wrap;
-     width: 100%;
-     height: 35%;
-     padding-top: 10px;
-     padding-left: 20px;
-        padding-right: 20px;
-        margin-bottom: 10px;
- }
 
 
 
- mat-icon{
-     color: #fab044;;
-     margin-right: 10px;
- }
- .card-body{
-    width: 85vw;
-    height: 80vh;
-    margin: 0 auto;
-    
-    display: flex;
-    flex-direction: column;
-    box-shadow: 2px 2px 5px #666;
-    background-color: white;
 
-}
-
- .cardrigth{
-     width: 100%;
-     height: 30%;
-     background: #363443;
-    
- }
-.cardleft{
-    width: 100%;
-   
-    padding-left: 10px;
-    padding-top: 30px;
-    padding-right: 10px;
-    height: 70%;
-}
-h3{
-    color: white;
-    font-weight: bold;
-    margin: 25px 0px 0px 20px;
-}
-
+ 
 
 
 
@@ -176,26 +256,46 @@ input{
 }
 .item{
     display: flex;
-    width: 49%;
-    height: 30px;
-    margin-right: 15px;
-    margin-bottom: 15px ;
-    align-items: center;
+    flex-direction: column;
+    width: 90%;
+    height: 65px;
+    font-size: 13px;
+position: relative;
+    justify-content: center;
 }
-.item label{
-    display: flex;
-    margin-right: 15px;
-    align-items: center;
+.item input,select{
+  padding-left: 50px;
+  padding-right: 10px;
+height: 90%;
+box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  width: 100%;
+}
+.item i{
+  position: absolute;
+  color: #00ccbe;
+  left: 8px;
+  background: hsl(176deg 100% 88%);
+  padding: 8px;
+  border-radius: 50%;
 }
 
 fieldset{
     width: 49%;
+    margin-bottom: 15px;
+}
+fieldset label{
+  color: #adb5bd;
+  font-size: 14px;
+  margin-left: 10px;
 }
 
 .horarioadd{
     display: flex;
     width: 100%;
     justify-content: center;
+  
+    padding: 10px;
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
     align-items: center;
   }
   .horarioadd label{
@@ -207,37 +307,47 @@ fieldset{
     margin-right: 20px;
   }
   .horarioadd .boton{
-    background-color: cadetblue;
+    background-color: #00ccbe;
     padding-left: 4px;
     padding-right: 10px;
     color: white;
   }
-  
-  ul{
-   list-style: none;
-   margin-top: 20px;
-   margin-left: 20px;
-   display: flex;
-   height: 200px;
-   max-height: 200px;
-   overflow-y:scroll;
-   padding: 10px;
-   flex-direction: column;
+  .list-horario{
+    list-style: none;
+    padding: 45px;
+    height: 320px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
   }
-  li{
-    display: flex;align-items: center;height: 40px;border-radius: 10px;padding-left: 20px;
-    min-height: 40px;
-    margin-bottom: 15px;
-    width: 100%;
-  background: #fab044;
-  }
-
+.list-horario li{
+  background: whitesmoke;
+    height: 150px;
+    border-radius: 10px;
+    margin-right: 25px;
+    margin-bottom: 25px;
+    width: 30%;
+    min-width: 200px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
+}
+.list-horario li i{
+  position: absolute;
+  color: #ffeb3b;
+  cursor: pointer;
+  top: 15px;
+  left: calc(100% - 25px);
+}
   .savebtns{
       width: 100%;
       display: flex;
       justify-content: flex-start;
 
   }
+
   
   .editbtn{
     background-color: #363443;

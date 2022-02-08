@@ -15,7 +15,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatStepperModule} from '@angular/material/stepper';
 import { HomeComponent } from './home/homepage/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatFormFieldModule, MatGridListModule, MatPaginatorModule, MatRadioModule, MatSelectModule } from '@angular/material';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatInputModule} from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
 import { environment } from 'src/environments/environment';
@@ -27,7 +27,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {MatRadioModule} from '@angular/material/radio';
 import { NavComponent } from './navbar/nav/nav.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
@@ -48,15 +48,18 @@ import { AsignacionComponent } from './asignacion/asignacion.component';
 import { PastorComponent } from './asignacion/pastor/pastor.component';
 import { PsicologoComponent } from './asignacion/psicologo/psicologo.component';
 import { EstudianteComponent } from './asignacion/estudiante/estudiante.component';
-
+import {MatGridListModule} from '@angular/material/grid-list';
 import { RegDatoPsicologoComponent } from './reg-dato-psicologo/reg-dato-psicologo.component';
-
-
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 
 import { ReportesComponent } from './reportes/reportes/reportes.component';
 import { ChartsModule, ThemeService } from 'ng2-charts';
 
 //****************** Primeng */
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import {BadgeModule} from 'primeng/badge'
 import {TableModule} from 'primeng/table'
 import {FilterService} from 'primeng/api';
@@ -73,9 +76,17 @@ import {TabViewModule} from 'primeng/tabview';
 import {RatingModule} from 'primeng/rating';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
+import {DataTablesModule} from 'angular-datatables';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {DividerModule} from 'primeng/divider';
 import {FieldsetModule} from 'primeng/fieldset';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {StyleClassModule} from 'primeng/styleclass';
+import { MatButtonModule } from '@angular/material/button';
+import {DropdownModule} from 'primeng/dropdown';
+import { RouterModule, Routes, ExtraOptions, ROUTES } from '@angular/router';
+import { CronometroComponent } from './snipper/cronometro/cronometro/cronometro.component';
+
 
 @NgModule({
   declarations: [
@@ -103,9 +114,11 @@ import {FieldsetModule} from 'primeng/fieldset';
   
  
     RegDatoPsicologoComponent,
+             CronometroComponent,
 
   ],
   imports: [
+    
     CardModule,
     ButtonModule,
     MatNativeDateModule,
@@ -113,13 +126,17 @@ import {FieldsetModule} from 'primeng/fieldset';
     RatingModule,
     CascadeSelectModule,
     MatDatepickerModule,
+    DropdownModule,
   InputTextModule,
   TabViewModule,
     BadgeModule,
+    DataTablesModule,
     AvatarModule,
     FieldsetModule,
     MatSortModule,
+    AutoCompleteModule,
    TableModule,
+   StyleClassModule,
    TieredMenuModule,
 MenuModule,
     ChartsModule,
@@ -136,6 +153,7 @@ MenuModule,
     MatTableModule,
     MatDialogModule,
     MatPaginatorModule,
+    OverlayPanelModule,
     MatSidenavModule,
     DialogModule,
     MatGridListModule,
@@ -143,6 +161,7 @@ MenuModule,
     MatInputModule,
     MatFormFieldModule,
     ScrollPanelModule,
+ 
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
@@ -151,9 +170,11 @@ MenuModule,
     FormsModule,
     MatSelectModule,
     HttpClientModule,
+    FontAwesomeModule,
     AppRoutingModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
+  
   ],
   entryComponents : [  ] ,
   providers: [FilterService,MessageService,{

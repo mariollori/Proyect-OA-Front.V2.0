@@ -122,7 +122,10 @@ export class DatosUserComponent implements OnInit {
      
       
     }
-    
+    eliminarfoto(){
+      this.archivo=null;
+      this.dataschool();
+    }
     activar(){
       this.editstate=true;
       console.log(this.editstate)

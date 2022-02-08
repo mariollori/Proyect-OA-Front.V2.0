@@ -1,55 +1,52 @@
 <head>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet">
-  <link rel="stylesheet" type="text/css"
-    href="/node_modules/primeicons/primeicons.css" />
+
 </head>
+
+
 
 <body>
 
-
+  <div class="cardtop">
+    <h2 style="color: #52b1b1;font-size:25px;font-weight: bold;margin: 0;"><img
+        class="titleimg"
+        src="https://www.nicepng.com/png/detail/242-2420369_atencion-al-cliente-png-imagenes-de-actividades-claves.png">
+      Panel de Estado de Atenciones</h2>
+    <div style="margin-left: 0%;height: 30px; float: right;">
+      <span style="font-size: 16px;margin-right: 10px; color: teal;">Estado:</span>
+      <p-dropdown [options]="values" [(ngModel)]="opcion" (onClick)="buscar()"
+        placeholder="Seleccione un estado" optionLabel="name"
+        [showClear]="false"></p-dropdown>
+    </div>
+  </div>
 
 
 
   <div class="card" style="padding: 10px;">
-    <h2 style="margin-bottom: 30px;margin-top: 20px;color: grey;font-size:
-      30px;font-weight: bold;"><img class="titleimg"
-        src="https://www.nicepng.com/png/detail/242-2420369_atencion-al-cliente-png-imagenes-de-actividades-claves.png">
-      Panel de Estado de Atenciones</h2>
 
-    <p-table #dt1 [value]="pacientes" dataKey="nombre" [resizableColumns]="true"
-      styleClass="p-datatable-gridlines" [paginator]="true" [rows]="7"
-      [showCurrentPageReport]="true"
-      [globalFilterFields]="['nombre','motivo','genero','telefono']">
+
+    <p-table [value]="pacientes" #dt1 styleClass="custom"
+      [globalFilterFields]="['nombre','motivo','genero','telefono']"
+      dataKey="nombre" [paginator]="true" [rows]="7"
+      [showCurrentPageReport]="true" responsiveLayout="scroll"
+      currentPageReportTemplate="{first} de {totalRecords} paginas"
+      [rowsPerPageOptions]="[8,10]">
       <ng-template pTemplate="caption">
-        <span class="p-input">
+        <span class="p-input-icon-left p-ml-auto">
 
-          <input type="text" pInputText
+          <input pInputText type="text"
             (input)="dt1.filterGlobal($event.target.value, 'contains')"
-            placeholder="Buscar ..." />
+            placeholder="Buscar ...." />
         </span>
-
-        <div style="margin-left: 0%;height: 30px; float: right;">
-
-          <label style="color: white;margin-right: 15px;font-size: 17px;">Estado:</label>
-          <select [(ngModel)]="opcion" (change)="buscar()" style="height:
-            30px;padding-left: 10px;padding-right: 10px;border-radius:
-            6px;font-weight: bold;border: none;">
-            <option value="Sin Asignar" style="color: #F4B6B6;font-weight:
-              bold;">Sin Asignar</option>
-            <option value="En Proceso" style="color: #A3DEF8;font-weight:
-              bold;">En proceso</option>
-            <option value="Finalizado" style="color: #A3E2C6;font-weight:
-              bold;">Finalizado</option>
-            <option value="Derivado" style="color: #ffe38e;font-weight: bold;">Derivado</option>
-          </select>
-        </div>
 
 
       </ng-template>
+
+
       <ng-template pTemplate="header">
-        <tr>
-          <th style="width: 4rem"></th>
+        <tr class="cabeza">
+          <th style="width: 3rem"></th>
           <th pSortableColumn="nombre" field="nombre">Nombre completo</th>
           <th field="motivo">Motivo</th>
           <th field="genero">Genero</th>
@@ -58,20 +55,18 @@
           <th>Opciones</th>
         </tr>
       </ng-template>
+
+
+
       <ng-template pTemplate="body" let-element let-expanded="expanded">
         <tr>
-          <td style="height: 20px;">
-            <button type="button" style="width: 10px;height: 30px; display:
-              flex;justify-content: center;align-items: center;" pButton pRipple
-              [pRowToggler]="element" class="p-button-text p-button-rounded
-              p-button-plain">
-              <mat-icon style="margin:0;">{{expanded ? 'keyboard_arrow_down' :
-                'chevron_right'}}</mat-icon>
-
-
-
-            </button>
+          <td>
+            <button type="button" style="color: white;" pButton pRipple
+              [pRowToggler]="element"
+              class="p-button-text p-button-rounded p-button-plain"
+              icon="pi pi-align-justify"></button>
           </td>
+
           <td style="text-transform: capitalize;height: 20px;">{{element.nombre
             + ' ' + element.apellido}}</td>
           <td style="height: 20px;">{{element.motivo | titlecase}}</td>
@@ -91,47 +86,62 @@
               src="https://cdn-icons-png.flaticon.com/128/2753/2753112.png"
               (click)="seleccionarpac(element);showDialog()" style="cursor:
               pointer;height: 30px;width: 30px;"
-              *ngIf="opcion=='Sin Asignar' || opcion == 'Derivado'"
+              *ngIf="opcion.name=='Sin Asignar' || opcion.name == 'Derivado'"
               />
             <img
               src="https://cdn-icons-png.flaticon.com/512/3125/3125856.png"
               style="cursor: pointer;width: 30px;height: 30px;margin-left:
-              20px;" *ngIf="opcion=='En Proceso'"
+              20px;" *ngIf="opcion.name=='En Proceso'"
               (click)="showResponsiveDialog();verasignacion(element.idpaciente)"
               />
 
-            <img *ngIf="opcion=='Finalizado'"
+            <img *ngIf="opcion.name=='Finalizado'"
               src="https://cdn-icons-png.flaticon.com/512/425/425838.png"
               style="cursor: pointer;width: 30px;height: 30px;margin-left:
               20px;"
-              data-toggle="modal" data-target="#detalleultimo"
-              (click)="verultimaobser(element.idpaciente);"/>
+              (click)="verultimaobser(element.idpaciente);showResponsiveDialog3();asignarpac(element)"
+              />
 
 
-            <img *ngIf="opcion=='Derivado'"
-              src="https://www.pngitem.com/pimgs/m/34-341449_transparent-tumblr-clipart-eye-png-png-download.png"
-              style="cursor: pointer;width: 30px;height: 30px;margin-right:
+            <img *ngIf="opcion.name=='Derivado'"
+              src="https://www.freeiconspng.com/thumbs/eye-icon/eye-open-icon--icon-search-engine-2.png"
+              style="cursor: pointer;width: 30px;height: 30px;margin-left:
               30px;"
-               data-toggle="modal" data-target="#detalleultimo"
-              (click)="verultimaobser(element.idpaciente)"/>
+              
+              (click)="verultimaobser(element.idpaciente);showResponsiveDialog3();asignarpac(element)"
+              />
           </td>
         </tr>
       </ng-template>
-      <ng-template pTemplate="rowexpansion" let-element style="display: flex;">
-        <div style="width: 600px;display: flex;flex-direction: row;padding-left:
-          60px;padding-top: 20px;">
 
-          <label style="width: 100px;margin-right: 20px;">Descripcion: </label><p
-            style="width: 2000px;">{{element.descripcion}}</p>
-        </div>
+
+      <ng-template pTemplate="rowexpansion" let-element>
+        <tr>
+          <td colspan="7">
+            <div class="p-p-3" style="display: flex; padding: 15px;">
+              <label>Descripcion: </label>
+              <p>{{element.descripcion}}</p>
+            </div>
+
+          </td>
+        </tr>
+
       </ng-template>
 
     </p-table>
+
   </div>
 
-
-
 </body>
+
+
+
+
+
+
+
+
+
 
 
 <p-dialog header="¿A QUE ESPECIALISTA DESEA DERIVAR?" [(visible)]="display"
@@ -177,6 +187,8 @@
 </p-dialog>
 
 
+
+<!-- Modal Estado == En proceso -->
 
 <p-dialog header="Datos del Especialista Asignado"
   [(visible)]="displayResponsive" [modal]="true" [breakpoints]="{'960px':
@@ -250,361 +262,115 @@
 </p-dialog>
 
 
-<!-- Modal -->
 
 
-<!-- Modal Psicologo detalle-->
-<div class="modal fade bd-example-modal-lg" id="detallepsi" tabindex="-1"
-  role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header" style="background-color: currentColor;">
-        <h5 class="modal-title" id="exampleModalLongTitle"
-          style="color:white;">Datos
-          de Especialista Asignado</h5>
-        <button type="button" class="close" data-dismiss="modal"
-          aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+
+<!-- Modal Estado == Finalizado -->
+
+<p-dialog header="Detalle de la Atencion" [(visible)]="displayResponsive3"
+  [modal]="true" [style]="{width: 'auto',height: 'auto'}"
+  [draggable]="false" [resizable]="true" [blockScroll]="false">
+  <div class="detail-container">
+    <div class="detail-son">
+      <h4 style="text-align: center;font-weight: bold;color:
+        black;text-transform: capitalize;font-size: 20px;">
+        <img style="width: 30px;height: 30px;"
+          *ngIf="psi_asig.tipo=='psicologo'"
+          src="https://img.icons8.com/color/48/000000/psychology.png" />
+        <img style="width: 30px;height: 30px;" *ngIf="psi_asig.tipo=='pastor'"
+          src="https://img.icons8.com/color/48/000000/the-pope.png" />
+        <img style="width: 30px;height: 30px;"
+          *ngIf="psi_asig.tipo=='estudiante'"
+          src="https://img.icons8.com/color/48/000000/student-male--v1.png" />
+        Especialista Asignado</h4>
+      <div style="width: 100%;text-align: center;">
+        <img [src]='imagenpsi2' width="150" style="border-radius:50%;border: 5px
+          solid var(--z);box-shadow: 0 0 5px var(--z), 0 0 10px var(--z), 0 0
+          10px var(--z);" height="150" alt="">
       </div>
-      <div class="modal-body detailbody">
 
-        <div class="detailrigth">
-          <h4 style="text-align: center;font-weight: bold;color:
-            #c5c5c5;text-transform: capitalize;">
-            <img style="width: 30px;height: 30px;"
-              *ngIf="psi_asig.tipo=='psicologo'"
-              src="https://img.icons8.com/color/48/000000/psychology.png" />
-            <img style="width: 30px;height: 30px;"
-              *ngIf="psi_asig.tipo=='pastor'"
-              src="https://img.icons8.com/color/48/000000/the-pope.png" />
-            <img style="width: 30px;height: 30px;"
-              *ngIf="psi_asig.tipo=='estudiante'"
-              src="https://img.icons8.com/color/48/000000/student-male--v1.png"
-              />
-            {{psi_asig.nombre + ' ' + psi_asig.apellido}}</h4>
-          <div style="width: 100%;text-align: center;">
+      <div class="group-item" *ngIf="psi_asig.tipo=='pastor'">
 
-            <img [src]='imagenpsi' width="150" style="border-radius: 50%;"
-              height="150" alt="">
-          </div>
-          <div class="group-item" *ngIf="psi_asig.tipo=='pastor'">
-            <div class="item-info"><label>Telefono:</label><input disabled
-                [(ngModel)]="psi_asig.telefono"></div>
-            <div class="item-info"><label>Correo:</label><input disabled
-                [(ngModel)]="psi_asig.correo"></div>
-            <div class="item-info"><label>Distrito:</label><input
-                [(ngModel)]="psi_asig.distrito" disabled></div>
-            <div class="item-info"><label>Campo:</label><input
-                [(ngModel)]="psi_asig.campo" disabled></div>
-
-          </div>
-          <div *ngIf="psi_asig.tipo=='psicologo'" class="group-item">
-            <div class="item-info"><label>Telefono:</label><input
-                [(ngModel)]="psi_asig.telefono" disabled></div>
-            <div class="item-info"><label>Correo:</label><input
-                [(ngModel)]="psi_asig.correo" disabled></div>
-            <div class="item-info"><label>Especialidad:</label><input
-                [(ngModel)]="psi_asig.especialidad" disabled></div>
-            <div class="item-info"><label>Colegiatura:</label><input
-                [(ngModel)]="psi_asig.n_colegiatura" disabled></div>
-            <div class="item-info"><label>Grado Academico:</label><input
-                [(ngModel)]="psi_asig.grado_academico" disabled></div>
-
-          </div>
-          <div *ngIf="psi_asig.tipo=='estudiante'" class="group-item">
-            <div class="item-info"><label>Telefono:</label><input
-                [(ngModel)]="psi_asig.telefono" disabled></div>
-            <div class="item-info"><label>Correo:</label><input
-                [(ngModel)]="psi_asig.correo" disabled></div>
-
-            <div class="item-info"><label>Ciclo/Grupo:</label><input
-                [(ngModel)]="psi_asig.ciclo + '/' + psi_asig.grupo" disabled></div>
-            <div class="item-info"><label>Codigo:</label><input
-                [(ngModel)]="psi_asig.codigo" disabled></div>
-
-          </div>
-
-
-
-        </div>
-
+        <div class="item-info"><label>Nombre Completo:</label><input disabled
+            [(ngModel)]="psi_asig.nombre + ' ' + psi_asig.apellido"></div>
+        <div class="item-info"><label>Telefono:</label><input disabled
+            [(ngModel)]="psi_asig.telefono"></div>
+        <div class="item-info"><label>Correo:</label><input disabled
+            [(ngModel)]="psi_asig.correo"></div>
+        <div class="item-info"><label>Campo:</label><input
+            [(ngModel)]="psi_asig.campo" disabled></div>
+        <div class="item-info"><label>Distrito:</label><input
+            [(ngModel)]="psi_asig.distrito" disabled></div>
       </div>
+
+
+      <div *ngIf="psi_asig.tipo=='psicologo'" class="group-item">
+        <div class="item-info"><label>Nombre Completo:</label><input disabled
+            [(ngModel)]="psi_asig.nombre + ' ' + psi_asig.apellido"></div>
+        <div class="item-info"><label>Telefono:</label><input
+            [(ngModel)]="psi_asig.telefono" disabled></div>
+        <div class="item-info"><label>Correo:</label><input
+            [(ngModel)]="psi_asig.correo" disabled></div>
+        <div class="item-info"><label>Especialidad:</label><input
+            [(ngModel)]="psi_asig.especialidad" disabled></div>
+        <div class="item-info"><label>Colegiatura:</label><input
+            [(ngModel)]="psi_asig.n_colegiatura" disabled></div>
+        <div class="item-info"><label>Grado Academico:</label><input
+            [(ngModel)]="psi_asig.grado_academico" disabled></div>
+      </div>
+
+
+      <div *ngIf="psi_asig.tipo=='estudiante'" class="group-item">
+        <div class="item-info"><label>Nombre Completo:</label><input disabled
+            [(ngModel)]="psi_asig.nombre + ' ' + psi_asig.apellido"></div>
+        <div class="item-info"><label>Telefono:</label><input
+            [(ngModel)]="psi_asig.telefono" disabled></div>
+        <div class="item-info"><label>Correo:</label><input
+            [(ngModel)]="psi_asig.correo" disabled></div>
+        <div class="item-info"><label>Ciclo/Grupo:</label><input
+            [(ngModel)]="psi_asig.ciclo + '/' + psi_asig.grupo"
+            disabled></div>
+        <div class="item-info"><label>Codigo:</label><input
+            [(ngModel)]="psi_asig.codigo" disabled></div>
+      </div>
+
     </div>
-  </div>
-</div>
-
-
-<!-- Modal Psicologo detalle-->
-<div class="modal fade bd-example-modal-lg" id="detalleultimo" tabindex="-1"
-  role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header" style="background-color: #458fcd;">
-        <h5 class="modal-title" id="exampleModalLongTitle"
-          style="color:white;font-weight: bold;">Datos
-          de Especialista Asignado</h5>
-        <button type="button" style="color: white;" class="close" data-dismiss="modal"
-          aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body detailbody">
-
-        <div class="detailrigth">
-          <h4 style="text-align: center;font-weight: bold;color:
-            black;text-transform: capitalize;font-size: 25px;">
-            <img style="width: 30px;height: 30px;"
-              *ngIf="psi_asig.tipo=='psicologo'"
-              src="https://img.icons8.com/color/48/000000/psychology.png" />
-            <img style="width: 30px;height: 30px;"
-              *ngIf="psi_asig.tipo=='pastor'"
-              src="https://img.icons8.com/color/48/000000/the-pope.png" />
-            <img style="width: 30px;height: 30px;"
-              *ngIf="psi_asig.tipo=='estudiante'"
-              src="https://img.icons8.com/color/48/000000/student-male--v1.png"
-              />
-            {{psi_asig.nombre + ' ' + psi_asig.apellido}}</h4>
-          <div style="width: 100%;text-align: center;">
-
-            <img [src]='imagenpsi2' width="150" style="border-radius: 50%;border: 5px solid #458fcd;"
-              height="150" alt="">
-          </div>
-
-          <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-top:
-            20px;">
-              <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab"
-                  href="#home" role="tab" aria-controls="home"
-                  aria-selected="true"><img src="assets/personal.jpg"
-                    style="width: 3ox;height: 30px;margin-right: 10px;" alt="">
-                  Datos Personales</a>
-              </li>
-             <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="tab"
-                href="#profile" role="tab" aria-controls="profile"
-                aria-selected="false"><img src="assets/acedemico.jpg"
-                  style="width: 3ox;height: 30px; margin-right: 10px;" alt="">Reportes
-                de Sesiones</a>
-            </li>
-          
-           
-
-          </ul>
-
-
-
-
-
-
-          <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active " id="home" role="tabpanel"
-              aria-labelledby="home-tab">
-              <div class="group-item" *ngIf="psi_asig.tipo=='pastor'">
-                <div class="item-info"><label>Telefono:</label><input disabled
-                    [(ngModel)]="psi_asig.telefono"></div>
-                <div class="item-info"><label>Correo:</label><input disabled
-                    [(ngModel)]="psi_asig.correo"></div>
-                <div class="item-info"><label>Campo:</label><input
-                    [(ngModel)]="psi_asig.campo" disabled></div>
-                <div class="item-info"><label>Distrito:</label><input
-                    [(ngModel)]="psi_asig.distrito" disabled></div>
-              </div>
-
-
-              <div *ngIf="psi_asig.tipo=='psicologo'" class="group-item">
-                <div class="item-info"><label>Telefono:</label><input
-                    [(ngModel)]="psi_asig.telefono" disabled></div>
-                <div class="item-info"><label>Correo:</label><input
-                    [(ngModel)]="psi_asig.correo" disabled></div>
-                <div class="item-info"><label>Especialidad:</label><input
-                    [(ngModel)]="psi_asig.especialidad" disabled></div>
-                <div class="item-info"><label>Colegiatura:</label><input
-                    [(ngModel)]="psi_asig.n_colegiatura" disabled></div>
-                <div class="item-info"><label>Grado Academico:</label><input
-                    [(ngModel)]="psi_asig.grado_academico" disabled></div>
-              </div>
-
-
-              <div *ngIf="psi_asig.tipo=='estudiante'" class="group-item">
-                <div class="item-info"><label>Telefono:</label><input
-                    [(ngModel)]="psi_asig.telefono" disabled></div>
-                <div class="item-info"><label>Correo:</label><input
-                    [(ngModel)]="psi_asig.correo" disabled></div>
-                <div class="item-info"><label>Ciclo/Grupo:</label><input
-                    [(ngModel)]="psi_asig.ciclo + '/' + psi_asig.grupo"
-                    disabled></div>
-                <div class="item-info"><label>Codigo:</label><input
-                    [(ngModel)]="psi_asig.codigo" disabled></div>
-              </div>
-
-            </div>
-            <div class="tab-pane fade " id="profile" role="tabpanel"
-              style="padding: 10px;"
-              aria-labelledby="profile-tab">
-
-              <div *ngFor="let sesion of sesiones" style="width: 100%;">
-                <div class="atencionesreg">
-                  <label class="linea"><span>Nro Sesion: {{sesion.nro_sesion}}</span></label>
-                  <div class="detalleobse">
-                    <div class="detalle2">
-                      <div>
-                        <label for="" style="margin-right: 15px;">Condicion
-                          Final:</label>
-                        <input disabled style="margin-right: 25px;"
-                          [(ngModel)]="sesion.condicion">
-                      </div>
-                      <div style="display: flex;flex-direction: row;align-items:
-                        center;">
-                        <label style="margin-right: 15px;display:
-                          flex;align-items: center;margin-bottom: 0;" for="">Evidencia
-                          Final:</label>
-                        <a style="display: flex;align-items: center;"
-                          href="{{sesion.evidencia}}">Mostrar evidencia
-                          <mat-icon>launch</mat-icon></a>
-
-                      </div>
-                    </div>
-                    <div class="item-info-lg">
-                      <label style="color: black; font-weight: bold;">Observaciones:</label>
-                      <textarea name="" id="" cols="90" rows="3" disabled
-                        [(ngModel)]="sesion.observaciones"></textarea>
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-              </div>
-
-            </div>
-          </div>
-
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-<p-dialog header="Header" [(visible)]="displayResponsive2"
-  [breakpoints]="{'960px': '75vw'}" [modal]="true" [style]="{width: '50vw',height:'auto'}"
-  [draggable]="false" [resizable]="false">
-  <div class="detailrigth">
-    <h4 style="text-align: center;font-weight: bold;color:
-      #c5c5c5;text-transform: capitalize;">
-      <img style="width: 30px;height: 30px;"
-        *ngIf="psi_asig.tipo=='psicologo'"
-        src="https://img.icons8.com/color/48/000000/psychology.png" />
-      <img style="width: 30px;height: 30px;"
-        *ngIf="psi_asig.tipo=='pastor'"
-        src="https://img.icons8.com/color/48/000000/the-pope.png" />
-      <img style="width: 30px;height: 30px;"
-        *ngIf="psi_asig.tipo=='estudiante'"
-        src="https://img.icons8.com/color/48/000000/student-male--v1.png"
-        />
-      {{psi_asig.nombre + ' ' + psi_asig.apellido}}</h4>
-    <div style="width: 100%;text-align: center;">
-
-      <img [src]='imagenpsi2' width="150" style="border-radius: 50%;"
-        height="150" alt="">
-    </div>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-        culpa qui officia deserunt mollit anim id est laborum.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-        culpa qui officia deserunt mollit anim id est laborum.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-        culpa qui officia deserunt mollit anim id est laborum.
-
-    <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-top:
-      20px;">
-       <li class="nav-item">
-        <a class="nav-link active" id="profile-tab" data-toggle="tab"
-          href="#profile" role="tab" aria-controls="profile"
-          aria-selected="false"><img src="assets/acedemico.jpg"
-            style="width: 3ox;height: 30px; margin-right: 10px;" alt="">Reportes
-          de Sesiones</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " id="home-tab" data-toggle="tab"
-          href="#home" role="tab" aria-controls="home"
-          aria-selected="true"><img src="assets/personal.jpg"
-            style="width: 3ox;height: 30px;margin-right: 10px;" alt="">
-          Datos Personales</a>
-      </li>
+    <div class="detail-son-two">
      
-
-    </ul>
-
-
-
-
-
-
-    <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade " id="home" role="tabpanel"
-        aria-labelledby="home-tab">
-        <div class="group-item" *ngIf="psi_asig.tipo=='pastor'">
-          <div class="item-info"><label>Telefono:</label><input disabled
-              [(ngModel)]="psi_asig.telefono"></div>
-          <div class="item-info"><label>Correo:</label><input disabled
-              [(ngModel)]="psi_asig.correo"></div>
-          <div class="item-info"><label>Campo:</label><input
-              [(ngModel)]="psi_asig.campo" disabled></div>
-          <div class="item-info"><label>Distrito:</label><input
-              [(ngModel)]="psi_asig.distrito" disabled></div>
+        <h1 style="font-weight: bold;font-size: 18px;text-align: center;">
+          Detalle del paciente
+        </h1>
+        <div class="pac_two">
+          <img *ngIf="pac_asig.genero == 'H'" src="https://www.bootdey.com/img/Content/avatar/avatar6.png" style="width: 28%; height: 95%;border: 4px solid teal;" alt="">
+          <img   *ngIf="pac_asig.genero == 'M'"src="https://armeniahotel.com.co/wp-content/uploads/2017/07/avatars-1-06.jpg" style="width: 28%; height: 95%;border: 4px solid teal;" alt="">
+          <div  class="group-item2">
+            <div class="item-info"><label>Nombre Completo:</label><input disabled
+                [(ngModel)]="pac_asig.nombre + ' ' + pac_asig.apellido"></div>
+            <div class="item-info"><label>Telefono:</label><input
+                [(ngModel)]="pac_asig.telefono" disabled></div>
+            <div class="item-info"><label>Motivo:</label><input
+                [(ngModel)]="pac_asig.motivo" disabled></div>
+            <div class="item-info"><label>Descripcion: </label><input
+                [(ngModel)]="pac_asig.descripcion"
+                disabled></div>
+           
+          </div>
         </div>
-
-
-        <div *ngIf="psi_asig.tipo=='psicologo'" class="group-item">
-          <div class="item-info"><label>Telefono:</label><input
-              [(ngModel)]="psi_asig.telefono" disabled></div>
-          <div class="item-info"><label>Correo:</label><input
-              [(ngModel)]="psi_asig.correo" disabled></div>
-          <div class="item-info"><label>Especialidad:</label><input
-              [(ngModel)]="psi_asig.especialidad" disabled></div>
-          <div class="item-info"><label>Colegiatura:</label><input
-              [(ngModel)]="psi_asig.n_colegiatura" disabled></div>
-          <div class="item-info"><label>Grado Academico:</label><input
-              [(ngModel)]="psi_asig.grado_academico" disabled></div>
-        </div>
-
-
-        <div *ngIf="psi_asig.tipo=='estudiante'" class="group-item">
-          <div class="item-info"><label>Telefono:</label><input
-              [(ngModel)]="psi_asig.telefono" disabled></div>
-          <div class="item-info"><label>Correo:</label><input
-              [(ngModel)]="psi_asig.correo" disabled></div>
-          <div class="item-info"><label>Ciclo/Grupo:</label><input
-              [(ngModel)]="psi_asig.ciclo + '/' + psi_asig.grupo"
-              disabled></div>
-          <div class="item-info"><label>Codigo:</label><input
-              [(ngModel)]="psi_asig.codigo" disabled></div>
-        </div>
-
-      </div>
-      <div class="tab-pane fade show active" id="profile" role="tabpanel"
-        style="padding: 10px;"
-        aria-labelledby="profile-tab">
-
-        <div *ngFor="let sesion of sesiones" style="width: 100%;">
-          <div class="atencionesreg">
-            <label class="linea"><span>Nro Sesion: {{sesion.nro_sesion}}</span></label>
-            <div class="detalleobse">
+       
+      
+      <div></div>
+    </div>
+    <div class="detail-son-three">
+      <p-overlayPanel #op1>
+        <ng-template pTemplate>
+          <div>
+            <div *ngIf="nro_s==1" class="detalleobse">
               <div class="detalle2">
                 <div>
                   <label for="" style="margin-right: 15px;">Condicion
                     Final:</label>
                   <input disabled style="margin-right: 25px;"
-                    [(ngModel)]="sesion.condicion">
+                    [(ngModel)]="sesiones[0].condicion">
                 </div>
                 <div style="display: flex;flex-direction: row;align-items:
                   center;">
@@ -612,31 +378,90 @@
                     flex;align-items: center;margin-bottom: 0;" for="">Evidencia
                     Final:</label>
                   <a style="display: flex;align-items: center;"
-                    href="{{sesion.evidencia}}">Mostrar evidencia
+                    href="{{sesiones[0].evidencia}}" target="_blank">Mostrar evidencia
                     <mat-icon>launch</mat-icon></a>
-
+  
                 </div>
               </div>
               <div class="item-info-lg">
-                <label style="color: #c5c5c5; font-weight: bold;">Observaciones:</label>
+                <label style="color: black; font-weight: bold;">Observaciones:</label>
                 <textarea name="" id="" cols="90" rows="3" disabled
-                  [(ngModel)]="sesion.observaciones"></textarea>
+                  [(ngModel)]="sesiones[0].observaciones"></textarea>
               </div>
-
+  
             </div>
-
+            <div *ngIf="nro_s==2"  class="detalleobse">
+              <div class="detalle2">
+                <div>
+                  <label for="" style="margin-right: 15px;">Condicion
+                    Final:</label>
+                  <input disabled style="margin-right: 25px;"
+                    [(ngModel)]="sesiones[1].condicion">
+                </div>
+                <div style="display: flex;flex-direction: row;align-items:
+                  center;">
+                  <label style="margin-right: 15px;display:
+                    flex;align-items: center;margin-bottom: 0;" for="">Evidencia
+                    Final:</label>
+                  <a style="display: flex;align-items: center;"
+                    href="{{sesiones[1].evidencia}}" target="_blank">Mostrar evidencia
+                    <mat-icon>launch</mat-icon></a>
+  
+                </div>
+              </div>
+              <div class="item-info-lg">
+                <label style="color: black; font-weight: bold;">Observaciones:</label>
+                <textarea name="" id="" cols="90" rows="3" disabled
+                  [(ngModel)]="sesiones[1].observaciones"></textarea>
+              </div>
+  
+            </div>
+            <div *ngIf="nro_s==3" class="detalleobse">
+              <div class="detalle2">
+                <div>
+                  <label for="" style="margin-right: 15px;">Condicion
+                    Final:</label>
+                  <input disabled style="margin-right: 25px;"
+                    [(ngModel)]="sesiones[2].condicion">
+                </div>
+                <div style="display: flex;flex-direction: row;align-items:
+                  center;">
+                  <label style="margin-right: 15px;display:
+                    flex;align-items: center;margin-bottom: 0;" for="">Evidencia
+                    Final:</label>
+                  <a style="display: flex;align-items: center;"
+                    href="{{sesiones[2].evidencia}}"  target="_blank">Mostrar evidencia
+                    <mat-icon>launch</mat-icon></a>
+  
+                </div>
+              </div>
+              <div class="item-info-lg">
+                <label style="color: black; font-weight: bold;">Observaciones:</label>
+                <textarea name="" id="" cols="90" rows="3" disabled
+                  [(ngModel)]="sesiones[2].observaciones"></textarea>
+              </div>
+  
+            </div>
           </div>
+          
+        </ng-template>
+      </p-overlayPanel>
+    
+      <button  *ngFor="let sesion of sesiones"
+        (click)="op1.toggle($event);changeses(sesion.nro_sesion)">
+        <img src="https://cdn-icons-png.flaticon.com/512/31/31632.png" alt=""
+          width="100px" height="100px">
+        Sesion {{sesion.nro_sesion}}</button>
+      
 
-
-        </div>
-
-      </div>
     </div>
-
-
   </div>
+
   <ng-template pTemplate="footer">
-    <p-button (click)="displayResponsive2=false" label="Ok"
+
+    <p-button (click)="displayResponsive3=false" label="Ok"
       styleClass="p-button-text"></p-button>
   </ng-template>
 </p-dialog>
+
+

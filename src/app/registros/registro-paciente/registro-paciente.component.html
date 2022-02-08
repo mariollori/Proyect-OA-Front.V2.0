@@ -21,7 +21,7 @@
 
 
 
-<mat-horizontal-stepper class="stepperhz" [linear]="!islinear" #stepper>
+<mat-horizontal-stepper class="stepperhz"  #stepper>
                 <mat-step [stepControl]="firstFormGroup">
                     <form [formGroup]="firstFormGroup">
                         <ng-template matStepLabel>
@@ -33,35 +33,35 @@
                             <div class="wrapper">
                                 <div class="container">
                                     <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(1)" />
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(0)" />
                                         <div class="option_inner alimentacion" id="alimentacion">
                                             <div class="alimentacion card-style"></div>
                                             <div class="name">Alimentacion</div>
                                         </div>
                                     </label>
                                     <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(2)" />
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(1)" />
                                         <div class="option_inner ansiedad" id="ansiedad">
                                             <div class="ansiedad card-style"></div>
                                             <div class="name">Ansiedad</div>
                                         </div>
                                     </label>
                                     <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(3)" />
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(2)" />
                                         <div class="option_inner depresion" id="depresion">
                                             <div class="depresion card-style"></div>
                                             <div class="name">Depresion</div>
                                         </div>
                                     </label>
                                     <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(4)" />
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(3)" />
                                         <div class="option_inner suicidio" id="suicidio">
                                             <div class="suicidio card-style"></div>
                                             <div class="name">Suicidio</div>
                                         </div>
                                     </label>
                                     <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(5)" />
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(4)" />
                                         <div class="option_inner familiar" id="familiar">
                                             <div class="familiar card-style"></div>
                                             <div class="name">Problemas Familiares</div>
@@ -72,35 +72,35 @@
 
 
                                     <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(6)" />
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(5)" />
                                         <div class="option_inner bulling" id="bulling">
                                             <div class="bulling card-style"></div>
                                             <div class="name">Bulling</div>
                                         </div>
                                     </label>
                                     <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(7)" />
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(6)" />
                                         <div class="option_inner deficit" id="deficit">
                                             <div class="deficit card-style"></div>
                                             <div class="name">Deficit de atencion</div>
                                         </div>
                                     </label>
                                     <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(8)" />
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(7)" />
                                         <div class="option_inner bipolaridad" id="bipolaridad">
                                             <div class="bipolaridad card-style"></div>
                                             <div class="name">Bipolaridad</div>
                                         </div>
                                     </label>
                                     <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(9)" />
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(8)" />
                                         <div class="option_inner fobia" id="fobia">
                                             <div class="fobia card-style"></div>
                                             <div class="name">Fobia</div>
                                         </div>
                                     </label>
                                     <label class="option_item">
-                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(10)" />
+                                        <input type="checkbox" class="checkbox" (click)="seleccionaritems(9)" />
                                         <div class="option_inner trastorno" id="trastorno">
                                             <div class="trastorno card-style"></div>
                                             <div class="name">Trastornos de sueño</div>
@@ -113,7 +113,7 @@
                         </body>
 
                         <div class="btn-block-prob">
-                            <button mat-raised-button  class="btn-step"  matStepperNext>Siguiente</button>
+                            <button mat-raised-button  class="btn-step" (click)="mostrar()"  matStepperNext>Siguiente</button>
                         </div>
                     </form>
                 </mat-step>

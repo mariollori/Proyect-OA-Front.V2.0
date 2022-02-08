@@ -1,6 +1,7 @@
 import { core } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Opciones } from 'src/app/models/Opciones';
 import { Rol } from 'src/app/models/Rol';
 import { Usuario } from 'src/app/models/Usuario';

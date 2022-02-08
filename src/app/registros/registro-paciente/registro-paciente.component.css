@@ -249,7 +249,11 @@ transition: 100ms ease;
   }
   
   
-  
+  .animated{
+    background-color :"#00a99d";
+    color :white;
+    border : 3px solid white
+  }
   .large{
     grid-column: 1/3;
     width: 96%;

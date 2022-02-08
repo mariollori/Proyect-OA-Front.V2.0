@@ -1,0 +1,16 @@
+<section *ngIf="state==false">
+    <label style="font-size: 13px;font-weight: bold;">Comienza en:</label>
+    
+        
+            <ul>
+                <li class="count-bg-one radius" *ngIf="daysToDday!=0"><span id="days">{{daysToDday}}</span>Dias</li>
+                <li class="count-bg-two radius" *ngIf="hoursToDday!=0"><span id="hours">{{hoursToDday}}</span>Horas</li>
+                <li class="count-bg-three radius" *ngIf="minutesToDday!=0"><span id="minutes"> {{minutesToDday}}</span>Minutos</li>
+                <li class="count-bg-four radius" *ngIf="secondsToDday!=0"><span id="seconds">{{secondsToDday}} </span>Segundos</li>
+            </ul>
+        
+</section>
+<section *ngIf="state==true">
+    
+    <button class="btn-log" >Ingresar ahora<i class="fas fa-video" style="margin-left: 15px;"></i></button>
+</section>

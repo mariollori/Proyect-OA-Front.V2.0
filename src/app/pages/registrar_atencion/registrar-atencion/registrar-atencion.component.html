@@ -3,131 +3,125 @@
     rel="stylesheet">
 </head>
 <body>
-  <div class="card-body">
-    <div class="header">
-      <h5><img class="imgheader" src="assets/paciente.png">Pacientes Asignados</h5>
-    </div>
+  <h5 class="title"><div class="puntero"></div><img class="imgheader" src="assets/paciente.png">Pacientes Asignados</h5>
+  
 
-    <app-spinner-blanc *ngIf="cargando"></app-spinner-blanc>
-    <div class="body-content" *ngIf="!cargando">
+  <div class="container">
+    
+    <div class="listproximasS">
+      <h5><i class="fas fa-stopwatch" style="margin-right: 15px;"></i>Proximas Sesiones</h5>
+      <div class="proximassesiones">
+        <!--Tabla-->
 
+        <div *ngFor="let aten of atenciones_pend" class="proxsesion">
 
-      <p-scrollPanel [style]="{width: '50vw', height: '100%'}"
-        *ngIf="!cargando">
-       
-         
+            <h6 style="font-weight: bold;margin-bottom: 20px;font-size: 13.5px; color: #419dc8;"><i class="fas fa-user-tie" style="margin-right: 10px;"></i>
+            {{aten.nombre + ' ' +
+            aten.apellido}} </h6>
 
-        <div *ngFor="let pac of datalist" class="card">
-          
-          <div class="cardleft" *ngIf="pac.genero=='H'">
-            <div class="left1">
-              <span  style="text-transform: uppercase;background-color: rgba(0,0,0,0.3);" class="badge badge-secondary">Hombre</span>
-              <img class="img" src="https://bootdey.com/img/Content/avatar/avatar6.png" />
-              <span style="text-transform: uppercase;background-color: rgba(0,0,0,0.3);" class="badge badge-secondary">{{pac.motivo}}</span>
-            </div>
+          <div style="display: flex;flex-direction: row;font-size: 13px;">
+            <p><i class="far fa-calendar" style="margin-right: 10px;"></i>Fecha: {{aten.fecha_sesion | date:'dd/MM/yyyy'}}</p>
+            <p style="margin-left: 50px;"><i class="far fa-clock" style="margin-right: 10px;"></i>Hora :{{aten.fecha_sesion | date:"shortTime" : 'UTC'}}</p>
+          </div>
+        
+          <app-cronometro [end]="aten.fecha_sesion" style="width: 100%;height: 65px;margin: 0 auto;"></app-cronometro>
+          <i class="fas fa-sync-alt" style="position: absolute;cursor: pointer;left: calc(100% - 30px);top: 10px;color: #4267b2;" (click)="asignaridfecha(aten.idregistro_aten,aten.fecha_sesion,aten.hora)"
+          data-toggle="modal"
+          data-target="#modificarfecha"></i>
             
-            <div class="left2">
-              <h5 style="text-align: center;font-weight: bold;margin-top: 10px;font-size: 30px;text-transform: capitalize;">{{pac.nombre }}</h5>
-              <div style="display: flex;flex-direction: row;justify-content: space-around;margin-top: 20px;">
-                <div style="display: flex;align-items: center;flex-direction: column;" >
-                  <mat-icon style="font-size: 30px;color: rgba(0,0,0,0.5);;margin-bottom: 15px;">phone</mat-icon>
-                  <p style="color: rgba(0,0,0,0.5);;font-weight: bold;">{{pac.telefono}}</p>
-                </div>
-                <div style="display: flex;align-items: center;flex-direction: column;">
-                  <mat-icon style="font-size: 30px; color: rgba(0,0,0,0.5);;margin-bottom: 15px;">email</mat-icon>
-                  <p style="color: rgba(0,0,0,0.5);;font-weight: bold;"> {{pac.correo}}</p>
-  
-                </div>
-              </div>
-              <div style="width: 100%;height: 40px;background-color: yellow;">
-                <button color="primary" data-toggle="modal" style="width: 50%;height: 100%;border: none;background-color: white;font-weight: bold;"
-                  data-target="#register_aten"
-                  (click)="verificarsesiones(pac.idasignacion,pac.idpaciente)">Registrar
-                  Atencion</button>
-                <button  color="basic" data-toggle="modal" style="width: 50%;height: 100%;border: none;background-color: #afdfe5;font-weight: bold;"
-                  data-target="#cancelaratencion" (click)="detallecancelar(pac)">Cancelar
-                  Atencion</button>
-              </div>
-            </div>
-          </div>
-          <div class="cardleftM" *ngIf="pac.genero=='M'">
-            <div class="left1">
-              <span  style="text-transform: uppercase;background-color: rgba(0,0,0,0.3);" class="badge badge-secondary">Mujer</span>
-              <img class="img" src="https://armeniahotel.com.co/wp-content/uploads/2017/07/avatars-1-06.jpg" />
-              <span style="text-transform: uppercase;background-color: rgba(0,0,0,0.3);" class="badge badge-secondary">{{pac.motivo}}</span>
-            </div>
-            <div class="left2">
-              <h5 style="text-align: center;font-weight: bold;margin-top: 10px;font-size: 30px;text-transform: capitalize;">{{pac.nombre }}</h5>
-              <div style="display: flex;flex-direction: row;justify-content: space-around;margin-top: 20px;">
-                <div style="display: flex;align-items: center;flex-direction: column;" >
-                  <mat-icon style="font-size: 30px;color: rgba(0,0,0,0.5);;margin-bottom: 15px;">phone</mat-icon>
-                  <p style="color: rgba(0,0,0,0.5);;font-weight: bold;">{{pac.telefono}}</p>
-                </div>
-                <div style="display: flex;align-items: center;flex-direction: column;">
-                  <mat-icon style="font-size: 30px; color: rgba(0,0,0,0.5);;margin-bottom: 15px;">email</mat-icon>
-                  <p style="color: rgba(0,0,0,0.5);;font-weight: bold;"> {{pac.correo}}</p>
-  
-                </div>
-              </div>
-              <div style="width: 100%;height: 40px;background-color: yellow;">
-                <button color="primary" data-toggle="modal" style="width: 50%;height: 100%;border: none;background-color: white;font-weight: bold;"
-                  data-target="#register_aten"
-                  (click)="verificarsesiones(pac.idasignacion,pac.idpaciente)">Registrar
-                  Atencion</button>
-                <button  color="basic" data-toggle="modal" style="width: 50%;height: 100%;border: none;background-color: #afdfe5;font-weight: bold;"
-                  data-target="#cancelaratencion" (click)="detallecancelar(pac)">Cancelar
-                  Atencion</button>
-              </div>
-            </div>
-          </div>
-          <div class="cardrigth">
-            <h5 style="text-align: center;font-weight: bold;margin-top: 10px;font-size: 30px;text-transform: capitalize;">{{pac.nombre }}</h5>
-            <p style="text-transform: capitalize;text-align: start;width: 100%; padding-left: 20px;height: 40%;">
-              {{pac.descripcion}}
-         </p>
-            <p style="width: 100%;text-align: end;padding-right: 25px;">Mouse sobre la tarjeta para mas info</p>
-          </div>
+            
+          
         </div>
 
-      </p-scrollPanel>
 
-
-      <div class="listproximasS">
-        <h5><img class="imgheader" src="assets/proximas.jpg">Proximas Sesiones</h5>
-        <div class="proximassesiones">
-          <!--Tabla-->
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th scope="col" class="ti">#</th>
-                <th scope="col" class="ti">Nombre y Apellidos</th>
-                <th scope="col" class="ti">Fecha</th>
-                <th scope="col" class="ti">Hora</th>
-                <th scope="col" class="ti">Modificar</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let aten of atenciones_pend; let i= index">
-                <td class="ti">{{i+1}}</td>
-                <td>{{aten.nombre + ' ' + aten.apellido}}</td>
-                <td class="ti">{{aten.fecha_sesion | date:'dd/MM/yyyy'}}</td>
-                <td class="ti">{{aten.hora}}</td>
-                <td class="ti"><img
-                    src="https://www.pngitem.com/pimgs/m/34-341449_transparent-tumblr-clipart-eye-png-png-download.png"
-                    style="cursor: pointer;width: 30px;height: 30px;margin-left:
-                    20px;"
-                    (click)="asignaridfecha(aten.idregistro_aten,aten.fecha_sesion,aten.hora)"
-                    data-toggle="modal"
-                    data-target="#modificarfecha" /> </td>
-              </tr>
-            </tbody>
-          </table>
-
-
-        </div>
 
       </div>
+
     </div>
+    <app-spinner-blanc *ngIf="cargando" style="min-width: 60%;height: 80%;margin-top: 50px;"></app-spinner-blanc>
+    <div class="list-pac" *ngIf="!cargando">
+      <!-- <div class="card" *ngFor="let pac of datalist">
+         <div class="card-body">
+          <div style="display: flex;flex-direction: row;">
+            <img class="imgpac" *ngIf="pac.genero == 'M'"
+            src="https://armeniahotel.com.co/wp-content/uploads/2017/07/avatars-1-06.jpg"
+            />
+          <img class="imgpac" *ngIf="pac.genero == 'H'"
+            src="https://bootdey.com/img/Content/avatar/avatar6.png" />
+            <div style="margin-left: 15px;">
+              <label style="font-weight: bold;margin-bottom: 0;margin-top: 20px;" >{{pac.nombre + pac.apellido}}</label>
+              <label style="color: #bebebe;font-size: 12px;;margin-bottom: 0" >{{pac.correo}}</label>
+              <label style="color: #bebebe;font-size: 12px;" >{{pac.telefono}}</label>
+    
+            </div>
+          </div>
+          <div>
+            <label style="font-size: 12px;" for=""> {{pac.descripcion}}</label>
+          </div>
+          <i class="far fa-times-circle" ></i>
+         </div>
+         <div class="card-btns">
+           <button data-target="#register_aten"
+           data-toggle="modal"
+           (click)="verificarsesiones(pac.idasignacion,pac.idpaciente)">
+             Registrar Atencion
+           </button>
+         </div>
+      </div>
+       -->
+     
+
+
+   <div class="card2" *ngFor="let pac of datalist">
+    <div class="img-container">
+      <img class="imgpac2" *ngIf="pac.genero == 'M'"
+            src="https://armeniahotel.com.co/wp-content/uploads/2017/07/avatars-1-06.jpg"
+            />
+          <img class="imgpac2" *ngIf="pac.genero == 'H'"
+            src="https://bootdey.com/img/Content/avatar/avatar6.png" />
+    </div>
+   <div class="card-body2">
+     
+     <div style="display: flex;flex-direction: column; margin-right:10px ;width: 60%; justify-content: flex-start;">
+       
+    
+         <label style="font-weight: bold;margin-bottom: 0;" >{{pac.nombre + pac.apellido}}</label>
+         <label style="color: #bebebe;font-size: 12px;;margin-bottom: 0" >{{pac.correo}}</label>
+         <label style="color: #bebebe;font-size: 12px;" >{{pac.telefono}}</label>
+  
+       
+       <div >
+        <label style="font-size: 12px;max-width: 500px;" >{{pac.descripcion}}</label>
+      </div>
+     </div>
+     
+   
+  
+    <div class="card-btns2">
+     <button data-target="#register_aten"
+     data-toggle="modal"
+     (click)="verificarsesiones(pac.idasignacion,pac.idpaciente)">
+       Registrar Atencion
+     </button>
+     <button data-toggle="modal"  data-target="#cancelaratencion" (click)="detallecancelar(pac)">
+       Cancelar Sesion
+     </button>
+   </div>
+   </div>
+   
+  </div>
+
+     
+
+
+  
+
+    </div>
+
+
+
+
+    
   </div>
 </body>
 
@@ -136,195 +130,198 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();   
 });
 </script>
-<!-- Modal largo xd -->
+<!-- Modal Registro de Atencion xd -->
 <div class="modal fade bd-example-modal-lg" id="register_aten" tabindex="-1"
   role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle"><img
-            class="imgheader" src="assets/registerimg.png" />Registro de
+      <div class="modal-header" style="border-bottom: 0;color: white;background-color: #00ccbe;">
+        <h5 class="modal-title" id="exampleModalLongTitle">Registro de
           Atencion </h5>
-        <button type="button" class="close" data-dismiss="modal"
-          (click)="reset()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+        <button type="button" class="close"  data-dismiss="modal"
+          (click)="reset()" >
+          <i style="color: #00ccbe;" class="far fa-times-circle"></i>
         </button>
       </div>
+
+
+
+
+
+
       <app-spinner-blanc *ngIf="cargando2"></app-spinner-blanc>
       <div class="modal-body" *ngIf="!cargando2">
-        <div class="imgregister">
-          <img class="imagenreg" src="assets/atencionpsi.png" />
-        </div>
+      
+     
+           <div style="width: 55%;">
+            <div class="form-personal" *ngIf="counter==0">
+              <h5>Datos Personales del Paciente</h5>
+              <form [formGroup]="datapaciente" class="formulario">
+    
 
-        <div class="form1" *ngIf="counter==0">
-          <h5>Datos Personales<img src="assets/datospersonal.png" /></h5>
-          <form [formGroup]="datapaciente" class="forms">
-            <mat-form-field class="example-full-width">
-              <mat-label>Religion</mat-label>
-              <input matInput type="text" formControlName="religion" />
-              <mat-icon matSuffix>church</mat-icon>
-              <mat-error
-                *ngIf="datapaciente.get('religion').hasError('required')">*requerido</mat-error>
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-              <mat-label>Ciudad</mat-label>
-              <input matInput type="text" formControlName="ciudad" />
-              <mat-icon matSuffix>location_city</mat-icon>
-              <mat-error
-                *ngIf="datapaciente.get('ciudad').hasError('required')">*requerido</mat-error>
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Fecha de Nacimiento</mat-label>
-              <input matInput type="date" formControlName="fecha_nacimiento"
-                disabled />
-
-              <mat-error
-                *ngIf="datapaciente.get('fecha_nacimiento').hasError('required')">*requerido</mat-error>
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Grado de educacion</mat-label>
-              <mat-select formControlName="grado_educacion" name="food">
-                <mat-option value="primaria">Primaria</mat-option>
-                <mat-option value="secundaria">Secundaria</mat-option>
-                <mat-option value="universidad">Universidad</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-              <mat-label>Edad</mat-label>
-              <input matInput type="text" formControlName="edad" />
-              <mat-icon matSuffix>directions_run</mat-icon>
-              <mat-error *ngIf="datapaciente.get('edad').hasError('required')">*requerido</mat-error>
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-              <mat-label>Ocupacion</mat-label>
-              <input matInput type="text" formControlName="ocupacion" />
-              <mat-icon matSuffix>work</mat-icon>
-            </mat-form-field>
-          </form>
-        </div>
-
-        <div class="form1">
-          <h5>Datos de Sesion<img src="assets/datasesion.png" /></h5>
-          <form [formGroup]="datosatencion" class="forms2">
-            <div class="mediumclass">
-              <mat-label>Sesion Nro. </mat-label>
-              <input type="text" formControlName="nro_sesion" class="sesion" />
+                <div class="input-style" style="width: 50%;">
+                  <input  type="text" formControlName="ciudad" />
+                  <i class="fas fa-building"></i>
+                  <label class="xd">Ciudad</label>
+                  
+                  
+                </div>
+    
+                <div class="input-style" style="width: 39%;">
+                  <input  type="date" formControlName="fecha_nacimiento" />
+                  <label>Fecha de Nacimiento</label>
+    
+                 
+                </div>
+                
+                <div class="input-style"  style="width: 45%;">
+                  <input  type="text" formControlName="religion"/>
+                  <label>Religion</label>
+                  <i class="fas fa-praying-hands"></i>
+               
+                 
+                </div>
+                <div class="input-style"  style="width: 44%;">
+                  <input  type="text" formControlName="ocupacion" />
+                  <label>Ocupacion</label>
+                  <i class="fab fa-black-tie"></i>
+                
+                </div>
+    
+                <div class="input-style" style="width: 50%;">
+                  
+                  <select formControlName="grado_educacion" name="food">
+                    <option value="primaria">Primaria</option>
+                    <option value="secundaria">Secundaria</option>
+                    <option value="universidad">Universidad</option>
+                  </select>
+                
+                </div>
+    
+                <div class="input-style" style="width: 20%;">
+                  <input  type="text" formControlName="edad" />
+                  <label>Edad</label>
+                  <i class="fas fa-user-clock"></i>
+            
+               
+                </div>
+    
+    
+    
+    
+             
+    
+              </form>
+          
             </div>
-
-            <mat-form-field class="example-full-width">
-              <mat-label>Condicion</mat-label>
-              <input matInput type="text" formControlName="condicion" />
-              <mat-icon matSuffix>thermostat</mat-icon>
-              <mat-error
-                *ngIf="datosatencion.get('condicion').hasError('required')">*requerido</mat-error>
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-              <mat-label>Evidencia</mat-label>
-              <input matInput type="text" formControlName="evidencia" />
-              <mat-icon matSuffix>link</mat-icon>
-              <mat-error
-                *ngIf="datosatencion.get('evidencia').hasError('required')">*requerido</mat-error>
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width"
-              class="largeclass">
-              <mat-label>Observaciones</mat-label>
-              <textarea matInput formControlName="observaciones"
-                placeholder="Ex. It makes me feel..."></textarea>
-              <mat-icon matSuffix>content_paste</mat-icon>
-              <mat-error
-                *ngIf="datosatencion.get('observaciones').hasError('required')">*requerido</mat-error>
-            </mat-form-field>
-
-            <div *ngIf="counter==2">
-              <mat-slide-toggle [(ngModel)]="derivacion"
-                [ngModelOptions]="{standalone: true}" name="derivacion"
-                class="example-margin">
-                ¿Derivar con especialista?
-              </mat-slide-toggle>
+         
+            
+            <div class="form-sesion">
+              <h5>Datos de la Sesion</h5>
+              <form [formGroup]="datosatencion" class="formulario">
+                
+    
+                <div class="input-style"  style="width: 45%;">
+                  <input  type="text" formControlName="condicion" />
+                  <label>Condicion</label>
+               
+                 
+                </div>
+    
+                <div class="input-style" style="width: 45%;">
+                  <input  type="text" formControlName="evidencia" />
+                  <label>Evidencia</label>
+                 
+               
+                </div>
+    
+                <div class="input-style" style="width: 100%;"
+                 >
+                 <textarea  formControlName="observaciones" style="width: 100%;"
+                 placeholder="Ex. It makes me feel..."></textarea>
+                 <label>Observaciones</label>
+                 
+               
+                </div>
+    
+                <div *ngIf="counter==2">
+                  <mat-slide-toggle [(ngModel)]="derivacion"
+                    [ngModelOptions]="{standalone: true}" name="derivacion"
+                    class="example-margin">
+                    ¿Derivar con especialista?
+                  </mat-slide-toggle>
+                </div>
+              </form>
+          
+         
             </div>
-          </form>
-        </div>
+         
+            <h5></h5>
+            <div class="form-horarios" *ngIf="counter!=2">
+             
+              <form [formGroup]="fechaatencion" class="formulario2">
+                <div class="input-style" disabled>
+                  <input  type="datetime-local" formControlName="fecha"  />
+                  <label>Fecha y Hora de Sesion</label>
+                </div>
+                <div class="input-style" disabled>
+                  <input  type="text"  />
+                  <label>Link de sesion</label>
+                </div>
+               
+              </form>
+          
+          </div>
+           </div>
+           <div style="margin-left: 15px;">
+             <img src="https://img.freepik.com/vetores-gratis/ilustracao-de-desenho-animado-de-psicologo-online_97231-1851.jpg?size=338&ext=jpg" alt="">
+           </div>
+           
+        
+    
+        
+        
+        
 
 
-
-
-        <div class="form1" *ngIf="counter!=2">
-          <h5>Proxima Sesion<img src="assets/horario.jpg" /></h5>
-          <form [formGroup]="fechaatencion" class="horario">
-            <mat-form-field class="especial" disabled>
-              <mat-label>Fecha de Sesion</mat-label>
-              <input matInput type="date" formControlName="fecha" disable />
-              <mat-error
-                *ngIf="fechaatencion.get('fecha').hasError('required')">*requerido</mat-error>
-            </mat-form-field>
-            <p>Hora: <input type="time" formControlName="hora" name="eta" /></p>
-          </form>
-        </div>
-
-        <div class="btns-form" *ngIf="counter==0">
-          <button mat-button (click)="reset()" data-dismiss="modal"
-            class="btn-step2">Cancelar <mat-icon matSuffix>cancel</mat-icon></button>
-          <button mat-button class="btn-step" (click)="registraratencion()"
-            [disabled]="datapaciente.invalid || datosatencion.invalid ||
-            fechaatencion.invalid">Guardar <mat-icon matSuffix>save_alt</mat-icon></button>
-        </div>
-        <div class="btns-form" *ngIf="counter==1">
-          <button mat-button (click)="reset()" data-dismiss="modal"
-            class="btn-step2">Cancelar <mat-icon matSuffix>cancel</mat-icon></button>
-          <button mat-button class="btn-step" (click)="registraratencion()"
-            [disabled]="datosatencion.invalid || fechaatencion.invalid">Guardar
-            <mat-icon matSuffix>save_alt</mat-icon></button>
-        </div>
-        <div class="btns-form" *ngIf="counter==2">
-          <button mat-button (click)="reset()" data-dismiss="modal"
-            class="btn-step2">Cancelar <mat-icon matSuffix>cancel</mat-icon></button>
-          <button mat-button class="btn-step" (click)="registraratencion()"
-            [disabled]="datosatencion.invalid">Guardar<mat-icon matSuffix>save_alt</mat-icon></button>
-        </div>
+       
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal cancelaratencion-->
 <div class="modal fade" id="cancelaratencion" tabindex="-1" role="dialog"
   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Cancelar Atencion</h5>
-        <button type="button" class="close" data-dismiss="modal"
-          aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-header" style="border-bottom: 0;background-color: #4267b2;">
+        <h5 class="modal-title"  style="color: white;" id="exampleModalLongTitle">Cancelar Atencion</h5>
+        <button type="button" style="transition: transform .3s;" class="close"  data-dismiss="modal"
+        >
+          <i style="color: white;" class="far fa-times-circle"></i>
+         </button>
       </div>
       <div class="modal-body">
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">Paciente</label>
+        <label style="font-size: 13px;color: gray;"> Esta accion es irreversible. Si esta seguro de continuar introdusca el motivo de la cancelacion de la cita.</label>
+        <div class="form-group row" >
+          <label for="staticEmail"  class="col-sm-1 col-form-label"><i style="font-size: 15px;font-weight: bold;" class="far fa-user-circle"></i></label>
           <div *ngIf="detallecancelacion" class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext"
+            <input type="text" style="font-size: 15px;font-weight: bold;" readonly class="form-control-plaintext"
               [(ngModel)]="detallecancelacion.nombre + ' ' +
               detallecancelacion.apellido" id="staticEmail" disabled>
           </div>
         </div>
         <div class="form-group">
-          <label for="exampleFormControlTextarea1">Motivo de Cancelacion:</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1"
+          <label for="exampleFormControlTextarea1" style="font-size: 15px;font-weight: bold;"><i class="fas fa-comment-dots" style="margin-right: 25px;"></i>Motivo:</label>
+          <textarea class="form-control" style="font-size: 13px;" id="exampleFormControlTextarea1"
             [(ngModel)]="motivocancelar" rows="3"></textarea>
         </div>
         <div class="footer">
-          <button type="button" class="btn btn-basic asdasd"
+          <button type="button" class="btn-cancel1"
             data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-basic asdasd"
-            (click)="cancelaratencion()">Guardar<mat-icon class="icon"
-              matSuffix>save</mat-icon></button>
+          <button type="button" class="btn-cancel2"
+            (click)="cancelaratencion()">Guardar</button>
         </div>
 
 
@@ -343,30 +340,33 @@ $(document).ready(function(){
   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modificar Sesion</h5>
-        <button type="button" class="close" data-dismiss="modal"
-          aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-header" style="border-bottom: 0;background-color: #4267b2;color: white;">
+        <h5 class="modal-title" id="exampleModalLongTitle" style="font-size:18px;">Modificar Sesion</h5>
+        <button type="button" style="transition: transform .3s;" class="close"  data-dismiss="modal"
+        >
+          <i style="color: white;" class="far fa-times-circle"></i>
+         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="padding: 30px 15px;">
 
 
-
-
-
+       <div style="display: flex;flex-direction: row;">
+        <img src="https://www.sesametime.com/assets/wp-content/uploads/2020/01/definicion-sistema-control-horario.jpg" width="150px" height="110px" style="margin-right: 25px;" alt="">
         <div class="form-group">
-          <label for="exampleFormControlTextarea1">Proxima Sesion:</label>
-          <input type="date" [(ngModel)]="fechaactual" />
-          <p>Hora: <input type="time" [(ngModel)]="horaactual" /></p>
+          <label style="font-weight: bold;font-size: 13px;margin-right: 15px;">Proxima Sesion:</label>
+          <input type="datetime-local" style="outline: none;font-size: 13px;border: 2px solid #00ccbe;padding: 5px 10px;margin-bottom: 15px;" [(ngModel)]="fechaactual"  />
+          <label style="font-weight: bold;font-size: 13px;margin-right: 35px;margin-bottom: 0;" >Link de la Sesion:</label>
+          <input type="text" style="outline: none;border: none;border-bottom:2px solid #00ccbe;font-size: 13px;width: 250px;">
         </div>
+
+       </div>
+
+        
         <div class="footer">
-          <button type="button" class="btn btn-basic asdasd"
+          <button type="button" class="btn-cancel1"
             data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-basic asdasd"
-            (click)="guardarfechamodif()">Modificar<mat-icon class="icon"
-              matSuffix>save</mat-icon></button>
+          <button type="button" class="btn-cancel2"
+            (click)="guardarfechamodif()">Modificar</button>
         </div>
 
 

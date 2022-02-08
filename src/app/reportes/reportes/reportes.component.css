@@ -1,11 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 *{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 body{
     width: 100%;
     height: 100%;
-    background-color: #f1f0f6   ;
-    padding-top: 30px;
+    background-color: transparent;
+    padding-top: 120px;
+}
+
+h5{
+    font-size: 22px;
+    color:white;
+    margin-left: 40px;
+    background-color: #00ccbe;
+    height: 60px;
+    display: flex;
+    position: absolute;
+    top: -30px;
+    left: -20px;
+    justify-content: center;
+    align-items: flex-start;
+    width: 500px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 45% 76%, 19% 100%, 28% 75%, 0% 75%);
+
+
+    padding: 10px 15px;
+ 
+    box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
+    margin-bottom: 15px;
+}
+.datestyle{
+    padding:5px 10px;
+    font-size:12px;
+    border:2px solid rgba(100, 100, 111, 0.2) ;
+    text-transform:uppercase;
+    width:100%;
+    height:100%;
+    background:white;
+    outline:none;
+    border-radius:5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    color:#adb5bd;
+  
+  }
+  .inputdate{
+    width:180px;
+    position:relative;
+    height:34px;
+  }
+  .inputdate i{
+    color:#00ccbe;
+    position:absolute;
+    font-size:14px;
+    left:calc(100% - 25px);
+    top:10px
+  }
+  ::-webkit-calendar-picker-indicator{
+    filter:opacity(0)
+  }
+.content{
+    background: transparent;
+    width: 95%;
+    margin: 0 auto;
+    
+    display: flex;
+    height: 90%;
+}
+.list-psi{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+padding: 30px 15px;
+width: 70%;
+position: relative;
+background: white;
+height: 100%;
+}
+[type="search"]{
+    background: yellowgreen;
+}
+.selecttype{
+    border: none;outline: none;font-size: 22px;color: teal;font-weight: bold;background: transparent;margin-left: 15px;margin-top: -3px;
+}
+.selecttype option{
+    color: teal;
+    border: none;
+    font-size: 16px;
+}
+.selecttype option:hover{
+    color: white;
+    background: teal;
+}
+.tablaxd {
+    border-collapse: separate; 
+    font-size: 12.5px;
+    width: 100%;
+    border-spacing: 0px 7px; 
+   
+}
+.tablaxd td{
+    background: white;
+    overflow: hidden;
+  
+  
+}
+.tablaxd th{
+    background: transparent;
+    overflow: hidden;
+  
+  
+}
+.tablaxd thead{
+    background: transparent;
+    color: #00ccbe;
+    overflow: hidden;
+  
+  
+}
+
+
+.tablaxd .bodytable{
+    box-shadow: 0 2px 10px rgb(0 0 0 / 10%);
+    border-radius: 5px;
+    
+    
+    height: 50px;
+}
+.tablaxd td:nth-child(1){
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.tablaxd td:nth-child(2){
+   font-weight: bold;
+}
+.tablaxd td:nth-last-child(1){
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-left: 50px;
+}
+
+.tablaxd td:nth-last-child(2){
+
+    padding-left: 50px;
+}
+
+.reports{
+background-color: white;
+margin-left: 25px;
+width: 40%;
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+height: 100%;
+border-radius: 10px;
+border-left: 5px solid #00ccbe;
+}
+
+
+.reports .search{
+    width: 100%;
+    height: 80px;
+    align-items: center;
+    display: flex;
 }
 .container{
     width: 100%;

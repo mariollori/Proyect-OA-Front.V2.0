@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, ExtraOptions } from '@angular/router';
 
 
 import { NavComponent } from './navbar/nav/nav.component';
@@ -27,7 +27,6 @@ import { RegDatoPsicologoComponent } from './reg-dato-psicologo/reg-dato-psicolo
 
 
 
-
 const routes: Routes = [
   {path:'',redirectTo:'home',pathMatch:'full'},
 
@@ -49,7 +48,7 @@ const routes: Routes = [
     {path:'psicologo', component:PsicologoComponent,canActivate:[AuthGuard]},
     /*  PERFIL DEL USUARIO O PSICOLOGO UNA VEZ QUE SE REGISTRE */
   
-  ],canActivate:[AuthGuard]},
+  ]},
 
   {path:'register-pac',component:RegistroPacienteComponent},
   {path:'reg_dato_psicologo',component:RegDatoPsicologoComponent},
@@ -64,7 +63,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    scrollPositionRestoration: 'enabled',
+    onSameUrlNavigation: 'reload', 
+    anchorScrolling: 'enabled',
+    scrollOffset: [0, 64] // [x, y]
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

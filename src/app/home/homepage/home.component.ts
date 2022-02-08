@@ -2,9 +2,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Usuario } from '../../models/Usuario';
-import { MatSnackBar } from '@angular/material';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { element } from 'protractor';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

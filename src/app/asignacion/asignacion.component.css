@@ -1,15 +1,17 @@
 
 @import url('https://fonts.googleapis.com/css?family=Abel');
-*{
 
-  font-family: Abel, Arial, Verdana, sans-serif;
-  font-size: 16px;
+*{
+  --z:#dddfe1;
+  font-family: 'Rubik', sans-serif;
+  font-size: 13px;
 }
 body{
   width: 100%;
-  padding-top: 30px;
-  height: 100%;
-  background-color: #f1f0f6;
+  height: auto;
+  min-height: 100vh;
+ 
+  padding-top: 30px;  padding-bottom: 30px;background-color: #f1f0f6;
 }
 .ti{
 text-align: center;
@@ -129,7 +131,7 @@ color: black;
 font-weight: bold;
 }
 .item-info label{
-  font-size: 15px;
+  font-size: 13px;
   margin-left: 15px;
   width: 30%;
 }
@@ -200,16 +202,29 @@ label.linea span {
 
 .card{
   width: 90%;
+  height: auto;
   margin:0 auto;
   box-shadow: 1px 8px 8px 0px gray;
 }
-
+.cardtop{
+  width: 90%;
+  padding-bottom: 10px;padding-top: 10px;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-shadow: 1px 2px 2px 0px gray;
+ display: flex;
+  height: auto;
+  justify-content: space-between;
+  background-color: white;
+  margin:0 auto 15px auto;
+}
 .p-datatable .p-datatable-tbody > tr > td{
   padding: 0.1rem 0.857rem !important;
 }
 
 .hov{
-  --c: #a4ccff;
+  --c: #dbdada;
   font-size: 20px;
   display: flex;
   width: 180px;
@@ -218,7 +233,7 @@ label.linea span {
   align-items: center;
   flex-direction: column;
   background-color: white;
-  color: #a4ccff;
+  color: teal;
   border-radius: 10px;
   border: 0.3em solid var(--c);
   font-weight: bold;
@@ -237,7 +252,7 @@ label.linea span {
 .hov:hover{
  
   background-color: white;
-  color: white;
+  color: black;
   border-color: black;
 }
 
@@ -274,4 +289,87 @@ label.linea span {
 
 .hov span:nth-child(4) {
   --n: 4;
+}
+
+
+
+
+
+/*********************Modal de detalle de sesiones *************/
+.detail-container{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 400px 350px 350px;
+  grid-template-rows: 200px 70px 230px;
+column-gap: 10px;
+row-gap: 10px;
+}
+.detail-son{
+  grid-row: span 3;
+background-color: white;
+padding-top: 20px;
+padding-left: 10px;
+border:4px solid var(--z);
+border-radius: 15px;
+box-shadow: 0 0 5px var(--z), 0 0 10px var(--z), 0 0 10px var(--z);
+}
+.detail-son-two{
+  grid-row: span 2;
+  grid-column: span 2;
+  background-color: white;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  justify-content: space-around;
+
+  
+box-shadow: 0 0 5px var(--z), 0 0 10px var(--z), 0 0 10px var(--z);
+}
+
+.pac_two{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.detail-son-three{
+  grid-row: span 1;
+  grid-column: span 2;
+  background-color: white;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+
+
+}
+.detail-son-three button{
+  border:4px solid var(--z);
+  background-color: white;
+  box-shadow: 0 0 5px var(--z), 0 0 10px var(--z), 0 0 10px var(--z);
+  
+  width: 30%;
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 213px;
+  flex-direction: column;
+  border-radius: 15px;
+  transition: transform .5s ease-in-out;
+  margin-bottom: 10px;
+}
+.group-item2{
+  display: flex;
+  
+  justify-content: flex-start;
+  width: 70%;
+  flex-direction: column;
+
+}
+
+.detail-son-three button:hover{
+  transform: scale(1.1);
 }

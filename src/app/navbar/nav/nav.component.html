@@ -1,49 +1,59 @@
-<div class="sidemenu">
-  <div class="header_side"> 
-   
-    <h1 style="margin-right: 12px;color: white;">OA</h1>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<div class="sidebar cerrar">
+  <div class="sidehead">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADhCAMAAADmr0l2AAAAY1BMVEX///8mqp8ApJjX6+kAopbw+PcfqZ0Up5sJppr3+/vP6OX7/f3z+flEsqjL5uPe7+2l1dC53tqWz8nl8vGAxr+Ny8U7r6XB4t7F4+BqvrY/sKaq19Kz29dWt66c0cxywblfurFL8rxFAAAQX0lEQVR4nO1dedeyKhB/JQOqxzZtz+r7f8qrDCCr4Zbec/z9cc97q0cZmH0G+PdvxowZM2bMmDFjxowZM2bMGAx/6WJ7OTwLHC7X9S5djT2gvrBaHI7vHKMSVID93/mT7a/p2OPrgtX2dSsoowRHTmBCClKT7Lkbe6QtsLmezggR7KFNRUnlZ/+/IjLd5zEl30lTFxOR7DL2uMOQvs7Ix5T1RFJ0mzyNm0eCGi2dRWO2HpuGGizeiLanjtOIov1mbELcuCSoDWfaICiboPV4RKgX6oDE+LYYmyAdD9KZN3Vg9JkQiU9M+2FOg8SJMOr23CNzaiTG2QQ81uVnIPJKEPQYm75XT5rTB3oeVRR35551iwNxNh59p3hw8gqQaKRFTM8dnLJGiE9j0Pf4yfIB6H35c/puAypPGxj9OM5Io1+xpwD6qa65/nT5ADT/XZDx+qH4VcDRr1y3bIT1Y0C/sRef4Y27D/EvVE3ya/WiUfgcmrzNfUz6Ci7dD0zfeVjfOoDC16AEjk7fwBTex6evoHC4GDEfV/4E4sNA9H2mQV9B4XYQ+rLx7J8JNIRPsx/Lf3GB9J+NWo/if/qA733Tt5zS+hUg754JPI9NkYmejcV7Kgq0QtxnTfgwMQYF9Eff1AQQQG69EZhMwUOzgfryaF7TsfA60F8v9KWTsoAqcN4LgcnYdPjRC5M+JqlhOGj3VOJqyvRFpHs6eIImXkVnc7/odQExKdCvzUk6EtiXhsEEIZLfstMpuyUUNetkq0PHqkw/RQhcthOulRBueT1FXVq+NHQi0D3eZnxG0PvqePTuRHtxIGiXsMLhZGNEsv1z/w5dAEJf3uj7GfVAIiYdCLQfh3Ke8NmcQrgXf8li7nto0uiwhBeTBkwuNd/aQLlSev5bP1+n7HR8qI3aqx7abHBrAs0wniQat31NQ8XV3G4LrVLoTgaKyLvysZ6dKaRtKzJb49XkY/wgr+cvIozw35EYIlt2vop1TKOubHpuSeBHf7H03Q+3D0hWbSCMIx7MFNLqUrokvgn+7ZoxR+0Swak5fP7xHWFMIW2392tBHHF2fnr1LY6PYiq7UYg/rQg86W/l2eQr6D3u5fqTbQTWb1OrRGT/S8c1jFu10eirQ4ErD3Gp+zHiXu7CFwzz6Ui/bJzAiPegd6vLkaObhFpcDPZjH5b5bfzZ/NtFGLxcT7DBI9EAV52XirrltVoZe13FIOZt/ZXDQCU/7GKgwR0u8ryzvr6lv82gqxxOYTevt4Wa+TOYryIabWDpYNZeziVkX2laiqDbY1HqneXicdN2H8TrOl4IA26eyX9o7yPMZK/ZiOkFFpMzvsME8PlU/97wSDUvlLHEv023JWxMoG7EYQz8M7CrhfFmHz4sU8G1tqL7HY1mihvExbnG5nwHbRoWLnUOZWZPsBz3bjFPLVsrCBpUiUScErKsFCeF3pAusX5jHn1q00lYR+peLAlI4QWBjn8YwoNvxnBp5Vynu7TKg1UtRZDB3XeRwqY8etNmE9xZqVe5lc8JY1ZTeKCjrFI+st78yEsdGp9fIiF91h/YKYGHGm7qQo6/rj6L2ZjTGGi566866w9APJzfI7F7hAgX7U/+KP6zZ7UZSLO257VB4E6fYO53Z2ALdYtJmEBJ1cNXe5OrT6R30KlSTgnzk0zfohGahRRHhx+qOhugNjawkon922pVwVpujJAIY2DTSlezX3Xi0UaVGCPSY4PWowtYaPZffVhsJuVvwYDaBTgMEy45hfHItwCzFs0Mhak3DBaVmr3EVVe4jCWlZgXl5oj9jXAEePTYQY82EkLTSQaO1D5E0jPRORQUrlAX3Dy5WA/YWyhbcA46CWGTHLdp2mDUGgPJLgej+gSKVep/9oe2sxOJJZRTyWR110kIGxD4NmQBll/1q2X+wkzcMP9NcjPYF7doIW1xmY7oZgkbdHRbgXpizi/iMbQlXUj7JahU97BBr+jD60Jgk+Sa9R6gp7LofAF3icV8VFtWJqkexqNXdXVBCd6dvwxDAy1jjwi0feU/YyZABzthgZn9kIqVea2G18DPsEAQ6Qp1BG/oEhQ2qNi7lBn7omJdyKrZsgUEygcgjVz+Gcme1/V6vV1qBLL538UdKmvheQtHlA5luMp8WCGRALVXUCOQRLpBFizK7eJqcTnhlpKIgnssM8ckguch3WEeE9ktQkibCEagqmipGbfJv1OrHu22fqHgcrZLrYNfXfmjoPV2lhQydZ/qBFYraDUNCMOAdA1xa2PxqasM6YTzz6GGU3GvJ20I06hp0YMcra0HOPHITGy20TYkuI7mTgUedeI9aUNQ95qLWfly3Hou9+/8HLN/ZoxZZO59sxQBf4sG1eD0r8efgNFVVUFYUjNVBG/JpK8W5RaD7mOCMSQLeYDE1cPzHqM4gTxpC68tuGnGqrpwgkCvSAE1l5T/inHh0ylDoHqZ84rA7YDwgT8p4dQCHzcP73Fof6Uv4Q56perNgyU1U9JMjS7dNQv2eEafVn8DwmUOijAKTSc3AKGW3vQ8JMC6SyNiLikn0OtfQ+xUOgHCq0qURKsSlYB4N1ekoVmLq+/R8OKNYSqMdksY/MHxjCom4ZENnyqQHfWXTEM35lEcWqx3DQ6eAM5QFd4ZS8rpYB861LxJoOjTYOpdKy/FpS5tHt6HRoReAm1T8dSXFD5khsKRiAcWLZ/OrIfcCkxLxtC0JhNKM+ruj0C3CoRHML0i5d9YUgzlzkSfhQpVnhjdXtVBESyQ01Q3e81zDAK5Xqly3CdJDEY0v+UUYa5mHFqQV2vKL7AyesikqpLMRuouzA1MoKVXYr6kGPFjphYfxKtFtsvOOfwVGz0lTMkoOgV42cyb/IZArldkgwJ3snLl/KUr4lbcrrtzjyXNEmQlWZVyMCTcxCho+VsU0hvXXclE0lTInwA/aq3TOwRZ5pVFoNLvsVW+BLaQzW9IyeNjlDwZk6T77517oQTWZictU+GwrocYfIqlVfGjVVSkTCOX7FPBujgiMXg5Z3ibEgJ9bY8PtYP1ThIXJOntK81+uyevdOY8vFtaXVpIBryqQ8hrX2l2x/cTMDvbjYITjTXSL1IZ6sl8af4AXVj5c1VlbhmjCPgpFnnh3HwWifgkqHYcW5UTth/T2gZps4SG0Ny2J5qQozFMRYSyBR/fnmLh3Iit0vbJJSg6btP0qBTj0PlobsrNYlwVjK6Pxzpg7oM7ur415YBOUAKGsgEGRqA4N6KXMk3sJCRSlaL7kL80F8r4VfyYIHzgM1dDYHCd/pswA6/rvWxgAYrYCTajFEpIplkOdTkkEvlqz1fgONHsBo+rS+6HZ36/mRw+tXonDUxfjqu6GJIB6Mmrl+mneu3usH+9nlu9sa5iZXhrjfknwQd5fN0sAauk9+pCd17h44CZLlVx1SHsG1a113j7ho7gwqyrErlSRJiZuRobRoO3an11kpzNlMJB46mzMuTFounXE/rILNv1rHanE9n6rnlVjIAaDRheXvoeicEq6TpNhsPQVwH+amx1dakgYObsznSMPhs+X8qv2bTWEBjcNVrrjMIAXIkhcCRKH6fiA6gNex7Imy7Xrr0FJNrIh4jn374QGEpfSJsnRLW6QSHCx4ICPmMmeKmHI3gjQuyUCGgUa7KC4TXsv+8E8uU6aksjO7LAZiTCNHl6QSlPHXsknomBJYN+I40b7CUMCE2ES6qOTuYkQGEXhhL+4bHOrBDlT9KzQF9Jh4Cb782INbAS1oYCJyDU1SeUqZdCfYK0FCE5LJK7bgsc598CDVNY1chBYv2uTJOu35Bsgahi6xRm+zJ/C2M/CgLrSth1Gpu94KZ5MnU6pkGrk58P1AcCS+jnOEKuJWYWqdCxdQSCoNa8gCutY8zsv5rrdyOcvsAeeN5sbZ3EibmfjYQe8TA8m566N/HtEMtHlvEOipqfN2uJDaGvKqmu1RP8CzcEPi4VIJTsnH0yvI+hNntgKf6abRjNtmjVRSUqhcI5WrDNZeVdJ9FJFJJLssDBd/IVLO6pLvyJrYLf2h/xNjvnKbRpTDmKYLm+HC5rxVtiTgjTRM5aXyxspffZuWPIq9w3smZ7Q0JMPYzCb13Bk2EOl4NHQWRqwjvfKYZHt11p2pUevL2cRN7Sf/kMkAy7V4G7636vV9ajV5fj+/N5Hy/CCrhzYuGxEqBB3hwlHhLZuoG/abe0vb7MIxfv6yemBBcgNM55p4mdq4sEx4ejUYm8vJCGy8tSicnYI7j9MrY08+xhTYKSOV6Lu+qoYiQycvYZp81PXmlAXwRXC5HzGSNUndzOdSflDQZKzIDFyeB1rRToscjsjByXNOsUyfAWEoE6/V0L6RLyUE7M7fIdMx2PpaH88g5z3y98eGbztTJlNzzYFajhUbFNDgAfkOrzmGejhS2VeZfl451E99teaP9WZ33hiG+70T9ucWaH9w3olW5Wq+Xf36rEutwculoW1KD9kn2y4gTKcN/qTwNc2h2lxN0b3fK0OSzAo0dxYjjtB8TeKFzjCtUck9zh6B/brB97mt7szRDeaFjB0+pinZq4Blt/MzcP6bUHc4YXdq9wMCBWUS1Mi/2R/zxRry3Me8rCAmz0GRmWj0YPZRUvVk2mCYBJVR+h6c4sgMtI8YToci2wfdGIfLbXBBeMeF1vr9fLdbvbHVwFieT0vG6vz+MHdbzkhzkBmjfZhj6nmoGpyuJKiZaMiOFkGEzhDsXyKkXnwEjxHfVeRxgOmOaKR5sbQYBjPwfjUI90/hAscqhCuuYbeDkcjSC7SRAYawQ23DqowA5UwWd/xWhcsEhKWsK49RGHdrQmiqjLsZAWAEUulUyXw+NsZ/FHVz4EQFYt2p3UAXAF3BO5/fDZxwK6pPB3F5PU4lUlvLvdWOQwaOh9WYyLtdL11F6FAlx7GzEdWYmqgSLtRt8ED9jW0f24bW+H+jTQ9kAuBbcpHzAa92C1pnxEbA8HxP7r4+i6wdDl3EYFXc4nGBQtD4yzEFyo+DH6u5Jhmmf593ma/ySPau71PoaxiXGg3wumvjQBjwDrLNCOmJ4Y9kvfpG5dKjHAzUsTuRcMEAfvKG+ACdxcJzDMLYR/k1lCOtCVtenAN5eHosfbbAz0e3VBW5B+LkJxYgoXoJGuFzDUYjs6hcPSN/4aDk3f2HI4pPwJdDr7rCPoYPpThbOT6if41ZXtm5Fui44HvkVZgdnE/BP0lYEJwu9vpCc/LvqsOzZKNAX6/JS8AqsOnTzN8UPxq+DpLR4AJOozvxSOXbvz3RrjV9bBgdMPFpHgX2pPE4vz0JIYj7d8gH1vd5g5gFEyjvSp+Hu7d3D2AELa3qjUL3admiP95FkHHo6Hrd092Z28U/9XsndAQWKfjFqQ188duz1i/Yn7UjeUHie1egLpydMI2wgE3aehWpx4Jt2sRnnp22Ta/dxIX61v98Q0/vR1f/eg2L3OzdvOCUK3w0Q6GQOwfL6p81I+58oRis6nMT3Odtg9s/K8N1J3v1tJG8qP18nZhFCsFs/TByM4CwdLlBvjy5bF8/t4mUT7aVek68PjeMpun0+e55/bOzu9ntddt07WGTNmzJgxY8aMGTNmzJgxY8aMGTNmDIb/AEi250lz8e5fAAAAAElFTkSuQmCC" alt="">
+    <h2>Oido Amigo</h2>
+  </div>
  
-  </div>
-  <div class="cont-menu-nav" *ngIf="roles">
-    <div  class="nava" *ngFor="let op of roles"  routerLink="{{ op.ruta }}" >
-      <a>{{ op.nombre }}</a
-            ><mat-icon  style="background-color:#d9d9de ;width: 30px;height: 30px;display: flex;align-items: center;justify-content: center;color: #575867;">{{ op.icono }}</mat-icon>
-    </div>
-  </div>
-
-</div>
-
-<div class="navdiv"  >
-  
-  <div class="leftnav">
+  <div class="content" *ngIf="roles">
+    <ul class="list-op">
+      <li class="child-op"  *ngFor="let op of roles" (click)="clicked(op)" name="opciones" routerLink="{{ op.ruta }}" >
+        <i class="{{ op.icono }}"></i>{{ op.nombre }} 
+        <span class="tolpit" >{{ op.nombre }}</span>
+      </li>
+      
+    </ul>
     
-    <p-avatar [image]="this.imagenserv.nombre" [matMenuTriggerFor]="menu" shape="circle"></p-avatar>
-
-<p-menu #op [popup]="true" [model]="items" ></p-menu>
-
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item [routerLink]="['perfil_user']">
-        <mat-icon>person</mat-icon>Perfil
-      </button>
-
-      <button (click)="logout()" mat-menu-item>
-        <mat-icon>power_settings_new</mat-icon>Salir
-      </button>
-    </mat-menu>
-    <h5 id="user"    *ngIf="nombre">{{ nombre  }}</h5>
- 
   </div>
-  
+  <div class="footer">
+    <ul class="footerlist">
+          <li class="footer-son">
+            <p-avatar [routerLink]="['perfil_user']" [image]="this.imagenserv.nombre" style="margin-right: 20px;margin-left: -7px;"
+            [style]="{border: '4px solid white'}"
+            shape="circle"></p-avatar>
+         
+        <div >
+         
+        <p  *ngIf="nombre" style="color:black;margin-bottom:5px;min-width: 200px;">{{ nombre }}
+      </p>
+        </div>
+      </li>
 
+      <li   (click)="logout()" class="footer-son"><i  class="fas fa-door-open"></i>Salir<span class="tolpit" >sallir</span></li> 
+  
+  </ul>
+  </div>
 </div>
 
-  
- 
 
-       
+
+<div class="menu">
+  <div class="line">
+    
+  </div>
+</div>
+
+
+
+
+
+
 
 <body style="width:calc(100vw-70px);">
   <p-toast></p-toast>
   <router-outlet></router-outlet>
+ 
 </body>
 
+ 

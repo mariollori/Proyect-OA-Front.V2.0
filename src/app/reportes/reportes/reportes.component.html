@@ -2,108 +2,118 @@
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"> 
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 </head>
 <body>
 
+    
+    <div class="content">
+        <div class="list-psi" >
+            <h5>Reportes Generales
+       
+                <select  [(ngModel)]="opcion" (click)="buscar()" class="selecttype" >
+                    <option value="estudiante" (click)="buscar()">Estudiante</option>
+                    <option value="pastor" (click)="buscar()">Pastor</option>
+                    <option value="psicologo" (click)="buscar()">Psicologo</option>
+                </select>
+           </h5>
+         
+            <table datatable [dtOptions]="dtOptions" class="tablaxd" *ngIf="personal">
+                <thead>
+                  <tr class="headtable">
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Tipo</th>
+                    <th>Telefono</th>
+                    <th>Estadisticas</th>
+                 
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bodytable" *ngFor="let persona of personal; let i=index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ persona.nombre  + ' ' + persona.apellido}}</td>
+                    <td>{{ persona.correo }}</td>
+                    <td>{{ persona.tipo }}</td>
+                    <td>{{ persona.telefono }}</td>
+                    <td><img
+                        src="https://cdn-icons-png.flaticon.com/512/3309/3309960.png"
+                        style="cursor: pointer;width: 20px;height: 20px;" (click)="mostrar(persona.idpersonal,persona.nombre,persona.apellido)" alt=""
+                        data-toggle="modal"
+                        data-target="#personalest">  </td>
 
-    <div class="container mat-elevation-z8" >
-        <h4 style="margin-bottom: 40px;"><img src="https://cdn-icons-png.flaticon.com/512/1055/1055644.png">
-            Personal de Ayuda Activo</h4>
+                  </tr>
+            
+                </tbody>
+              </table>
+          
+        </div>
+        
 
-
-        <div >
+        <div class="reports">
             <div class="search">
-                <mat-form-field class="buscador" appearance="standard">
-                    <mat-label class="label"><mat-icon>search</mat-icon> Buscar ....</mat-label>
-                    <input matInput (keyup)="applyFilter($event)" #input>
-                </mat-form-field>
-                <button type="button" data-target="#exampleModal" data-toggle="modal"   (click)="cargartodas()" class="btn btn-info" style="height: 40px;margin-top: 19px;"><img src="assets/estadistica.png" alt="">Todos</button>
-                <mat-form-field  style="margin-top: 15px;">
-                    <mat-label>Tipo</mat-label>
-                    <mat-select [(ngModel)]="opcion">
-                        <mat-option value="estudiante" (click)="buscar()">Estudiante</mat-option>
-                        <mat-option value="pastor" (click)="buscar()">Pastor</mat-option>
-                        <mat-option value="psicologo" (click)="buscar()">Psicologo</mat-option>
-                    </mat-select>
-                </mat-form-field>
+                <div>
+                    <label style="font-size: 11px;margin-bottom: 0;color: #adb5bd;margin-left: 5px;">F.Inicio:</label>
+                    <div class="inputdate">
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="date" class="datestyle" [(ngModel)]="fechai">
+                    </div>
+                   </div>
+                   <div>
+                    <label  style="font-size: 11px;margin-bottom: 0;color: #adb5bd;margin-left: 5px;">F.Fin:</label>
+                    <div class="inputdate">
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="date" class="datestyle" [(ngModel)]="fechaf">
+                    </div>
+                   </div>
+                  
+                   
+                
+                    <button type="button" (click)="buscarfechasdetodos()" class="btn
+                        btn-info" style="height: 30px;display: flex;align-items: center;margin-top: 20px;"
+                        [disabled]="!fechai && !fechaf">Buscar <i style="margin-left: 10px;" class="fas fa-search"></i></button>
+            </div>
+            <div style="display: block;margin-top: 25px;padding:10px 20px;">
+                <canvas baseChart height="225px" 
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend"
+                    [colors]="chartColors"
+                    [chartType]="barChartType">
 
+                </canvas>
             </div>
 
-
-            <table mat-table [dataSource]="dataSource" >
-                <!-- Position Column -->
-                <ng-container matColumnDef="nro">
-                    <th mat-header-cell *matHeaderCellDef> No. </th>
-                    <td mat-cell *matCellDef="let element;let i= index"> {{i+1}}
-                    </td>
-                </ng-container>
-
-                <!-- Name Column -->
-                <ng-container matColumnDef="nombre">
-                    <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
-                    <td mat-cell *matCellDef="let element"> {{element.nombre + '
-                        ' + element.apellido}} </td>
-                </ng-container>
-
-                <!-- Weight Column -->
-                <ng-container matColumnDef="especialidad">
-                    <th mat-header-cell *matHeaderCellDef> Correo </th>
-                    <td mat-cell *matCellDef="let element">
-                        {{element.correo}} </td>
-                </ng-container>
-
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="universidad">
-                    <th mat-header-cell *matHeaderCellDef> Tipo </th>
-                    <td mat-cell *matCellDef="let element">
-                        {{element.tipo}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="telefono">
-                    <th mat-header-cell *matHeaderCellDef> Numero/Telefono </th>
-                    <td mat-cell *matCellDef="let element"> {{element.telefono}}
-                    </td>
-                </ng-container>
-
-
-                <ng-container matColumnDef="detalle">
-                    <th mat-header-cell *matHeaderCellDef> Ver estadisticas
-                    </th>
-                    <td mat-cell *matCellDef="let element"> <img
-                            src="https://cdn-icons-png.flaticon.com/512/3309/3309960.png"
-                            style="cursor: pointer;" (click)="mostrar(element.idpersonal,element.nombre,element.apellido)" alt=""
-                            data-toggle="modal"
-                            data-target="#personalest"> </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                <!-- Row shown when there is no matching data. -->
-                <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="4">No data matching the filter
-                        "{{input.value}}"</td>
-                </tr>
-            </table>
-            <mat-paginator 
-              [pageSize]="5"
-              [pageSizeOptions]="[3,5,6]"
-              >
-</mat-paginator>
-
+               
+          
         </div>
     </div>
-
 
     <!-- Large modal -->
 
 
-    <div class="modal fade bd-example-modal-lg" id="personalest" tabindex="-1" role="dialog"
+    <div class="modal fade bd-example-modal-lg" id="personalest" tabindex="-1"
+        role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" style="text-transform: capitalize;color: #8ea2c6;font-size: 20px;" id="exampleModalLongTitle">
-                        <img style="width: 25px; height: 25px;" src="https://e7.pngegg.com/pngimages/728/955/png-clipart-bar-chart-computer-icons-statistics-bar-chart-angle-text.png" alt="">
+                    <h6 class="modal-title" style="text-transform:
+                        capitalize;color: #8ea2c6;font-size: 20px;"
+                        id="exampleModalLongTitle">
+                        <img style="width: 25px; height: 25px;"
+                            src="https://e7.pngegg.com/pngimages/728/955/png-clipart-bar-chart-computer-icons-statistics-bar-chart-angle-text.png"
+                            alt="">
                         Estadisticas: {{nombrecompleto}}
                     </h6>
                     <button type="button" class="close" data-dismiss="modal"
@@ -113,31 +123,35 @@
                 </div>
                 <div class="modal-body">
                     <div class="fechas">
-                        <button mat-raised-button (click)="allregisters()">Todos los registros</button>
+                        <button mat-raised-button (click)="allregisters()">Todos
+                            los registros</button>
                         <div style="display: flex;align-items: center;">
-                            <label >F.Inicio:</label>
+                            <label>F.Inicio:</label>
                             <input type="date" [(ngModel)]="fechai">
-                            <label >F.Fin:</label>
-                            <input type="date"  [(ngModel)]="fechaf">
-                            <button type="button" (click)="buscarfecha()" class="btn btn-info" style="padding: 0;height: 22px;width: auto;" [disabled]="!fechai && !fechaf"><mat-icon style="margin:0;">search</mat-icon></button>
+                            <label>F.Fin:</label>
+                            <input type="date" [(ngModel)]="fechaf">
+                            <button type="button" (click)="buscarfecha()"
+                                class="btn btn-info" style="padding: 0;height:
+                                22px;width: auto;" [disabled]="!fechai &&
+                                !fechaf"><mat-icon style="margin:0;">search</mat-icon></button>
                         </div>
-                        
+
                     </div>
-                    <div >
-                        <div style="display: block;" >
-                            <canvas baseChart 
-                              [datasets]="barChartData"
-                              [labels]="barChartLabels"
-                              [options]="barChartOptions"
-                              [plugins]="barChartPlugins"
-                              [legend]="barChartLegend"
-                              [colors]="chartColors"
-                              [chartType]="barChartType">
-                          
+                    <div>
+                        <div style="display: block;">
+                            <canvas baseChart
+                                [datasets]="barChartData"
+                                [labels]="barChartLabels"
+                                [options]="barChartOptions"
+                                [plugins]="barChartPlugins"
+                                [legend]="barChartLegend"
+                                [colors]="chartColors"
+                                [chartType]="barChartType">
+
                             </canvas>
-                          </div>
-                          
-                        
+                        </div>
+
+
 
                     </div>
 
@@ -150,12 +164,17 @@
     <!-- Large modal -->
 
 
-<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-       <div class="modal-header">
-                    <h6 class="modal-title" style="text-transform: capitalize;color: #8ea2c6;font-size: 20px;" id="exampleModalLongTitle">
-                        <img style="width: 25px; height: 25px;" src="https://e7.pngegg.com/pngimages/728/955/png-clipart-bar-chart-computer-icons-statistics-bar-chart-angle-text.png" alt="">
+    <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1"
+        role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" style="text-transform:
+                        capitalize;color: #8ea2c6;font-size: 20px;"
+                        id="exampleModalLongTitle">
+                        <img style="width: 25px; height: 25px;"
+                            src="https://e7.pngegg.com/pngimages/728/955/png-clipart-bar-chart-computer-icons-statistics-bar-chart-angle-text.png"
+                            alt="">
                         Estadisticas de los {{opcion}}
                     </h6>
                     <button type="button" class="close" data-dismiss="modal"
@@ -165,38 +184,43 @@
                 </div>
                 <div class="modal-body">
                     <div class="fechas">
-                        <button mat-raised-button (click)="cargartodas()">Todos los registros</button>
+                        <button mat-raised-button (click)="cargartodas()">Todos
+                            los registros</button>
                         <div style="display: flex;align-items: center;">
-                            <label >F.Inicio:</label>
+                            <label>F.Inicio:</label>
                             <input type="date" [(ngModel)]="fechai">
-                            <label >F.Fin:</label>
-                            <input type="date"  [(ngModel)]="fechaf">
-                            <button type="button" (click)="buscarfechasdetodos()" class="btn btn-info" style="padding: 0;height: 22px;width: auto;" [disabled]="!fechai && !fechaf"><mat-icon style="margin:0;">search</mat-icon></button>
+                            <label>F.Fin:</label>
+                            <input type="date" [(ngModel)]="fechaf">
+                            <button type="button"
+                                (click)="buscarfechasdetodos()" class="btn
+                                btn-info" style="padding: 0;height: 22px;width:
+                                auto;" [disabled]="!fechai && !fechaf"><mat-icon
+                                    style="margin:0;">search</mat-icon></button>
                         </div>
-                        
+
                     </div>
-                    <div >
-                        <div style="display: block;" >
-                            <canvas baseChart 
-                              [datasets]="barChartData"
-                              [labels]="barChartLabels"
-                              [options]="barChartOptions"
-                              [plugins]="barChartPlugins"
-                              [legend]="barChartLegend"
-                              [colors]="chartColors"
-                              [chartType]="barChartType">
-                          
+                    <div>
+                        <div style="display: block;">
+                            <canvas baseChart
+                                [datasets]="barChartData"
+                                [labels]="barChartLabels"
+                                [options]="barChartOptions"
+                                [plugins]="barChartPlugins"
+                                [legend]="barChartLegend"
+                                [colors]="chartColors"
+                                [chartType]="barChartType">
+
                             </canvas>
-                          </div>
-                          
-                        
+                        </div>
+
+
 
                     </div>
 
                 </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
 
 

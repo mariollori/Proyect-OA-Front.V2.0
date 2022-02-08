@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Atencion } from 'src/app/models/Atencion';
 import { Cancelacion } from 'src/app/models/Cancelacion';
@@ -37,6 +38,7 @@ export class RegistrarAtencionComponent implements OnInit {
   datalist:any = [];
   derivacion=false;
   ngOnInit() {
+  
     this.getatenciones_pend();
     this.datapaciente = new FormGroup({
       religion: new FormControl('', Validators.required),
@@ -238,6 +240,7 @@ console.log(fecha)
 
 
       guardarfechamodif(){
+        console.log(this.fechaactual)
         this.registerserv.updatefecha(this.fechaactual,this.idatencion,this.horaactual).subscribe(
           data=>{
                Swal.fire(
