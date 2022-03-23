@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+/*---------------Body -------------*/
+.content {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+/*------------------ Rigth Content ------------------------*/
+.rigth-content{
+width: 30%;
+position: relative;
+height: 100%;
+background-image: linear-gradient(-45deg, #109b9b 0%, #15d696 100%);
+}
+.rigth-content .img2{
+  position: absolute;
+  width: 440px;
+  top: 40%;
+}
+.rigth-content .img1{
+  position: absolute;
+  width: 150px;
+  top: 2%;
+  left: 10%;
+}
+.rigth-content label{
+  position: absolute;
+  font-size:18px;
+  color: white;
+  text-align: center;
+  top: 25%;
+  width: 80%;
+  left: 10%;
+  -webkit-text-stroke: 1px  transparent;
+}
+
+
+/**------------------------- Left Content----------------*/
+.left-content{
+  width: 70%;
+  height: 100%;
+}
+.title{
+  color: #14d596; text-align: center;margin-left: 30px;font-size: 17px;font-weight: bold;
+}
+.subtitle{
+  text-align: left;color: grey;margin-top: 30px;font-size: 13px;width: 100%;margin-left: 30px;
+}
+
+#btn-home{
+  position: absolute;
+  z-index: 9;
+  top: 2%;
+ padding: 5px 15px;
+ border: none;
+ outline: none;
+ color: white;
+ background-color: transparent;
+
+  left: 2%;
+}
+
+#btn-home::before{
+ content: "";
+ position: absolute;
+ top: 0;
+ left: 8px;
+ display: block;
+ border-radius: 50%;
+ background:#6193f6;
+ width: 34px;
+ height: 34px;
+ z-index: -1;
+ transition: all .3s ease;
+}
+#btn-home:hover::before{
+  width: 100%;
+  border-radius: 20px;
+}
+
+
+/*------------------------Stepper design ---------------------*/
+
+ /* Progressbar */
+ .progressbar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  counter-reset: step;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 25px;
+  margin-left: 55px;
+  
+
+}
+
+.progressbar::before,
+.progress {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 100%;
+  background-color: #dcdcdc;
+  z-index: 2;
+}
+
+.progress {
+  background-color: rgb(20, 213, 150);;
+  width: 0%;
+  transition: 0.3s;
+}
+
+.progress-step {
+  width: 2.1875rem;
+  height: 2.1875rem;
+  background-color: #dcdcdc;
+  border-radius: 50%;
+  display: flex;
+  z-index: 5;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.progress-step::before {
+  counter-increment: step;
+  content: counter(step);
+}
+
+.progress-step::after {
+  content: attr(data-title);
+  text-align: center;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  width: 125px;
+
+  font-weight: 600;
+  font-size: 13px;
+  color: #878d9ebf
+}
+
+.progress-step-active {
+  background-color: rgb(20, 213, 150);
+  border: 3px solid rgb(20, 213, 150); ;
+  color: #f3f3f3;
+  box-shadow: inset 0 0 0 2px white;
+}
+.form-step {
+  display: none;
+  transform-origin: top;
+  animation: animate 0.5s;
+  height: 430px;
+}
+
+.form-step-active {
+  display: block;
+}
+@keyframes animate {
+  from {
+    transform: scale(1, 0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+.form-stepper{
+  width: 70%;
+  height: auto;
+  overflow: initial;
+  left: 13.5%;
+  height: 85%;
+  background-color: white;
+  top: 6%;
+  padding: 25px;
+  position: relative;
+ }
+ .btn-next{
+  position: absolute;
+  top: calc(50% - 25px);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  left: 97.5%;
+  background-color: #14d58f;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-next i{
+  font-size: 25px;
+}
+.btn-prev{
+  position: absolute;
+  top: calc(50% - 25px);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  left: -2.5%;
+  background-color: #14d58f;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-prev i{
+  font-size: 25px;
+}
+/*----------------------------Data Personal ---------------------------*/
+.personaldata{
+  padding: 40px 0px 40px 35px;
+  
+}
+.personaldata form{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.personaldata form mat-form-field{
+  min-width: 45%;
+  font-size: 14.5px;
+  margin-right: 25px;
+  margin-bottom: 2px;
+}
+
+/*-------------------- Form Horarios----------------------*/
+.horario{
+  height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 60px 30px;
+    justify-content: space-between;
+}
+.horario form{
+  display: flex;
+  flex-direction: row;
+  
+}
+.horarioadd{
+  width: 40%;
+  height: 100%;
+}
+
+.horario-input{
+  height: 50px;  
+}
+.horario-input label{
+  min-width: 80px;
+  font-size: 13px;
+}
+.horario-input input,select{
+  padding:3px 10px;
+  border:2px solid #14d596;
+  color:teal;
+  outline:none;
+  font-size:12px
+}
+ul{
+  width: 60%;
+  height: 100%;
+  background-color: #fafafa;
+  list-style: none;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+li{
+  background-color: #6193f6;
+  display: flex;
+  justify-content: space-around;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  align-items: center;
+  margin-bottom: 10px;
+  color: white;
+  height: 30px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+.boton{
+ padding: 5px 15px;
+ font-size: 13px;
+ margin: 0 auto;
+ border:none;
+ outline: none;
+ border-radius: 10px;
+ color: white;
+ background-color: #14d58f;
+}
+.boton:disabled{
+  background-color: #fafafa;
+  color: gray;
+
+}
+.savebtn{
+  color: white;
+  /* font-weight: 600; */
+  font-size: 13px;
+  background-color: #6b9cf9;
+  box-shadow: 2px 2px 10px #6b9cf9;
+  border-radius: 5px;
+  margin: 0 auto;
+  padding: 2px 15px;
+}
+.savebtn:disabled{
+  background-color: #585c68;
+  box-shadow: none;
+  color: #a6a6a7fd;
+}
+
+
+ 
+ 
+
+ 

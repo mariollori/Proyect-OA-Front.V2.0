@@ -1,0 +1,322 @@
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="container">
+  
+    <div style="display: flex;flex-direction: row;width: 100%;height: 100%;margin-left: 25px;">
+
+      <div class="top-content">
+       
+     
+          <img  id="imagendeperfil" >
+       
+      
+          <div class="perfil">
+            <h3 class="subtitle">Perfil de Usuario</h3>
+            <h3 class="name">{{nombrecompleto}}</h3>
+            <label for="" style="font-size: 13px;color: #b3b3b3;"  >{{correo}}</label>
+            <label style="text-transform: capitalize;font-size: 13px;color: green;" > {{tipo}}</label>
+            <label for="" style="font-size: 13px;color: #b3b3b3;" >{{telefono}}</label>
+             <button *ngIf="!archivo" class="uploadfoto">
+              <i class="fas fa-camera-retro" style="margin: 0; padding: 0;"></i>
+              <label >Cambiar foto</label>
+              <input type="file" accept=".jpg, .png, .jpeg" style="opacity: 0; width: 100%;height: 100%;cursor: pointer;position: absolute;top: 0;left: 0;" [(ngModel)]="foto"  (change)="mostrar($event)">
+            </button>
+           
+              <button *ngIf="archivo"  class="check" (click)="subirfoto()" style="  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"><i class="fas fa-check" ></i></button>
+       
+              <button *ngIf="archivo"   class="uncheck" (click)="eliminarfoto()" style=" box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"> <i class="fas fa-trash"></i></button>
+      
+            
+          </div>
+      </div>
+      <div class="rigth-content">
+        
+      
+        
+            <h5>Informacion Personal</h5>
+            <form [formGroup]="datos_personales" class="datapersonal">
+              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
+                <label  style="font-size: 13px;font-weight: 600;min-width: 200px"> <i class="fas fa-user"></i>Nombre Completo:</label>
+                <fieldset [disabled]="!editstate">
+                  
+                  <div class="item">
+                 
+                    <input type="text" formControlName="nombre" style="text-transform:
+                      capitalize;" placeholder="Mario Llori Santiago">
+                  </div>
+                </fieldset>
+                <fieldset [disabled]="!editstate">
+                  
+                  <div class="item">
+                    
+                    <input type="text" formControlName="apellido" style="text-transform:
+                      capitalize;" placeholder="Mario Llori Santiago">
+                  </div>
+                </fieldset>
+              </div>
+              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
+                <label style="font-size: 13px;font-weight: 600;min-width: 200px">  <i class="fas fa-envelope"></i>Correo:</label>
+                <fieldset [disabled]="!editstate">
+                
+                  <div class="item">
+                  
+                    <input formControlName="correo" type="text"
+                      placeholder="example@upeu.edu.pe">
+                  </div>
+                </fieldset>
+              </div>
+              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
+                <label style="font-size: 13px;font-weight: 600;min-width: 200px"> <i class="fas fa-phone-alt"></i>Telefono:</label>
+                <fieldset [disabled]="!editstate" style="width: 200px;">
+      
+                  <div class="item">
+                   
+                    <input type="text" formControlName="telefono" type="number"
+                      onKeyPress="if(this.value.length==9) return false;"
+                      placeholder="999999999">
+                  </div>
+                </fieldset>
+              </div>
+             
+              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
+                <label style="font-size: 13px;font-weight: 600;min-width: 200px"> <i class="fas fa-venus-mars"></i>Genero:</label>
+                <fieldset [disabled]="!editstate">
+                  
+                  <div class="item">
+                   
+                    <select formControlName="genero">
+                      <option value="H" style="padding: 5px 10px;"><i class="fas fa-venus-mars" style="margin-right: 10px;position: static;"></i>Hombre</option>
+                      <option value="M"><i class="fas fa-venus-mars" style="margin-right: 10px;position: static;"></i>Mujer</option>
+                    </select>
+        
+                  </div>
+                </fieldset>
+              </div>
+              
+            
+                <button (click)="  this.editstate = true;" *ngIf="!editstate" class="editbtn">
+                  <i class="fas fa-edit"></i> 
+                </button>
+              
+      
+      
+              <div *ngIf="editstate" class="savebtns">
+                <button (click)="this.editstate = false;" class="btn1">
+                  Cancelar
+                </button>
+                <button (click)="save()" class="btn2">
+                Guardar
+                </button>
+              </div>
+      
+      
+      
+      
+            </form>
+           
+          
+        
+            <h5>Informacion Academica
+            </h5>
+            <form class="datapersonal" *ngIf="tipo=='estudiante'">
+              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
+                <label style="font-size: 13px;font-weight: 600;min-width: 200px">     <i class="fas fa-graduation-cap"></i>Ciclo:</label>
+                <fieldset [disabled]="!editstate2">
+                  
+                  <div class="item">
+                   
+                
+                    <input type="text" [(ngModel)]="personal.ciclo" name="ciclo" style="text-transform:
+                      capitalize;" placeholder="1">
+                  </div>
+                </fieldset>
+              </div>
+              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
+                <label style="font-size: 13px;font-weight: 600;min-width: 200px"> <i class="fas fa-users"></i>Grupo:    </label>
+                <fieldset [disabled]="!editstate2">
+               
+                  <div class="item">
+                    
+                    <input [(ngModel)]="personal.grupo" name="grupo" type="text"
+                     >
+                  </div>
+                </fieldset>
+              </div>
+    
+    
+              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
+                <label style="font-size: 13px;font-weight: 600;min-width: 200px">   <i class="far fa-id-card"></i>Codigo Universitario:</label>
+                <fieldset [disabled]="!editstate2">
+                  
+                  <div class="item">
+                   
+                    <input type="text" [(ngModel)]="personal.codigo" name="codigo" style="text-transform:
+                      capitalize;" >
+                  </div>
+                </fieldset>
+              </div>
+    
+             
+                <button *ngIf="!editstate2" (click)="this.editstate2 = true;" class="editbtn">
+                  <i class="fas fa-edit"></i>
+                </button>
+              
+      
+              
+        
+        
+              <div *ngIf="editstate2" class="savebtns">
+                <button (click)="this.editstate2 = false;" class="btn1">
+                  <mat-icon matSuffix>block</mat-icon> Cancelar
+                </button>
+                <button (click)="save2()" class="btn2">
+                  <mat-icon matSuffix>save</mat-icon> Guardar
+                </button>
+              </div>
+            </form>
+      
+      
+        
+      
+            <form class="datapersonal" *ngIf="tipo=='psicologo'" style="margin-top: 0px;">
+              <fieldset [disabled]="!editstate2">
+                <div  class="item">
+                  <label><mat-icon matSuffix>account_balance</mat-icon> Universidad: </label>
+                  <input type="text"  [(ngModel)]="personal.universidad" name="universidad" style="text-transform:
+                    capitalize;" >
+                </div>
+              </fieldset>
+              <fieldset [disabled]="!editstate2">
+                <div  class="item">
+                  <label> <mat-icon matSuffix>grade</mat-icon>Especialidad: </label>
+                  <input  [(ngModel)]="personal.especialidad" name="correo" type="text"
+                    >
+                </div>
+              </fieldset>
+              <fieldset [disabled]="!editstate2">
+                <div  class="item">
+                  <label><mat-icon matSuffix>pin</mat-icon>Colegiatura:
+                  </label>
+                  <input type="text"  [(ngModel)]="personal.n_colegiatura" name="num" style="text-transform:
+                    capitalize;" >
+                </div>
+              </fieldset>
+              <fieldset [disabled]="!editstate2">
+                <div  class="item">
+                  <label><mat-icon matSuffix>history_edu</mat-icon>Grado Academico:
+                  </label>
+                  <input type="text"  [(ngModel)]="personal.grado_academico" name="grado" style="text-transform:
+                    capitalize;" >
+                </div>
+              </fieldset>
+             
+            
+                <button (click)="this.editstate2 = true;"  *ngIf="!editstate2" class="editbtn">
+                  <i class="fas fa-edit"></i> 
+                </button>
+           
+      
+        
+              <div *ngIf="editstate2" class="savebtns"  style="margin-top: 0;">
+                <button (click)="this.editstate2 = false;" class="btn1">
+                  <mat-icon matSuffix>block</mat-icon> Cancelar
+                </button>
+                <button (click)="save2()" class="btn2">
+                  <mat-icon matSuffix>save</mat-icon> Guardar
+                </button>
+              </div>
+            </form>
+
+
+
+            <div style="width: 100%;background-color: white;border-radius: 4px;height: 100%;overflow: hidden;  ">
+              <h5 >Horario</h5>
+        
+              <form style="padding: 10px;display: flex;flex-direction: row;">
+                <div class="horarioadd">
+                  <div class="horario-input" >
+        
+                    <label>Dia:</label>
+                    <select [(ngModel)]="dia" style="width: 150px;height:
+                      30px;" name="dia">
+                      <option *ngFor="let d of dias" value="{{d}}">{{d}}</option>
+                    </select>
+                  </div>
+                  <div class="horario-input">
+        
+                    <label>H.Inicio:</label>
+                    <input type="time" placeholder="9:00 - 2:00"
+                      [(ngModel)]="horai"
+                      name="hora">
+                  </div>
+                  <div class="horario-input">
+        
+                    <label>H.Fin:</label>
+                    <input type="time" placeholder="9:00 - 2:00"
+                      [(ngModel)]="horaf"
+                      name="hora">
+                  </div>
+        
+                  <button  type="button" class="boton" [disabled]="!dia
+                    || !horai || !horaf" (click)="agregar_horario()">
+                    Agregar</button>
+                </div>
+              
+                <ul class="list-horario">
+                  <li *ngFor="let horario of horarios">
+                   
+                    <label >{{horario.dia}}</label>
+                    <label style="text-align: center;">{{horario.horai + ' - ' +
+                      horario.horaf}}</label>
+                      <i class="far fa-trash-alt" style="cursor: pointer;color: red;"  (click)="eliminar_horario(horario.idhorario,horario.dia)"></i>
+                    
+                   
+                  </li>
+                </ul>
+        
+        
+        
+              </form>
+        
+             
+           
+             </div>
+           
+       
+        
+        
+        
+      </div>
+     
+      
+    </div>
+   
+    
+  
+   
+  
+
+
+
+
+
+
+
+  </div>
+  <div class="toast" data-autohide="false" id="xdd">
+    <div class="toast-header">
+      <strong class="mr-auto text-primary">Toast Header</strong>
+      <small class="text-muted">5 mins ago</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+    </div>
+    <div class="toast-body">
+      Some text inside the toast body
+    </div>
+  </div>
+
+</body>

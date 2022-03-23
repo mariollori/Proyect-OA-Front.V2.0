@@ -1,16 +1,18 @@
-import { Component,  OnInit, ViewChild,  } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren, } from '@angular/core';
 
 
 import { Personal } from 'src/app/asignacion/pastor/pastor.component';
-import { ChartDataSets, ChartOptions, ChartType,  } from 'chart.js';
-import { BaseChartDirective, Label } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
+import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { ReporteService } from 'src/app/services/reporte.service';
-import { max } from 'rxjs/operators';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-export class Datagraph{
-  data:number;
-  label:String
+import {  ActivatedRoute, Router } from '@angular/router';
+
+
+
+
+export class Datagraph {
+  data: number;
+  label: String
 }
 @Component({
   selector: 'app-reportes',
@@ -19,240 +21,179 @@ export class Datagraph{
 })
 
 export class ReportesComponent implements OnInit {
-  dataSource;
-  idactual;
-  fechai;
-fechaf;
+
+
+  fechai: Date;
+  fechaf: Date;
   opcion;
-nombrecompleto;
-  atend = 0;
-  asignados = 0;
-  cancelado = 0;
+  nombrecompleto;
   personal;
-  
-  displayedColumns: string[] = ['nro', 'nombre', 'especialidad', 'universidad', 'telefono', 'detalle'];
+
+
   dtOptions: any;
-  constructor(private service: ReporteService) { }
-  @ViewChild( MatPaginator ,{ static: true }) paginator: MatPaginator;
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-  @ViewChild(BaseChartDirective,{static:true}) chart: BaseChartDirective;
+  constructor(private service: ReporteService,private router:Router,private route:ActivatedRoute) { }
+    
+
+   @ViewChildren(BaseChartDirective) chart:QueryList<BaseChartDirective> ;
+
+ 
+
+
   ngOnInit() {
+    this.opcion = 'estudiante'
     this.dtOptions = {
-      responsive:true,
+      responsive: true,
       pagingType: 'full_numbers',
-      pageLength: 6,
-      language:{
-        "decimal":        "",
-        "emptyTable":     "No hay ningun registro existente..",
-        "info":           "",
-        "infoEmpty":      "",
-        "infoFiltered":   "(Coincidencias de _MAX_  entradas)",
-        "infoPostFix":    "",
-        "thousands":      ",",
-        "lengthMenu":     "Show _MENU_ entries",
+      pageLength: 10,
+      language: {
+        "decimal": "",
+        "emptyTable": "No hay ningun registro existente..",
+        "info": "",
+        "infoEmpty": "",
+        "infoFiltered": "(Coincidencias de _MAX_  entradas)",
+        "infoPostFix": "",
+        "thousands": ",",
+        "lengthMenu": "Show _MENU_ entries",
         "loadingRecords": "Cargando...",
-        "processing":     "Procesando...",
-        "search":         "Buscar usuario:",
-        "zeroRecords":    "Ningun resultado encontrado",
+        "processing": "Procesando...",
+        "search": ` Buscar :`,
+        "zeroRecords": "Ningun resultado encontrado",
         "paginate": {
-            "first":      "<i class='fas fa-step-backward'></i>",
-            "last":       "<i class='fas fa-step-forward'></i>",
-            "next":       "<i class='fas fa-chevron-right'></i>",
-            "previous":   "<i class='fas fa-chevron-left'></i>"
+          "first": "<i class='fas fa-step-backward'></i>",
+          "last": "<i class='fas fa-step-forward'></i>",
+          "next": "<i class='fas fa-chevron-right'></i>",
+          "previous": "<i class='fas fa-chevron-left'></i>"
         },
         "aria": {
-            "sortAscending":  ": activate to sort column ascending",
-            "sortDescending": ": activate to sort column descending"
+          "sortAscending": ": activate to sort column ascending",
+          "sortDescending": ": activate to sort column descending"
         }
-    },
-      ordering:false,
-      lengthChange:false,
-      
-      processing: false
+      },
+      ordering: true,
+      lengthChange: false,
+
+      processing: true
     };
-    this.opcion = 'estudiante'
-    this.service.getAsignaciones('estudiante').subscribe(
-      data => {
-        this.personal = data as Personal[];
-        
-      }
-    )
+ 
+    this.service.getAsignaciones(this.opcion).subscribe( data => {this.personal = data as Personal[];})
+    this.get_todos_por_opcion();
   }
-  
-  public barChartOptions: any = {
+
+  public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
-    scales : {
-  
-      yAxes: [{
-         ticks: {
+    scales: {
+      
+      x: {},
+      y: {
+        min: 0,
+        ticks:{
+          precision:0
+        }  
+        
        
-          beginAtZero: true,
-          stepSize: 10,
-          max:70,
-        stepValue:1,
-          }
-      }]
+      }
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
     }
   };
-  public barChartLabels: Label[] = ['Atenciones Registradas'];
+  //** Tipo de grafico */
   public barChartType: ChartType = 'bar';
+
+  /** Legenda del grafico */
   public barChartLegend = true;
-  public barChartPlugins = [
+  public barChartData2: ChartData<'bar'> = {
+    labels: ['Periodo Total'],
+    datasets: [
+      { data: [0], label: 'Finalizadas', backgroundColor: '#13c298', hoverBackgroundColor: '#13c298', },
+      { data: [0], label: 'En Proceso', backgroundColor: '#fce0a2', hoverBackgroundColor: '#fce0a2' },
+      { data: [0], label: 'Canceladas', backgroundColor: 'red', hoverBackgroundColor: 'red' }
+    ]
+  };
 
-  ];
 
-  public barChartData: any[] = [
-    { data: [0], label: 'Finalizadas',backgroundColor:'#039be5' },
-    { data:[0] , label: 'En Proceso' ,backgroundColor:'#039be5'},
-    { data:[0], label: 'Canceladas' ,backgroundColor:'#ef524f'}
-  ];
 
-  public chartColors: any[] = [
-    {
-      backgroundColor: ["#4ea579", "#039be5", "red"]
-    }];
-  // events
- 
-  mostrar(id,nombre,apellido) {
-    this.fechaf='';
-    this.fechai='';
-    this.idactual=id;
-  this.nombrecompleto = nombre + ' ' + apellido;
-  this.barChartData[0].data[0]=0;   
-  this.barChartData[1].data[0]=0;  
-  this.barChartData[2].data[0]=0;  
-   this.listarregistros(id);
-  }
-
-  
   buscar() {
-    this.personal = 0;
+    
+    this.personal = null;
     this.service.getAsignaciones(this.opcion).subscribe(
       data => {
+        
         this.personal = data as Personal[];
-       
+
       }
     )
-  }
-  allregisters(){
-    this.fechaf='';
-    this.fechai='';
-    this.barChartData[0].data[0]=0;   
-    this.barChartData[1].data[0]=0;  
-    this.barChartData[2].data[0]=0;  
-    this.listarregistros(this.idactual)
+    this.get_todos_por_opcion();
   }
 
-  buscarfecha(){
-    this.barChartData[0].data[0]=0;   
-    this.barChartData[1].data[0]=0;  
-    this.barChartData[2].data[0]=0;  
-    this.service.getestadistica_fecha(this.idactual,this.fechai,this.fechaf).subscribe(
-      data=>{
-        console.log(data)
-        for (let index = 0; index < data.length; index++) {
-          
-          if (data[index].estado=='Cancelado') {
-            this.cancelado=data[index]['count'];
-            this.barChartData[2].data[0]=data[index]['count'];
-          }else if (data[index].estado == 'En Proceso') {
-            this.asignados=data[index]['count'];
-            this.barChartData[1].data[0]=data[index]['count'];
-          }else if (data[index].estado=='Finalizado') {
-            this.atend=data[index]['count'];
-            this.barChartData[0].data[0]=data[index]['count'];
-          }
-        }
-        this.barChartData = this.barChartData.slice()
-      
-      }
-    )
-  }
-  listarregistros(id){
-    this.service.getestadistica(id).subscribe(
-      
+  
+
+
+
+  get_todos_por_opcion() {
+    this.fechaf = null;
+    this.fechai = null;
+    this.barChartData2.datasets[0].data = [0];
+    this.barChartData2.datasets[2].data = [0];
+    this.barChartData2.datasets[1].data = [0];
+    this.service.getestadisticatotal(this.opcion).subscribe(
       data => {
         console.log(data)
         for (let index = 0; index < data.length; index++) {
-          
-          if (data[index].estado=='Cancelado') {
-            this.cancelado=data[index]['count'];
-            this.barChartData[2].data[0]=data[index]['count'];
-          }else if (data[index].estado == 'En Proceso') {
-            this.asignados=data[index]['count'];
-            this.barChartData[1].data[0]=data[index]['count'];
-          }else if (data[index].estado=='Finalizado') {
-            this.atend=data[index]['count'];
-            this.barChartData[0].data[0]=data[index]['count'];
+          switch (data[index].estado) {
+            case 'Cancelado':
+              this.barChartData2.datasets[2].data = [data[index]['count']];
+              break;
+            case 'En Proceso':
+              this.barChartData2.datasets[1].data = [data[index]['count']];
+              break;
+            case 'Finalizado':
+              this.barChartData2.datasets[0].data = [data[index]['count']];
+              break;
+            default:
+              break;
           }
         }
-        this.barChartData = this.barChartData.slice()
+        console.log(this.chart)
+        this.chart.first.update();
       }
     )
   }
-  cargartodas(){
-    this.fechaf='';
-    this.fechai='';
-    this.barChartData[0].data[0]=0;   
-    this.barChartData[1].data[0]=0;  
-    this.barChartData[2].data[0]=0;  
-    this.service.getestadisticatotal(this.opcion).subscribe(
-      data=>{
-        console.log(data)
+
+
+  get_todos_por_opcion_fecha() {
+    this.barChartData2.datasets[0].data = [0];
+    this.barChartData2.datasets[2].data = [0];
+    this.barChartData2.datasets[1].data = [0];
+    this.service.getestadisticatotal_fecha(this.opcion, this.fechai, this.fechaf).subscribe(
+      data => {
+        console.log(data);
+        console.log(this.fechai)
         for (let index = 0; index < data.length; index++) {
-          
-          if (data[index].estado=='Cancelado') {
-            this.cancelado=data[index]['count'];
-            this.barChartData[2].data[0]=data[index]['count'];  
-          }else if (data[index].estado == 'En Proceso') {
-        
-            this.asignados=data[index]['count'];
-            this.barChartData[1].data[0]=data[index]['count'];
-            console.log( this.barChartData[1].data)
-          }else if (data[index].estado=='Finalizado') {
-            this.atend=data[index]['count'];
-            this.barChartData[0].data[0]=data[index]['count'];
+          switch (data[index].estado) {
+            case 'Cancelado':
+              this.barChartData2.datasets[2].data = [data[index]['count']];
+              break;
+            case 'En Proceso':
+              this.barChartData2.datasets[1].data = [data[index]['count']];
+              break;
+            case 'Finalizado':
+              this.barChartData2.datasets[0].data = [data[index]['count']];
+              break;
+            default:
+              break;
           }
         }
-        this.barChartData = this.barChartData.slice()
-     
-      }
-    )
-
-  }
-  
-  buscarfechasdetodos(){
-    this.fechaf='';
-    this.fechai='';
-    this.barChartData[0].data[0]=0;   
-    this.barChartData[1].data[0]=0;  
-    this.barChartData[2].data[0]=0;  
-    this.service.getestadisticatotal_fecha(this.opcion,this.fechai,this.fechaf).subscribe(
-      data=>{
-        console.log(data)
-        for (let index = 0; index < data.length; index++) {
-          
-          if (data[index].estado=='Cancelado') {
-            this.cancelado=data[index]['count'];
-            this.barChartData[2].data[0]=data[index]['count'];
-          }else if (data[index].estado == 'En Proceso') {
-            this.asignados=data[index]['count'];
-            this.barChartData[1].data[0]=data[index]['count'];
-          }else if (data[index].estado=='Finalizado') {
-            this.atend=data[index]['count'];
-            this.barChartData[0].data[0]=data[index]['count'];
-          }
-        }
-        this.barChartData = this.barChartData.slice();
-
-      
+        this.chart.first.update();
       }
     )
   }
 
 
 
+  reporte_personal(id){
+    this.router.navigate(['nav/report/',this.opcion, id]);
+  }
 }

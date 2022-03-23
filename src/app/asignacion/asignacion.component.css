@@ -11,7 +11,7 @@ body{
   height: auto;
   min-height: 100vh;
  
-  padding-top: 30px;  padding-bottom: 30px;background-color: #f1f0f6;
+  padding-top: 30px;  padding-bottom: 30px;background-color: transparent;
 }
 .ti{
 text-align: center;

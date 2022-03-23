@@ -7,4 +7,5 @@ export class Persona{
     dni : string;
     telefono : string;
     tipo : string;    
+    edad:string;
 }

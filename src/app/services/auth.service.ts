@@ -11,7 +11,7 @@ import { ImagenService } from './imagen.service';
   providedIn: 'root'
 })
 export class AuthService {
-  urlEndpoint = "https://proyectooa-backend.herokuapp.com/EX3/auth";
+  urlEndpoint = "http://localhost:5050/EX3/auth";
 
   constructor(private http: HttpClient,private image:ImagenService) { }
   private _usuario: Usuario;
@@ -49,37 +49,35 @@ export class AuthService {
     return null;
   }
 
-
-  login(usuario: Usuario): Observable<any> {
-   return this.http.post<any>(this.urlEndpoint + '/login', usuario);
-  }
-
+  
   guardarrol(accestoken:string):void{
     this._rol = new Array();
     let payload =this.obtenerdatostoken(accestoken);
     let data = payload.roles;
-    console.log(data)
+    
     
     for (let index = 0; index < data.length; index++) {
       this._rol.push(data[index]);
     }
     
-   
+    
     /**no acepta objetos jason por eso con la stringify lo pasamos a texto */
     sessionStorage.setItem('rol',JSON.stringify(this._rol));
   }
-
+  
   guardarusuario(accestoken:string):void{
     let payload =this.obtenerdatostoken(accestoken);
     let data = payload.usuario;
+    let data2= payload.personal;
     this._usuario=new Usuario();
     this._usuario.id = data.idusuario;
-    this._usuario.idpersonal = data.idpersonal
+    this._usuario.idpersonal = data2.idpersonal;
     
     
     /**no acepta objetos jason por eso con la stringify lo pasamos a texto */
     sessionStorage.setItem('usuario',JSON.stringify(this._usuario));
-
+    
+    
   }
   guardartoken(accestoken:string):void{
     this._token=accestoken;
@@ -93,12 +91,9 @@ export class AuthService {
   }
   isAuthenticated():boolean{
     let payload=this.obtenerdatostoken(this.token)
-    
     if(payload != null && payload.usuario ){
-      return true;
-
+      return true; 
     }
-    
     return false;
   }
   logout():void{
@@ -110,7 +105,10 @@ export class AuthService {
     sessionStorage.removeItem('rol');
     localStorage.clear();
     this.image.nombre=''
-  
+    
   }
-
+  
+  login(usuario: Usuario): Observable<any> {
+   return this.http.post<any>(this.urlEndpoint + '/login', usuario);
+  }
 }

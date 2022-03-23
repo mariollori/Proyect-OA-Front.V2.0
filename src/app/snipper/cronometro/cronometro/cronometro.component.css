@@ -35,7 +35,7 @@ li{
     color: white;
     font-size: 10px;
     align-items: center;
-    background-color: #bfe3e3;
+    background-color: #00ccbe;
 }
 li:nth-child(1){
   margin-left: 0;
@@ -57,7 +57,7 @@ li span{
 .btn-log{
     border: none;
     font-size: 13px;
-    background-color: #80fff7;
+    background-color: #00ccbe;
     color: white;
     padding: 8px 15px;
     border-radius: 5px;

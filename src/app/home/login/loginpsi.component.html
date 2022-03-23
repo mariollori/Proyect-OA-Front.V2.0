@@ -1,0 +1,53 @@
+<head>
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+    />
+    
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+</head>
+
+<app-spinner-loader *ngIf="cargando"></app-spinner-loader>
+<body >
+  <img class="logo" src="assets/homeassets/logo.png" alt="">
+ <div class="fondo">
+   <h4>Ingrese sus datos para continuar.</h4>
+ <img src="assets/homeassets/loginpsi.png" alt="">
+ </div>
+<button id="btn-home" (click)="volver()">
+  <i style="margin-right: 15px;" class="fas fa-home"></i>Home
+</button>
+  <div class="container">
+     <h5>Bienvenido de nuevo!!!</h5>
+     <label class="info" >Para conectarte con nostros porfavor ingresa tus credenciales personales 🔔</label>
+     <img style="margin: 0 auto;margin-bottom: 15px;" src="https://img.icons8.com/bubbles/110/000000/login-rounded-right.png"/>
+     <div class="input-style">
+       <i class="far fa-user"></i>
+      
+        <input
+        type="text"
+        class="username"
+        [(ngModel)]="usuario.username"
+        placeholder="example"
+        />
+        <label >Usuario</label>
+       
+      
+    </div>
+    <div class="input-style">
+      <i class="fas fa-lock"></i>
+      
+      <input
+      [type]="show_button ? 'text' : 'password'"
+      class="password"
+      [(ngModel)]="usuario.password"
+      placeholder="**********"
+      />
+      <label>Contraseña</label>
+        <i id="show"  (click)="changeicon()"  [class]="show_eye ? 'fas fa-eye-slash' : 'far fa-eye'"></i>
+     
+    </div>
+    <label class="registrar">No tienes cuenta?  <a [routerLink]="['/home/reg_dato_psicologo']" > &nbsp; Registrate aqui</a></label>
+    <button class="login-btn" (click)="login()">Ingresar</button>
+  </div>
+</body>

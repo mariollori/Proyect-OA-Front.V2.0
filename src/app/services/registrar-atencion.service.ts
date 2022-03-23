@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RegistrarAtencionService {
-  urlEndpoint3 = "https://proyectooa-backend.herokuapp.com/EX3/paciente";
+  urlEndpoint3 = "http://localhost:5050/EX3/paciente";
 
   constructor(private http:HttpClient) { }
 
@@ -24,14 +24,14 @@ export class RegistrarAtencionService {
    
     return this.http.get<any>(this.urlEndpoint3 + '/getidatencion/' + idasignacion);
   }
-  registrardata1(paciente, atencion, id,fecha,hora):Observable<String>{
+  registrardata1(paciente, atencion, id,fecha):Observable<String>{
    
-    return this.http.post<String>(this.urlEndpoint3 + '/registrardata1' ,{paciente,atencion,id,fecha,hora});
+    return this.http.post<String>(this.urlEndpoint3 + '/registrardata1' ,{paciente,atencion,id,fecha});
   }
 
-  registrardata2(atencion, id,fecha,hora):Observable<String>{
+  registrardata2(atencion, id,fecha):Observable<String>{
    
-    return this.http.post<String>(this.urlEndpoint3 + '/registrardata2' ,{atencion,id,fecha,hora});
+    return this.http.post<String>(this.urlEndpoint3 + '/registrardata2' ,{atencion,id,fecha});
   }
   registrardata3(atencion, id,derivacion,idpersonal):Observable<String>{
    
@@ -42,8 +42,8 @@ export class RegistrarAtencionService {
     return this.http.get<any[]>(this.urlEndpoint3 + '/listatencion_pend/' + idpersonal);
   }
  
-  updatefecha(fecha,id,hora):Observable<any>{
-    return this.http.put<any>(this.urlEndpoint3 + '/updatefecha',{fecha,id,hora});
+  updatefecha(fecha,id):Observable<any>{
+    return this.http.put<any>(this.urlEndpoint3 + '/updatefecha',{fecha,id});
 
   }
 

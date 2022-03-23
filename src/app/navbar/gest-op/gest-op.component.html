@@ -1,0 +1,648 @@
+<head>
+    
+   
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+</head>
+<body>
+
+
+ 
+ 
+    <h5 class="title">Panel Administrativo</h5>
+  
+      
+    
+    
+      <div class="row">
+        <div class="col-3">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <img style="width: 300px;height: 150px;margin-top: 40px;margin-bottom: 50px;" src="assets/gest-op.png" alt="">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Roles </a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Opciones</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Usuarios Activos</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Solicitudes</a>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <div  class="formulario"  >
+                    <button type="button" id="add-btn"  class="btn btn-success" data-toggle="modal" data-target="#createrrolmodal">Añadir rol<i class="fas fa-plus-square"></i></button>
+                    <div class="form">
+                       <div class="form-one">
+                        <label>Roles Actuales:</label>
+                        <select class="form-select" [(ngModel)]="rolactual">
+                            <option value="" selected>-- none --</option>
+                            <option *ngFor="let rol of roles" value="{{rol.idrol}}">{{rol.nombre}}</option>
+                        </select>
+                       </div>
+                       <div class="form-two">
+                           <label >Acciones:</label>
+                           
+                        <button type="button" class="btn btn-info" data-toggle="modal" (click)="getopcionesrol()" [disabled]="!rolactual" data-target="#deleteoprol"><i class="fas fa-eye"></i></button>
+                        <button type="button"  class="btn btn-danger" [disabled]="!rolactual" (click)="eliminarrol()"> <i class="fas fa-trash-alt"></i></button>
+                        <button type="button" class="btn btn-primary" [disabled]="!rolactual" (click)="getrol()" data-toggle="modal" data-target="#modifyrolmodal"> <i class="fas fa-edit"></i></button>
+                        <button type="button" class="btn btn-dark" [disabled]="!rolactual" (click)="getopcionesdisponibles()" data-toggle="modal" data-target="#agregaropcionrol">
+                             <i class="fas fa-plus-circle"></i>
+                        </button>
+                    </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                <div class="formulario">
+                    <button type="button" id="add-btn"  class="btn btn-success" data-toggle="modal" data-target="#createropcmodal">Añadir Opcion<i class="fas fa-plus-square"></i></button>
+                    <div class="form">
+                        <div class="form-one">
+                            <label>Opciones:</label>
+                            <select class="form-select" [(ngModel)]="opcionactual">
+                                <option value="" selected>-- none --</option>
+                                <option *ngFor="let opcion of opciones" value="{{opcion.idopcion}}">{{opcion.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-two">
+                            <label >Acciones:</label>
+                            <button type="button"  class="btn btn-danger" (click)="eliminaropc()" [disabled]="!opcionactual"> <i class="fas fa-trash-alt"></i></button>
+                            <button type="button" class="btn btn-primary" (click)="getopcion()" [disabled]="!opcionactual" data-toggle="modal" data-target="#modifyopcmodal">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                       
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                <div class="container" style="margin-top: 10px;padding: 5px">
+                <table datatable [dtOptions]="dtOptions" class="tablaxd nowrap" *ngIf="usuariosactivos">
+                    <thead>
+                      <tr class="headtable">
+                        <th>#</th>
+                        <th>Usuario</th>
+                        <th>Nombre Completo</th>
+                        <th>Roles Asignados</th>
+                        <th>Agregar Rol</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="bodytable" *ngFor="let post of usuariosactivos; let i=index">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ post.username }}</td>
+                        <td>{{ post.nombre  + ' ' + post.apellido}}</td>
+                        <td><button type="button" data-toggle="modal"
+                            data-target="#detallerol"
+                            (click)="listarrolesactuales(post.idusuario)"
+                            class="btn btn-success"><i class="far fa-eye"></i></button></td>
+                        <td> <button type="button" class="btn btn-info"
+                            data-toggle="modal"
+                            data-target="#agregarroluser"
+                            (click)="agregarrol_user(post.idusuario)"><i class="fas fa-user-plus"></i></button></td>
+                      </tr>
+                
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">  
+                <div class="container" style="margin-top: 10px;padding: 5px">
+                    <table datatable [dtOptions]="dtOptions" class="tablaxd" *ngIf="solicitudesdeusuario">
+                        <thead>
+                          <tr class="headtable">
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Telefono</th>
+                            <th>Correo</th>
+                            <th>Detalle</th>
+                            <th>Crear Usuario</th>
+                            <th>Rechazar Solicitud</th>
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="bodytable" *ngFor="let post of solicitudesdeusuario; let i=index">
+                            <td>{{ i+1 }}</td>
+                            <td>{{ post.nombre  + ' ' + post.apellido}}</td>
+                            <td>{{ post.tipo }}</td>
+                            <td>{{ post.telefono }}</td>
+                            <td>{{ post.correo }}</td>
+                            <td> <button type="button" data-toggle="modal"
+                                data-target="#detallepsi"
+                                (click)="detallepsi(post)"
+                                class="btn btn-success"><i class="far fa-eye"></i></button></td>
+                            <td> <button type="button"class="btn btn-info"
+                                data-toggle="modal" data-target="#crearuser"(click)="crearuser(post)"><i class="fas fa-user-plus"></i></button></td>
+                            <td> <button type="button" class="btn btn-danger"
+                                (click)="rechazarsol(post)" ><i class="fas fa-user-times"></i></button></td>
+                          </tr>
+                    
+                        </tbody>
+                      </table>
+                </div>
+                 
+            </div>
+          </div>
+        </div>
+      </div>
+      
+  
+   
+  
+
+
+    
+</body>
+
+
+<!-- Modal Eliminar Opciones de rol -->
+<div class="modal fade" id="deleteoprol" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Opciones actuales del Rol</h5>
+                <button type="button" class="close" data-dismiss="modal" (click)="cerraropcionesactuales()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+               <app-spinner-blanc *ngIf="cargando"></app-spinner-blanc>
+            <div class="modal-body" *ngIf="!cargando">
+                <h3 *ngIf="opcionesactualesdelrol.length<1">No se encontraron opciones para este rol!!</h3>
+                <table *ngIf="opcionesactualesdelrol.length>=1" class="table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let op of opcionesactualesdelrol ;let i= index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{op.nombre}}</td>
+                            <td style="text-align: center;"><mat-icon style="color: red; cursor: pointer;" (click)="eliminaropcion_rol(op.idop_rol)" data-dismiss="modal" matSuffix>delete_forever</mat-icon></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cerraropcionesactuales()" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Modificar Rol -->
+<div class="modal fade" id="modifyrolmodal" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modificar Rol</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-style"  *ngIf="rolupd">
+                    <label >Nombre del Rol:</label>
+                    <div class="div-son">
+                        <input type="text"  [(ngModel)]="rolupd.nombre" > 
+                        <i class="fas fa-user-shield" ></i>
+                    </div>
+                </div>
+              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cerrarrol()" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="modificarRol()" data-dismiss="modal">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Agregar opcion a  Rol -->
+<div class="modal fade" id="agregaropcionrol" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Agregar opcion al Rol</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>Opciones Disponibles:</label>
+                <select class="form-select" [(ngModel)]="opciondisp" *ngIf="opcionesdisponibles">
+                    <option value="" selected>-- none --</option>
+                    <option *ngFor="let opc of opcionesdisponibles" value="{{opc.idopcion}}">{{opc.nombre}}</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cerrarrolactual()" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" [disabled]="!opciondisp" (click)="asignarol_usuario()" data-dismiss="modal">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Crear Rol-->
+<div class="modal fade" id="createrrolmodal" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Registrar Rol</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-style">
+                    <label >Nombre del Rol:</label>
+                    <div class="div-son">
+                        <input type="text" [(ngModel)]="rolupd.nombre"> 
+                        <i class="fas fa-user-shield" ></i>
+                    </div>
+                </div>
+                
+        
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cerrarrol()">Cerrar</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="agregarrol()">Crear</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal  Modificar opciones-->
+<div class="modal fade" id="modifyopcmodal" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modificar Opciones</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+               <app-spinner-blanc *ngIf="cargando"></app-spinner-blanc>
+            <div class="modal-body" *ngIf="!cargando">
+                <div class="input-style" *ngIf="opcionupd">
+                    <label >Nombre :</label>
+                    <div class="div-son">
+                        <input type="text"  [(ngModel)]="opcionupd.nombre"> 
+                        <i class="fas fa-user-shield" ></i>
+                    </div>
+                </div>
+                <div class="input-style" *ngIf="opcionupd">
+                    <label >Icono :</label>
+                    <div class="div-son">
+                        <input type="text"  [(ngModel)]="opcionupd.icono"> 
+                        <i class="far fa-images"></i>
+                    </div>
+                </div>
+                <div class="input-style" *ngIf="opcionupd">
+                    <label >Ruta :</label>
+                    <div class="div-son">
+                        <input type="text"  [(ngModel)]="opcionupd.ruta" > 
+                        <i class="fas fa-code"></i>
+                    </div>
+                </div>
+            
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cerraropc()" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="modificarOpc()" data-dismiss="modal">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Crear opciones-->
+<div class="modal fade" id="createropcmodal" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Registrar Opciones</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-style" *ngIf="opcionupd">
+                    <label >Nombre :</label>
+                    <div class="div-son">
+                        <input type="text"  [(ngModel)]="opcionupd.nombre"> 
+                        <i class="fas fa-user-shield" ></i>
+                    </div>
+                </div>
+                <div class="input-style" *ngIf="opcionupd">
+                    <label >Icono :</label>
+                    <div class="div-son">
+                        <input type="text"  [(ngModel)]="opcionupd.icono"> 
+                        <i class="far fa-images"></i>
+                    </div>
+                </div>
+                <div class="input-style" *ngIf="opcionupd">
+                    <label >Ruta :</label>
+                    <div class="div-son">
+                        <input type="text"  [(ngModel)]="opcionupd.ruta" > 
+                        <i class="fas fa-code"></i>
+                    </div>
+                </div>
+            
+        
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cerraropc()">Cerrar</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="agregarOpc()">Crear</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Modal Agregar rol a  Usuario -->
+<div class="modal fade" id="agregarroluser" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Agregar Rol a
+                    Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>Roles Disponibles:</label>
+                <select class="form-select" [(ngModel)]="rolactualdisp"
+                    *ngIf="rolesdisponibles">
+                    <option value="" selected>-- none --</option>
+                    <option *ngFor="let rol of rolesdisponibles"
+                        value="{{rol.idrol}}">{{rol.nombre}}</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    (click)="cerrarrolactual()" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary"
+                    [disabled]="!rolactualdisp" (click)="asignaropc_usuario()"
+                    data-dismiss="modal">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Mostrar roles actuales del usuario -->
+<div class="modal fade" id="detallerol" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog"role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Roles del
+                    Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <app-spinner-blanc *ngIf="cargando"></app-spinner-blanc>
+            <div class="modal-body" *ngIf="!cargando">
+
+                <h3 *ngIf="rolesactualesdeluser.length==0">No se encontraron
+                    roles asignados a este usuario!</h3>
+                <table class="table" *ngIf="rolesactualesdeluser.length>=1"
+                    style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Opcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let rol of rolesactualesdeluser ;let i=
+                            index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{rol.nombre}}</td>
+                            <td style="text-align: center;"><mat-icon
+                                    style="color: red;cursor:pointer"
+                                    (click)="eliminarrol_user(rol.iduser_rol)"
+                                    matSuffix data-dismiss="modal">delete_forever</mat-icon></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    (click)="cerrardata()" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- Modal Mostrar detalle de la solicitud -->
+<div class="modal fade" id="detallepsi" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog"role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLongTitle">   <img width="40" height="40" style="margin-right: 20px;border-radius: 50%;" src="assets/solicitante.png">Detalles de
+                    la Solicitud</h6>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <app-spinner-blanc *ngIf="cargando"></app-spinner-blanc>
+            <div class="modal-body" *ngIf="!cargando">
+
+             
+                <div class="detalledata" *ngIf="detalleelemetn" style="width:
+                    100%;">
+                   
+
+                      <h4 style="text-align: center;font-weight: bold;color:
+                      #c5c5c5;text-transform: capitalize; margin-right: 0;margin-left: 0; width: 100%;margin-bottom: 25px;">
+                      <img style="width: 30px;height: 30px;"
+                        *ngIf="detalleelemetn.tipo=='psicologo'"
+                        src="https://img.icons8.com/color/48/000000/psychology.png" />
+                      <img style="width: 30px;height: 30px;"
+                        *ngIf="detalleelemetn.tipo=='pastor'"
+                        src="https://img.icons8.com/color/48/000000/the-pope.png" />
+                      <img style="width: 30px;height: 30px;"
+                        *ngIf="detalleelemetn.tipo=='estudiante'"
+                        src="https://img.icons8.com/color/48/000000/student-male--v1.png"
+                        />
+                      {{detalleelemetn.nombre + ' ' + detalleelemetn.apellido}}</h4>
+                    <div class="group-item" *ngIf="detalleelemetn.tipo=='pastor'">
+
+                        <div class="input-style" >
+                            <label >Campo :</label>
+                            <div class="div-son">
+                                <input type="text"   [(ngModel)]="detalleelemetn.campo" disabled> 
+                                <i class="fas fa-university"></i>
+                            </div>
+                        </div>
+                        <div class="input-style" >
+                            <label >Distrito :</label>
+                            <div class="div-son">
+                                <input type="text"   [(ngModel)]="detalleelemetn.distrito" disabled> 
+                                <i class="fas fa-city"></i>
+                            </div>
+                        </div>
+                      
+          
+                    </div>
+                    <div *ngIf="detalleelemetn.tipo=='psicologo'" class="group-item">
+
+                        <div class="input-style" >
+                            <label >Especialidad :</label>
+                            <div class="div-son">
+                                <input type="text"      [(ngModel)]="detalleelemetn.especialidad" disabled> 
+                                <i class="fas fa-university"></i>
+                            </div>
+                        </div>
+                        <div class="input-style" >
+                            <label >Universidad :</label>
+                            <div class="div-son">
+                                <input type="text"    [(ngModel)]="detalleelemetn.universidad" disabled> 
+                                <i class="fas fa-university"></i>
+                            </div>
+                        </div>
+                        <div class="input-style" >
+                            <label >Colegiatura :</label>
+                            <div class="div-son">
+                                <input type="text"    [(ngModel)]="detalleelemetn.n_colegiatura" disabled> 
+                                <i class="fas fa-university"></i>
+                            </div>
+                        </div>
+                        <div class="input-style" >
+                            <label >Grado Academico :</label>
+                            <div class="div-son">
+                                <input type="text"    [(ngModel)]="detalleelemetn.grado_academico" disabled> 
+                                <i class="fas fa-university"></i>
+                            </div>
+                        </div>
+          
+                    </div>
+                    <div *ngIf="detalleelemetn.tipo=='estudiante'" class="group-item">
+
+                        <div class="input-style" >
+                            <label >Ciclo/Grupo :</label>
+                            <div class="div-son">
+                                <input type="text"    [(ngModel)]="detalleelemetn.ciclo + '/' + detalleelemetn.grupo" disabled> 
+                                <i class="fas fa-university"></i>
+                            </div>
+                        </div>
+                        <div class="input-style" >
+                            <label >Codigo:</label>
+                            <div class="div-son">
+                                <input type="text"    [(ngModel)]="detalleelemetn.codigo" disabled> 
+                                <i class="fas fa-university"></i>
+                            </div>
+                        </div>
+                     
+          
+                    </div>
+
+
+
+
+                 
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal Crear usuario -->
+<div class="modal fade" id="crearuser" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog"role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLongTitle"><img src="https://img.icons8.com/clouds/2x/26e07f/add-user-male.png" alt="" width="30px" height="30px" style="margin-right: 10px;"> Generar
+                    Usuario</h6>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <app-spinner-blanc *ngIf="cargando"></app-spinner-blanc>
+            <div class="modal-body cuerpoasd2" *ngIf="!cargando">
+
+                <div class="detalledata2" *ngIf="usuarioelement" style="width:
+                    100%;">
+
+                    <h6 class="createtitle">Datos del Solicitante:</h6>
+                    <div class="input-style" >
+                        <label >Para :</label>
+                        <div class="div-son">
+                            <input type="text"    [(ngModel)]="usuarioelement.nombre + ' ' +
+                            usuarioelement.apellido" disabled> 
+                            <i class="far fa-user-circle"></i>
+                        </div>
+                    </div>
+                    <div class="input-style" >
+                        <label >Correo :</label>
+                        <div class="div-son">
+                            <input type="text"     [(ngModel)]="usuarioelement.correo" disabled> 
+                            <i class="fas fa-at"></i>
+                        </div>
+                    </div>
+
+              
+
+                    <h6 class="createtitle">Credenciales:</h6>
+                    <div class="input-style" >
+                        <label >Usuario :</label>
+                        <div class="div-son">
+                            <input type="text"        [(ngModel)]="usuario.username" > 
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="input-style" >
+                        <label >Contraseña :</label>
+                        <div class="div-son">
+                            <input type="text"      [(ngModel)]="usuario.password" > 
+                            <i class="fas fa-key"></i>
+                        </div>
+                    </div>
+
+                  
+
+
+
+                    <button class="btn-crearuser"(click)="guardarusuario()"
+                        [disabled]="activo==false">Crear Usuario</button>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

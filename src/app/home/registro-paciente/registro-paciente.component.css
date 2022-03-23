@@ -1,0 +1,339 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body{
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+  
+.left-content{
+  width: 30%;
+  position: fixed;
+  overflow: hidden;
+  background-color: #fce0a2;
+  display: flex;
+  height: 100%;
+  z-index: 1;
+}
+.left-content img{
+  position: absolute;top: 25%;z-index: 3;    width: 300px;left: calc(50% - 150px);
+}
+.recomendacion{
+  position: absolute;
+    z-index: 9;
+    left: 5%;
+    color: black;
+    top: 60%;
+    width: 92%;
+    text-align: start;
+}
+.recomendacion label:nth-child(1){
+  font-weight: bold;
+}
+.recomendacion label:nth-child(2){
+  font-size: 13px;
+  width: 90%;
+  margin-left: 1%;
+  margin-top: 3%;
+  display: flex;
+  justify-content: space-between;
+}
+.recomendacion label:nth-child(2) i{
+  font-size: 30px;
+  margin-right: 20px;
+  color: #14d58f;
+  margin-top: 3px;
+} 
+
+ .buton-back{
+  width: 200px;
+  height: 200px;
+  top: -101px;
+  z-index: 3;
+  left: -30px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: #5ce0b6;
+ }
+ 
+  .header {
+  
+    text-align:center;
+    color:white;
+    width: 100%;
+    height: 100%;
+  }
+
+ .title{
+  margin-left: 30px;
+      font-size: 19px;
+      font-weight: bold;
+      text-align: center;
+      color: #14d596;
+ }
+ .subtitle{
+  text-align: left;
+  color: grey;
+  margin-top: 33px;
+  font-size: 13px;
+  width: 100%;
+  margin-left: 30px;
+ }
+  
+  /*Button home*/
+  #btn-home{
+    position: absolute;
+    z-index: 9;
+    top: 2%;
+   padding: 5px 15px;
+   border: none;
+   outline: none;
+   color: white;
+   background-color: transparent;
+ 
+    left: 2%;
+  }
+ 
+  #btn-home::before{
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 8px;
+   display: block;
+   border-radius: 50%;
+   background:#6193f6;
+   width: 34px;
+   height: 34px;
+   z-index: -1;
+   transition: all .3s ease;
+  }
+  #btn-home:hover::before{
+    width: 100%;
+    border-radius: 20px;
+  }
+
+
+
+
+
+
+  /********************************************************** Quizzzz xsdd******************************************/
+
+.quizz{
+  width: 100%;
+  min-height: 500px;
+
+  padding: 50px 25px 0px 35px;
+}
+.question{
+  display: flex;
+  color: black;
+  width: 100%;
+  border-top: 1px solid gainsboro;
+  font-size: 13px;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+.question label{
+  text-align: left;
+  width: 550px;
+}
+  .login-form{
+    width: 100%;
+    padding: 50px;
+    height: 450px;
+   margin-top: 20px;
+    text-align: left;
+  }
+
+  /*        Bootsatrap forms       */
+  
+  .row label{
+   
+    color: black;
+    font-size: 12.5px;
+  }
+  .row input,select{
+    color: #585c68;
+    font-size: 13px;
+    padding: 5px 15px;
+    width: 232px;
+  }
+  .row textarea{
+ 
+    color: #585c68;
+   width: 490px;
+   height: 65px;
+    font-size: 13px;
+
+    padding: 5px 15px;
+  }
+  
+  /******************* steper 2 *************************************/
+  
+  /* Progressbar */
+  .progressbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    counter-reset: step;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 25px;
+    
+ 
+  }
+  
+  .progressbar::before,
+  .progress {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%;
+    background-color: #dcdcdc;
+    z-index: 2;
+  }
+  
+  .progress {
+    background-color: rgb(20, 213, 150);;
+    width: 0%;
+    transition: 0.3s;
+  }
+  
+  .progress-step {
+    width: 2.1875rem;
+    height: 2.1875rem;
+    background-color: #dcdcdc;
+    border-radius: 50%;
+    display: flex;
+    z-index: 5;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .progress-step::before {
+    counter-increment: step;
+    content: counter(step);
+  }
+  
+  .progress-step::after {
+    content: attr(data-title);
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    width: 120px;
+
+    font-weight: 600;
+    font-size: 13px;
+    color: #878d9ebf
+  }
+  
+  .progress-step-active {
+    background-color: rgb(20, 213, 150);
+    border: 3px solid rgb(20, 213, 150); ;
+    color: #f3f3f3;
+    box-shadow: inset 0 0 0 2px white;
+  }
+  
+  /* Form */
+  .form {
+
+    margin: 0 auto;
+  
+    border-radius: 0.35rem;
+ 
+  }
+  .form h5{
+    color: black;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+  }
+ .form-stepper{
+  width: 60%;
+  height: auto;
+  overflow: initial;
+  left: 37%;
+  background-color: white;
+  top: 2%;
+  padding: 25px;
+  position: relative;
+}
+  .form-step {
+    display: none;
+    transform-origin: top;
+    animation: animate 0.5s;
+  }
+  
+  .form-step-active {
+    display: block;
+  }
+  
+  .input-group {
+    margin: 2rem 0;
+  }
+  
+
+  
+  /* Button */
+
+  .btn-next{
+    position: absolute;
+    top: calc(50% - 25px);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    left: 97.5%;
+    background-color: #14d58f;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .btn-next i{
+    font-size: 25px;
+  }
+  .btn-prev{
+    position: absolute;
+    top: calc(50% - 25px);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    left: -2.5%;
+    background-color: #14d58f;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .btn-prev i{
+    font-size: 25px;
+  }
+  .btn-step{
+    color: white;
+    /* font-weight: 600; */
+    font-size: 14px;
+    margin-top: 125px;
+    background-color: #6b9cf9;
+    box-shadow: 2px 2px 10px #6b9cf9;
+    border-radius: 5px;
+    padding: 5px 15px;
+  }
+  .btn-step:disabled{
+    background-color: #585c68;
+    box-shadow: none;
+    color: #a6a6a7fd;
+  }

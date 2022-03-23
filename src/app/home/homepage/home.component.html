@@ -1,25 +1,29 @@
 <head>
- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 </head>
 
-
-<header class="nav_var">
-        <div class="cabezera">
+<body>
+  
+  <header class="nav_var">
+    <div class="cabezera">
             <div id="iconogeneral"></div>
             
             <div class="menu_home">
-            
-            <button (click)="loginpsi()" class="btn-login">Login</button>
+              <button  class="btn-menu">Contactenos</button>
+              <button  class="btn-menu">Info</button>
+             
+            <button (click)="loginpsi()" class="btn-login">Login<i class="fas fa-sign-in-alt" style="margin-left: 10px;margin-bottom: -9px;"></i></button>
             
             </div>
 
         </div>
 </header>
 <div class="padre">
-
+   <img src="assets/homeassets/fondo2.png"  class="img-2" alt="">
   <div class="card">
   <h1>Somos tu soporte</h1>
-  <h1>Cuando mas lo necesites!!</h1>
+  <h1>Cuando más  lo necesites!!</h1>
   <p>Tenemos como objetivo brindar primeros auxilios psicológicos, a personas con dificultades emocionales, causadas por el aislamiento social en el contexto de la pandemia.</p>
   <button (click)="cerrar()">Registrate aqui!</button>
   
@@ -28,3 +32,5 @@
   
  
 </div>
+
+</body>

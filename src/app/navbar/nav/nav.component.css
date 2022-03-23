@@ -41,8 +41,7 @@
 
 body{
     width: calc(100% - 70px);
-    overflow-y: auto;
-    height: 100vh;
+    overflow: auto;
     margin-left: 70px;
     min-height: 100vh;
     background-image:url('https://www.wallpapertip.com/wmimgs/221-2219357_blue-gradient-wallpaper.jpg');
@@ -51,7 +50,7 @@ body{
 }
 .sidebar{
 
-  background:#00ccbe;
+  background:#13c298;
   z-index: 100;
   width:260px;
   overflow:hidden;
@@ -157,7 +156,7 @@ body{
 .footerlist{
   width:100%;
   height:auto;
-  padding:15px 20px;
+  padding:15px 25px;
   list-style:none;
 }
 .footer-son{
@@ -171,17 +170,19 @@ body{
   font-size:13px;
   margin-bottom:15px;
   display:flex;
-  padding-left:10px;
+  
   border-radius:5px;
   align-items:center;
 }
 .footer-son img{
-  height:40px;
-  border-radius:5px;
-  margin-left:-10px;
-  padding: 5px;
-  border: 2px solid white;
-  margin-right:25px;
+  margin: 0 auto;
+    height: 40px;
+    border-radius: 5px;
+    /* margin-left: -10px; */
+   
+    border: 2px solid white;
+    min-width: 40px;
+    margin-right: 25px;
 }
 .footer-son i{
     width:55px;
@@ -197,6 +198,7 @@ body{
   transition: margin-left .3s,
     transform .5s;
   top:25px;
+  z-index: 999;
   margin-left:100px;
 }
 .menu::before,.menu::after{
@@ -269,20 +271,41 @@ body{
   top:13px;
   transform:rotate(45deg);
 }
-
-
 body::-webkit-scrollbar {
-  width: 15px;     
-      /* width of the entire scrollbar */
+  width: 10px;     /* Tamaño del scroll en vertical */
+  height: 8px;    /* Tamaño del scroll en horizontal */
+ 
 }
+
+
 
 body::-webkit-scrollbar-track {
   background: transparent        /* color of the tracking area */
 }
 
+
 body::-webkit-scrollbar-thumb {
-  background-color: #f1f1f1;    /* color of the scroll thumb */
-  border-radius: 20px;      
-   /* roundness of the scroll thumb */
-  border: 3px solid white;  /* creates padding around scroll thumb */
+  background: #ccc;
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+body::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Cambiamos el fondo cuando esté en active */
+body::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+body::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo cuando esté en active o hover */
+body::-webkit-scrollbar-track:hover,
+body::-webkit-scrollbar-track:active {
+background: #d4d4d4;
 }

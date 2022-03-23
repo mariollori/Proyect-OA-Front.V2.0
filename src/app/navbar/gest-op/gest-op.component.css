@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body{
+    padding: 80px;
+    font-family: 'Poppins', sans-serif;
+    background: transparent;
+    box-sizing: border-box;
+}
+.title{
+    font-size: 22px;
+    color:teal;
+    margin-bottom: 50px;
+}
+.modal-header{
+    background-color: #4267b2;
+    color: white;
+    font-size: 14px;
+}
+.nav-pills .nav-link.active{
+    color: teal;
+  
+    background-color: white;
+}
+
+.group-item{
+    padding-left: 25px;
+}
+.nav-pills .nav-link.active::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:3px;
+    height:100%;
+  background-color:teal;
+}
+.nav-pills .nav-link {
+    position: relative;
+    border-radius: 0.25rem;
+    font-family: 'Poppins', sans-serif;
+    color: black;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: #eee;
+    margin-top: 1px;
+}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+  
+    width: 100%;
+    padding-top: 50px;
+    height: 500px;
+}
+#add-btn{
+    width: 180px;
+  
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.btn-success{
+    color: #fff;
+    background-color: #26aa9f;
+    border-color:  #26aa9f;
+}
+.btn-success:focus{
+    color: #fff;
+    background-color: #1d8179;
+    border-color:  #1d8179;
+}
+.btn-success:hover{
+    color: #fff;
+    background-color: #1d8179;
+    border-color:  #1d8179;
+}
+.form{
+    width: 100%;
+    display:flex;
+    margin-top: 25px;
+   margin-bottom: 25px;
+   flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+.form label{
+    margin-bottom: 5px;
+    color: grey;
+    margin-right: 55px;
+}
+.form-one{
+    width: 60%;
+}
+
+.col-9{
+    background: white;
+    border-radius: 5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.form-two{
+    width: 40%;
+    padding-left: 45px;
+    display: flex;
+    flex-direction: column;
+  
+}
+.form-two button{
+    margin-bottom: 10px;
+    margin-left: 10px;
+    width: 50px;
+}
+.form-two label{
+    margin-bottom: 5px;
+    width: auto;
+    margin-right: 0;
+}
+.tablaxd {
+    border-collapse: separate; 
+    font-size: 12.5px;
+    width: 100%;
+    border-spacing: 0px 15px; 
+   
+}
+.tablaxd td{
+    background: white;
+    overflow: hidden;
+  
+  
+}
+.tablaxd th{
+    background: transparent;
+    overflow: hidden;
+  
+  
+}
+.tablaxd thead{
+    background: transparent;
+    overflow: hidden;
+  
+  
+}
+
+.headtable th{
+    background: transparent;
+}
+.tablaxd .bodytable{
+    box-shadow: 0 2px 10px rgb(0 0 0 / 10%);
+    border-radius: 5px;
+    
+    
+    height: 50px;
+}
+.headtable{
+    background: transparent;
+    box-shadow: 0;
+}
+.tablaxd td:nth-child(1){
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.tablaxd td:nth-last-child(1){
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-left: 50px;
+}
+
+.tablaxd td:nth-last-child(2){
+
+    padding-left: 50px;
+}
+
+
+
+
+/*div input style
+*/
+
+.input-style{
+    display: flex;flex-direction: row;
+    margin-top: 15px;
+}
+.input-style label{
+    font-size: 15px ;font-weight: 500;width: 30%;margin-bottom: 0;display: flex;align-items: center;
+}
+.input-style .div-son{
+    position: relative;
+}
+.div-son input{
+    font-weight: normal;
+    font-size: 13.5px;
+    padding-right:25px ;border:2px solid transparent;outline: none;border-radius: 15px;padding-left: 15px;padding-top: 5px;padding-bottom: 5px;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.div-son i{
+    position: absolute;top: 9px;left: calc(100% - 25px);color: rgb(171, 169, 169);
+}
+
+.div-son input:focus{
+    border-color: #26aa9f;
+}
+.div-son input:focus ~ i{
+    color: #26aa9f;
+}
+
+
+
+#crearuser .input-style{
+    margin-bottom: 5px;
+    margin-left: 25px;
+
+}
+#crearuser .div-son input{
+    width: 250px;
+
+}
+#crearuser .input-style label{
+    font-size: 13px;
+    width: 22%;
+}
+
+.createtitle{
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.btn-crearuser{
+    margin-left: calc(50% - 70px);
+    margin-top: 20px;
+    width: 140px;
+    outline: none;
+    border: 2px solid aqua;
+    font-size: 13.5px;
+    background-color: aqua;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    transition: background-color .3s , color .3s;
+}
+.btn-crearuser:hover{
+    background-color: white;
+    color: aqua;
+    
+}

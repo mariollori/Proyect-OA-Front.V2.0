@@ -14,14 +14,18 @@ import { Cancelacion } from '../models/Cancelacion';
 export class UserService {
 
   constructor(private http:HttpClient,private auth:AuthService) { }
-  urlEndpoint = "https://proyectooa-backend.herokuapp.com/usuario";
-  urlEndpoint2 = "https://proyectooa-backend.herokuapp.com/persona";
-  urlEndpoint3 = "https://proyectooa-backend.herokuapp.com/opcion";
-  urlEndpoint4 = "https://proyectooa-backend.herokuapp.com/psicologo";
+  urlEndpoint = "http://localhost:5050/usuario";
+  urlEndpoint2 = "http://localhost:5050/persona";
+  urlEndpoint3 = "http://localhost:5050/opcion";
+  urlEndpoint4 = "http://localhost:5050/psicologo";
   eliminarsolicitud(idpersonal,idpersona):Observable<any>{
     return this.http.post<any>(this.urlEndpoint4 + '/deletepersona', { idpersonal,idpersona})
    }
 
+  get_nombre_usuario(idpersonal):Observable<Persona>{
+   
+    return this.http.get<Persona>(this.urlEndpoint + '/nombre/' + idpersonal);
+  }
   getuserbyid(idusuario):Observable<Persona>{
    
     return this.http.get<Persona>(this.urlEndpoint + '/' + idusuario);

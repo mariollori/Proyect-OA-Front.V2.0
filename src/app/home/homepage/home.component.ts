@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
   
 
   cerrar(){
-    this.route.navigate(['/register-pac'])
+    this.route.navigate(['/home/register-pac'])
   }
 
  
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
   
 
   loginpsi(){
-    this.route.navigate(['/loginpsi'])
+    this.route.navigate(['/home/loginpsi'])
   }
 
 

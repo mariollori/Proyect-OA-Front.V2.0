@@ -1,0 +1,237 @@
+<head>
+  <link rel="stylesheet"
+  href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  
+</head>
+<div class="content">
+
+  <button id="btn-home" (click)="volver()"><i class="fas fa-house-user"
+      style="margin-right: 10px;"></i>Login</button>
+  <div class="left-content">
+    <div class="form-stepper">
+      <h5 class="title">Inscripcion de voluntarios</h5>
+      <label class="subtitle"><span style="color:red;margin-right: 10px;font-weight: bold;">Advertencia:</span>
+          Este registro es solo para los voluntarios de oido amigo. Si usted no es parte de nuestro equipo su solicitud será rechazada.
+      </label>
+      <form action="#" class="form">
+
+        <!-- Progress bar -->
+        <div class="progressbar">
+          <div class="progress" id="progress"></div>
+          <div class="progress-step progress-step-active" data-title="Informacion"></div>
+          <div class="progress-step" data-title="Horarios"></div>
+        </div>
+
+        <!-- Steps -->
+        <div class="form-step form-step-active">
+          <div class="personaldata">
+            <form [formGroup]="registerform">
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Nombres<span style="color: red;">*</span></mat-label>
+                <input matInput formControlName="nombre" style="text-transform:
+                  capitalize;">
+                <mat-error *ngIf="registerform.get('nombre').hasError('required')">*requerido</mat-error>
+                <i class="fas fa-user" matSuffix></i>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Apellidos<span style="color: red;">*</span></mat-label>
+                <input matInput formControlName="apellido"
+                  style="text-transform: capitalize;">
+                <mat-error *ngIf="registerform.get('apellido').hasError('required')">*requerido</mat-error>
+                <i class="far fa-user" matSuffix></i>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Correo electrónico <span style="color: red;">*</span></mat-label>
+                <input matInput formControlName="correo"
+                  placeholder="example@gmail.com">
+                <mat-error *ngIf="registerform.get('correo').hasError('required')">*requerido</mat-error>
+                <mat-error *ngIf="registerform.get('correo').hasError('email')">*Introdusca un correo valido</mat-error>
+                <i class="fas fa-at" matSuffix></i>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Sexo</mat-label>
+                <mat-select formControlName="genero">
+                  <mat-option value="H">Hombre</mat-option>
+                  <mat-option value="M">Mujer</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Celular<span style="color: red;">*</span></mat-label>
+                <input matInput formControlName="telefono" type="text" placeholder="999999999" >
+                <mat-error *ngIf="registerform.get('telefono').hasError('required')">*requerido</mat-error>
+                  <mat-error *ngIf="registerform.get('telefono').hasError('maxLength')">*Debe tener un total de 9 digitos</mat-error>
+                <i class="fas fa-phone-square-alt" matSuffix></i>
+              </mat-form-field>
+              
+              <mat-form-field class="example-full-width">
+                <mat-label>Edad</mat-label>
+                <input matInput type="number" formControlName="edad" placeholder="18">
+                <i class="fas fa-user-clock" matSuffix></i>
+              </mat-form-field>
+
+            </form>
+
+
+            <div class="tipoesp">
+              <label style="font-size: 15px;  font-weight: 500; margin-right: 25px;">¿Quién se está registrando?</label>
+
+              <mat-form-field class="example-full-width">
+                <mat-select [(ngModel)]="tipo">
+                  <mat-option value="estudiante">Estudiante</mat-option>
+                  <mat-option value="psicologo">Psicólogo</mat-option>
+                  <mat-option value="pastor">Consejero espiritual</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+
+            <form *ngIf="tipo == 'estudiante'" [formGroup]="estudiante">
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Ciclo<span style="color: red;">*</span></mat-label>
+                <mat-select formControlName="ciclo">
+                  <mat-option value="7">7</mat-option>
+                  <mat-option value="8">8</mat-option>
+                  <mat-option value="9">9</mat-option>
+                  <mat-option value="10">10</mat-option>
+                </mat-select>
+                <mat-error *ngIf="estudiante.get('ciclo').hasError('required')">*requerido</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Grupo<span style="color: red;">*</span></mat-label>
+                <input matInput formControlName="grupo" onKeyPress="if(this.value.length==1) return false;" pattern="^[0-9]+" placeholder="1">
+                <mat-error *ngIf="estudiante.get('grupo').hasError('required')">*requerido</mat-error>
+                <mat-error *ngIf="estudiante.get('grupo').hasError('pattern')">*No puede ser negativo</mat-error>
+                <i class="fas fa-user-friends" matSuffix></i>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Código Universitario<span style="color: red;">*</span></mat-label>
+                <input matInput formControlName="codigo" onKeyPress="if(this.value.length==9) return false;" pattern="^[0-9]+" placeholder="123456789">
+                <mat-error *ngIf="estudiante.get('codigo').hasError('required')">*requerido</mat-error>
+                <mat-error *ngIf="estudiante.get('codigo').hasError('pattern')">*No puede ser negativo</mat-error>
+                <i class="far fa-window-maximize" matSuffix></i>
+              </mat-form-field>
+
+            </form>
+
+            <form *ngIf="tipo == 'psicologo'" [formGroup]="psicologo">
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Universidad <span style="color: red;">*</span></mat-label>
+                <mat-select formControlName="universidad">
+                  <mat-option value="UPeU Lima">UPeU Lima</mat-option>
+                  <mat-option value="UPeU Juliaca">UPeU Juliaca</mat-option>
+                  <mat-option value="UPeU Tarapoto">UPeU Tarapoto</mat-option>
+                  <mat-option value="Otra">Otra</mat-option>
+                </mat-select>
+                <mat-error *ngIf="psicologo.get('universidad').hasError('required')">*requerido</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Grado Académico <span style="color: red;">*</span></mat-label>
+                <mat-select formControlName="grado_academico">
+                  <mat-option value="Bachiller">Bachiller</mat-option>
+                  <mat-option value="Licenciado">Licenciado</mat-option>
+                  <mat-option value="Magíster">Magíster</mat-option>
+                  <mat-option value="Doctor">Doctor</mat-option>
+                </mat-select>
+                <mat-error *ngIf="psicologo.get('grado_academico').hasError('required')">*requerido</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Nro. Colegiatura(*)</mat-label>
+                <input matInput formControlName="n_colegiatura" onKeyPress="if(this.value.length==4) return false;" placeholder="44444">
+                <mat-error *ngIf="psicologo.get('n_colegiatura').hasError('required')">*requerido</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Especialidad</mat-label>
+                <input matInput type="text" formControlName="especialidad" placeholder="---------">
+                <mat-error *ngIf="psicologo.get('especialidad').hasError('required')">*requerido</mat-error>
+              </mat-form-field>
+
+            </form>
+
+          </div>
+
+          <div>
+            <button class="btn btn-next width-50 ml-auto"><i class="fas  fa-caret-right"></i></button>
+          </div>
+        </div>
+
+        <div class="form-step">
+
+          <div class="horario">
+
+            <form style="padding: 10px;">
+
+              <div class="horarioadd">
+
+                <div class="horario-input" >
+                  <label>Dia:</label>
+                  <select [(ngModel)]="dia" style="width: 150px;height:30px;" name="dia">
+                    <option *ngFor="let d of dias" value="{{d}}">{{d}}</option>
+                  </select>
+                </div>
+
+                <div class="horario-input">
+                  <label>H.Inicio:</label>
+                  <input type="time" placeholder="9:00 - 2:00" [(ngModel)]="horai" name="hora">
+                </div>
+
+                <div class="horario-input">
+                  <label>H.Fin:</label>
+                  <input type="time" placeholder="9:00 - 2:00" [(ngModel)]="horaf" name="hora">
+                </div>
+
+                <button  type="button" class="boton" [disabled]="!dia || !horai || !horaf" (click)="agregarhorario()">Agregar</button>
+
+              </div>
+
+              <ul>
+
+                <li *ngFor="let horario of horarios">  
+                  <label >{{horario.dia}}</label>
+                  <label >{{horario.horai + ' - ' + horario.horaf}}</label>
+                  <i class="far fa-trash-alt" style="cursor: pointer;color: red;" (click)="eliminarhor(horario.dia)"></i>
+                </li>
+
+              </ul>
+
+            </form>
+
+              <button class="savebtn" mat-button (click)="guardardata();" [disabled]="horarios.length==0 ? 'disabled': null">Inscribirse</button>
+           
+          </div>
+
+          <div>
+            <button class="btn btn-prev"><i class="fas fa-caret-left"></i></button>
+          </div>
+          
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+
+
+  <div class="rigth-content">
+  <img class="img1" src="assets/homeassets/logo.png" alt="">
+ <label for="">“Ayúdense unos a otros a llevar sus cargas, y así cumplirán la ley de Cristo”.
+  Gálatas 6:2 (NVI)
+ </label>
+  <img class="img2" src="assets/homeassets/register_psi.png" alt="">
+  </div>
+
+
+
+  <!-- -->
+</div>

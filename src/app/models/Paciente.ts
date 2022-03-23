@@ -7,7 +7,7 @@ export class Paciente{
     motivo:string;
     fecha:Date;
     estado:string;
-    edad:string;
+   
 
 
     

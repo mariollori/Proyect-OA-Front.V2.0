@@ -1,0 +1,228 @@
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+
+  <link rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+</head>
+<body>
+
+
+  <div class="header">
+    <div class="left-content">
+        <button id="btn-home" (click)="volver()"><i style="margin-right: 15px;" class="fas fa-home"></i>Home</button>
+        <div class="buton-back">
+        </div>
+        <img src="assets/homeassets/registro_pac.png"  alt="">
+        <div class="recomendacion">
+          <label for="">Por favor conteste a las preguntas con honestidad.</label>
+          <label for=""><i class="far fa-check-circle"></i>Estas nos ayudarán a poder asignarte la atencion que necesitas.</label>
+        </div>
+    </div>
+   
+    <div class="form-stepper">
+      <h5 class="title">Registrar Consulta</h5>
+      <label class="subtitle">Para poder ayudarlo ,necesitamos que rellene los siguientes datos.
+</label>
+      <form action="#" class="form">
+
+        <div class="progressbar">
+          <div class="progress" id="progress"></div>
+          <div class="progress-step progress-step-active" data-title="1-10"></div>
+          <div class="progress-step" data-title="10-20"></div>
+          <div class="progress-step" data-title="20-32"></div>
+          <div class="progress-step" data-title="Datos Personales"></div>
+
+        </div>
+        <!-- Progress bar -->
+
+
+        <!-- Steps -->
+        <div class="form-step form-step-active">
+          <ul class="quizz" >
+            <li class="question" *ngFor="let pregunta of part1;let i=index"><label for="">{{i+1 + '.  ' + '   '}}{{pregunta.name}}
+              </label><div>
+                <mat-radio-group  >
+                  <mat-radio-button value="true" style="margin: 10px" (change)="changeValue($event,pregunta.id)">
+                    Si
+                  </mat-radio-button>
+                  <mat-radio-button value="false" style="margin: 10px" (change)="changeValue($event,pregunta.id)">
+                    No
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div></li>
+           
+          </ul>
+
+          <div class="">
+            <button class="btn btn-next width-50 ml-auto" ><i class="fas
+                fa-caret-right"></i></button>
+          </div>
+        </div>
+
+        <div class="form-step">
+          <ul class="quizz" >
+            <li class="question" *ngFor="let pregunta of part2;let i=index"><label for="">{{i+11 + '.  ' + '   '}}{{pregunta.name}}
+              </label><div>
+                <mat-radio-group  >
+                  <mat-radio-button value="true" style="margin: 10px" (change)="changeValue($event,pregunta.id)">
+                    Si
+                  </mat-radio-button>
+                  <mat-radio-button value="false" style="margin: 10px" (change)="changeValue($event,pregunta.id)">
+                    No
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div></li>
+           
+          </ul>
+
+          <div class="">
+            <button class="btn btn-prev"><i class="fas fa-caret-left"></i></button>
+            <button class="btn btn-next width-50 ml-auto"  ><i class="fas
+                fa-caret-right"></i></button>
+          </div>
+        </div>
+
+        <div class="form-step ">
+          <ul class="quizz" >
+            <li class="question" *ngFor="let pregunta of part3;let i=index"><label for="">{{i+21 + '.  ' + '   '}}{{pregunta.name}}
+              </label><div>
+                <mat-radio-group  >
+                  <mat-radio-button value="true" style="margin: 10px" (change)="changeValue($event,pregunta.id)">
+                    Si
+                  </mat-radio-button>
+                  <mat-radio-button value="false" style="margin: 10px" (change)="changeValue($event,pregunta.id)">
+                    No
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div></li>
+           
+          </ul>
+
+          <div class="">
+            <button class="btn btn-prev"><i class="fas fa-caret-left"></i></button>
+            <button class="btn btn-next width-50 ml-auto"><i class="fas
+                fa-caret-right"></i></button>
+          </div>
+        </div>
+
+
+        <div class="form-step">
+          <form [formGroup]="personaform" class="login-form">
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-4 col-form-label" >Nombre Completo<span style="color: red;">*</span></label>
+              <div class="col-sm-3.5 ml-8">
+                <input type="text" formControlName="nombre" placeholder="Nombre"   [class.is-valid]="this.personaform.get('nombre').valid"  [class.is-invalid]="this.personaform.get('nombre').invalid && this.personaform.get('nombre').touched"    class="form-control" >
+              </div>
+              
+              <div class="col-sm-3 ml-4">
+                <input type="text"  formControlName="apellido" placeholder="Apellidos" [class.is-valid]="this.personaform.get('apellido').valid"  [class.is-invalid]="this.personaform.get('apellido').invalid && this.personaform.get('apellido').touched" class="form-control" >
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-4 col-form-label" >Correo Electronico</label>
+              <div class="col-sm-4 ml-8">
+                <input type="text" formControlName="correo" placeholder="example@gmail.com"    [class.is-invalid]="this.personaform.get('correo').invalid && this.personaform.get('correo').touched"    class="form-control" >
+                <div *ngIf="this.personaform.get('correo').hasError('email') && this.personaform.get('correo').touched" class="invalid-feedback">
+                  Porfavor ingrese un correo valido
+                </div>
+              </div>
+             
+            </div>
+
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-4 col-form-label" >Sexo<span style="color: red;">*</span></label>
+              
+                <select  formControlName="genero"  [class.is-invalid]="this.personaform.get('genero').invalid && this.personaform.get('genero').touched" class="form-select">
+                  <option value="H">
+                    Hombre
+                  </option>
+                  <option value="M">
+                    Mujer
+                  </option>
+                </select>
+
+            </div>
+
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-4 col-form-label" >Edad<span style="color: red;">*</span></label>
+              <div class="col-sm-4 ml-8">
+                <input type="text" formControlName="edad"  placeholder="22" [class.is-valid]="this.personaform.get('edad').valid"  [class.is-invalid]="this.personaform.get('edad').invalid && this.personaform.get('edad').touched"    class="form-control" >
+                <div *ngIf="this.personaform.get('edad').hasError('pattern') && this.personaform.get('edad').touched" class="invalid-feedback">
+                  Digite un edad valida
+                </div>
+              </div>
+             
+            </div>
+
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-4 col-form-label" >Celular<span style="color: red;">*</span></label>
+              <div class="col-sm-4 ml-8">
+                <input type="text" formControlName="telefono"  placeholder="999999999" [class.is-valid]="this.personaform.get('telefono').valid"  [class.is-invalid]="this.personaform.get('telefono').invalid && this.personaform.get('telefono').touched"    class="form-control" >
+                <div *ngIf="this.personaform.get('telefono').hasError('pattern') && this.personaform.get('telefono').touched" class="invalid-feedback">
+                  Porfavor digite un numero valido
+                </div>
+              </div>
+             
+            </div>
+
+
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-4 col-form-label" >DNI</label>
+              <div class="col-sm-4 ml-8">
+                <input type="text" formControlName="dni"     [class.is-invalid]="this.personaform.get('dni').invalid && this.personaform.get('dni').touched"    class="form-control" >
+                <div *ngIf="this.personaform.get('dni').hasError('pattern') && this.personaform.get('dni').touched" class="invalid-feedback">
+                   Max 8 digitos
+                </div>
+              </div>
+            </div>
+            <form [formGroup]="pacienteform" >
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-4 col-form-label" >Lugar de Procedencia<span style="color: red;">*</span></label>
+              <div class="col-sm-4 ml-8">
+                <input type="text" formControlName="origen"  [class.is-invalid]="this.pacienteform.get('origen').invalid && this.pacienteform.get('origen').touched"    class="form-control" >
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-4 col-form-label" >¿Cómo supiste de oído amigo?<span style="color: red;">*</span></label>
+                <select  formControlName="motivo"   [class.is-valid]="this.pacienteform.get('motivo').valid && this.pacienteform.get('motivo').touched"  [class.is-invalid]="this.pacienteform.get('motivo').invalid && this.pacienteform.get('motivo').touched" class="form-select">
+                  <option value="Familiar">Familiar</option>
+                  <option value="Proyecto C">Proyecto C</option>
+                  <option value="Amigo">Amigo</option>
+                  <option value="Iglesia">Iglesia</option>
+                </select>
+             
+            </div>  
+
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-4 col-form-label" >  Motivo de Consulta<span style="color: red;">*</span></label>
+              <div class="col-sm-4 ml-8">
+                <textarea formControlName="descripcion"  [class.is-valid]="this.pacienteform.get('descripcion').valid && this.pacienteform.get('descripcion').touched"  [class.is-invalid]="this.pacienteform.get('descripcion').invalid && this.pacienteform.get('descripcion').touched"       class="form-control" ></textarea>
+              </div>
+            </div>  
+           
+           </form>
+           
+            <div  style="display: flex;width: 100%; margin-top: 20px">
+              <input type="checkbox" class="form-check-input"  required>
+              <label  style="color: black; 
+              font-size: 13.5px;
+              margin-left: 20px;
+              margin-top: -4px;">Permitir uso de  sus datos para la consulta.</label>
+            </div>
+
+          </form>
+          <div>
+            <button class="btn btn-prev"><i class="fas fa-caret-left"></i></button>
+            <button class="btn-step" [disabled]="personaform.invalid || pacienteform.invalid"
+              (click)="guardarpaciente();">Registrarse</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+</body>
