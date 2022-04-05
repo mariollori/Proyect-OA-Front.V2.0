@@ -3,352 +3,377 @@
     rel="stylesheet">
 </head>
 <body>
-  <h5 class="title"><div class="puntero"></div><img class="imgheader" src="assets/paciente.png">Pacientes Asignados</h5>
+  <h5 class="title">Pacientes Asignados</h5>
+
   
-
   <div class="container">
-    
-    <div class="listproximasS">
-      <h5><i class="fas fa-stopwatch" style="margin-right: 15px;"></i>Proximas Sesiones</h5>
-      <div class="proximassesiones">
-        <!--Tabla-->
+    <app-spinner-blanc *ngIf="cargando" style="min-width: 30%;height:
+      80%;margin-top: 50px;"></app-spinner-blanc>
+    <div class="list-pac" *ngIf="!cargando">
+      <div class="card2" [ngClass]="{ 'xdd' : asig_actual == pac }" *ngFor="let
+        pac of pacientes_asignados">
+        <div style="display: flex;justify-content: space-between;">
 
-        <div *ngFor="let aten of atenciones_pend" class="proxsesion">
+          <label style="font-weight: bold;font-size: 14px;">
 
-            <h6 style="font-weight: bold;margin-bottom: 20px;font-size: 13.5px; color: #419dc8;"><i class="fas fa-user-tie" style="margin-right: 10px;"></i>
-            {{aten.nombre + ' ' +
-            aten.apellido}} </h6>
+            {{pac.nombre + pac.apellido}}
+          </label>
+          <label for="" style="font-size: 13px;font-weight: bold;">{{pac.fecha |
+            date:'dd/MM/yyyy'}} <i class="fas fa-arrow-right"
+              (click)="get_info_case(pac)" style="color:#29b2e2;margin-left:
+              14px;cursor: pointer;"></i></label>
+        </div>
+        <div style="font-size: 13.5px;    display: flex;
+        flex-direction: column;">
+          <label class="category" [ngStyle]="{'background-color': pac.categoria
+            == 'Riesgo' ? 'red' : ( pac.categoria == 'Leve' ? 'green'
+            :'#ffb800') }">{{pac.categoria}}</label>
+          <label style="font-size: 13px;
+            color: #a8a8a8;
+            max-height: 50px;">{{pac.descripcion}}</label>
+          <label style="width: 100%;
+            text-align: center;
+            color: #29b2e2;"><i class="far fa-file-alt" style="margin-right:
+              10px;"></i>{{pac.nro_atenciones + ' ' + 'Atenciones Registradas'}}</label>
+        </div>
+      </div>
 
-          <div style="display: flex;flex-direction: row;font-size: 13px;">
-            <p><i class="far fa-calendar" style="margin-right: 10px;"></i>Fecha: {{aten.fecha_sesion | date:'dd/MM/yyyy'}}</p>
-            <p style="margin-left: 50px;"><i class="far fa-clock" style="margin-right: 10px;"></i>Hora :{{aten.fecha_sesion | date:"shortTime" : 'UTC'}}</p>
+
+
+
+
+
+    </div>
+    <div class="no-data" *ngIf="!paciente_info">
+      <img src="assets/select_pac.gif" width="300px" alt="">
+      <label style="font-weight: bold;">Seleccione un paciente para ver la
+        información correspondiente.</label>
+
+    </div>
+
+    <div class="view_data" *ngIf="paciente_info">
+      <div class="data_personal">
+        <div style="text-align: center;">
+          <img [src]="paciente_info.genero == 'H'? 'assets/pach.png' :
+            'assets/pacm.png'"width="200px" alt="">
+            
+           <label class="name" [ngStyle]="{'background-color': paciente_info.categoria
+           == 'Riesgo' ? 'red' : ( paciente_info.categoria == 'Leve' ? 'green'
+           :'#ffb800') }">{{paciente_info.nombre + ' ' +
+              paciente_info.apellido}}</label>
+         
+
+        </div>
+        <div style="display: flex;flex-wrap: wrap;    padding: 12px 0px;align-items: center;">
+          <div class="info_style">
+            <label for="">Celular</label>
+            <label for="">{{paciente_info.telefono}}</label>
           </div>
-        
-          <app-cronometro [end]="aten.fecha_sesion" style="width: 100%;height: 65px;margin: 0 auto;"></app-cronometro>
-          <i class="fas fa-sync-alt" style="position: absolute;cursor: pointer;left: calc(100% - 30px);top: 10px;color: #4267b2;" (click)="asignaridfecha(aten.idregistro_aten,aten.fecha_sesion,aten.hora)"
-          data-toggle="modal"
-          data-target="#modificarfecha"></i>
-            
-            
+          <div class="info_style">
+            <label for="">Edad</label>
+            <label for="">{{paciente_info.edad + ' ' + 'años'}}</label>
+          </div>
+          <div class="info_style">
+            <label for="">Lugar de Consulta</label>
+            <label for="">{{paciente_info.origen}}</label>
+          </div>
+          <div class="info_style">
+            <label for="">¿Cómo supo de OIDO AMIGO?</label>
+            <label for="">{{paciente_info.motivo}}</label>
+          </div>
+          <div class="info_style" style="width: 90%;">
+            <label for="">Descripción</label>
+            <label for="">{{paciente_info.descripcion}}</label>
+          </div>
+         
+
+        </div>
+
+      </div>
+      <div class="options">
+        <div class="card-btns2">
+          <button data-target="#register_aten"
+            data-toggle="modal">
+            Registrar Atención
+          </button>
+          <button data-toggle="modal" data-target="#cancelaratencion">
+            Dar de Baja la Sesión
+          </button>
+          <button data-toggle="modal" data-target="#exampleModal"
+            (click)="ver_respuestas(paciente_info.respuestas)">
+            Ver SQR del Paciente
+          </button>
           
         </div>
 
+      </div>
+      <div class="list_reports">
+        <h6>Reportes Registrados</h6>
+        <label style="padding: 25px; font-size: 14px;"
+          *ngIf="!atenciones_registradas">Aun no se han registrado
+          reportes para este paciente.</label>
+        <div class="list-aten">
+          <table class="table table-hover" style="width: 100%;font-size: 13px;">
+            <thead>
+              <tr>
+                <th>Nro Sesión</th>
+                <th>Fecha de Sesión</th>
+                <th>Ver información de Sesión</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let aten of atenciones_registradas">
+                <td>{{aten.nro_sesion}}</td>
+                <td>{{aten.fecha_sesion | date:'dd/MM/yyyy'}}</td>
+                <td><button class="ver_atencion"
+                    (click)="mostrar_asignacion_id(aten)" data-toggle="modal"
+                    data-target="#verasignacion"><i class="fas fa-eye"
+                      style="margin-right: 10px;"></i>Ver descripción</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+
+        </div>
 
 
       </div>
+
+
 
     </div>
-    <app-spinner-blanc *ngIf="cargando" style="min-width: 60%;height: 80%;margin-top: 50px;"></app-spinner-blanc>
-    <div class="list-pac" *ngIf="!cargando">
-      <!-- <div class="card" *ngFor="let pac of datalist">
-         <div class="card-body">
-          <div style="display: flex;flex-direction: row;">
-            <img class="imgpac" *ngIf="pac.genero == 'M'"
-            src="https://armeniahotel.com.co/wp-content/uploads/2017/07/avatars-1-06.jpg"
-            />
-          <img class="imgpac" *ngIf="pac.genero == 'H'"
-            src="https://bootdey.com/img/Content/avatar/avatar6.png" />
-            <div style="margin-left: 15px;">
-              <label style="font-weight: bold;margin-bottom: 0;margin-top: 20px;" >{{pac.nombre + pac.apellido}}</label>
-              <label style="color: #bebebe;font-size: 12px;;margin-bottom: 0" >{{pac.correo}}</label>
-              <label style="color: #bebebe;font-size: 12px;" >{{pac.telefono}}</label>
-    
-            </div>
-          </div>
-          <div>
-            <label style="font-size: 12px;" for=""> {{pac.descripcion}}</label>
-          </div>
-          <i class="far fa-times-circle" ></i>
-         </div>
-         <div class="card-btns">
-           <button data-target="#register_aten"
-           data-toggle="modal"
-           (click)="verificarsesiones(pac.idasignacion,pac.idpaciente)">
-             Registrar Atencion
-           </button>
-         </div>
-      </div>
-       -->
-     
 
 
-   <div class="card2" *ngFor="let pac of datalist">
-    <div class="img-container">
-      <img class="imgpac2" *ngIf="pac.genero == 'M'"
-            src="https://armeniahotel.com.co/wp-content/uploads/2017/07/avatars-1-06.jpg"
-            />
-          <img class="imgpac2" *ngIf="pac.genero == 'H'"
-            src="https://bootdey.com/img/Content/avatar/avatar6.png" />
-    </div>
-   <div class="card-body2">
-     
-     <div style="display: flex;flex-direction: column; margin-right:10px ;width: 60%; justify-content: flex-start;">
-       
-    
-         <label style="font-weight: bold;margin-bottom: 0;" >{{pac.nombre + pac.apellido}}</label>
-         <label style="color: #bebebe;font-size: 12px;;margin-bottom: 0" >{{pac.correo}}</label>
-         <label style="color: #bebebe;font-size: 12px;" >{{pac.telefono}}</label>
-  
-       
-       <div >
-        <label style="font-size: 12px;max-width: 500px;" >{{pac.descripcion}}</label>
-      </div>
-     </div>
-     
-   
-  
-    <div class="card-btns2">
-     <button data-target="#register_aten"
-     data-toggle="modal"
-     (click)="verificarsesiones(pac.idasignacion,pac.idpaciente)">
-       Registrar Atencion
-     </button>
-     <button data-toggle="modal"  data-target="#cancelaratencion" (click)="detallecancelar(pac)">
-       Cancelar Sesion
-     </button>
-   </div>
-   </div>
-   
+
+
+
+
+
   </div>
-
-     
-
-
+  
   
 
-    </div>
 
-
-
-
-    
-  </div>
-</body>
-
-<script>
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
-</script>
 <!-- Modal Registro de Atencion xd -->
 <div class="modal fade bd-example-modal-lg" id="register_aten" tabindex="-1"
   role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      
-
-
-
-
-
       <app-spinner-blanc *ngIf="cargando2"></app-spinner-blanc>
       <div class="modal-body" *ngIf="!cargando2">
         <div style="width: 100%;height: 100px;display: flex;
-        justify-content: center;align-items: center ;"> 
-          <h5 style="font-weight: bold;font-size: 19px;">Registrar Atencion</h5>
-  
+          justify-content: center;align-items: center ;">
+          <h5 style="font-weight: bold;font-size: 19px;">Registrar Atención
+          </h5>
+         
+          
         </div>
-     
-           <div style="width: 60%;margin-left: 20%;">
-            <div class="form-personal" *ngIf="counter==0">
-              <h5>Datos Personales del Paciente</h5>
-              <form [formGroup]="datapaciente" class="formulario">
-    
 
-                <div class="input-style" >
-                  <label class="xd">  <i class="fas fa-building"></i>Ciudad:</label>
-                
-                  <input  type="text" formControlName="ciudad" />
-                  
-                  
-                </div>
-    
-                
-                <div class="input-style"  >
-                  <label><i class="fas fa-praying-hands"></i>Religion:</label>
-                  
-                  <input  type="text" formControlName="religion"/>
-               
-                 
-                </div>
-                <div class="input-style"  >
-                  <label><i class="fab fa-black-tie"></i>Ocupacion:</label>
-             
-                  
-                  <input  type="text" formControlName="ocupacion" />
-                
-                </div>
-                <div class="input-style" >
-                  <label>Fecha de Nacimiento:</label>
-                  <input  type="date" formControlName="fecha_nacimiento" />
-    
-                 
-                </div>
+        <div class="form-personal" *ngIf="counter==0">
+          <h5>Datos Personales del Paciente</h5>
+          <form [formGroup]="datapaciente" class="formulario">
 
-
-                
-                  <div class="input-style" >
-                  <label >Grado Academico:</label>
-                    <select formControlName="grado_educacion" name="food">
-                      <option value="primaria">Primaria</option>
-                      <option value="secundaria">Secundaria</option>
-                      <option value="universidad">Universidad</option>
-                    </select>
-                  
-                  </div>
-                  
-              
-      
-                  <div class="input-style" >
-                    <label > <i class="fas fa-user-clock"></i> Edad</label>
-                   
-                    <input  type="text" formControlName="edad" />
-              
-                 
-                  </div>
-                
-                
-    
-    
-    
-    
-             
-    
-              </form>
-          
+            <div class="input-style" style="width: 48%;">
+              <label class="xd"> Ciudad <span style="color: red;">*</span></label>
+              <input type="text" formControlName="ciudad" />
             </div>
-         
-            
-            <div class="form-sesion">
-              <h5>Datos de la Sesion</h5>
-              <form [formGroup]="datosatencion" class="formulario">
-                
-    
-                <div class="input-style"  >
-                  <label>Condicion:</label>
-                  <input  type="text" formControlName="condicion" />
-               
-                 
-                </div>
-    
-                <div class="input-style" >
-                  <label>Evidencia:</label>
-                  <input  type="text" formControlName="evidencia" />
-                 
-               
-                </div>
-    
-                <div class="input-style" style="height: 100px;display: flex;justify-content: flex-start;"    >
-                 <label>Observaciones:</label>
-                 <textarea  formControlName="observaciones"  style="width: 60%;height: 100%;"
-                 placeholder="Ex. It makes me feel..."></textarea>
-                 
-               
-                </div>
-    
-                <div *ngIf="counter==2">
-                  <mat-slide-toggle [(ngModel)]="derivacion"
-                    [ngModelOptions]="{standalone: true}" name="derivacion"
-                    class="example-margin">
-                    ¿Derivar con especialista?
-                  </mat-slide-toggle>
-                </div>
-              </form>
-          
-         
+
+            <div class="input-style" style="width: 48%;">
+              <label>Religión<span style="color: red;">*</span></label>
+              <input type="text" formControlName="religion" />
             </div>
-         
-           
-           </div>
-           <div style="width:60%;margin-left: 20%;">
+
+            <div class="input-style" style="width: 48%;">
+              <label>Ocupación<span style="color: red;">*</span></label>
+              <input type="text" formControlName="ocupacion" />
+            </div>
+
+            <div class="input-style" style="width: 48%;">
+              <label>Fecha de Nacimiento<span style="color: red;">*</span></label>
+              <input type="date" formControlName="fecha_nacimiento" />
+            </div>
+
+
+
+            <div class="input-style" style="width: 38%;">
+              <label>Grado de Instrucción<span style="color: red;">*</span></label>
+              <select formControlName="grado_educacion" name="food">
+                <option value="No escolarizado">No escolarizado</option>
+                <option value="Primaria incompleta">Primaria incompleta</option>
+                <option value="Primaria"> Primaria</option>
+                <option value="Secundaria incompleta"> Secundaria incompleta</option>
+                <option value="Secundaria">Secundaria</option>
+                <option value="Técnico superior incompleto"> Técnico superior
+                  incompleto</option>
+                <option value="Técnico superior">Técnico superior</option>
+                <option value="Superior incompleto">Superior incompleto</option>
+                <option value="Superior">Superior</option>
+              </select>
+            </div>
+
+
+            <div class="input-style" style="width: 38%;">
+              <label>Estado Civil<span style="color: red;">*</span></label>
+              <select formControlName="estado_civil" name="food">
+                <option value="Soltero"> Soltero</option>
+                <option value="En una Relacion">En una Relación</option>
+                <option value="Conviviente">Conviviente</option>
+                <option value="Casado">Casado</option>
+                <option value="Separado"> Separado</option>
+                <option value="Divorciado"> Divorciado</option>
+                <option value="Viudo">Viudo</option>
+              </select>
+            </div>
+
+
+
+            <div class="input-style" style="width: 18.5%;">
+              <label>Nro Hijos:</label>
+              <input type="text" formControlName="nro_hijos" />
+            </div>
+
+            <div class="input-style" style="width: 48%;">
+              <label>Problema Actual <span style="color: red;">*</span></label>
+              <textarea formControlName="problema_actual" ></textarea>
+            </div>
+            <div class="input-style" style="width: 48%;">
+              <label>Antecedentes <span style="color: red;">*</span></label>
+              <textarea formControlName="antecedentes"></textarea>
             
-             
-           
-             <div class="form-horarios" *ngIf="counter!=2" style="width: 100%;margin: 0;margin-right: 0;">
-              <h5>Horario de Proxima Sesion</h5>
-              <form [formGroup]="fechaatencion" class="formulario" >
-                <div class="input-style" disabled>
-                  <label>Fecha y Hora de Sesion:</label>
-                  <input  type="datetime-local" formControlName="fecha"  />
-                </div>
-                
-                <div class="input-style" disabled>
-                  <label>Link de sesion:</label>
-                  <input  type="text"  />
-                </div>
-               
-              </form>
-          
-          </div>
-           </div>
-           
-        
-    
-        
-        
-        
+            </div>
 
 
-       
+
+
+          </form>
+
+        </div>
+
+
+        <div class="form-sesion">
+          <h5>Datos de la Sesión</h5>
+          <form [formGroup]="datosatencion" class="formulario">
+
+
+            <div class="input-style" style="width: 48%;">
+              <label>Observaciones Generales <span style="color: red;">*</span></label>
+              <textarea formControlName="observaciones"
+               ></textarea>
+
+
+            </div>
+            <div class="input-style" style="width: 48%;">
+              <label>Acciones Realizadas <span style="color: red;">*</span></label>
+              <textarea formControlName="acciones_realizadas"
+               ></textarea>
+
+
+
+            </div>
+
+            <div class="input-style" style="width: 48%;">
+              <label>Conclusiones <span style="color: red;">*</span></label>
+              <textarea formControlName="conclusiones"
+               ></textarea>
+
+
+            </div>
+
+            <div class="input-style" style="width: 48%;">
+              <label>Recomendaciones <span style="color: red;">*</span></label>
+              <textarea formControlName="recomendaciones"
+               ></textarea>
+
+
+
+            </div>
+
+            <div class="input-style" style="width: 98%;position: relative;">
+              <label>Evidencia <span style="color: red;">*</span></label>
+              <input type="text" formControlName="evidencia" />
+              <button class="info_ev"><i class="fas fa-question-circle"></i>
+              <span >Ingrese el link del drive donde adjunto su evidencia. <label style="color: red;padding: 0;">(Hacerlo publico para acceder.)</label> </span>
+              </button>
+            </div>
+
+          </form>
+        </div>
       </div>
       <div class="modal-footer" style="border-top: none;">
         <div class="btns-form" *ngIf="counter==0">
           <button mat-button (click)="reset()" data-dismiss="modal"
-            class="btn-step2">Cancelar <mat-icon matSuffix>cancel</mat-icon></button>
+            class="btn-step2">Cancelar </button>
           <button mat-button class="btn-step" (click)="registraratencion()"
-            [disabled]="datapaciente.invalid || datosatencion.invalid ||
-            fechaatencion.invalid">Guardar <mat-icon matSuffix>save_alt</mat-icon></button>
+            [disabled]="datapaciente.invalid || datosatencion.invalid">
+            Guardar </button>
         </div>
-        <div class="btns-form" *ngIf="counter==1">
+        <div class="btns-form" *ngIf="counter> 0">
           <button mat-button (click)="reset()" data-dismiss="modal"
-            class="btn-step2">Cancelar <mat-icon matSuffix>cancel</mat-icon></button>
+            class="btn-step2">Cancelar </button>
           <button mat-button class="btn-step" (click)="registraratencion()"
-            [disabled]="datosatencion.invalid || fechaatencion.invalid">Guardar
-            <mat-icon matSuffix>save_alt</mat-icon></button>
-        </div>
-        <div class="btns-form" *ngIf="counter==2">
-          <button mat-button (click)="reset()" data-dismiss="modal"
-            class="btn-step2">Cancelar <mat-icon matSuffix>cancel</mat-icon></button>
-          <button mat-button class="btn-step" (click)="registraratencion()"
-            [disabled]="datosatencion.invalid">Guardar<mat-icon matSuffix>save_alt</mat-icon></button>
+            [disabled]="datosatencion.invalid">Guardar</button>
         </div>
       </div>
     </div>
   </div>
+
+
+  <script>
+    $(document).ready(function(){
+      $('[data-toggle="popover"]').popover();   
+    });
+    </script>
 </div>
+
+</body>
 
 <!-- Modal cancelaratencion-->
 <div class="modal fade" id="cancelaratencion" tabindex="-1" role="dialog"
   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="border-bottom: 0;background-color: #4267b2;">
-        <h5 class="modal-title"  style="color: white;" id="exampleModalLongTitle">Cancelar Atencion</h5>
-        <button type="button" style="transition: transform .3s;" class="close"  data-dismiss="modal"
-        >
-          <i style="color: white;" class="far fa-times-circle"></i>
-         </button>
-      </div>
+
       <div class="modal-body">
-        <label style="font-size: 13px;color: gray;"> Esta accion es irreversible. Si esta seguro de continuar introdusca el motivo de la cancelacion de la cita.</label>
-        <div class="form-group row" >
-          <label for="staticEmail"  class="col-sm-1 col-form-label"><i style="font-size: 15px;font-weight: bold;" class="far fa-user-circle"></i></label>
-          <div *ngIf="detallecancelacion" class="col-sm-10">
-            <input type="text" style="font-size: 15px;font-weight: bold;" readonly class="form-control-plaintext"
-              [(ngModel)]="detallecancelacion.nombre + ' ' +
-              detallecancelacion.apellido" id="staticEmail" disabled>
-          </div>
+        <div style="display: flex;justify-content: center;margin-bottom: 15px;">
+          <h5 class="modal-title" style="color: black;font-weight: bold;">Dar de
+            Baja la Sesión</h5>
         </div>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1" style="font-size: 15px;font-weight: bold;"><i class="fas fa-comment-dots" style="margin-right: 25px;"></i>Motivo:</label>
-          <textarea class="form-control" style="font-size: 13px;" id="exampleFormControlTextarea1"
-            [(ngModel)]="motivocancelar" rows="3"></textarea>
+        <label style="font-size: 13px;color: #52a2cb;margin-bottom: 20px;">
+          (Esta acción es
+          irreversible. Si está seguro de continuar introdusca el motivo para
+          dar de baja al paciente.)</label>
+
+        <div *ngIf="paciente_info" style="display: flex;flex-direction:
+          row;align-items: center;margin-bottom: 15px;">
+          <label style="min-width: 100px;font-size: 13.5px;margin: 0;">Paciente</label>
+          <input type="text" style="font-size: 14px;font-weight: bold;border:
+            none;background: transparent;" [(ngModel)]="paciente_info.nombre + '
+            ' +paciente_info.apellido" disabled>
         </div>
-        <div class="footer">
-          <button type="button" class="btn-cancel1"
-            data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn-cancel2"
-            (click)="cancelaratencion()">Guardar</button>
+
+        <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:
+          10px;">
+          <label style="min-width: 100px;font-size: 13.5px;"> Motivo <span
+              style="color: red;">*</span></label>
+          <select style="margin-bottom: 10px;" [(ngModel)]="motivo">
+            <option value="Cancelado">Caso Trunco</option>
+            <option value="Derivado">Derivación Inmediata</option>
+            <option value="Finalizado"> Terminó 3 Sesiones</option>
+          </select>
+        </div>
+
+        <div style="display: flex;flex-direction: row;margin-bottom: 30px;">
+          <label style="min-width: 100px;font-size: 13.5px;">Descripción</label>
+          <textarea style="width: 100%;" [(ngModel)]="detalle_motivo" rows="3"></textarea>
+        </div>
+
+        <div class="btns-form">
+          <button data-dismiss="modal"
+            class="btn-step2">Cancelar </button>
+          <button class="btn-step" [disabled]="motivo.length == 0" (click)="cancelaratencion()">Guardar</button>
         </div>
 
 
@@ -362,44 +387,87 @@ $(document).ready(function(){
 
 
 
-<!-- Modal Modificarfecha -->
-<div class="modal fade" id="modificarfecha" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="border-bottom: 0;background-color: #4267b2;color: white;">
-        <h5 class="modal-title" id="exampleModalLongTitle" style="font-size:18px;">Modificar Sesion</h5>
-        <button type="button" style="transition: transform .3s;" class="close"  data-dismiss="modal"
-        >
-          <i style="color: white;" class="far fa-times-circle"></i>
-         </button>
-      </div>
-      <div class="modal-body" style="padding: 30px 15px;">
-
-
-       <div style="display: flex;flex-direction: row;">
-        <img src="https://www.sesametime.com/assets/wp-content/uploads/2020/01/definicion-sistema-control-horario.jpg" width="150px" height="110px" style="margin-right: 25px;" alt="">
-        <div class="form-group">
-          <label style="font-weight: bold;font-size: 13px;margin-right: 15px;">Proxima Sesion:</label>
-          <input type="datetime-local" style="outline: none;font-size: 13px;border: 2px solid #00ccbe;padding: 5px 10px;margin-bottom: 15px;" [(ngModel)]="fechaactual"  />
-          <label style="font-weight: bold;font-size: 13px;margin-right: 35px;margin-bottom: 0;" >Link de la Sesion:</label>
-          <input type="text" style="outline: none;border: none;border-bottom:2px solid #00ccbe;font-size: 13px;width: 250px;">
+      <div class="modal-body">
+        <div style="display: flex;justify-content: center;">
+          <h5 class="modal-title" id="exampleModalLabel" style="font-weight:
+            bold;
+            font-size: 18px;padding: 10px;">Autorreporte de Sintomas(SQR)</h5>
         </div>
+        <form>
+          <div>
+            <ul class="quizz">
+              <li class="question" *ngFor="let pregunta of preguntas;let
+                i=index">
+                <label for="" [ngStyle]="{'background-color': pregunta.grado ==
+                  'riesgo' ? 'red' : ( pregunta.grado == 'leve' ? 'green' :
+                  'yellow') }">{{i+1 + '. ' + ' '}}{{pregunta.name}}</label>
+                <label for="">{{pregunta.value == 'true' ? 'Si' : ' No'}}</label>
+              </li>
+            </ul>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
-       </div>
 
-        
-        <div class="footer">
-          <button type="button" class="btn-cancel1"
-            data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn-cancel2"
-            (click)="guardarfechamodif()">Modificar</button>
-        </div>
 
+
+<div class="modal fade" id="verasignacion" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #13c298;
+        color: white;">
+        <h5 *ngIf="aten_paciente" class="modal-title" id="exampleModalLabel">Reporte
+          de Sesión {{aten_paciente.nro_sesion}} </h5>
+        <button type="button" class="close" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form style="display: flex;flex-direction: column;padding: 15px 25px;"
+          *ngIf="aten_paciente">
+
+          <div class="input-style2">
+            <label>Observaciones Generales:</label>
+            <textarea [ngModel]="aten_paciente.observaciones" disabled
+              placeholder="Ex. It makes me feel..." name="observaciones"></textarea>
+          </div>
+
+          <div class="input-style2">
+            <label>Acciones Realizadas:</label>
+            <textarea [ngModel]="aten_paciente.acciones_realizadas" disabled
+              placeholder="Ex. It makes me feel..." name="acciones"></textarea>
+          </div>
+
+          <div class="input-style2">
+            <label>Conclusiones:</label>
+            <textarea [ngModel]="aten_paciente.conclusiones" disabled
+              placeholder="Ex. It makes me feel..." name="conclusiones"></textarea>
+          </div>
+
+          <div class="input-style2">
+            <label>Recomendaciones:</label>
+            <textarea [ngModel]="aten_paciente.recomendaciones" disabled
+              placeholder="Ex. It makes me feel..." name="recomendaciones"></textarea>
+          </div>
+
+          <div class="input-style2" style="width: 98%;">
+            <label>Evidencia :</label>
+            <a href="{{aten_paciente.evidencia}}" style="padding-left:
+              10px;max-width: 100%;font-size: 13px;" target="_blank">{{aten_paciente.evidencia}}</a>
+          </div>
+
+        </form>
 
       </div>
-
-
 
     </div>
   </div>

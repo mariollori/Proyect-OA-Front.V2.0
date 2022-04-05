@@ -75,6 +75,7 @@ export class DatosUserComponent implements OnInit {
       data => {
      
         this.tipo = data[0].tipo;
+        console.log(data)
         this.personal = data[0];
         if (data[0].foto == null) {
           this.imagenserv.nombre = 'https://s3.amazonaws.com/files.patmos.upeu.edu.pe/img/upload/fotos/80/no_photo.jpg'

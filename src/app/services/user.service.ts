@@ -7,6 +7,7 @@ import { Persona } from '../models/Persona';
 import { AuthService } from './auth.service';
 import { Usuario } from '../models/Usuario';
 import { Cancelacion } from '../models/Cancelacion';
+import { ngxChartsPolyfills } from '@swimlane/ngx-charts/release/polyfills';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class UserService {
   urlEndpoint2 = "http://localhost:5050/persona";
   urlEndpoint3 = "http://localhost:5050/opcion";
   urlEndpoint4 = "http://localhost:5050/psicologo";
+  urlEndpoint5 = "http://localhost:5050/paciente";
   eliminarsolicitud(idpersonal,idpersona):Observable<any>{
     return this.http.post<any>(this.urlEndpoint4 + '/deletepersona', { idpersonal,idpersona})
    }
@@ -56,7 +58,18 @@ export class UserService {
     return this.http.get<any>(this.urlEndpoint + '/getestados/estado/', { params:params})
    }
 
-   crearcancelacion(cancelacion:Cancelacion,idpaciente,idpersonal):Observable<any>{
-    return this.http.post<any>(this.urlEndpoint + '/crearcancelacion/post', { cancelacion,idpaciente,idpersonal})
+
+
+
+   crearcancelacion(motivo,id):Observable<any>{
+    return this.http.post<any>(this.urlEndpoint5 + '/cancelar_atencion/' + id, {motivo})
+   }
+
+
+   finalizar_atencion(id,motivo):Observable<any>{
+    return this.http.post<any>(this.urlEndpoint5 + '/finalizar_atencion/' + id,{motivo});
+   }
+   derivar_atencion(id,motivo,idpaciente):Observable<any>{
+    return this.http.post<any>(this.urlEndpoint5 + '/derivar_atencion/' + id, {idpaciente,motivo});
    }
 }

@@ -17,6 +17,7 @@ import { DatosUserComponent } from './datos-user/datos-user.component';
 import { GestOpComponent } from './gest-op/gest-op.component';
 import { NgChartsModule, ThemeService } from 'ng2-charts';
 import { ReporteIComponent } from '../reportes/reporte_individual/reporte-i.component';
+import { BandejaInComponent } from './bandeja-in/bandeja-in.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReporteIComponent } from '../reportes/reporte_individual/reporte-i.comp
     GestOpComponent,
     RegistrarAtencionComponent,
     ReportesComponent,    
-    ReporteIComponent
+    ReporteIComponent, 
+    BandejaInComponent
     
 
   ],
@@ -37,7 +39,7 @@ import { ReporteIComponent } from '../reportes/reporte_individual/reporte-i.comp
     FragmentsModule,
     NgChartsModule,
     FormsModule,
- MaterialModule,
+    MaterialModule,
     
     DataTablesModule,
   ],

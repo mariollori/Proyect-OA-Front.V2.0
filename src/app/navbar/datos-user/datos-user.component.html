@@ -40,64 +40,52 @@
         
             <h5>Informacion Personal</h5>
             <form [formGroup]="datos_personales" class="datapersonal">
-              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
-                <label  style="font-size: 13px;font-weight: 600;min-width: 200px"> <i class="fas fa-user"></i>Nombre Completo:</label>
-                <fieldset [disabled]="!editstate">
-                  
-                  <div class="item">
-                 
-                    <input type="text" formControlName="nombre" style="text-transform:
-                      capitalize;" placeholder="Mario Llori Santiago">
-                  </div>
+              <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" ><i class="fas fa-user"></i>Nombre Completo</label>
+                <div class="col-sm-3.5 ml-8">
+                  <fieldset [disabled]="!editstate">
+                  <input type="text" formControlName="nombre" placeholder="Nombre"  [disabled]="!editstate"    [class.is-invalid]="this.datos_personales.get('nombre').invalid && this.datos_personales.get('nombre').touched"    class="form-control" >
                 </fieldset>
-                <fieldset [disabled]="!editstate">
-                  
-                  <div class="item">
-                    
-                    <input type="text" formControlName="apellido" style="text-transform:
-                      capitalize;" placeholder="Mario Llori Santiago">
-                  </div>
+                </div>
+                <div class="col-sm-3 ml-4">
+                  <fieldset [disabled]="!editstate">
+                  <input type="text"  formControlName="apellido" placeholder="Apellidos"   [class.is-invalid]="this.datos_personales.get('apellido').invalid && this.datos_personales.get('apellido').touched" class="form-control" >
                 </fieldset>
+                </div>
               </div>
-              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
-                <label style="font-size: 13px;font-weight: 600;min-width: 200px">  <i class="fas fa-envelope"></i>Correo:</label>
+
+              <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" ><i class="fas fa-envelope"></i>Correo</label>
+                <div class="col-sm-3.5 ml-8">
+                  <fieldset [disabled]="!editstate">
+                  <input type="text" formControlName="correo" placeholder="Nombre"     [class.is-invalid]="this.datos_personales.get('correo').invalid && this.datos_personales.get('correo').touched"    class="form-control" >
+                </fieldset>
+                </div>
+              </div>
+
+              <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" ><i class="fas fa-phone-alt"></i>Celular</label>
+                <div class="col-sm-3.5 ml-8">
+                  <fieldset [disabled]="!editstate">
+                  <input type="text" formControlName="telefono" placeholder="Nombre"    [class.is-invalid]="this.datos_personales.get('telefono').invalid && this.datos_personales.get('telefono').touched"    class="form-control" >
+                </fieldset>
+                </div>
+              </div>
+
+              <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" > <i class="fas fa-venus-mars"></i>Sexo</label>
                 <fieldset [disabled]="!editstate">
-                
-                  <div class="item">
-                  
-                    <input formControlName="correo" type="text"
-                      placeholder="example@upeu.edu.pe">
-                  </div>
+                  <select  formControlName="genero" style="width: 185px;" [class.is-invalid]="this.datos_personales.get('genero').invalid && this.datos_personales.get('genero').touched" class="form-select">
+                    <option value="H">
+                      Hombre
+                    </option>
+                    <option value="M">
+                      Mujer
+                    </option>
+                  </select>
                 </fieldset>
+  
               </div>
-              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
-                <label style="font-size: 13px;font-weight: 600;min-width: 200px"> <i class="fas fa-phone-alt"></i>Telefono:</label>
-                <fieldset [disabled]="!editstate" style="width: 200px;">
-      
-                  <div class="item">
-                   
-                    <input type="text" formControlName="telefono" type="number"
-                      onKeyPress="if(this.value.length==9) return false;"
-                      placeholder="999999999">
-                  </div>
-                </fieldset>
-              </div>
-             
-              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
-                <label style="font-size: 13px;font-weight: 600;min-width: 200px"> <i class="fas fa-venus-mars"></i>Genero:</label>
-                <fieldset [disabled]="!editstate">
-                  
-                  <div class="item">
-                   
-                    <select formControlName="genero">
-                      <option value="H" style="padding: 5px 10px;"><i class="fas fa-venus-mars" style="margin-right: 10px;position: static;"></i>Hombre</option>
-                      <option value="M"><i class="fas fa-venus-mars" style="margin-right: 10px;position: static;"></i>Mujer</option>
-                    </select>
-        
-                  </div>
-                </fieldset>
-              </div>
-              
             
                 <button (click)="  this.editstate = true;" *ngIf="!editstate" class="editbtn">
                   <i class="fas fa-edit"></i> 
@@ -107,10 +95,10 @@
       
               <div *ngIf="editstate" class="savebtns">
                 <button (click)="this.editstate = false;" class="btn1">
-                  Cancelar
+                  <i class="fas fa-window-close"></i>
                 </button>
                 <button (click)="save()" class="btn2">
-                Guardar
+                  <i class="fas fa-cloud-upload-alt"></i>
                 </button>
               </div>
       
@@ -124,58 +112,54 @@
             <h5>Informacion Academica
             </h5>
             <form class="datapersonal" *ngIf="tipo=='estudiante'">
-              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
-                <label style="font-size: 13px;font-weight: 600;min-width: 200px">     <i class="fas fa-graduation-cap"></i>Ciclo:</label>
+              <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" >Ciclo</label>
                 <fieldset [disabled]="!editstate2">
-                  
-                  <div class="item">
-                   
+                  <select  [(ngModel)]="personal.ciclo"  style="width: 185px;" name="ciclo" class="form-select">
+                    <option value="7">
+                      7
+                    </option>
+                    <option value="8">
+                      8
+                    </option>
+                    <option value="9">
+                      9
+                    </option>
+                    <option value="10">
+                      10
+                    </option>
+                  </select>
+                </fieldset>
+              </div>
+              <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" >Grupo</label>
+                <div class="col-sm-3.5 ml-8">
+                  <fieldset [disabled]="!editstate2">
+                  <input type="text"  [(ngModel)]="personal.ciclo"  name="grupo" class="form-control" >
+                </fieldset>
+                </div>
                 
-                    <input type="text" [(ngModel)]="personal.ciclo" name="ciclo" style="text-transform:
-                      capitalize;" placeholder="1">
-                  </div>
-                </fieldset>
               </div>
-              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
-                <label style="font-size: 13px;font-weight: 600;min-width: 200px"> <i class="fas fa-users"></i>Grupo:    </label>
-                <fieldset [disabled]="!editstate2">
-               
-                  <div class="item">
-                    
-                    <input [(ngModel)]="personal.grupo" name="grupo" type="text"
-                     >
-                  </div>
+
+              <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" >Codigo</label>
+                <div class="col-sm-3.5 ml-8">
+                  <fieldset [disabled]="!editstate2">
+                    <input type="text" [(ngModel)]="personal.codigo" name="codigo" class="form-control">
                 </fieldset>
+                </div>
               </div>
-    
-    
-              <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:7px">
-                <label style="font-size: 13px;font-weight: 600;min-width: 200px">   <i class="far fa-id-card"></i>Codigo Universitario:</label>
-                <fieldset [disabled]="!editstate2">
-                  
-                  <div class="item">
-                   
-                    <input type="text" [(ngModel)]="personal.codigo" name="codigo" style="text-transform:
-                      capitalize;" >
-                  </div>
-                </fieldset>
-              </div>
-    
-             
+
                 <button *ngIf="!editstate2" (click)="this.editstate2 = true;" class="editbtn">
                   <i class="fas fa-edit"></i>
-                </button>
-              
-      
-              
-        
+                </button>        
         
               <div *ngIf="editstate2" class="savebtns">
                 <button (click)="this.editstate2 = false;" class="btn1">
-                  <mat-icon matSuffix>block</mat-icon> Cancelar
+                  <i class="fas fa-window-close"></i>
                 </button>
                 <button (click)="save2()" class="btn2">
-                  <mat-icon matSuffix>save</mat-icon> Guardar
+                  <i class="fas fa-cloud-upload-alt"></i>
                 </button>
               </div>
             </form>
@@ -224,10 +208,10 @@
         
               <div *ngIf="editstate2" class="savebtns"  style="margin-top: 0;">
                 <button (click)="this.editstate2 = false;" class="btn1">
-                  <mat-icon matSuffix>block</mat-icon> Cancelar
+                  <i class="fas fa-window-close"></i>
                 </button>
                 <button (click)="save2()" class="btn2">
-                  <mat-icon matSuffix>save</mat-icon> Guardar
+                  <i class="fas fa-cloud-upload-alt"></i>
                 </button>
               </div>
             </form>

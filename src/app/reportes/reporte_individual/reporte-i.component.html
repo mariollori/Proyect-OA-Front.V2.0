@@ -14,7 +14,7 @@
                 height: 80%;" alt="">
             </div>
             <div style="display: flex;flex-direction: column;padding:10px;">
-                <h4>{{persona.nombre + ' ' + persona.apellido}}</h4>
+                <h4 style="font-weight: bold;">{{persona.nombre + ' ' + persona.apellido}}</h4>
                 <label class="xd"><i class="fas fa-at"  style="margin-right: 10px;color: gainsboro;"></i>{{persona.correo}}</label>
                 <label class="xd"><i class="fas fa-phone-alt" style="margin-right: 10px;color: gainsboro;"></i> {{persona.telefono}}</label>
                 <label class="xd"><i class="fas fa-barcode" style="margin-right: 10px;color: gainsboro;"></i>{{persona.codigo}}</label>
@@ -36,12 +36,16 @@
         <div class="cont-left">
                 <div class="fechas">
                     
-                    <div style="display: flex;align-items: flex-start;flex-direction: column;width: 100%;padding: 15px 80px 0px 80px;">
-                        <div >
+                    <div style="display: flex;align-items: flex-start;flex-direction: column;width: 100%;padding: 15px 50px 0px 50px;">
+                        <div style="width: 100%;
+                        display: flex;
+                        justify-content: space-between;" >
                             <label>F.Inicio:</label>
                             <input type="date" [(ngModel)]="fechai">
                         </div>
-                        <div>
+                        <div style="width: 100%;
+                        display: flex;
+                        justify-content: space-between;">
                             <label>F.Fin:</label>
                             <input type="date" [(ngModel)]="fechaf">
                         </div>
@@ -59,7 +63,7 @@
                         box-sizing: border-box;
                         height: 299.6px;
                         margin: 0 auto;
-                        width: 480px;
+                        width: 400px;
                     " 
                         [data]="barChartData"
                         [options]="barChartOptions"
@@ -72,8 +76,149 @@
         </div>
         <div class="cont-rigth">
             <h6>Pacientes atendidos</h6>
+            <table class="table table-hover" style="width: 100%;font-size: 13px;">
+                <thead>
+                  <tr>
+                    <th>Nro.</th>
+                    <th>Fecha de Asignación</th>
+                    <th>Categoria</th>
+                    <th>Nombre Completo</th>
+                    <th>Opcion</th>
+                  </tr>
+                </thead>
+                <tbody>
+    
+                  <tr *ngFor="let pac of pacientes;let i = index">
+                    <td>{{i+1}}</td>
+                    <td>{{pac.fecha | date:'dd/MM/yyyy'}}</td>
+                    <td>{{pac.categoria }}</td>
+                    <td>{{pac.nombre + ' ' + pac.apellido }}</td>
+                    <td>
+                        <button 
+                        data-toggle="modal" class="descrip" data-target="#exampleModalLong" (click)="get_atenciones_id(pac)"><i class="fas fa-eye"
+                          style="margin-right: 10px;"></i>Ver descripción</button>
+                    </td>
+                  </tr>
+    
+                </tbody>
+              </table>
 
         </div>
 
     </div>
 </body>
+
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: bisque;">
+          <h5 class="modal-title" id="exampleModalLongTitle">Reporte de la Atencion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="paciente" *ngIf="paciente_Actual">
+                <div class="cont-img">
+                    <img  [src]="paciente_Actual.genero == 'H'? 'assets/pach.png' : 'assets/pacm.png' "  width="10%" alt="">
+                    <label style="font-weight: bold;" for="">{{' ' + paciente_Actual.nombre + ' ' + paciente_Actual.apellido}}</label>
+                   
+                </div>
+                <div class="data">
+                    <div class="info_style">
+                        <label for="">Edad</label>
+                        <input type="text" [ngModel]="paciente_Actual.edad"   disabled>
+                        
+                    </div>
+                    <div class="info_style">
+                        <label for="">Ciudad</label>
+                        <input type="text" [ngModel]="paciente_Actual.ciudad"  disabled>
+                      
+                    </div>
+                    <div class="info_style">
+                        <label for="">Categoría</label>
+                        <input type="text" [ngModel]="paciente_Actual.categoria" [ngStyle]="{'background':getColor(paciente_Actual.categoria)}" style="color: white;"  disabled>
+                    </div>
+                    <div class="info_style">
+                        <label for="">Ocupacion</label>
+                        <input type="text" [ngModel]="paciente_Actual.ocupacion"  disabled>
+                    
+                    </div>
+                    <div class="info_style">
+                        <label for="">Religion</label>
+                        <input type="text" [ngModel]="paciente_Actual.religion"  disabled>
+                    </div>
+                    <div class="info_style">
+                        <label for="">Celular</label>
+                        <input type="text" [ngModel]="paciente_Actual.telefono"  disabled>
+                    </div>
+                    <div class="info_style" style="width: 48%;">
+                        <label for="">Antecedentes</label>
+                        <input type="text" [ngModel]="paciente_Actual.antecedentes"  disabled>
+                    </div>
+                    <div class="info_style" style="width: 48%;">
+                        <label for="">Problema actual</label>
+                        <input type="text" [ngModel]="paciente_Actual.problema_actual"  disabled>
+                    </div>
+                    <div class="info_style" style="width:100%;">
+                        <label for="">Descripción</label>
+                       
+                        <textarea [ngModel]="paciente_Actual.descripcion" disabled
+                        name="acciones"></textarea>
+                    </div>
+
+                </div>
+                
+            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-top: 30px;">
+                <li class="nav-item" role="presentation" *ngFor="let aten of atenciones_registradas">
+                  <a class="nav-link "  data-toggle="tab" href="{{'#tab' + aten.nro_sesion}}" [class.active]="aten.nro_sesion == 1"  role="tab" aria-controls="home" aria-selected="false">{{'Sesion' +' ' + aten.nro_sesion}}</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade" *ngFor="let aten of atenciones_registradas" [class.active]="aten.nro_sesion == 1" [class.show]="aten.nro_sesion == 1"  id="{{'tab' + aten.nro_sesion}}" role="tabpanel" >
+                    <form style="    display: flex;
+                    flex-wrap: wrap;
+                    padding: 15px 10px;"
+          *ngIf="aten">
+
+          <div class="input-style2">
+            <label>Observaciones Generales:</label>
+            <textarea [ngModel]="aten.observaciones" disabled
+              placeholder="Ex. It makes me feel..." name="observaciones"></textarea>
+          </div>
+
+          <div class="input-style2">
+            <label>Acciones Realizadas:</label>
+            <textarea [ngModel]="aten.acciones_realizadas" disabled
+              placeholder="Ex. It makes me feel..." name="acciones"></textarea>
+          </div>
+
+          <div class="input-style2">
+            <label>Conclusiones:</label>
+            <textarea [ngModel]="aten.conclusiones" disabled
+              placeholder="Ex. It makes me feel..." name="conclusiones"></textarea>
+          </div>
+
+          <div class="input-style2">
+            <label>Recomendaciones:</label>
+            <textarea [ngModel]="aten.recomendaciones" disabled
+              placeholder="Ex. It makes me feel..." name="recomendaciones"></textarea>
+          </div>
+
+          <div class="input-style2" style="width: 98%;height: 50px;">
+            <label>Evidencia :</label>
+            <a href="{{aten.evidencia}}" style="max-width: 100%;font-size: 13px;" target="_blank">{{aten.evidencia}}</a>
+          </div>
+
+        </form>
+                </div>
+              </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>

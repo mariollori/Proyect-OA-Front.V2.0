@@ -22,25 +22,68 @@ export class Datagraph {
 
 export class ReportesComponent implements OnInit {
 
+ /**Buscar opcion-sede */
+ opcion;
+ personal;
+ sede;
+ 
+ /** GRAFICAS H-M */
+  totalH=0;
+  totalM=0;
 
+ /**Grafica generales por fecha */
   fechai: Date;
   fechaf: Date;
-  opcion;
-  nombrecompleto;
-  personal;
-
-
-  dtOptions: any;
-  constructor(private service: ReporteService,private router:Router,private route:ActivatedRoute) { }
-    
-
-   @ViewChildren(BaseChartDirective) chart:QueryList<BaseChartDirective> ;
-
+  opcion2;
+  sede2;
+  finalizadas=0;
+  enproceso=0;
+  enespera=0;
+  canceladas=0;
  
 
 
+  dtOptions: any;
+  @ViewChildren(BaseChartDirective) chart:QueryList<BaseChartDirective> ;
+  constructor(private service: ReporteService,private router:Router,private route:ActivatedRoute) { }
+     
+   /**-------------------------Pie Chart -------------------- ------------------------------*/
+   public pieChartOptions: ChartConfiguration['options'] = {
+     responsive: true,
+     plugins: {
+       legend: {
+         display: true,
+         position: 'left',
+
+       },
+     }
+   };
+   public pieChartDataH: ChartData<'pie', number[], string | string[]> = {
+     labels: [ 'Finalizados', 'En proceso' , 'Canceladas' ,'En espera'],
+     datasets: [ 
+       {data: [ 0, 0, 0,0 ],
+       backgroundColor: ['rgba(76,175,80,1)', 'rgba(255,152,0,1)', '#29b2e2','#ebecf0'],
+       hoverBackgroundColor: ['rgba(76,175,80,1)', 'rgba(255,152,0,1)', '#29b2e2','#ebecf0']
+     } ]
+   };
+   public pieChartDataM: ChartData<'pie', number[], string | string[]> = {
+    labels: [ 'Finalizados', 'En proceso' , 'Canceladas' ,'En espera'],
+    datasets: [ 
+      {data: [ 0, 0, 0,0 ],
+      backgroundColor: ['rgba(76,175,80,1)', 'rgba(255,152,0,1)', '#29b2e2','#ebecf0'],
+      hoverBackgroundColor: ['rgba(76,175,80,1)', 'rgba(255,152,0,1)', '#29b2e2','#ebecf0']
+    } ]
+  };
+   public pieChartType: ChartType = 'pie';
+
+  
+
   ngOnInit() {
+    /**Tabla de estudiantes */
+    this.opcion2="estudiante";
+    this.sede2='UPeU Lima';
     this.opcion = 'estudiante'
+    this.sede= 'UPeU Lima'
     this.dtOptions = {
       responsive: true,
       pagingType: 'full_numbers',
@@ -74,57 +117,86 @@ export class ReportesComponent implements OnInit {
 
       processing: true
     };
- 
-    this.service.getAsignaciones(this.opcion).subscribe( data => {this.personal = data as Personal[];})
+    this.get_personal_sede();
+
+    /** GRAFICAS H - M */
+    this.get_estadisticas_generoH();
+    this.get_estadisticas_generoM();
     this.get_todos_por_opcion();
+    
   }
 
-  public barChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    scales: {
-      
-      x: {},
-      y: {
-        min: 0,
-        ticks:{
-          precision:0
-        }  
-        
-       
-      }
-    },
-    plugins: {
-      legend: {
-        display: true,
-      },
-    }
-  };
-  //** Tipo de grafico */
-  public barChartType: ChartType = 'bar';
+  get_personal_sede(){
+    this.personal=''
+    this.service.getAsignaciones_sede(this.opcion,this.sede).subscribe( data => {
+      console.log(data)
+      this.personal = data })
+  }
 
-  /** Legenda del grafico */
-  public barChartLegend = true;
-  public barChartData2: ChartData<'bar'> = {
-    labels: ['Periodo Total'],
-    datasets: [
-      { data: [0], label: 'Finalizadas', backgroundColor: '#13c298', hoverBackgroundColor: '#13c298', },
-      { data: [0], label: 'En Proceso', backgroundColor: '#fce0a2', hoverBackgroundColor: '#fce0a2' },
-      { data: [0], label: 'Canceladas', backgroundColor: 'red', hoverBackgroundColor: 'red' }
-    ]
-  };
+  get_estadisticas_generoH(){
+  
+    this.service.get_estadisticas_genero('H').subscribe(
+      data=>{
+        for (let index = 0; index < data.length; index++) {
+          this.totalH = this.totalH + Number(data[index]['count']);
+          switch (data[index].estado) {
+            case 'Cancelado':
+              this.pieChartDataH.datasets[0].data[2] = data[index]['count'];
+              break;
+            case 'En Proceso':
+              this.pieChartDataH.datasets[0].data[1] = data[index]['count'];
+              break;
+            case 'Finalizado':
+              this.pieChartDataH.datasets[0].data[0] = data[index]['count'];
+              break;
+            case 'En Espera':
+            this.pieChartDataH.datasets[0].data[3] = data[index]['count'];
+              break;
+            default:
+              break;
+          }
+        }
+        const piechart = this.chart.filter((e, index) => index === 0);
+        piechart[0].update();
+      }
+    )
+  }
+
+  
+  get_estadisticas_generoM(){
+  
+
+    this.service.get_estadisticas_genero('M').subscribe(
+      data=>{
+        for (let index = 0; index < data.length; index++) {
+          this.totalM = this.totalM +  Number(data[index]['count']);
+          switch (data[index].estado) {
+            case 'Cancelado':
+              this.pieChartDataM.datasets[0].data[2] = data[index]['count'];
+              break;
+            case 'En Proceso':
+              this.pieChartDataM.datasets[0].data[1] = data[index]['count'];
+              break;
+            case 'Finalizado':
+              this.pieChartDataM.datasets[0].data[0] = data[index]['count'];
+              break;
+            case 'En Espera':
+            this.pieChartDataM.datasets[0].data[3] = data[index]['count'];
+              break;
+            default:
+              break;
+          }
+        }
+        const piechart = this.chart.filter((e, index) => index === 1);
+        piechart[0].update();
+      }
+    )
+  }
+
 
 
 
   buscar() {
-    
-    this.personal = null;
-    this.service.getAsignaciones(this.opcion).subscribe(
-      data => {
-        
-        this.personal = data as Personal[];
-
-      }
-    )
     this.get_todos_por_opcion();
   }
 
@@ -133,60 +205,65 @@ export class ReportesComponent implements OnInit {
 
 
   get_todos_por_opcion() {
-    this.fechaf = null;
-    this.fechai = null;
-    this.barChartData2.datasets[0].data = [0];
-    this.barChartData2.datasets[2].data = [0];
-    this.barChartData2.datasets[1].data = [0];
-    this.service.getestadisticatotal(this.opcion).subscribe(
+    this.finalizadas=0;
+    this.enproceso=0;
+    this.enespera=0;
+    this.canceladas=0;
+    this.service.getestadisticatotal(this.opcion2,this.sede2).subscribe(
       data => {
         console.log(data)
         for (let index = 0; index < data.length; index++) {
           switch (data[index].estado) {
             case 'Cancelado':
-              this.barChartData2.datasets[2].data = [data[index]['count']];
+               this.canceladas=data[index]['count']
               break;
             case 'En Proceso':
-              this.barChartData2.datasets[1].data = [data[index]['count']];
+              this.enproceso=data[index]['count']
               break;
+              case 'En Espera':
+                this.enespera=data[index]['count']
+                break;
             case 'Finalizado':
-              this.barChartData2.datasets[0].data = [data[index]['count']];
+              this.finalizadas=data[index]['count']
               break;
             default:
               break;
           }
         }
-        console.log(this.chart)
-        this.chart.first.update();
+    
       }
     )
   }
 
 
   get_todos_por_opcion_fecha() {
-    this.barChartData2.datasets[0].data = [0];
-    this.barChartData2.datasets[2].data = [0];
-    this.barChartData2.datasets[1].data = [0];
-    this.service.getestadisticatotal_fecha(this.opcion, this.fechai, this.fechaf).subscribe(
+    this.finalizadas=0;
+    this.enproceso=0;
+    this.enespera=0;
+    this.canceladas=0;
+   
+    this.service.getestadisticatotal_fecha(this.opcion2,this.sede2, this.fechai, this.fechaf).subscribe(
       data => {
         console.log(data);
-        console.log(this.fechai)
         for (let index = 0; index < data.length; index++) {
           switch (data[index].estado) {
             case 'Cancelado':
-              this.barChartData2.datasets[2].data = [data[index]['count']];
-              break;
-            case 'En Proceso':
-              this.barChartData2.datasets[1].data = [data[index]['count']];
-              break;
-            case 'Finalizado':
-              this.barChartData2.datasets[0].data = [data[index]['count']];
-              break;
-            default:
-              break;
+              this.canceladas=data[index]['count']
+             break;
+           case 'En Proceso':
+             this.enproceso=data[index]['count']
+             break;
+             case 'En Espera':
+               this.enespera=data[index]['count']
+               break;
+           case 'Finalizado':
+             this.finalizadas=data[index]['count']
+             break;
+           default:
+             break;
           }
         }
-        this.chart.first.update();
+      
       }
     )
   }

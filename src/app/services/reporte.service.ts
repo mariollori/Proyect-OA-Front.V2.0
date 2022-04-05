@@ -17,6 +17,14 @@ export class ReporteService {
     return this.http.get<any[]>(this.urlEndpoint + "buscarpersonal/tipo" , { params:params});
   }
  
+  getAsignaciones_sede(tipo,sede): Observable<any[]> {
+    let params = new HttpParams().set("tipo",tipo).append('sede',sede);
+    return this.http.get<any[]>(this.urlEndpoint + "buscarpersonal/sede" , { params:params});
+  }
+
+  get_estadisticas_genero(genero){
+    return this.http.get<any[]>(this.urlEndpoint + "estadisticas/genero/" + genero);
+  }
   
   getestadistica(id): Observable<any[]> {
     return this.http.get<any[]>(this.urlEndpoint + "estadistica/" + id);
@@ -25,18 +33,28 @@ export class ReporteService {
     let params = new HttpParams().set("id",id).append("fechai",fechai).append("fechaf",fechaf);
     return this.http.get<any[]>(this.urlEndpoint + "estadisticas/fecha" ,{params:params});
   }
-  getestadisticatotal(tipo): Observable<any[]> {
-    return this.http.get<any[]>(this.urlEndpoint + "estadisticastotales/" + tipo);
+  getestadisticatotal(tipo,sede): Observable<any[]> {
+    let params = new HttpParams().set("tipo",tipo).append("sede",sede);
+    return this.http.get<any[]>(this.urlEndpoint + "estadisticastotales/tipo" ,{params:params});
   }
 
-  getestadisticatotal_fecha(tipo,fechai,fechaf): Observable<any[]> {
+  getestadisticatotal_fecha(tipo,sede,fechai,fechaf): Observable<any[]> {
 
-    let params = new HttpParams().set("tipo",tipo).append("fechai",fechai).append("fechaf",fechaf);
-    return this.http.get<any[]>(this.urlEndpoint2 + "estadistica/total" ,{params:params});
+    let params = new HttpParams().set("tipo",tipo).append("fechai",fechai).append("fechaf",fechaf).append("sede",sede);
+    return this.http.get<any[]>(this.urlEndpoint2   + "estadisticastotales/fecha" ,{params:params});
   }
+
 
   get_info_personal(id,tipo):Observable<any>{
     let params = new HttpParams().set("tipo",tipo).append("id",id);
    return this.http.get<any>(this.urlEndpoint + "info_personal" ,{params:params} );
+  }
+
+
+  get_pacientes_finalizados(id): Observable<any[]> {
+    return this.http.get<any[]>(this.urlEndpoint + "get_pacientes/" + id);
+  }
+  get_atenciones_by_id(id): Observable<any[]> {
+    return this.http.get<any[]>(this.urlEndpoint + "get_atenciones/" + id);
   }
 }

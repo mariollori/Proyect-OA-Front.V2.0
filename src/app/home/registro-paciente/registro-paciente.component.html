@@ -16,13 +16,13 @@
         <img src="assets/homeassets/registro_pac.png"  alt="">
         <div class="recomendacion">
           <label for="">Por favor conteste a las preguntas con honestidad.</label>
-          <label for=""><i class="far fa-check-circle"></i>Estas nos ayudarán a poder asignarte la atencion que necesitas.</label>
+          <label for=""><i class="far fa-check-circle"></i>Estas nos ayudarán a poder brindarte la atencion que necesitas.</label>
         </div>
     </div>
    
     <div class="form-stepper">
       <h5 class="title">Registrar Consulta</h5>
-      <label class="subtitle">Para poder ayudarlo ,necesitamos que rellene los siguientes datos.
+      <label class="subtitle">Para poder ayudarlo, necesitamos que rellene los siguientes datos.
 </label>
       <form action="#" class="form">
 
@@ -62,7 +62,7 @@
 
         <div class="form-step">
           <ul class="quizz" >
-            <li class="question" *ngFor="let pregunta of part2;let i=index"><label for="">{{i+11 + '.  ' + '   '}}{{pregunta.name}}
+            <li class="question" *ngFor="let pregunta of part2;let i=index"><label for="">{{i+12 + '.  ' + '   '}}{{pregunta.name}}
               </label><div>
                 <mat-radio-group  >
                   <mat-radio-button value="true" style="margin: 10px" (change)="changeValue($event,pregunta.id)">
@@ -85,7 +85,7 @@
 
         <div class="form-step ">
           <ul class="quizz" >
-            <li class="question" *ngFor="let pregunta of part3;let i=index"><label for="">{{i+21 + '.  ' + '   '}}{{pregunta.name}}
+            <li class="question" *ngFor="let pregunta of part3;let i=index"><label for="">{{i+23 + '.  ' + '   '}}{{pregunta.name}}
               </label><div>
                 <mat-radio-group  >
                   <mat-radio-button value="true" style="margin: 10px" (change)="changeValue($event,pregunta.id)">
@@ -101,8 +101,8 @@
 
           <div class="">
             <button class="btn btn-prev"><i class="fas fa-caret-left"></i></button>
-            <button class="btn btn-next width-50 ml-auto"><i class="fas
-                fa-caret-right"></i></button>
+            <button class="btn btn-next width-50 ml-auto"  [disabled]="!continuar" (click)="cambiartexto()"><i class="fas
+                fa-caret-right"  ></i></button>
           </div>
         </div>
 
@@ -186,10 +186,11 @@
             </div>
 
             <div class="mb-3 row">
-              <label for="staticEmail" class="col-sm-4 col-form-label" >¿Cómo supiste de oído amigo?<span style="color: red;">*</span></label>
+              <label for="staticEmail" class="col-sm-4 col-form-label" >¿Cómo conoció del Servicio OIDO AMIGO?<span style="color: red;">*</span></label>
                 <select  formControlName="motivo"   [class.is-valid]="this.pacienteform.get('motivo').valid && this.pacienteform.get('motivo').touched"  [class.is-invalid]="this.pacienteform.get('motivo').invalid && this.pacienteform.get('motivo').touched" class="form-select">
                   <option value="Familiar">Familiar</option>
-                  <option value="Proyecto C">Proyecto C</option>
+                  <option value="DRE PASCO">DRE PASCO</option>
+                  <option value="Redes Sociales">Redes Sociales</option>
                   <option value="Amigo">Amigo</option>
                   <option value="Iglesia">Iglesia</option>
                 </select>
@@ -210,7 +211,7 @@
               <label  style="color: black; 
               font-size: 13.5px;
               margin-left: 20px;
-              margin-top: -4px;">Permitir uso de  sus datos para la consulta.</label>
+              margin-top: -4px;">Permitir uso de  sus datos para la consulta.(Tus datos seran manejados con absoluta confidencialidad)</label>
             </div>
 
           </form>

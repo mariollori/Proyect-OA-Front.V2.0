@@ -151,7 +151,7 @@ text-transform: uppercase;
     display: flex;
     background: teal;
     left: 60%;
-    top: 8%;
+    top: 55%;
     align-items: center;
     justify-content: center;
     border: none;
@@ -161,22 +161,16 @@ text-transform: uppercase;
     width: 40px;
     position: absolute;
     border-radius: 50%;
-
-    
     cursor: pointer;
     color: white;
     height: 40px;
-   
-    
     display: flex;
     background: red;
     left: 30%;
-    top: 8%;
+    top: 55%;
     align-items: center;
     justify-content: center;
-    
     border: none;
-    
   }
   .uploadfoto:hover{
     background-color: #f7f7f8;
@@ -252,12 +246,22 @@ text-transform: uppercase;
   }
   .datapersonal{
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     width: 100%;
     position: relative;
-    
     padding: 10px 25px;
-       margin-bottom: 10px;
+       margin-bottom: 15px;
+}
+.row{
+  display: flex;
+  align-items: center;
+}
+.row input{
+padding: 5px 10px;
+font-size: 13px;
+}
+.row input:disabled{
+  background-color: ghostwhite;
 }
 
 
@@ -273,7 +277,7 @@ text-transform: uppercase;
 
 
 input{
-    border:none;
+   
     outline: none;
 }
 .item{
@@ -295,9 +299,7 @@ background-color: transparent;
 .item input:focus{
   border-bottom: 1px solid #00ccbe;
 } 
-i{
-
-
+.row label i{
   color: #00ccbe;
   left: 8px;
   margin-right: 10px;
@@ -392,11 +394,8 @@ fieldset label{
     background-color: white;
     width: auto;
     height: 30px;
-    /* display: flex; */
     top: 0;
     position: absolute;
-    /* align-items: center; */
-    /* justify-content: center; */
     border: none;
     color: #00ccbe;
     left: calc(100% - 34px);
@@ -405,36 +404,44 @@ fieldset label{
    
     margin: 0;
   }
+  .savebtns{
+    top: 15px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: calc(100% - 34px);
+  }
 
   .btn1{
-   
-    background-color: white;
-    
-    width: 7vw;
-    border-radius: 20px;
-    height: 30px;
-
-   
-    border: 2px solid rgb(209, 68, 68);;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    color: rgb(209, 68, 68);
-  }
-.btn2{
-    background-color:  #00ccc0;
-    width: 7vw;
-    border-radius: 20px;
-    height: 30px;
+    margin-bottom: 20px;
+    background-color: transparent;
     border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 10px;
-    color: white;
+    width: auto;
+    height: auto;
+    
+    color: red;
+    
+  }
+
+.btn2{
+  display: flex;
+  padding: 2px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  width: auto;
+  height: auto;
+  border-radius: 98%;
+  border: none;
+  color: #6193f6;
 }
 
 
-
+.btn1 i,.btn2 i{
+  font-size: 20px;
+}
 

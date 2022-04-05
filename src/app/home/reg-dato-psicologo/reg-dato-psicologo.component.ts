@@ -22,6 +22,7 @@ export class RegDatoPsicologoComponent implements OnInit,OnDestroy{
 horarios:Horario_psicologo[]=[]
 dia;
 horai;
+otro;
 horaf;
 dias=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
   constructor(private route: Router,private service:RegDatoPsicologoService) { }
@@ -53,7 +54,7 @@ dias=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
 
     this.tipo='estudiante'
     this.psicologo = new FormGroup({
-      universidad: new FormControl('', Validators.required),
+     
       grado_academico: new FormControl('', Validators.required),
       n_colegiatura: new FormControl('',Validators.maxLength(4)),
       especialidad: new FormControl(''),
@@ -65,10 +66,9 @@ dias=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
       apellido: new FormControl('', Validators.required),
       correo: new FormControl('', [Validators.required,Validators.email]),
       genero: new FormControl('', ),
-      edad: new FormControl('',Validators.maxLength(8) ),
+      edad: new FormControl('',Validators.maxLength(8)),
+      sede: new FormControl('', Validators.required),
       telefono: new FormControl('',  Validators.compose([Validators.required, Validators.maxLength(9)]))
- 
-      
     });
     
     this.estudiante = new FormGroup({
@@ -79,7 +79,6 @@ dias=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
     this.pastor = new FormGroup({
       distrito: new FormControl('', [Validators.required]),
       campo: new FormControl('', Validators.required),
-     
     });
   }
 
@@ -120,6 +119,9 @@ agregarhorario(){
   guardardata(){
     switch (this.tipo) {
       case 'estudiante':
+        if(this.registerform.get('sede').value == 'Otra'){
+            this.registerform.get('sede').setValue(this.otro);
+        }
         this.personal_ayuda = this.estudiante.value;
         this.persona = this.registerform.value;
         this.persona.tipo = this.tipo;
@@ -135,6 +137,9 @@ agregarhorario(){
         )
         break;
         case 'psicologo':
+          if(this.registerform.get('sede').value == 'Otra'){
+            this.registerform.get('sede').setValue(this.otro);
+          }
           this.personal_ayuda = this.psicologo.value;
           this.persona = this.registerform.value;
           this.persona.tipo = this.tipo;
@@ -150,6 +155,9 @@ agregarhorario(){
           )
           break;
           case 'pastor':
+            if(this.registerform.get('sede').value == 'Otra'){
+              this.registerform.get('sede').setValue(this.otro);
+            }
             this.personal_ayuda = this.pastor.value;
             this.persona = this.registerform.value;
             this.persona.tipo = this.tipo;

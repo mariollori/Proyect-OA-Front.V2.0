@@ -9,16 +9,16 @@
       style="margin-right: 10px;"></i>Login</button>
   <div class="left-content">
     <div class="form-stepper">
-      <h5 class="title">Inscripcion de voluntarios</h5>
+      <h5 class="title">Inscripción  de voluntarios</h5>
       <label class="subtitle"><span style="color:red;margin-right: 10px;font-weight: bold;">Advertencia:</span>
-          Este registro es solo para los voluntarios de oido amigo. Si usted no es parte de nuestro equipo su solicitud será rechazada.
+        Este registro es solo para los voluntarios de oído amigo. Si usted no es parte de nuestro equipo su solicitud será rechazada.
       </label>
       <form action="#" class="form">
 
         <!-- Progress bar -->
         <div class="progressbar">
           <div class="progress" id="progress"></div>
-          <div class="progress-step progress-step-active" data-title="Informacion"></div>
+          <div class="progress-step progress-step-active" data-title="Información"></div>
           <div class="progress-step" data-title="Horarios"></div>
         </div>
 
@@ -74,6 +74,24 @@
                 <i class="fas fa-user-clock" matSuffix></i>
               </mat-form-field>
 
+              <mat-form-field class="example-full-width">
+                <mat-label>Sede <span style="color: red;">*</span></mat-label>
+                <mat-select formControlName="sede">
+                  <mat-option value="UPeU Lima">UPeU Lima</mat-option>
+                  <mat-option value="UPeU Juliaca">UPeU Juliaca</mat-option>
+                  <mat-option value="UPeU Tarapoto">UPeU Tarapoto</mat-option>
+                  <mat-option value="Otra">Otra</mat-option>
+                </mat-select>
+                <mat-error *ngIf="registerform.get('sede').hasError('required')">*requerido</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width" *ngIf="registerform.get('sede').value == 'Otra' ">
+                <mat-label>Otro:</mat-label>
+                  <input matInput type="text" [(ngModel)]="otro" placeholder="---------">
+               
+              </mat-form-field>
+
+
             </form>
 
 
@@ -82,7 +100,7 @@
 
               <mat-form-field class="example-full-width">
                 <mat-select [(ngModel)]="tipo">
-                  <mat-option value="estudiante">Estudiante</mat-option>
+                  <mat-option value="estudiante">Interno</mat-option>
                   <mat-option value="psicologo">Psicólogo</mat-option>
                   <mat-option value="pastor">Consejero espiritual</mat-option>
                 </mat-select>
@@ -95,8 +113,7 @@
               <mat-form-field class="example-full-width">
                 <mat-label>Ciclo<span style="color: red;">*</span></mat-label>
                 <mat-select formControlName="ciclo">
-                  <mat-option value="7">7</mat-option>
-                  <mat-option value="8">8</mat-option>
+
                   <mat-option value="9">9</mat-option>
                   <mat-option value="10">10</mat-option>
                 </mat-select>
@@ -123,16 +140,7 @@
 
             <form *ngIf="tipo == 'psicologo'" [formGroup]="psicologo">
 
-              <mat-form-field class="example-full-width">
-                <mat-label>Universidad <span style="color: red;">*</span></mat-label>
-                <mat-select formControlName="universidad">
-                  <mat-option value="UPeU Lima">UPeU Lima</mat-option>
-                  <mat-option value="UPeU Juliaca">UPeU Juliaca</mat-option>
-                  <mat-option value="UPeU Tarapoto">UPeU Tarapoto</mat-option>
-                  <mat-option value="Otra">Otra</mat-option>
-                </mat-select>
-                <mat-error *ngIf="psicologo.get('universidad').hasError('required')">*requerido</mat-error>
-              </mat-form-field>
+            
 
               <mat-form-field class="example-full-width">
                 <mat-label>Grado Académico <span style="color: red;">*</span></mat-label>
@@ -146,17 +154,18 @@
               </mat-form-field>
 
               <mat-form-field class="example-full-width">
-                <mat-label>Nro. Colegiatura(*)</mat-label>
+                <mat-label>Nro. Colegiatura</mat-label>
                 <input matInput formControlName="n_colegiatura" onKeyPress="if(this.value.length==4) return false;" placeholder="44444">
                 <mat-error *ngIf="psicologo.get('n_colegiatura').hasError('required')">*requerido</mat-error>
               </mat-form-field>
 
               <mat-form-field class="example-full-width">
-                <mat-label>Especialidad</mat-label>
+                <mat-label>Área de Especialidad</mat-label>
                 <input matInput type="text" formControlName="especialidad" placeholder="---------">
                 <mat-error *ngIf="psicologo.get('especialidad').hasError('required')">*requerido</mat-error>
               </mat-form-field>
 
+              
             </form>
 
           </div>
@@ -175,7 +184,7 @@
               <div class="horarioadd">
 
                 <div class="horario-input" >
-                  <label>Dia:</label>
+                  <label>Día:</label>
                   <select [(ngModel)]="dia" style="width: 150px;height:30px;" name="dia">
                     <option *ngFor="let d of dias" value="{{d}}">{{d}}</option>
                   </select>
@@ -190,7 +199,9 @@
                   <label>H.Fin:</label>
                   <input type="time" placeholder="9:00 - 2:00" [(ngModel)]="horaf" name="hora">
                 </div>
-
+                 <label for="" style="    font-size: 12px;
+                 color: red;
+                 padding: 5px 10px 10px 0px;">(Puede registrar los horarios para cada día de la semana.)</label>
                 <button  type="button" class="boton" [disabled]="!dia || !horai || !horaf" (click)="agregarhorario()">Agregar</button>
 
               </div>

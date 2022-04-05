@@ -1,0 +1,287 @@
+
+  <head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"> 
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex;flex-direction: row;    height: 100%;">
+            <div class="list-asignaciones">
+               <h5 style="text-align: center;font-weight: 600;font-size: 17px;margin-bottom: 10px;">Solicitudes</h5>
+               <div class="list">
+                <div class="asignacion" [ngClass]="{ 'xdd' : asig_actual == asig }" *ngFor="let asig of asignaciones">
+                  <div class="top">
+                      <div>
+                          <label style="font-weight: bold;"> <i [class]="asig.genero == 'H' ? 'fas fa-male' : 'fas fa-female'" style="margin-right: 15px;"></i>{{' ' + asig.nombre + ' ' + asig.apellido}}</label>
+                          <label [ngStyle]="{'background':getColor(asig.categoria)}" class="circle" >{{asig.categoria}}</label>
+                      </div>
+                     
+                      <label  style="font-weight: bold;display: flex;align-items: center;">{{asig.fecha | date:'dd/MM/yyyy'}}</label>
+                  </div>
+                  <div class="bottom">
+                      <div class="info">
+                          <label class="description"> {{' ' + asig.descripcion}}</label>
+                          <div class="location">
+                              <label style="margin-bottom: 5px;" ><i class="fas fa-map-marker-alt" style="margin-right: 10px ;"></i> {{' ' + asig.origen }}</label>
+                              <label style="margin-bottom: 5px;" ><i class="fas fa-user-clock" style="margin-right: 10px ;"></i>{{' ' + asig.edad + 'años' }}</label>
+                          </div>
+
+                      </div>
+                      <div class="actions">
+                          <button ><i class="fas fa-check-circle" (click)="ver_expediente(asig);" ></i></button>
+                      </div>
+                  </div>
+              </div>
+               </div>
+              
+    
+    
+            </div>
+            <div class="visualizador">
+                <div class="no-result" *ngIf="!personal && !paciente">
+                    <img src="assets/select_document.gif" width="300px" height="220px" style="margin-bottom: 15px;" alt="">
+                    
+                   <h6>Seleccione una solicitud para confirmar la asignación.</h6>
+                </div>
+                <div class="result" *ngIf="personal && paciente">
+                    <h6>Datos del Paciente  </h6>
+                    <div class="paciente">
+                        <div class="cont-img">
+                            <img  [src]="paciente.genero == 'H'? 'assets/pach.png' : 'assets/pacm.png' "  width="10%" alt="">
+                            <label style="font-weight: bold;" for="">{{' ' + paciente.nombre + ' ' + paciente.apellido}}</label>
+                           
+                        </div>
+                        <div class="data">
+                            <div class="info_style">
+                                <label for="">Edad</label>
+                                <label for="">{{paciente.edad}}</label>
+                            </div>
+                            <div class="info_style">
+                                <label for="">Lugar de Consulta</label>
+                                <label for="">{{paciente.origen}}</label>
+                            </div>
+                            <div class="info_style">
+                                <label for="">Categoría</label>
+                                <label  [ngStyle]="{'background':getColor(paciente.categoria)}" class="circle2" >{{paciente.categoria}}</label>
+                            </div>
+                            <div class="info_style">
+                                <label for="">SQR</label>
+                                <button class="cuestionario" (click)="ver_respuestas(paciente.respuestas)" data-toggle="modal" data-target="#exampleModal">Ver SQR del Paciente<i class="fas fa-file-alt" style="margin-left: 10px;"></i></button>
+                            </div>
+                            <div class="info_style">
+                                <label for="">¿Cómo supo de OIDO AMIGO?</label>
+                                <label for="">{{paciente.motivo}}</label>
+                            </div>
+                            <div class="info_style">
+                                <label for="">Celular</label>
+                                <label for="">{{paciente.telefono}}</label>
+                            </div>
+                            <div class="info_style" style="width:100%;padding-left: 25px;">
+                                <label for="">Descripción</label>
+                                <label for="">{{paciente.descripcion}}</label>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                    <h6>Datos del Voluntario</h6>
+                    <div class="personal" style="padding:25px 10px;">
+                        <div class="cont-img">
+                            <img src="assets/psicologo.png"  width="10%" alt="">
+                            <span  style="font-weight: bold;">{{ '' +personal.nombre + ' ' + personal.apellido}}</span>
+                        </div>
+                        <div class="data"  style="    justify-content: flex-start;
+                        padding-left: 30px;">
+                            <div class="info_style">
+                                <label for="">Tipo</label>
+                                <label for="" style="text-transform: capitalize;">{{personal.tipo}}</label>
+                            </div>
+                            <div class="info_style"  >
+                                <label for="">Celular</label>
+                                <label for="">{{personal.telefono}}</label>
+                            </div>
+                            <div class="info_style" *ngIf="personal.tipo == 'estudiante'">
+                                <label for="">Ciclo</label>
+                                <label for="">{{personal.ciclo}}</label>
+                            </div>
+                            <div class="info_style"  *ngIf="personal.tipo == 'estudiante'">
+                                <label for="">Grupo</label>
+                                <label for="">{{personal.grupo}}</label>
+                            </div>
+                         
+
+                            <div class="info_style"   *ngIf="personal.tipo == 'psicologo'" >
+                                <label for="">Grado Académico</label>
+                                <label for="">{{personal.grado_academico}}</label>
+                            </div>
+                            <div class="info_style"   *ngIf="personal.tipo == 'psicologo'" >
+                                <label for="">Universidad</label>
+                                <label for="">{{personal.universidad}}</label>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="buttons-group">
+                        <button data-toggle="modal" data-target="#exampleModal2">Buscar Otro Disponible <i style="margin-left: 10px;" class="fab fa-searchengin"></i></button>
+                        <button (click)="confirmar_asignacion()">Confirmar Asignacion<i style="margin-left: 10px;" class="fas fa-check-circle"></i></button>
+                    </div>
+                   
+                   
+                </div>
+    
+            </div>
+        </div>
+        
+
+
+    </div>
+    
+
+
+
+
+
+
+
+
+
+</body>
+
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+            <label class="title2" >¿A quién desea derivar?</label>
+            <div style="display: flex;flex-direction: row;justify-content: space-around;width: 100%;margin-bottom: 20px;">
+                <div>
+                  <button type="button" label="Psicologo"  class=" hov" [ngClass]="{'xdd': opcion == 'Psicologo'}" (click)="opcion='Psicologo';buscar_por_opcion()">
+                    <img  src="https://cdn-icons-png.flaticon.com/512/1056/1056496.png" />
+                    <div class="div-hov">
+                        <label >Psicólogo</label>
+                        <label style="font-size: 12px;color: gray;text-transform: none;font-weight: normal;text-align: start;" >Egresados Voluntarios de la carrera de Psicología.</label>
+
+                    </div>
+                    <span></span><span></span><span></span><span></span>
+                  </button>
+                </div>
+                
+                <div>
+                  <button  type="button" label="Pastor" class=" hov" [ngClass]="{'xdd': opcion == 'Pastor'}" (click)="opcion='Pastor';buscar_por_opcion()">
+                    <img src="https://cdn-icons-png.flaticon.com/512/186/186726.png" />
+                    <div  class="div-hov">
+                        <label >Consejero Espiritual</label>
+                        <label style="font-size: 12px;color: gray;text-transform: none;font-weight: normal;text-align: start;" >Pastores de las diferentes sedes comprometidos con la mision.</label>
+                    </div>
+                  
+                    <span></span><span></span><span></span><span></span>
+                  </button>
+                </div>
+
+                <div>
+                  <button label="Interno" class=" hov" [ngClass]="{'xdd': opcion == 'Interno'}" (click)="opcion='Interno';buscar_por_opcion()">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135810.png" />
+                    <div  class="div-hov">
+                        <label >Interno</label>
+                        <label style="font-size: 12px;color: gray;text-transform: none;font-weight: normal;text-align: start;" >Alumnos del 9no y 10mo ciclo de la carrera de Psicología.</label>
+                    </div>
+                    <span></span><span></span><span></span><span></span>
+                  </button>
+            
+            
+                </div>
+              </div>
+              <div style="width: 100%;">
+                  
+            <table datatable [dtOptions]="dtOptions" class="tablaxd" *ngIf="personal_searched && opcion=='Interno'">
+                <thead>
+                  <tr class="headtable">
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Ciclo</th>
+                    <th>Código</th>
+                    <th>Nro Pacientes Actuales</th>
+                 
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bodytable" *ngFor="let persona of personal_searched; let i=index" [ngClass]="{'xdd-table': personal_selected == persona}"    (click)="select_new_personal(persona)">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ persona.nombre  + ' ' + persona.apellido}}</td>
+                    <td>{{ persona.correo }}</td>
+                    <td>{{ persona.ciclo }}</td>
+                    <td>{{ persona.codigo }}</td>
+                    <td>{{persona.nro_pacientes}}</td>
+
+                  </tr>
+            
+                </tbody>
+              </table>
+              <table datatable [dtOptions]="dtOptions" class="tablaxd" *ngIf="personal_searched && opcion=='Psicologo'" >
+                <thead>
+                  <tr class="headtable">
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Especialidad</th>
+                    <th>Grado Académico</th>
+                    <th>Nro Pacientes Actuales</th>
+                 
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bodytable" *ngFor="let persona of personal_searched; let i=index" [ngClass]="{'xdd-table': personal_selected == persona}" (click)="select_new_personal(persona)" >
+                    <td>{{ i+1 }}</td>
+                    <td>{{ persona.nombre  + ' ' + persona.apellido}}</td>
+                    <td>{{ persona.correo }}</td>
+                    <td>{{ persona.especialidad }}</td>
+                    <td>{{ persona.grado_academico }}</td>
+                    <td>{{persona.nro_pacientes}}</td>
+                  </tr>
+            
+                </tbody>
+              </table>
+              </div>
+        </div>
+        <div class="modal-footer" *ngIf="personal_selected" style="justify-content: center;">
+          <button type="button" class="btn btn-secondary" style="    padding: 4px 15px;margin-right: 15px;" data-dismiss="modal">Cancelar Selección</button>
+          <button type="button" class="confirm" (click)="confirm_new_personal()"> {{'Seleccionar usuario: '  + personal_selected.nombre }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Autorreporte de Sintomas(SQR)</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div>
+                <ul class="quizz" >
+                    <li class="question"  *ngFor="let pregunta of preguntas;let i=index">
+                        <label for="" [ngStyle]="{'background-color': pregunta.grado == 'riesgo' ? 'red' : ( pregunta.grado == 'leve' ? 'green' : 'yellow') }">{{i+1 + '.  ' + '   '}}{{pregunta.name}}</label>
+                        <label for="">{{pregunta.value == 'true' ? 'Si' : ' No'}}</label>
+                    </li>
+                  </ul>
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>

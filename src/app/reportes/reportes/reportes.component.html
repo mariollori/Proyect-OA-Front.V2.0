@@ -10,18 +10,24 @@
 
     
     <div class="content">
-
         <div class="reports">
-            <h5>Reportes Generales
+           
+            <h6>
                 
-                <select  [(ngModel)]="opcion" (change)="buscar()" class="selecttype" >
-                    <option value="estudiante" >Estudiante</option>
-                
-                    <option value="psicologo" >Psicologo</option>
+                <select  [(ngModel)]="opcion2" (change)="get_todos_por_opcion()" class="selecttype" style="margin-right: 10px;">
+                    <option value="estudiante" >Estudiantes</option>
+                    <option value="psicologo" >Psicologos</option>
+                    <option value="todos" >General</option>
                 </select>
-             
+                de 
+                <select  [(ngModel)]="sede2" (change)="get_todos_por_opcion()" class="selecttype" style="margin-left: 10px;" >
+                    <option value="UPeU Lima" >UPeU Lima</option>
+                    <option value="UPeU Juliaca" >UPeU Juliaca</option>
+                    <option value="UPeU Tarapoto" >UPeU Tarapoto</option>
+                    <option value="Otra" >Otra</option>
+                </select>
                
-           </h5>
+           </h6>
             <div class="search">
                 <div  class="fechas">
                     <label style="font-size: 13px;margin-bottom: 0;color: #afb9c2;margin-left: 5px;font-weight: 600;">Fecha de Inicio:</label>
@@ -43,21 +49,101 @@
                     <button type="button" (click)="get_todos_por_opcion_fecha()" class="btn-search" 
                         [disabled]="!fechai && !fechaf">Buscar </button>
             </div>
-            <div style="display: block;margin-top: 25px;padding:10px 20px;">
-               
-                <canvas #graficoDiv baseChart  height="225px" 
-                    [data]="barChartData2"
-                    [options]="barChartOptions"
-                    [legend]="barChartLegend"
-                    [type]="barChartType">
-
-                </canvas>
+            
+            <div style="padding-top: 15px;display: flex;flex-wrap: wrap;    
+            justify-content: center;">
+                <div class="info-personal flexc">
+                    <i class="fas fa-flag-checkered  icon" style="color: #fb8c00;" ></i>
+                    <div class="flexc">
+                        <label class="fb"  for="">Pacientes Atendidos</label>
+                        <label for="">{{finalizadas}}</label>
+                    </div>
+                </div>
+                <div class="info-personal flexc">
+                    <i class="fas fa-frown  icon" style="color: #43a047;"></i>
+                    <div class="flexc">
+                        <label class="fb" for="">Pacientes Cancelados</label>
+                        <label for="">{{canceladas}}</label>
+                    </div>
+                </div>
+                <div class="info-personal flexc">
+                    <i class="fas fa-spinner  icon" style="color: #e53935;"></i>
+                    <div class="flexc">
+                        <label  class="fb" for="">En  Proceso</label>
+                        <label for="">{{enproceso}}</label>
+                    </div>
+                </div>
+                <div class="info-personal flexc">
+                    <i class="fas fa-clock  icon" style="color: #00acc1;"></i>
+                    <div class="flexc">
+                        <label  class="fb" for="">En Espera</label>
+                        <label for="">{{enespera}}</label>
+                    </div>
+                </div>
             </div>
-
+          
                
           
         </div>
+
+        <div class="report_total">
+            <h6>
+                Reportes 
+            </h6>
+            <div  class="flexr" style="height: 90%;">
+                <div class="h flexr" >    
+                    <label  class="lab">Hombres</label>
+                    <div class="chart" style="width: 300px;height: 200px;">
+                        
+                        <canvas baseChart 
+                              
+                                [data]="pieChartDataH"
+                                [type]="pieChartType"
+                                [options]="pieChartOptions"
+                               >
+                        </canvas>
+                      </div>
+                      <div class="total flexc">
+                          <label >{{totalH}}</label>
+                          <label >Solicitudes</label>
+                      </div>
+                </div>
+                <div class="m flexr" style="margin-left: 15px;">
+                    <label class="lab" >Mujeres</label>
+                    <div class="chart"  style="width: 300px;height: 200px;">
+                        <canvas baseChart  
+                                [data]="pieChartDataM"
+                                [type]="pieChartType"
+                                [options]="pieChartOptions"
+                               >
+                        </canvas>
+                      </div>
+                      <div class="total flexc">
+                          <label >{{totalM}}</label>
+                          <label >Solicitudes</label>
+                    </div>
+                    
+                </div>
+            </div>
+            
+
+        </div>
+
+     
         <div class="list-psi" >
+            <h6>Lista de 
+              <select  [(ngModel)]="opcion" (change)="get_personal_sede()" class="selecttype" >
+                <option value="estudiante" >Estudiante</option>
+                <option value="psicologo" >Psicologo</option>
+            </select> 
+            de 
+            <select  [(ngModel)]="sede" (change)="get_personal_sede()" class="selecttype" >
+                <option value="UPeU Lima" >UPeU Lima</option>
+                <option value="UPeU Juliaca" >UPeU Juliaca</option>
+                <option value="UPeU Tarapoto" >UPeU Tarapoto</option>
+                <option value="Otro" >Otro</option>
+            </select>
+            </h6>
            
          
             <table datatable [dtOptions]="dtOptions" class="tablaxd" *ngIf="personal && opcion=='estudiante'">
@@ -67,8 +153,8 @@
                     <th>Nombre</th>
                     <th>Correo</th>
                     <th>Ciclo</th>
-                    <th>Codigo</th>
-                    <th>Estadisticas</th>
+                    <th>Código</th>
+                    <th>Estadísticas</th>
                  
                     
                   </tr>
@@ -93,7 +179,7 @@
                     <th>Nombre</th>
                     <th>Correo</th>
                     <th>Especialidad</th>
-                    <th>Grado Academico</th>
+                    <th>Grado Académico</th>
                     <th>Estadisticas</th>
                  
                     

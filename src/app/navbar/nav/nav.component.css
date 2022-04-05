@@ -190,18 +190,24 @@ body{
 }
 
 .menu{
-    cursor: pointer;
-  
-  width:25px;
-  height:15px;
- position:fixed;
-  transition: margin-left .3s,
-    transform .5s;
-  top:25px;
+  cursor: pointer;
+  width: 25px;
+  height: 40px;
+  position: fixed;
+  color: white;
+  clip-path: polygon(0 0, 0% 100%, 100% 50%);
+  background: #13c298;
+  transition: margin-left .3s, transform .5s;
+  top: 10px;
+  left: 75px;
   z-index: 999;
-  margin-left:100px;
 }
-.menu::before,.menu::after{
+.menu::after{
+  content: '▶';
+  position: absolute;
+  top: 7.5px;
+}
+/* .menu::before,.menu::after{
   content:" ";
   height:3px;
   width:100%;
@@ -217,21 +223,16 @@ body{
   background:teal;
   position:absolute;
   top:calc(50% - 1.5px)
-}
+} */
 
 .menu.activo::after{
-  transform:translatey(-150%) rotate(-45deg);
+  content: '🗙';
+  color: white;
+  left: -3px;
 }
-
-.menu.activo::before{
-  transform:translatey(150%) rotate(45deg);
-}
-.menu.activo .line{
-  display:none;
-}
-
 .menu.activo{
-  margin-left:270px;
+  
+  left:260px;
   transform:rotate(1turn);
 }
 .bod{

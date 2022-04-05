@@ -1,6 +1,7 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { data } from 'jquery';
 import { BaseChartDirective } from 'ng2-charts';
 import { RegDatoPsicologoService } from 'src/app/services/reg-dato-psicologo.service';
 import { ReporteService } from 'src/app/services/reporte.service';
@@ -19,6 +20,11 @@ export class ReporteIComponent implements OnInit {
   constructor(private service: ReporteService,private router:Router,private route:ActivatedRoute,private imgserv : RegDatoPsicologoService) { }
   fechai: Date;
   fechaf: Date;
+  pacientes;
+
+  atenciones_registradas;
+
+  paciente_Actual;
   
    @ViewChildren(BaseChartDirective) chart:QueryList<BaseChartDirective> ;
 
@@ -27,6 +33,7 @@ export class ReporteIComponent implements OnInit {
       this.tipo = this.route.snapshot.paramMap.get('tipo');
       this.get_info_personal();
       this.get_todos_por_id();
+      this.get_pacientes_finalizados();
   }
 
    
@@ -61,6 +68,7 @@ export class ReporteIComponent implements OnInit {
       x: {},
       y: {
         min: 0,
+        max: 10,
         ticks:{
           precision:0
         }  
@@ -84,12 +92,18 @@ export class ReporteIComponent implements OnInit {
   public barChartData: ChartData<'bar'> = {
     labels: ['Periodo Total'],
     datasets: [
-      { data: [0], label: 'Finalizadas', backgroundColor: '#13c298', hoverBackgroundColor: '#13c298', },
-      { data: [0], label: 'En Proceso', backgroundColor: '#fce0a2', hoverBackgroundColor: '#fce0a2' },
+      { data: [0], label: 'Finalizadas', backgroundColor: '#4caf50', hoverBackgroundColor: '#4caf50', },
+      { data: [0], label: 'En Proceso', backgroundColor: '#ff9800', hoverBackgroundColor: '#ff9800' },
       { data: [0], label: 'Canceladas', backgroundColor: 'red', hoverBackgroundColor: 'red' }
     ]
   };
-
+ get_pacientes_finalizados(){
+   this.service.get_pacientes_finalizados(this.idactual).subscribe(
+     data=>{
+       this.pacientes=data;
+     }
+   )
+ }
   get_todos_por_id_fecha() {
     this.barChartData.datasets[0].data = [0];
     this.barChartData.datasets[2].data = [0];
@@ -147,5 +161,27 @@ export class ReporteIComponent implements OnInit {
   }
   back(){
     this.router.navigate(['nav/reportes/']);
+  }
+
+
+
+  getColor(color){
+    switch (color) {
+      case 'Leve':
+        return 'green';
+      case 'Moderado':
+        return '#e8a70e';
+      case 'Riesgo':
+        return 'red';
+    }
+
+  }
+  get_atenciones_id(pac){
+    this.paciente_Actual = pac;
+    this.service.get_atenciones_by_id(pac.idasignacion).subscribe(
+      data=>{
+       this.atenciones_registradas = data;
+      }
+    )
   }
 }
