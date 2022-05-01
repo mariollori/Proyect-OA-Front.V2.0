@@ -1,18 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 body{
-    padding: 80px;
+    padding: 40px 45px;
     font-family: 'Poppins', sans-serif;
     background: transparent;
     box-sizing: border-box;
 }
 .title{
     font-size: 22px;
-    color:teal;
-    margin-bottom: 50px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 40px;
 }
 .modal-header{
-    background-color: #4267b2;
+    background-color: #0f3971;
     color: white;
     font-size: 14px;
 }
@@ -54,9 +55,12 @@ body{
     height: 500px;
 }
 #add-btn{
-    width: 180px;
+    width: auto;
   
     display:flex;
+    font-size: 13px;
+    padding: 2px 4px;
+    margin-right: 10px;
     justify-content: space-around;
     align-items: center;
 }
@@ -86,20 +90,32 @@ body{
 }
 .form label{
     margin-bottom: 5px;
-    color: grey;
-    margin-right: 55px;
+    color: #222b45;
+    width: 100%;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 5px 10px;
+    border-bottom: 0.0625rem solid #e4e9f2;
 }
 .form-one{
-    width: 60%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
 }
-
+.form-one select{
+    padding: 5px 15px;
+    font-size: 15px;
+}
 .col-9{
     background: white;
     border-radius: 5px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .form-two{
-    width: 40%;
+    width: 50%;
     padding-left: 45px;
     display: flex;
     flex-direction: column;
@@ -107,8 +123,20 @@ body{
 }
 .form-two button{
     margin-bottom: 10px;
-    margin-left: 10px;
-    width: 50px;
+    width: 70%;
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    border: 1px solid ;
+}
+.form-two button:disabled{
+    background-color: #909090;
+}
+
+.form-two button i{
+    margin-right: 10px;
 }
 .form-two label{
     margin-bottom: 5px;
@@ -172,7 +200,12 @@ body{
 
 
 
-
+.detail_img{
+    background: blanchedalmond;
+    border: 5px double aqua;
+    width: 20%;
+    margin: 0 auto;
+}
 /*div input style
 */
 
@@ -181,12 +214,12 @@ body{
     margin-top: 15px;
 }
 .input-style label{
-    font-size: 15px ;font-weight: 500;width: 30%;margin-bottom: 0;display: flex;align-items: center;
+    font-size: 13px ;font-weight: 500;width: 30%;margin-bottom: 0;display: flex;align-items: center;
 }
 .input-style .div-son{
     position: relative;
 }
-.div-son input{
+.div-son input,.div-son select{
     font-weight: normal;
     font-size: 13.5px;
     padding-right:25px ;border:2px solid transparent;outline: none;border-radius: 15px;padding-left: 15px;padding-top: 5px;padding-bottom: 5px;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -204,20 +237,57 @@ body{
 }
 
 
-
+/**Crear user*/
+#crearuser .modal-body{
+    padding: 0;
+    height: 400px;
+   
+}
+#crearuser .modal-dialog{
+    max-width: 600px;
+}
 #crearuser .input-style{
-    margin-bottom: 5px;
+    margin-top: 10px;
     margin-left: 25px;
+    margin-bottom: 10px;
+    margin-right: 25px;
+    height: 30px;
+    border-bottom: 1px solid #cfcfcf;
 
 }
-#crearuser .div-son input{
-    width: 250px;
-
+#crearuser .cont-message{
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    padding: 25px 45px;
+    height: 75%;
+    width: 100%;
+    
 }
-#crearuser .input-style label{
+#crearuser  .message input,.message select{
+  font-size: 13px;
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+  padding: 3px 10px;
+  border-radius: 5px;
+  background-color: #edf1f7;
+  outline: none;
+  width: 72%;
+  border: none;
+}
+#crearuser .cont-message .message{
+    margin-top: 10px;
+    margin-left: 25px;
+    margin-bottom: 10px;
+    margin-right: 25px;
+}
+#crearuser .input-style label:first-child , #crearuser .cont-message .message label:first-child{
     font-size: 13px;
     width: 22%;
 }
+#crearuser .input-style label:last-child{
+    font-size: 13px;
+    font-weight: bold;
+    width: 78%;
+}
+
 
 .createtitle{
     font-weight: bold;
@@ -241,4 +311,124 @@ body{
     background-color: white;
     color: aqua;
     
+}
+
+
+
+
+
+
+
+
+.bysede{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 20px;
+    z-index: 4;
+}
+.bysede div{
+    margin-right: 15px;
+}
+.bysede label{
+    font-size: 15px;
+}
+.bysede select{
+    margin-left: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+    border: 2px solid rgba(100, 100, 111, 0.2);
+    text-transform: uppercase;
+
+    background: white;
+    outline: none;
+    border-radius: 5px;
+    color: #909090;
+}
+.imgrow{
+    width: 300px;height: 150px;margin-top: 40px;margin-bottom: 50px
+
+}
+.cont-table{
+    width: 100%;
+}
+@media only screen and (max-width: 1300px) {
+ .row{
+     flex-direction: column;
+ }
+    .col-9{
+        min-width: 100%;
+    }
+.flex-column{
+    flex-direction: row !important;
+    height: 50px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+.col-3{
+    min-width: 100%;
+}
+.nav-pills .nav-link{
+    min-width: 200px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+    
+    border-radius: 0;
+}
+.nav-pills .nav-link.active{
+    border-left: 0px !important;
+ color: #4267b2;
+    border-bottom: 5px solid #4267b2;
+}
+
+.nav-pills .nav-link.active::before{
+    content: none;
+}
+.flex-column::-webkit-scrollbar {
+    width: 10px;     /* Tamaño del scroll en vertical */
+    height: 5px;    /* Tamaño del scroll en horizontal */
+   
+  }
+  
+  .imgrow{
+      display: none;
+  }
+ 
+  .container{
+      max-width: 100%;
+      margin: 0;
+  }
+  
+  
+}
+@media only screen and (max-width: 900px) {
+    .bysede{
+      flex-direction: row;
+      justify-content: flex-end;
+      min-width: 100%;
+      position: static;
+      margin-bottom: 20px;
+    }
+    body{
+        padding: 40px 10px;
+    }
+    .cont-table{
+        overflow-x: auto;
+    }
+}@media only screen and (max-width: 460px) {
+    .bysede{
+      flex-direction: column;
+      justify-content: flex-end;
+      min-width: 100%;
+      position: static;
+      margin-bottom: 20px;
+    }
+    .bysede div{
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .cont-table{
+        overflow-x: auto;
+    }
 }

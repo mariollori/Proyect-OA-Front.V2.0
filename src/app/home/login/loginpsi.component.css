@@ -9,22 +9,32 @@
 }
 
 body {
-  
+overflow: hidden;  
   width: 100vw;
   height: 100vh;
-  display: flex;
-  overflow: hidden;
   position: relative;
+
+}
+body::after{
+  content: '';
+  width: 70%;
+  border-radius: 285px;
+  height: 79%;
+  top: -12%;
+  left: 44%;
+  transform: rotate(-42deg);
+  background: linear-gradient(0deg,#21487c 0,#0f3971);
+  position: absolute;
 }
 
 .container{
-  width: 30%;
-  height: 80%;
+  width: 33%;
+  height: 90%;
   display: flex;
   padding: 40px;
   position: relative;
-  top: 10%;
-  left:65%;
+  top: 4%;
+  left:4%;
  
   justify-content: center;
   align-items: flex-start;
@@ -33,7 +43,17 @@ body {
 }
 .container h5{
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 25px;
+  position: relative;
+}
+.container h5::after{
+  content: '';
+  width: 100px;
+  background: #0f3971;
+  bottom: -5px;
+  left: 0;
+  height: 3px;
+  position: absolute;
 }
 .container .info{
   font-size: 12px;
@@ -110,44 +130,78 @@ input:focus  .input-style  {
 .login-btn{
   width: 100%;
   margin: 0 auto;
-  margin-top: 25px;
+  margin-top: 15px;
   padding: 7px 25px;
   font-size: 14px;
   border: none;
   outline: none;
-  background: linear-gradient(45deg,#00ccbe,#38d3a4d7 );
+  background: #0f3971;
   color: white;
   border-radius: 10px;
   transition: all .3s;
 }
 .login-btn:hover{
   transform: scale(1.01);
-  background: linear-gradient(180deg,#00ccbe,#38d3a4d7 );
+  background: #0f3971;
 }
 a{
-  color: #00ccbe
-  ;
+  color: #19d8da;
+  width: 100%;
+  text-align: end;
+  font-size: 13px;
+  margin-top: 10px;
+}
+.register {
+  display: none;
 }
 a:hover{
-  color: teal;
+  color: #19d8da;
 }
 .logo{
   width: 120px;
   position: absolute; 
   top: 2%;
- left: 48%;
+ left: 90%;
  z-index: 9;
 }
-.fondo img{
+
+.fondo {
   position: absolute;
-  z-index: 10;
-  width: 700px;
-
-  top: calc(50% - 200px);
-  left: calc(25% - 400px);
+  z-index: 9;
+  color: white;
+  top: 43%;
+  left: 53%;
+  width: 504px;
 }
-
-body::after{
+.fondo h6{
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  position: relative;
+}
+.fondo h6::after{
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  bottom: -8px;
+  left: 0;
+}
+.fondo button{
+  padding: 10px 25px;
+  color: #19d0de;
+  background-color: white;
+  border-radius: 25px;
+  border: none;
+  margin:  0 auto;
+  text-transform: uppercase;
+  font-size: 13px;
+  margin-top: 35px;
+  margin-left: 100px;
+}
+/* body::after{
   content: "";
    position: absolute;
    height: 2000px;
@@ -161,13 +215,13 @@ body::after{
    z-index: 3;
 
   
- }
+ } */
  .input-style input:focus ~ label{
    color: #00ccbe;
    font-weight: 600;
  }
  
-body::before{
+/* body::before{
   content: "";
    position: absolute;
    height: 2000px;
@@ -181,14 +235,8 @@ body::before{
    z-index: 3;
 
   
- }
- .fondo h4{
-   position: absolute;
-   z-index: 9;
-   color: white;
-   top: 18%;
-   left: 9%;
- }
+ } */
+
  #btn-home{
    position: absolute;
    z-index: 9;
@@ -199,7 +247,7 @@ body::before{
   color: white;
   background-color: transparent;
 
-   left: 2%;
+   left: 1%;
  }
 
  #btn-home::before{
@@ -209,7 +257,7 @@ body::before{
   left: 8px;
   display: block;
   border-radius: 50%;
-  background:#f1bc19;
+  background: #0f3971;
   width: 34px;
   height: 34px;
   z-index: -1;
@@ -218,4 +266,87 @@ body::before{
  #btn-home:hover::before{
    width: 100%;
    border-radius: 20px;
+ }
+
+
+ @media only screen and (max-width: 1350px) {
+   body::after{
+    top: -8%;
+    left: 44%;
+   }
+  .fondo h6{
+     font-size:21px;
+  }
+  .fondo label{
+font-size: 14px;
+  }
+
+  .container{
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+   
+ body::after{
+  top: -6%;
+  left: 47%;
+ }
+ .logo{
+   left: 69%;
+ }
+ .container{
+   width: 45%;
+ }
+}
+@media only screen and (max-width: 997px) {
+   body::after{
+     content: none;
+   }
+   #btn-home{
+    
+
+    z-index: 13;
+    top: 2%;
+    left: 2%;
+
+   }
+  body{
+  background-color:white;
+  }
+  .logo{
+  display: none; 
+  }
+  .fondo{
+    display: none;
+  }
+  .fondo button{
+    position: absolute;
+    color: black;
+  }
+  .container{
+    min-width: 90%;
+    margin: 0 auto;
+    left: 0;
+  }
+  .register{
+    width: 150px;
+    position: absolute;
+    display: block;
+    background-color: transparent;
+    font-size: 14px;
+    color: #0f3971;
+    padding: 2px 10px;
+    border: none;
+    left: calc(100% - 180px);
+    z-index: 12;
+    top: 2%;
+  }
+ }
+ 
+ @media only screen and (max-width: 425px) {
+   .container{
+     padding-left: 5px;
+     padding-right: 5px;
+   }
  }

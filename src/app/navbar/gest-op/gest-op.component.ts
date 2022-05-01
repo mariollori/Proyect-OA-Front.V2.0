@@ -7,6 +7,7 @@ import { Usuario } from 'src/app/models/Usuario';
 import { RolOpService } from 'src/app/services/rol-op.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
+
 export interface UsuarioData {
   idusuario:number;
   nombre: string;
@@ -27,19 +28,25 @@ export class GestOpComponent implements OnInit {
   detalleelemetn:any;
   usuarioelement:any;
   activo=false;
-datausuario:UsuarioData[]=[];
+  datausuario:UsuarioData[]=[];
   usuarios:Usuario[]=[];
   datapsi:any[]=[];
-  dataSource;
-  dataSource2;
+  
   rolactual;
   rolesactualesdeluser:Rol[]=[];
   rolesdisponibles:Rol[]=[];
   idusuarioactual;
-cargando=false;
-  
+
+  /**Loading */
+  cargando=false;
+  cargando_sol=false;
+  cargando_activos=false;
+  cargando_dis=false;
+
+
   opcionesactualesdelrol:Opciones[]=[];
   constructor(private rolserv:RolOpService,private userserv:UserService) { }
+  
   // Variables para asignar opc a rol
   opcionesdisponibles:Opciones[]=[];
   opciondisp;
@@ -58,20 +65,41 @@ cargando=false;
   dtOptions: DataTables.Settings = {};
   usuariosactivos;
   solicitudesdeusuario;
+
+//* Variables para buscar por sede opcion;/
+sede;
+opcion;
+
+
+sede2;
+opcion2;
+/**Variables para activar usuario */
+usuarios_desactivados;
   
   cerrarrolactual(){
     this.rolactualdisp='';
     this.opciondisp='';
   }
   ngOnInit(){
+    this.sede = 'UPeU Lima'
+    this.opcion = 'estudiante'
+    this.sede2 = 'UPeU Lima'
+    this.opcion2 = 'estudiante'
+
+  
+    
+
     var s = document.createElement("script");
     s.type = "text/javascript";
     s.src = "./assets/js/sidemenuop.js";
     let body = document.getElementsByTagName("body")[0];
-
+    
     body.appendChild(s);
+   
+
 
     this.dtOptions = {
+      
       responsive:true,
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -104,9 +132,9 @@ cargando=false;
       
       processing: false
     };
-  
+  this.listarusuarios_desactivados();
     this.listarusuarios();
-    this.listarpsicologos();
+    this.get_solicitudes_por_sede();
     this.getroles();
     this.getopciones();
   }
@@ -118,29 +146,32 @@ cargando=false;
       }
     );
   }
-  listarpsicologos(){
-    this.rolserv.getpsicologos().subscribe(
+ 
+  
+  listarusuarios(){
+  
+    this.cargando_activos=true;
+    this.rolserv.listarusuarios(this.opcion2,this.sede2).subscribe(
       (data)=>{
-        console.log(data)
-
-           this.solicitudesdeusuario= data;
-
+       this.cargando_activos=false;
+        this.usuariosactivos=data;
       }
     )
   }
-
-  listarusuarios(){
-    this.rolserv.listarusuarios().subscribe(
+  listarusuarios_desactivados(){
+   
+    this.cargando_dis=true;
+    this.rolserv.listarusuarios_desactivados().subscribe(
       (data)=>{
-        console.log(data)
-        this.usuariosactivos=data;
+        this.cargando_dis=false;
+        this.usuarios_desactivados=data;
       }
     )
   }
   getroles(){
     this.rolserv.getroles().subscribe(
       (data)=>{
-                 console.log(data)
+                
                 this.roles= data as Rol[];
       }
     )
@@ -149,7 +180,7 @@ cargando=false;
   getopciones(){
     this.rolserv.getopciones().subscribe(
       (data)=>{
-                 console.log(data)
+                
                 this.opciones= data as Opciones[];
       }
     )
@@ -166,7 +197,7 @@ cargando=false;
     confirmButtonText: 'Eliminar'
   }).then((result) => {
     if (result.isConfirmed) {
-      console.log(this.rolactual)
+ 
       this.rolserv.eliminarrol(this.rolactual).subscribe(
         (data)=>{
 
@@ -205,7 +236,7 @@ cargando=false;
     confirmButtonText: 'Eliminar'
   }).then((result) => {
     if (result.isConfirmed) {
-      console.log(this.rolactual)
+   
       this.rolserv.eliminaropcion(this.opcionactual).subscribe(
         (data)=>{
 
@@ -239,7 +270,7 @@ cargando=false;
       (data)=>{
            
         this.rolupd = data[0] as Rol;
-        console.log(this.rolupd)
+ 
    
       }
     )
@@ -254,7 +285,7 @@ cargando=false;
         this.cargando=false
            
         this.opcionupd = data[0] as Opciones;
-        console.log(this.opcionupd)
+  
    
       }
     )
@@ -450,7 +481,7 @@ listarrolesactuales(id){
     this.rolserv.getrolesactuales(id).subscribe(
       (data)=>{
         this.cargando=false;
-        console.log(data)
+       
            this.rolesactualesdeluser= data as Rol[] ;
       }
     )
@@ -478,11 +509,12 @@ listarrolesactuales(id){
       
         this.rolserv.deleteroluser(id).subscribe(
           (data)=>{
-            Swal.fire(
-              'Eliminado',
-              data,
-              'success'
-            ) 
+            Swal.fire({
+              icon: 'success',
+              title: 'Eliminado',
+              text: 'Rol eliminado.',
+             
+            }) 
           },(e)=>{
            
               Swal.fire(
@@ -505,28 +537,28 @@ listarrolesactuales(id){
 
   crearuser(element:any){
     this.cargando=true;
-    this.usuarioelement= element
+    this.usuarioelement= element;
+    var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
      this.userserv.getusers().subscribe(
       (data)=>{ 
-        console.log(data)
+       
          this.usuarios=data;
           this.cargando=false
 
-          var usuarioname=element.nombre.replace(" ", "").toLowerCase();
-          var passwordname=element.nombre.replace(" ", "").toLowerCase();
+          var usuarioname=element.nombre.replace(/ /g,'').toLowerCase();
+          var passwordname=element.nombre.replace(/ /g,'').toLowerCase();
           var encontrado=0;
           var condicion=1;
           do {
             this.usuarios.find(
               user => {
                 if ( usuarioname === user.username  ) {
-                  console.log(true);
-                  console.log(user.username);
+                
                   encontrado = 1;
                   this.activo=false;
                   return true;
                 } else {
-                  console.log(usuarioname);
+                 
                   encontrado = 0;
                 }
               }
@@ -535,12 +567,11 @@ listarrolesactuales(id){
             if(encontrado==1){
               usuarioname = usuarioname.concat(num.toString());
               this.usuario.username=usuarioname
-             console.log(usuarioname)
+             
               this.usuario.password=passwordname
               this.activo=true;
             }else{
-              console.log(encontrado)
-              console.log(this.usuarios)
+             
               condicion = 0;
               this.activo=true;
               this.usuario.username=usuarioname
@@ -560,16 +591,19 @@ listarrolesactuales(id){
 
 
   guardarusuario(){
-    console.log(this.usuario, this.usuarioelement.correo)
-    this.userserv.crearusuario(this.usuario.username,this.usuario.password,this.usuario.idpersonal,this.usuarioelement.correo).subscribe(
+    
+    this.userserv.crearusuario(this.usuario.username,this.usuario.password,this.usuario.idpersonal,this.usuarioelement.correo,this.usuario.rol).subscribe(
       data=>{
-        Swal.fire(
-          'Registrardo',
-          data,
-          'success'
+        Swal.fire({
+          icon: 'success',
+          title: 'Registrado',
+          text: 'Usuario creado con exito.',
+         
+        }
+          
         );
         document.getElementById('crearuser').click();
-        this.listarpsicologos();
+        this.get_solicitudes_por_sede();
         this.listarusuarios();
       }
     )
@@ -594,14 +628,14 @@ listarrolesactuales(id){
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        this.userserv.eliminarsolicitud(element.idpersonal,element.idpersona).subscribe(
+        this.userserv.eliminarsolicitud(element.idpersonal,element.idpersona,element.tipo).subscribe(
           data=>{
             swalWithBootstrapButtons.fire(
               'Eliminado!',
               'Se elimino la solicitud.',
               'success'
             )
-            this.listarpsicologos()
+            this.get_solicitudes_por_sede()
           }
         )
       
@@ -618,8 +652,105 @@ listarrolesactuales(id){
     })
    
   }
+  get_solicitudes_por_sede(){
+  
+    this.cargando_sol=true;
+    this.rolserv.getpsicologos(this.opcion,this.sede).subscribe(
+      (data)=>{
+        this.cargando_sol= false;
 
+           this.solicitudesdeusuario= data;
 
+      }
+    )
+  }
+  desactivar_usuario(id){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: '¿Esta seguro de desactivar este usuario?',
+     
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, desactivar!',
+      cancelButtonText: 'No, cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+      
+       this.userserv.desactivar_usuario(id).subscribe(
+         data=>{
+          Swal.fire({
+            icon: 'success',
+            title: 'Listo',
+            text: 'Usuario desactivado con exito.',
+          });
+          this.listarusuarios_desactivados();
+          this.listarusuarios();
+         }
+       )
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado',
+          'Se cancelo la desactivación',
+          'error'
+        )
+      }
+    })
+  }
+  activar_usuario(id){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: '¿Esta seguro de activar a este usuario?',
+     
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, activar !',
+      cancelButtonText: 'No, cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+      
+       this.rolserv.activar_user(id).subscribe(
+         data=>{
+          Swal.fire({
+            icon: 'success',
+            title: 'Listo',
+            text: 'Usuario activado.',
+          });
+          
+          this.listarusuarios();
+          this.listarusuarios_desactivados();
+         }
+       )
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado',
+          'Se cancelo la desactivación',
+          'error'
+        )
+      }
+    })
+  }
 }
 
 

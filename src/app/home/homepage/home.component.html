@@ -1,31 +1,31 @@
 <head>
+
  
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 </head>
 
 <body>
-  
-  <header class="nav_var">
-    <div class="cabezera">
-            <div id="iconogeneral"></div>
+  <nav >
+    <div id="iconogeneral"></div>
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+    </label>
             
-            <div class="menu_home">
-              <button  class="btn-menu">Contactenos</button>
-              <button  class="btn-menu">Info</button>
-             
-            <button (click)="loginpsi()" class="btn-login">Login<i class="fas fa-sign-in-alt" style="margin-left: 10px;margin-bottom: -9px;"></i></button>
-            
-            </div>
+    <ul class="menu_home">  
+        <li><button  class="btn-menu" (click)="value()">Valoranos</button></li>
+        <li>  <button  class="btn-menu">Contáctanos</button></li>
+        <li>  <button (click)="loginpsi()" class="btn-login">Inicia Sesión<i class="fas fa-sign-in-alt" style="margin-left: 10px;margin-bottom: -9px;"></i></button></li>
+    </ul>
+</nav>
 
-        </div>
-</header>
 <div class="padre">
-   <img src="assets/homeassets/fondo2.png"  class="img-2" alt="">
+   <img src="assets/homedesign.jpg"  class="img-2" alt="">
   <div class="card">
-  <h1>Somos tu soporte</h1>
-  <h1>Cuando más  lo necesites!!</h1>
-  <p>Tenemos como objetivo brindar primeros auxilios psicológicos, a personas con dificultades emocionales.</p>
-  <button (click)="cerrar()">Registrate aqui!</button>
+  <label for="">OÍDO<span>AMIGO</span></label>
+  <h1>servicio psicológico <b>gratuito</b> </h1>
+  <p>Tenemos como propósito ayudarte a afrontar dificultades emocionales y mejorar tu calidad de vida.</p>
+  <button (click)="cerrar()">¡Regístrate aquí!</button>
   
   </div>
 

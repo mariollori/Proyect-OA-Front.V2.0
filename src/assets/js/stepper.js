@@ -3,8 +3,28 @@ var  progress = document.getElementById("progress");
 var  formSteps = document.querySelectorAll(".form-step");
 var  prevBtns = document.querySelectorAll(".btn-prev");
 var  progressSteps = document.querySelectorAll(".progress-step");
-
 var formStepsNum = 0;
+
+
+function reset_stepper() {
+  formStepsNum = 0;
+  progressSteps.forEach((progressStep, idx) => {
+      if (idx == 0) {
+      progressStep.classList.add("progress-step-active");
+    } else {
+      progressStep.classList.remove("progress-step-active");
+    }
+  });
+  progress.style.width = 0 * 100 + "%";
+    formSteps.forEach((formStep,idx) => {
+     if (idx == 0) {
+      formStep.classList.add("form-step-active");
+    } else {
+      formStep.classList.remove("form-step-active");
+    }
+  });
+}
+
 
 nextBtns.forEach((btn) => {
   btn.addEventListener("click", () => {

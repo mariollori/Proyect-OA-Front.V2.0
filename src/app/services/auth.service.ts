@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { count } from 'console';
 import { Observable } from 'rxjs';
 import { Rol } from '../models/Rol';
 
@@ -21,8 +22,13 @@ export class AuthService {
   public get usuario():Usuario{
     if(this._usuario!=null){
       return this._usuario;
-    }else if(this._usuario==null && sessionStorage.getItem('usuario')){
-      this._usuario = JSON.parse(sessionStorage.getItem('usuario')) as Usuario;
+    }else if(this._usuario==null && sessionStorage.getItem('token')){
+      let payload =this.obtenerdatostoken(sessionStorage.getItem('token'));
+      let data = payload.usuario;
+      let data2= payload.personal;
+      this._usuario = new Usuario();
+      this._usuario.id = data.idusuario;
+      this._usuario.idpersonal = data2.idpersonal;
      
        return this._usuario;
     }
@@ -32,8 +38,9 @@ export class AuthService {
   public get rol():Rol[]{
     if(this._rol!=null){
       return this._rol;
-    }else if(this._rol==null && sessionStorage.getItem('rol')){
-      this._rol = JSON.parse(sessionStorage.getItem('rol')) as Rol[] ;
+    }else if(this._rol==null && sessionStorage.getItem('token')){
+      let payload =this.obtenerdatostoken(sessionStorage.getItem('token'));
+      this._rol = payload.roles;
        return this._rol;
     }
     return null;
@@ -50,35 +57,9 @@ export class AuthService {
   }
 
   
-  guardarrol(accestoken:string):void{
-    this._rol = new Array();
-    let payload =this.obtenerdatostoken(accestoken);
-    let data = payload.roles;
-    
-    
-    for (let index = 0; index < data.length; index++) {
-      this._rol.push(data[index]);
-    }
-    
-    
-    /**no acepta objetos jason por eso con la stringify lo pasamos a texto */
-    sessionStorage.setItem('rol',JSON.stringify(this._rol));
-  }
+
   
-  guardarusuario(accestoken:string):void{
-    let payload =this.obtenerdatostoken(accestoken);
-    let data = payload.usuario;
-    let data2= payload.personal;
-    this._usuario=new Usuario();
-    this._usuario.id = data.idusuario;
-    this._usuario.idpersonal = data2.idpersonal;
-    
-    
-    /**no acepta objetos jason por eso con la stringify lo pasamos a texto */
-    sessionStorage.setItem('usuario',JSON.stringify(this._usuario));
-    
-    
-  }
+  
   guardartoken(accestoken:string):void{
     this._token=accestoken;
     sessionStorage.setItem('token',this._token)
@@ -96,6 +77,27 @@ export class AuthService {
     }
     return false;
   }
+  hasRole(role: string): boolean {
+    var found = this.rol.filter(x=> x.nombre == role);
+    if (found.length > 0) {
+      return true;
+    }
+    return false;
+  }
+  hasRoles(roles: Array<string>): boolean {
+    var cont = 0;
+    for (let i = 0; i < this.rol.length; i++) {
+      if(roles.includes(this.rol[i].nombre)){
+        cont = cont + 1; 
+      }
+    }
+    
+    if(cont == 0){
+      return false;
+    }else{
+      return true;
+    }
+  }
   logout():void{
     this._rol=null;
     this._usuario=null;
@@ -110,5 +112,13 @@ export class AuthService {
   
   login(usuario: Usuario): Observable<any> {
    return this.http.post<any>(this.urlEndpoint + '/login', usuario);
+  }
+
+  changepassword(token,newpassword):Observable<any>{
+    let headers = new HttpHeaders().set('authorization', token);
+    return this.http.put<any>(this.urlEndpoint + '/change-password' ,{newpassword},{headers:headers});
+  }
+  forgotpassword(email):Observable<any>{
+    return this.http.put<any>(this.urlEndpoint + '/forgote-password' ,{email});
   }
 }

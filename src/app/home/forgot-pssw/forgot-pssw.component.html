@@ -1,0 +1,18 @@
+<app-spinner-loader *ngIf="cargando" [message]="message"></app-spinner-loader>
+<body>
+    <div class="container">
+        <h6>Olvidó su contraseña</h6>
+        <label style="font-size: 14px;
+        margin-top: 15px;
+        color: red;" for="">Por favor ingrese el correo electrónico con el que se registró. </label>
+        <div class="cont-body">
+            <div class="input-style">
+                <label for="" >Correo Electronico:</label>
+                <input type="text" [(ngModel)]="correo"></div>
+        </div>
+        <button class="xd"  (click)="forgot()">
+            Confirmar
+        </button>
+    
+    </div>
+</body>

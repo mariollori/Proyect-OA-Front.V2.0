@@ -8,10 +8,11 @@ import { Observable } from 'rxjs';
 export class BandejaService {
 
   url = "http://localhost:5050/EX3/bandeja/";
+  url2 = "http://localhost:5050/EX3/paciente/";
   constructor(private http:HttpClient) { }
 
-  get_asignaciones_pendientes():Observable<any[]>{
-    return this.http.get<any[]>(this.url + 'get_asignacion_pendientes');
+  get_asignaciones_pendientes(sede):Observable<any[]>{
+    return this.http.get<any[]>(this.url + 'get_asignacion_pendientes/' + sede);
   }
   get_personal_data(id):Observable<any[]>{
     return this.http.get<any[]>(this.url + 'get_personal/' + id);
@@ -19,8 +20,10 @@ export class BandejaService {
   get_paciente_data(id):Observable<any[]>{
     return this.http.get<any[]>(this.url + 'get_paciente/' + id);
   }
-  update_asignacion(idpersonal,idasignacion):Observable<any>{
-    let params = new HttpParams().set("idpersonal",idpersonal).append("idasignacion",idasignacion);
-    return this.http.put<any>(this.url + 'update_asignacion' , {idpersonal,idasignacion});
+  update_asignacion(idpersonal,idasignacion,codex):Observable<any>{
+   
+    return this.http.put<any>(this.url + 'update_asignacion' , {idpersonal,idasignacion,codex});
   }
+
+
 }

@@ -3,6 +3,7 @@
   href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   
 </head>
+<app-spinner-loader *ngIf="cargando" [message]="message"></app-spinner-loader>
 <div class="content">
 
   <button id="btn-home" (click)="volver()"><i class="fas fa-house-user"
@@ -11,7 +12,7 @@
     <div class="form-stepper">
       <h5 class="title">Inscripción  de voluntarios</h5>
       <label class="subtitle"><span style="color:red;margin-right: 10px;font-weight: bold;">Advertencia:</span>
-        Este registro es solo para los voluntarios de oído amigo. Si usted no es parte de nuestro equipo su solicitud será rechazada.
+        Este registro es sólo para los voluntarios de oído amigo. Si usted no es parte de nuestro equipo su solicitud será rechazada.
       </label>
       <form action="#" class="form">
 
@@ -48,29 +49,31 @@
                 <input matInput formControlName="correo"
                   placeholder="example@gmail.com">
                 <mat-error *ngIf="registerform.get('correo').hasError('required')">*requerido</mat-error>
-                <mat-error *ngIf="registerform.get('correo').hasError('email')">*Introdusca un correo valido</mat-error>
+                <mat-error *ngIf="registerform.get('correo').hasError('pattern')">*Introdusca un correo valido</mat-error>
                 <i class="fas fa-at" matSuffix></i>
               </mat-form-field>
 
               <mat-form-field class="example-full-width">
-                <mat-label>Sexo</mat-label>
+                <mat-label>Sexo<span style="color: red;">*</span></mat-label>
                 <mat-select formControlName="genero">
                   <mat-option value="H">Hombre</mat-option>
                   <mat-option value="M">Mujer</mat-option>
                 </mat-select>
+                <mat-error *ngIf="registerform.get('genero').hasError('required')">*requerido</mat-error>
               </mat-form-field>
 
               <mat-form-field class="example-full-width">
                 <mat-label>Celular<span style="color: red;">*</span></mat-label>
                 <input matInput formControlName="telefono" type="text" placeholder="999999999" >
                 <mat-error *ngIf="registerform.get('telefono').hasError('required')">*requerido</mat-error>
-                  <mat-error *ngIf="registerform.get('telefono').hasError('maxLength')">*Debe tener un total de 9 digitos</mat-error>
+                  <mat-error *ngIf="registerform.get('telefono').hasError('pattern')">*Debe tener un total de 9 digitos</mat-error>
                 <i class="fas fa-phone-square-alt" matSuffix></i>
               </mat-form-field>
               
               <mat-form-field class="example-full-width">
                 <mat-label>Edad</mat-label>
                 <input matInput type="number" formControlName="edad" placeholder="18">
+                <mat-error *ngIf="registerform.get('edad').hasError('pattern')">Introdusca una edad valida.</mat-error>
                 <i class="fas fa-user-clock" matSuffix></i>
               </mat-form-field>
 
@@ -80,16 +83,11 @@
                   <mat-option value="UPeU Lima">UPeU Lima</mat-option>
                   <mat-option value="UPeU Juliaca">UPeU Juliaca</mat-option>
                   <mat-option value="UPeU Tarapoto">UPeU Tarapoto</mat-option>
-                  <mat-option value="Otra">Otra</mat-option>
                 </mat-select>
                 <mat-error *ngIf="registerform.get('sede').hasError('required')">*requerido</mat-error>
               </mat-form-field>
 
-              <mat-form-field class="example-full-width" *ngIf="registerform.get('sede').value == 'Otra' ">
-                <mat-label>Otro:</mat-label>
-                  <input matInput type="text" [(ngModel)]="otro" placeholder="---------">
-               
-              </mat-form-field>
+            
 
 
             </form>
@@ -102,7 +100,7 @@
                 <mat-select [(ngModel)]="tipo">
                   <mat-option value="estudiante">Interno</mat-option>
                   <mat-option value="psicologo">Psicólogo</mat-option>
-                  <mat-option value="pastor">Consejero espiritual</mat-option>
+                  
                 </mat-select>
               </mat-form-field>
 
@@ -122,17 +120,17 @@
 
               <mat-form-field class="example-full-width">
                 <mat-label>Grupo<span style="color: red;">*</span></mat-label>
-                <input matInput formControlName="grupo" onKeyPress="if(this.value.length==1) return false;" pattern="^[0-9]+" placeholder="1">
+                <input matInput formControlName="grupo"   placeholder="1">
                 <mat-error *ngIf="estudiante.get('grupo').hasError('required')">*requerido</mat-error>
-                <mat-error *ngIf="estudiante.get('grupo').hasError('pattern')">*No puede ser negativo</mat-error>
+                <mat-error *ngIf="estudiante.get('grupo').hasError('pattern')">*Introducir un grupo valido</mat-error>
                 <i class="fas fa-user-friends" matSuffix></i>
               </mat-form-field>
 
               <mat-form-field class="example-full-width">
                 <mat-label>Código Universitario<span style="color: red;">*</span></mat-label>
-                <input matInput formControlName="codigo" onKeyPress="if(this.value.length==9) return false;" pattern="^[0-9]+" placeholder="123456789">
+                <input matInput formControlName="codigo"  placeholder="123456789">
                 <mat-error *ngIf="estudiante.get('codigo').hasError('required')">*requerido</mat-error>
-                <mat-error *ngIf="estudiante.get('codigo').hasError('pattern')">*No puede ser negativo</mat-error>
+                <mat-error *ngIf="estudiante.get('codigo').hasError('pattern')">*Por favor introducir un codigo valido.</mat-error>
                 <i class="far fa-window-maximize" matSuffix></i>
               </mat-form-field>
 
@@ -155,7 +153,8 @@
 
               <mat-form-field class="example-full-width">
                 <mat-label>Nro. Colegiatura</mat-label>
-                <input matInput formControlName="n_colegiatura" onKeyPress="if(this.value.length==4) return false;" placeholder="44444">
+                <input matInput formControlName="n_colegiatura"  placeholder="44444">
+                <mat-error *ngIf="psicologo.get('n_colegiatura').hasError('pattern')">*Por favor introducir un numero valido.</mat-error>
                 <mat-error *ngIf="psicologo.get('n_colegiatura').hasError('required')">*requerido</mat-error>
               </mat-form-field>
 
@@ -185,7 +184,7 @@
 
                 <div class="horario-input" >
                   <label>Día:</label>
-                  <select [(ngModel)]="dia" style="width: 150px;height:30px;" name="dia">
+                  <select [(ngModel)]="dia"  name="dia">
                     <option *ngFor="let d of dias" value="{{d}}">{{d}}</option>
                   </select>
                 </div>

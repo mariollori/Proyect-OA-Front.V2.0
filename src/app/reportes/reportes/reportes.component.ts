@@ -1,11 +1,11 @@
 import { Component, OnInit, QueryList, ViewChild, ViewChildren, } from '@angular/core';
 
 
-import { Personal } from 'src/app/asignacion/pastor/pastor.component';
+
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { ReporteService } from 'src/app/services/reporte.service';
-import {  ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -22,68 +22,82 @@ export class Datagraph {
 
 export class ReportesComponent implements OnInit {
 
- /**Buscar opcion-sede */
- opcion;
- personal;
- sede;
- 
- /** GRAFICAS H-M */
-  totalH=0;
-  totalM=0;
+  /**Buscar opcion-sede */
+  opcion;
+  personal;
+  sede;
+  reingresos=0;
 
- /**Grafica generales por fecha */
+  /** GRAFICAS H-M */
+  totalH = 0;
+  totalM = 0;
+
+  /**Grafica generales por fecha */
   fechai: Date;
   fechaf: Date;
   opcion2;
   sede2;
-  finalizadas=0;
-  enproceso=0;
-  enespera=0;
-  canceladas=0;
- 
+  finalizadas = 0;
+  enproceso = 0;
+  derivacionpsi =0 ;
+  derivacionext=0;
+  canceladas = 0;
 
-
-  dtOptions: any;
-  @ViewChildren(BaseChartDirective) chart:QueryList<BaseChartDirective> ;
-  constructor(private service: ReporteService,private router:Router,private route:ActivatedRoute) { }
-     
-   /**-------------------------Pie Chart -------------------- ------------------------------*/
-   public pieChartOptions: ChartConfiguration['options'] = {
-     responsive: true,
-     plugins: {
-       legend: {
-         display: true,
-         position: 'left',
-
-       },
-     }
-   };
-   public pieChartDataH: ChartData<'pie', number[], string | string[]> = {
-     labels: [ 'Finalizados', 'En proceso' , 'Canceladas' ,'En espera'],
-     datasets: [ 
-       {data: [ 0, 0, 0,0 ],
-       backgroundColor: ['rgba(76,175,80,1)', 'rgba(255,152,0,1)', '#29b2e2','#ebecf0'],
-       hoverBackgroundColor: ['rgba(76,175,80,1)', 'rgba(255,152,0,1)', '#29b2e2','#ebecf0']
-     } ]
-   };
-   public pieChartDataM: ChartData<'pie', number[], string | string[]> = {
-    labels: [ 'Finalizados', 'En proceso' , 'Canceladas' ,'En espera'],
-    datasets: [ 
-      {data: [ 0, 0, 0,0 ],
-      backgroundColor: ['rgba(76,175,80,1)', 'rgba(255,152,0,1)', '#29b2e2','#ebecf0'],
-      hoverBackgroundColor: ['rgba(76,175,80,1)', 'rgba(255,152,0,1)', '#29b2e2','#ebecf0']
-    } ]
-  };
-   public pieChartType: ChartType = 'pie';
-
+ /**Comentarios xd */
+  /**Putaje total */
+  total;
+  comentarios=[];
+  numero_votantes;
+  /**Puntaje individual */
+  puntaje5='0%';
+  puntaje4='0%';
+  puntaje3='0%';
+  puntaje2 ='0%';
+  puntaje1='0%';
   
+  dtOptions: any;
+  @ViewChildren(BaseChartDirective) chart: QueryList<BaseChartDirective>;
+  constructor(private service: ReporteService, private router: Router, private route: ActivatedRoute) { }
+
+  /**-------------------------Pie Chart -------------------- ------------------------------*/
+  public pieChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'right',
+
+      },
+    }
+  };
+  public pieChartDataH: ChartData<'pie', number[], string | string[]> = {
+    labels: ['Atendidos', 'En proceso', 'Canceladas', 'Derivacion-Psi', 'Derivacion-Ext'],
+    datasets: [
+      {
+        data: [0, 0, 0, 0, 0],
+        backgroundColor: ['#29b2e2', '#0f3971', 'red', '#ffa726', '#66bb6a'],
+        hoverBackgroundColor: ['#29b2e2', '#0f3971', 'red', '#ffa726', '#66bb6a']
+      }]
+  };
+  public pieChartDataM: ChartData<'pie', number[], string | string[]> = {
+    labels: ['Atendidos', 'En proceso', 'Canceladas', 'Derivacion-Psi', 'Derivacion-Ext'],
+    datasets: [
+      {
+        data: [0, 0, 0, 0, 0],
+        backgroundColor: ['#29b2e2', '#0f3971', 'red', '#ffa726', '#66bb6a'],
+        hoverBackgroundColor: ['#29b2e2', '#0f3971', 'red', '#ffa726', '#66bb6a']
+      }]
+  };
+  public pieChartType: ChartType = 'pie';
+
+
 
   ngOnInit() {
     /**Tabla de estudiantes */
-    this.opcion2="estudiante";
-    this.sede2='UPeU Lima';
+    this.opcion2 = "estudiante";
+    this.sede2 = 'UPeU Lima';
     this.opcion = 'estudiante'
-    this.sede= 'UPeU Lima'
+    this.sede = 'UPeU Lima'
     this.dtOptions = {
       responsive: true,
       pagingType: 'full_numbers',
@@ -123,20 +137,33 @@ export class ReportesComponent implements OnInit {
     this.get_estadisticas_generoH();
     this.get_estadisticas_generoM();
     this.get_todos_por_opcion();
+    this.get_comentarios();
+    this.get_puntaje();
+    this.get_puntaje_total();
+    this.get_reingresos();
     
+
   }
 
-  get_personal_sede(){
-    this.personal=''
-    this.service.getAsignaciones_sede(this.opcion,this.sede).subscribe( data => {
-      console.log(data)
-      this.personal = data })
+  get_personal_sede() {
+    this.personal = ''
+    this.service.getAsignaciones_sede(this.opcion, this.sede).subscribe(data => {
+      
+      this.personal = data
+    })
   }
+get_reingresos(){
+  this.service.get_reingresos().subscribe(
+    data=>{
+      this.reingresos = data[0].count
+    }
+  )
+}
+  get_estadisticas_generoH() {
 
-  get_estadisticas_generoH(){
-  
     this.service.get_estadisticas_genero('H').subscribe(
-      data=>{
+      data => {
+        console.log(data)
         for (let index = 0; index < data.length; index++) {
           this.totalH = this.totalH + Number(data[index]['count']);
           switch (data[index].estado) {
@@ -149,8 +176,13 @@ export class ReportesComponent implements OnInit {
             case 'Finalizado':
               this.pieChartDataH.datasets[0].data[0] = data[index]['count'];
               break;
-            case 'En Espera':
-            this.pieChartDataH.datasets[0].data[3] = data[index]['count'];
+            case 'Derivacion-Psi':
+              this.pieChartDataH.datasets[0].data[3] = data[index]['count'];
+
+              break;
+            case 'Derivacion-Ext':
+              this.pieChartDataH.datasets[0].data[4] = data[index]['count'];
+
               break;
             default:
               break;
@@ -162,14 +194,14 @@ export class ReportesComponent implements OnInit {
     )
   }
 
-  
-  get_estadisticas_generoM(){
-  
+
+  get_estadisticas_generoM() {
+
 
     this.service.get_estadisticas_genero('M').subscribe(
-      data=>{
+      data => {
         for (let index = 0; index < data.length; index++) {
-          this.totalM = this.totalM +  Number(data[index]['count']);
+          this.totalM = this.totalM + Number(data[index]['count']);
           switch (data[index].estado) {
             case 'Cancelado':
               this.pieChartDataM.datasets[0].data[2] = data[index]['count'];
@@ -180,8 +212,12 @@ export class ReportesComponent implements OnInit {
             case 'Finalizado':
               this.pieChartDataM.datasets[0].data[0] = data[index]['count'];
               break;
-            case 'En Espera':
-            this.pieChartDataM.datasets[0].data[3] = data[index]['count'];
+            case 'Derivacion-Psi':
+              this.pieChartDataM.datasets[0].data[3] = data[index]['count'];
+              break;
+            case 'Derivacion-Ext':
+              this.pieChartDataH.datasets[0].data[4] = data[index]['count'];
+
               break;
             default:
               break;
@@ -200,77 +236,122 @@ export class ReportesComponent implements OnInit {
     this.get_todos_por_opcion();
   }
 
-  
+
 
 
 
   get_todos_por_opcion() {
-    this.finalizadas=0;
-    this.enproceso=0;
-    this.enespera=0;
-    this.canceladas=0;
-    this.service.getestadisticatotal(this.opcion2,this.sede2).subscribe(
+    this.finalizadas = 0;
+    this.enproceso = 0;
+    this.derivacionpsi = 0;
+    this.derivacionext = 0;
+    this.canceladas = 0;
+    this.service.getestadisticatotal(this.opcion2, this.sede2).subscribe(
       data => {
-        console.log(data)
+        
         for (let index = 0; index < data.length; index++) {
           switch (data[index].estado) {
             case 'Cancelado':
-               this.canceladas=data[index]['count']
+              this.canceladas = data[index]['count']
               break;
             case 'En Proceso':
-              this.enproceso=data[index]['count']
+              this.enproceso = data[index]['count']
               break;
-              case 'En Espera':
-                this.enespera=data[index]['count']
-                break;
+            case 'Derivacion-Psi':
+              this.derivacionpsi = data[index]['count'];
+              break;
+            case 'Derivacion-Ext':
+              this.derivacionext = data[index]['count'];
+              break;
             case 'Finalizado':
-              this.finalizadas=data[index]['count']
+              this.finalizadas = data[index]['count']
               break;
             default:
               break;
           }
         }
-    
+
       }
     )
   }
 
 
   get_todos_por_opcion_fecha() {
-    this.finalizadas=0;
-    this.enproceso=0;
-    this.enespera=0;
-    this.canceladas=0;
-   
-    this.service.getestadisticatotal_fecha(this.opcion2,this.sede2, this.fechai, this.fechaf).subscribe(
+    this.finalizadas = 0;
+    this.enproceso = 0;
+    this.derivacionpsi = 0;
+    this.derivacionext = 0;
+    this.canceladas = 0;
+
+    this.service.getestadisticatotal_fecha(this.opcion2, this.sede2, this.fechai, this.fechaf).subscribe(
       data => {
-        console.log(data);
+        
         for (let index = 0; index < data.length; index++) {
           switch (data[index].estado) {
             case 'Cancelado':
-              this.canceladas=data[index]['count']
-             break;
-           case 'En Proceso':
-             this.enproceso=data[index]['count']
-             break;
-             case 'En Espera':
-               this.enespera=data[index]['count']
-               break;
-           case 'Finalizado':
-             this.finalizadas=data[index]['count']
-             break;
-           default:
-             break;
+              this.canceladas = data[index]['count']
+              break;
+            case 'En Proceso':
+              this.enproceso = data[index]['count']
+              break;
+              case 'Derivacion-Psi':
+              this.derivacionpsi = data[index]['count'];
+              break;
+            case 'Derivacion-Ext':
+              this.derivacionext = data[index]['count'];
+              break;
+            case 'Finalizado':
+              this.finalizadas = data[index]['count']
+              break;
+            default:
+              break;
           }
         }
-      
+
       }
     )
   }
 
 
 
-  reporte_personal(id){
-    this.router.navigate(['nav/report/',this.opcion, id]);
+  reporte_personal(id) {
+    this.router.navigate(['nav/report/', this.opcion, id]);
+  }
+
+  get_comentarios(){
+    this.service.get_comentarios_totales().subscribe(
+      data => {
+        this.comentarios = data;
+      })
+  }
+  get_puntaje_total(){
+    this.service.get_puntaje_total_totales().subscribe(
+      data=>{
+       this.numero_votantes = data[0].count;
+       this.total = data[0].round;
+
+      }
+    )
+  }
+  get_puntaje(){
+    this.service.get_puntaje_totales().subscribe(
+      data=>{
+        for (let index = 0; index < data.length; index++) {
+          switch (data[index].puntaje) {
+            case '5': this.puntaje5 = ((data[index].count * 100 )/ data.length)+ '%';
+              break;
+              case '4': this.puntaje4 = ((data[index].count * 100 )/ data.length)+ '%';
+              break;
+              case '3': this.puntaje3 =  ((data[index].count * 100 )/ data.length)+ '%';
+              break;
+              case '2': this.puntaje2 =  ((data[index].count * 100 )/ data.length)+ '%';
+              break;
+              case '1': this.puntaje1 = ((data[index].count * 100 )/ data.length)+ '%';
+              break;
+          }
+        }
+       
+      }
+    )
   }
 }

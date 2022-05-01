@@ -14,6 +14,9 @@ export class RegistrarAtencionService {
    
     return this.http.get<any>(this.urlEndpoint3 + '/listarpacasig/' + idpersonal);
   }
+  get_historial(idpaciente):Observable<any>{
+    return this.http.get<any>(this.urlEndpoint3 + '/get_historial/' + idpaciente)
+    }
   get_paciente_info(idpaciente):Observable<any>{
     return this.http.get<any>(this.urlEndpoint3 + '/paciente_info/' + idpaciente);
   }
@@ -21,15 +24,6 @@ export class RegistrarAtencionService {
     return this.http.get<any[]>(this.urlEndpoint3 + '/atenciones_registradas/' + idasignacion);
   }
 
-  getnroregistros(idasignacion):Observable<any>{
-   
-    return this.http.get<any>(this.urlEndpoint3 + '/numeroregistros/' + idasignacion);
-  }
-
-  getidsesion(idasignacion):Observable<any>{
-   
-    return this.http.get<any>(this.urlEndpoint3 + '/getidatencion/' + idasignacion);
-  }
   registrardata1(paciente, atencion, id):Observable<String>{
    
     return this.http.post<String>(this.urlEndpoint3 + '/registrardata1' ,{paciente,atencion,id});
@@ -39,19 +33,8 @@ export class RegistrarAtencionService {
    
     return this.http.post<String>(this.urlEndpoint3 + '/registrardata2' ,{atencion,id});
   }
-  registrardata3(atencion, id,derivacion,idpersonal):Observable<String>{
-   
-    return this.http.post<String>(this.urlEndpoint3 + '/registrardata3' ,{atencion,id,derivacion,idpersonal});
-  }
-  getatencion_pend(idpersonal):Observable<any[]>{
-   
-    return this.http.get<any[]>(this.urlEndpoint3 + '/listatencion_pend/' + idpersonal);
-  }
- 
-  updatefecha(fecha,id):Observable<any>{
-    return this.http.put<any>(this.urlEndpoint3 + '/updatefecha',{fecha,id});
 
-  }
+
 
 
 

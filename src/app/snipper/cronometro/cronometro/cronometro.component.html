@@ -1,16 +1,11 @@
-<section *ngIf="state==false">
-    <label style="font-size: 13px;font-weight: bold;">Comienza en:</label>
-    
+<section >
+    <div class="stars"  [ngStyle]="{'color': puntaje >= 4 ? '#57bb8a' : ( puntaje == 3 ? ' #ffcf02' : '#ff6f31') }">
+       
+
+       
+        <i style="width: 20px;height: 20px;" *ngFor="let estrella of puntuacion"  class="{{estrella.icon}}"></i>
         
-            <ul>
-                <li class="count-bg-one radius" *ngIf="daysToDday!=0"><span id="days">{{daysToDday}}</span>Dias</li>
-                <li class="count-bg-two radius" *ngIf="hoursToDday!=0"><span id="hours">{{hoursToDday}}</span>Horas</li>
-                <li class="count-bg-three radius" *ngIf="minutesToDday!=0"><span id="minutes"> {{minutesToDday}}</span>Minutos</li>
-                <li class="count-bg-four radius" *ngIf="secondsToDday!=0"><span id="seconds">{{secondsToDday}} </span>Segundos</li>
-            </ul>
+     
+    </div>
         
-</section>
-<section *ngIf="state==true">
-    
-    <button class="btn-log" >Ingresar ahora<i class="fas fa-video" style="margin-left: 15px;"></i></button>
 </section>

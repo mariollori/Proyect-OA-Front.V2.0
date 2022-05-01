@@ -44,18 +44,16 @@ body{
     overflow: auto;
     margin-left: 70px;
     min-height: 100vh;
-    background-image:url('https://www.wallpapertip.com/wmimgs/221-2219357_blue-gradient-wallpaper.jpg');
-    background-repeat:no-repeat;
-    background-size:100% 100%;
+ background-color: #edf1f7;
 }
 .sidebar{
 
-  background:#13c298;
+  background: #0f3971;
   z-index: 100;
   width:260px;
   overflow:hidden;
   min-height:100vh;
-  height:100vh;
+  height:100%;
   position:fixed;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   transition: width .3s;
@@ -70,13 +68,21 @@ body{
   padding:10px 15px;
   position:relative;
 }
+.sidebar.cerrar .sidehead img{
+  visibility: hidden;
+}
 .sidehead img{
   height:45px;
   border-radius: 50%;
-  margin-right:15px;
+  margin-right:8px;
+}
+.sidebar.cerrar h2{
+  display: none;
 }
 .sidehead h2{
-  color:white;
+  display: block;
+  text-transform: uppercase;
+  color:#26aa9f;
   min-width: 200px;
   font-size: 1.7rem;
 }
@@ -89,9 +95,9 @@ body{
   background-color:#dbe0e0;
   content:'';
   bottom:0;
-  width:80%;
+  width:100%;
   height:1px;
-  left:25px
+  left:0px
   
 }
 .content{
@@ -105,47 +111,47 @@ body{
 .list-op{
   width:100%;
   height:100%;
-  padding:15px 15px;
+  
   list-style:none;
   
 }
 .child-op{
-  color:white;
-  margin-bottom:8px;
-  height:40px;
-  font-weight:normal;
+  padding: 20px 20px 20px 30px;
+  color: white;
+  font-weight: 600;
   position: relative;
-  font-size:13px;
+  font-size: 12px;
+  border-bottom: 1px solid #e2e6e6;
   cursor: pointer;
   min-width: 230px;
-  display:flex;
-  padding-left:15px;
-  border-radius:5px;
-  align-items:center;
-  
+  display: flex;
+  /* border-radius: 5px; */
+  align-items: center;
 }
-.child-op:hover{
-    min-width: auto;
-    
-  color:#f3fbfd;
-  background-color:  hsl(199deg 55% 52%);
+
+.child-op label{
+  width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .child-op i{
   width:55px;
   min-width: 55px;
+  color: white;
 }
 .sidebar.cerrar .content::after{
   left: 0;
   width:100%;
 }
 .content::after{
-  position:absolute;
-  background-color:  white;
-  content:'';
-  bottom:0;
-  width:80%;
-  height:1px;
-  left:25px
+  position: absolute;
+  background-color: #e2e6e6;
+  content: '';
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  left: 0px;
   
 }
 
@@ -165,8 +171,9 @@ body{
  display:flex;
   
    font-weight:bold;
+   cursor: pointer;
   
-  color:white;
+  color:red;
   font-size:13px;
   margin-bottom:15px;
   display:flex;
@@ -187,25 +194,54 @@ body{
 .footer-son i{
     width:55px;
   min-width: 55px;
+  color: red;
+  padding-left: 5px;
 }
 
+
 .menu{
-  cursor: pointer;
-  width: 25px;
-  height: 40px;
-  position: fixed;
-  color: white;
-  clip-path: polygon(0 0, 0% 100%, 100% 50%);
-  background: #13c298;
-  transition: margin-left .3s, transform .5s;
-  top: 10px;
-  left: 75px;
+  
+  width:30px;
+  height:20px;
+ position:fixed;
+  transition: margin-left .3s,
+    transform .5s;
+  top:20px;
   z-index: 999;
+  margin-left:20px;
+}
+.menu::before,.menu::after{
+  content:" ";
+  height:5px;
+  width:100%;
+  background:#f9a601;
+  position:absolute;
 }
 .menu::after{
-  content: '▶';
-  position: absolute;
-  top: 7.5px;
+  bottom:0;
+}
+.line{
+   height:5px;
+  width:100%;
+  background:#f9a601;
+  position:absolute;
+  top:calc(50% - 2.5px)
+}
+
+.menu.activo::after{
+  transform:translatey(-150%) rotate(-45deg);
+}
+
+.menu.activo::before{
+  transform:translatey(150%) rotate(45deg);
+}
+.menu.activo .line{
+  display:none;
+}
+
+.menu.activo{
+  margin-left:270px;
+  transform:rotate(1turn);
 }
 /* .menu::before,.menu::after{
   content:" ";
@@ -225,16 +261,6 @@ body{
   top:calc(50% - 1.5px)
 } */
 
-.menu.activo::after{
-  content: '🗙';
-  color: white;
-  left: -3px;
-}
-.menu.activo{
-  
-  left:260px;
-  transform:rotate(1turn);
-}
 .bod{
   background:red;
   margin-left:75px;
@@ -246,14 +272,17 @@ body{
   
 }
 
-.sidebar.cerrar .child-op:hover .tolpit{
+.sidebar.cerrar .child-op:hover .tolpit, .footer .footer-son:hover .tolpit{
    transform:scale(1);
+}
+.footer .footer-son:hover .tolpit::before{
+  background-color: white;
 }
 
 .tolpit{
   position:fixed;
   transform-origin: 0 50%;
-  background:  hsl(199deg 55% 52%);
+  background:  #51cbce;
   transform:scale(0);
   padding:10px 15px;  
   margin-left:40px;
@@ -267,7 +296,7 @@ body{
   z-index:-1;
   width:12px;
   height:12px;
-  background-color:hsl(199deg 55% 52%);
+  background-color:#51cbce;
   left:-5px;
   top:13px;
   transform:rotate(45deg);
@@ -310,3 +339,25 @@ body::-webkit-scrollbar-track:hover,
 body::-webkit-scrollbar-track:active {
 background: #d4d4d4;
 }
+@media only screen and (max-width: 1024px) {
+  .sidebar.sidebar.cerrar{
+    width: 0px;
+  }
+  .menu::before,.menu::after,.line{
+    background-color: #0f3971;
+  }
+
+  body{
+    width: 100%;
+    margin-left: 0px;
+  }
+  .menu{
+    left: 10px;
+    top: 10px;
+    margin-left: 0;
+  }
+  .content{
+    height: 70%;
+  }
+
+ }

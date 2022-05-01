@@ -10,6 +10,7 @@ import { AuthInterceptorService } from './interceptor/auth-interceptor.service';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgToastModule } from 'ng-angular-popup';
 
 
 
@@ -24,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
+    NgToastModule,
     HttpClientModule,
     BrowserAnimationsModule
   ],

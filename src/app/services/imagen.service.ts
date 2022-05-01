@@ -6,7 +6,7 @@ import { Persona } from '../models/Persona';
   providedIn: 'root'
 })
 export class ImagenService {
-  nombre:string;
+  nombre:string 
   constructor() {
     this.nombre=localStorage.getItem('imagen')
    }

@@ -3,330 +3,458 @@
     rel="stylesheet">
 </head>
 <body>
-  <h5 class="title">Pacientes Asignados</h5>
 
-  
+
+
   <div class="container">
-    <app-spinner-blanc *ngIf="cargando" style="min-width: 30%;height:
-      80%;margin-top: 50px;"></app-spinner-blanc>
-    <div class="list-pac" *ngIf="!cargando">
-      <div class="card2" [ngClass]="{ 'xdd' : asig_actual == pac }" *ngFor="let
-        pac of pacientes_asignados">
-        <div style="display: flex;justify-content: space-between;">
-
-          <label style="font-weight: bold;font-size: 14px;">
-
-            {{pac.nombre + pac.apellido}}
-          </label>
-          <label for="" style="font-size: 13px;font-weight: bold;">{{pac.fecha |
-            date:'dd/MM/yyyy'}} <i class="fas fa-arrow-right"
-              (click)="get_info_case(pac)" style="color:#29b2e2;margin-left:
-              14px;cursor: pointer;"></i></label>
-        </div>
-        <div style="font-size: 13.5px;    display: flex;
-        flex-direction: column;">
-          <label class="category" [ngStyle]="{'background-color': pac.categoria
-            == 'Riesgo' ? 'red' : ( pac.categoria == 'Leve' ? 'green'
-            :'#ffb800') }">{{pac.categoria}}</label>
-          <label style="font-size: 13px;
-            color: #a8a8a8;
-            max-height: 50px;">{{pac.descripcion}}</label>
-          <label style="width: 100%;
-            text-align: center;
-            color: #29b2e2;"><i class="far fa-file-alt" style="margin-right:
-              10px;"></i>{{pac.nro_atenciones + ' ' + 'Atenciones Registradas'}}</label>
-        </div>
-      </div>
-
-
-
-
-
-
-    </div>
     <div class="no-data" *ngIf="!paciente_info">
-      <img src="assets/select_pac.gif" width="300px" alt="">
-      <label style="font-weight: bold;">Seleccione un paciente para ver la
+      <img
+        src="assets/registro_Atencion.png"
+        width="250px" style="margin-bottom: 35px;" alt="">
+      <label style="font-weight: bold;color:#777;">Seleccione una consulta para
+        ver la
         información correspondiente.</label>
 
     </div>
-
-    <div class="view_data" *ngIf="paciente_info">
-      <div class="data_personal">
-        <div style="text-align: center;">
-          <img [src]="paciente_info.genero == 'H'? 'assets/pach.png' :
-            'assets/pacm.png'"width="200px" alt="">
-            
-           <label class="name" [ngStyle]="{'background-color': paciente_info.categoria
-           == 'Riesgo' ? 'red' : ( paciente_info.categoria == 'Leve' ? 'green'
-           :'#ffb800') }">{{paciente_info.nombre + ' ' +
-              paciente_info.apellido}}</label>
-         
-
+    <div class="cont-view-data" *ngIf="paciente_info">
+      <app-spinner-loader *ngIf="cargando3" [message]="message" ></app-spinner-loader>
+      <div class="view_data">
+        <div class="data_personal">
+          <div style="text-align: center;width: 15%;padding-top: 10px;">
+            <img [src]="paciente_info.genero == 'H'?
+              'assets/pach.png' :
+              'assets/pacm.png'" width="80px" alt="">
+          </div>
+          <div class="info_paciente">
+            <div class="paciente_data">
+              <label class="name">{{paciente_info.nombre + ' ' +
+                paciente_info.apellido}}</label>
+              <label class="category" [ngStyle]="{'background-color':
+                paciente_info.categoria
+                == 'Riesgo' ? 'red' : ( paciente_info.categoria == 'Leve' ?
+                'green'
+                :'#ffb800') }" >{{paciente_info.categoria}}</label>
+              <label class="date">{{asig_actual.fecha | date:'dd/MM/yyyy'}}</label>
+            </div>
+            <div class="paciente_data_2">
+              <label for="" style="margin-left: 0;">{{paciente_info.genero == 'H'
+                ? 'Hombre' : 'Mujer' }}</label>
+              <label for="">{{paciente_info.departamento + ', ' + paciente_info.provincia + ', ' + paciente_info.distrito }}</label>
+              <label for="">{{paciente_info.edad + ' ' + 'años'}}</label>
+              <label for="">{{paciente_info.telefono}}</label>
+  
+            </div>
+  
+          </div>
+  
+  
         </div>
-        <div style="display: flex;flex-wrap: wrap;    padding: 12px 0px;align-items: center;">
-          <div class="info_style">
-            <label for="">Celular</label>
-            <label for="">{{paciente_info.telefono}}</label>
-          </div>
-          <div class="info_style">
-            <label for="">Edad</label>
-            <label for="">{{paciente_info.edad + ' ' + 'años'}}</label>
-          </div>
-          <div class="info_style">
-            <label for="">Lugar de Consulta</label>
-            <label for="">{{paciente_info.origen}}</label>
-          </div>
-          <div class="info_style">
-            <label for="">¿Cómo supo de OIDO AMIGO?</label>
-            <label for="">{{paciente_info.motivo}}</label>
-          </div>
-          <div class="info_style" style="width: 90%;">
-            <label for="">Descripción</label>
-            <label for="">{{paciente_info.descripcion}}</label>
-          </div>
-         
+        <div class="options">
+          <div class="card-btns2">
+            <button data-toggle="modal" data-target="#cancelaratencion">
+              Dar de Baja la Consulta
+            </button>
 
+            <div class="clipboard">
+              <p [(ngModel)]="textValue">{{textValue}}</p>
+              <button  cdkCopyToClipboard="{{textValue}}">Copiar</button>
+            </div>
+  
+  
+          </div>
+  
         </div>
-
+        <div class="list_reports">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="home-tab" data-toggle="tab"
+                href="#home" role="tab" aria-controls="home" aria-selected="true">Datos
+                de la Atención</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="profile-tab" data-toggle="tab"
+                href="#profile" role="tab" aria-controls="profile"
+                aria-selected="false">Historial</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel"
+              aria-labelledby="home-tab">
+              <div class="datos_consulta" *ngIf="paciente_info.ocupacion">
+                <h6>Datos extra del consultante</h6>
+                <div class="bottom">
+                  <div class="pt1">
+                    <div>
+                      <label for=""><i class="fas fa-plus"></i>Religión</label>
+                      <label for="">{{paciente_info.religion}}</label>
+  
+                    </div>
+                    <div>
+                      <label for=""> <i class="fas fa-plus"></i>Ocupación</label>
+                      <label for="">{{paciente_info.ocupacion}}</label>
+  
+                    </div>
+                    <div>
+                      <label for=""> <i class="fas fa-plus"></i>Grado de
+                        instrucción</label>
+                      <label for="">{{paciente_info.grado_educacion}}</label>
+                    </div>
+                    <div>
+                      <label for=""><i class="fas fa-plus"></i>Problema Actual</label>
+                      <label for="">{{paciente_info.problema_actual}}</label>
+  
+                    </div>
+                  </div>
+                  <div class="pt1">
+                    <div>
+                      <label for=""> <i class="fas fa-plus"></i>Fecha de
+                        nacimiento</label>
+                      <label for="">{{paciente_info.fecha_nacimiento | date:'dd-MM-yyyy'}}</label>
+                    </div>
+                    <div>
+                      <label for=""> <i class="fas fa-plus"></i>Estado civil</label>
+                      <label for="">{{paciente_info.estado_civil}}</label>
+                    </div>
+                    <div>
+                      <label for=""> <i class="fas fa-plus"></i>Nro Hijos</label>
+                      <label for="">{{paciente_info.nro_hijos}}</label>
+                    </div>
+                    <div>
+                      <label for=""><i class="fas fa-plus"></i>Antecedentes</label>
+                      <label for="">{{paciente_info.antecedentes}}</label>
+    
+                    </div>
+                  </div>
+                  
+  
+                </div>
+              </div>
+              <div class="datos_consulta">
+                <h6>Datos de Consulta</h6>
+                <div class="bottom">
+                  <div class="pt1">
+                    <div>
+                      <label for=""><i class="fas fa-plus"></i>¿Cómo supo de OÍDO
+                        AMIGO?</label>
+                      <label for="">{{paciente_info.como_conocio}}</label>
+  
+                    </div>
+                    <div>
+                      <label for=""> <i class="fas fa-plus"></i>Motivo de
+                        consulta:</label>
+                      <label for="">{{paciente_info.descripcion}}</label>
+  
+                    </div>
+                  </div>
+                  <div class="pt2">
+                    <button data-target="#register_aten"
+                      data-toggle="modal">
+                      Nueva Atención
+                    </button>
+                    <button data-toggle="modal" data-target="#exampleModal"
+                      (click)="ver_respuestas(paciente_info.respuestas)">
+                      SQR del consultante
+                    </button>
+                  </div>
+  
+                </div>
+              </div>
+              <div class="list-reportes" style="width: 90%;margin: 0 auto;">
+                <h6>Reportes Registrados</h6>
+                <label style="padding: 25px; font-size: 14px;"
+                  *ngIf="!atenciones_registradas">Aun no se han registrado
+                  reportes para este paciente.</label>
+                <div class="list-aten">
+                  <table class="table table-hover table-bordered" style="width:
+                    100%;font-size: 13px;">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th>Nro Sesión</th>
+                        <th>Fecha de Sesión</th>
+                        <th>Ver información de Sesión</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+  
+                      <tr *ngFor="let aten of atenciones_registradas">
+                        <td>{{aten.nro_sesion}}</td>
+                        <td>{{aten.fecha_sesion | date:'dd/MM/yyyy'}}</td>
+                        <td><button class="ver_atencion"
+                            (click)="mostrar_asignacion_id(aten)"
+                            data-toggle="modal"
+                            data-target="#verasignacion"><i class="fas fa-eye"
+                              style="margin-right: 10px;"></i>Ver descripción</button>
+                        </td>
+                      </tr>
+  
+                    </tbody>
+                  </table>
+  
+  
+                </div>
+              </div>
+  
+            </div>
+  
+            <div class="tab-pane fade" id="profile" role="tabpanel"
+              aria-labelledby="profile-tab">
+              <label *ngIf="historial.length == 0" for="">Este consultante no
+                tiene un historial previo.</label>
+              <div *ngIf="historial.length != 0">
+                <table class="table table-hover table-bordered" style="width:
+                  100%;font-size: 13px;">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th>Estado de la sesión</th>
+                      <th>Fecha</th>
+                      <th>Descripción</th>
+                      <th>Ver información de Sesión</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+  
+                    <tr *ngFor="let his of historial">
+                      <td>{{his.estado}}</td>
+                      <td>{{his.fecha | date:'dd/MM/yyyy'}}</td>
+                      <td>{{his.motivo}}</td>
+                      <td><button class="ver_atencion" data-target="#ver_hist"
+                          data-toggle="modal"
+                          (click)="mostrar_info_asignacion(his)"><i class="fas
+                            fa-eye"
+                            style="margin-right: 10px;"></i>Ver descripción</button>
+                      </td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </div>
+  
+            </div>
+  
+          </div>
+  
+  
+  
+        </div>
       </div>
-      <div class="options">
-        <div class="card-btns2">
-          <button data-target="#register_aten"
-            data-toggle="modal">
-            Registrar Atención
-          </button>
-          <button data-toggle="modal" data-target="#cancelaratencion">
-            Dar de Baja la Sesión
-          </button>
-          <button data-toggle="modal" data-target="#exampleModal"
-            (click)="ver_respuestas(paciente_info.respuestas)">
-            Ver SQR del Paciente
-          </button>
-          
-        </div>
-
-      </div>
-      <div class="list_reports">
-        <h6>Reportes Registrados</h6>
-        <label style="padding: 25px; font-size: 14px;"
-          *ngIf="!atenciones_registradas">Aun no se han registrado
-          reportes para este paciente.</label>
-        <div class="list-aten">
-          <table class="table table-hover" style="width: 100%;font-size: 13px;">
-            <thead>
-              <tr>
-                <th>Nro Sesión</th>
-                <th>Fecha de Sesión</th>
-                <th>Ver información de Sesión</th>
-              </tr>
-            </thead>
-            <tbody>
-
-              <tr *ngFor="let aten of atenciones_registradas">
-                <td>{{aten.nro_sesion}}</td>
-                <td>{{aten.fecha_sesion | date:'dd/MM/yyyy'}}</td>
-                <td><button class="ver_atencion"
-                    (click)="mostrar_asignacion_id(aten)" data-toggle="modal"
-                    data-target="#verasignacion"><i class="fas fa-eye"
-                      style="margin-right: 10px;"></i>Ver descripción</button>
-                </td>
-              </tr>
-
-            </tbody>
-          </table>
-
-
-        </div>
-
-
-      </div>
+      
 
 
 
     </div>
 
+  
+    <div class="list-pac" >
+    <app-spinner-blanc *ngIf="cargando" style="height:80%;" [message]="message"></app-spinner-blanc>
+      <h5 class="title" *ngIf="!cargando" >Consultas iniciadas</h5>
+      <div class="card2" [ngClass]="{ 'xdd' : asig_actual == pac }" *ngFor="let
+        pac of pacientes_asignados">
+        <div class="left">
+          <label for="" style="font-size: 18px;font-weight: bold;text-align:
+            center;">{{pac.fecha |
+            date:'MMM d'}} </label>
+          <i class="far fa-check-circle" (click)="get_info_case(pac)"
+            style="color:#29b2e2;cursor: pointer;"></i>
 
+        </div>
+        <div class="rigth">
+
+          <label >
+            {{pac.nombre + pac.apellido}} <label class="category"
+              [ngStyle]="{'background-color': pac.categoria
+              == 'Riesgo' ? 'red' : ( pac.categoria == 'Leve' ? 'green'
+              :'#ffb800') }" style="color: white;">{{pac.categoria}}</label></label>
+          <label >{{pac.descripcion}}</label>
+          <label ><i class="far
+              fa-file-alt" style="margin-right:10px;font-size: 13px;"></i>{{pac.nro_atenciones
+            }} {{pac.nro_atenciones == 1 ? 'Atencion' :'Atenciones' }}</label>
+        </div>
+
+      </div>
+
+
+
+
+
+
+    </div>
+
+    <h5 class="title-d2">Consultas iniciadas</h5>
 
 
 
 
 
   </div>
-  
-  
 
 
-<!-- Modal Registro de Atencion xd -->
-<div class="modal fade bd-example-modal-lg" id="register_aten" tabindex="-1"
-  role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <app-spinner-blanc *ngIf="cargando2"></app-spinner-blanc>
-      <div class="modal-body" *ngIf="!cargando2">
-        <div style="width: 100%;height: 100px;display: flex;
-          justify-content: center;align-items: center ;">
-          <h5 style="font-weight: bold;font-size: 19px;">Registrar Atención
-          </h5>
-         
-          
+
+
+  <!-- Modal Registro de Atencion xd -->
+  <div class="modal fade bd-example-modal-lg" id="register_aten" tabindex="-1"
+    role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <app-spinner-blanc *ngIf="cargando2" [message]="message"></app-spinner-blanc>
+        <div class="modal-body" *ngIf="!cargando2">
+          <div style="width: 100%;height: 100px;display: flex;
+            justify-content: center;align-items: center ;">
+            <h5 style="font-weight: bold;font-size: 19px;color: #0f3971;">Registrar Atención
+            </h5>
+
+
+          </div>
+
+          <div class="form-personal" *ngIf="counter==0">
+            <h5>Datos personales del consultante</h5>
+            <form [formGroup]="datapaciente" class="formulario">
+
+              
+
+              <div class="input-style" style="width: 48%;">
+                <label>Religión<span style="color: red;">*</span></label>
+                <input type="text" formControlName="religion" />
+              </div>
+
+              <div class="input-style" style="width: 48%;">
+                <label>Ocupación<span style="color: red;">*</span></label>
+                <input type="text" formControlName="ocupacion" />
+              </div>
+
+              <div class="input-style" style="width: 48%;">
+                <label>Fecha de Nacimiento<span style="color: red;">*</span></label>
+                <input type="date" formControlName="fecha_nacimiento" />
+              </div>
+
+
+
+              <div class="input-style" style="width: 48%;">
+                <label>Grado de Instrucción<span style="color: red;">*</span></label>
+                <select formControlName="grado_educacion" name="food">
+                  <option value="No escolarizado">No escolarizado</option>
+                  <option value="Primaria incompleta">Primaria incompleta</option>
+                  <option value="Primaria"> Primaria</option>
+                  <option value="Secundaria incompleta"> Secundaria incompleta</option>
+                  <option value="Secundaria">Secundaria</option>
+                  <option value="Técnico superior incompleto"> Técnico superior
+                    incompleto</option>
+                  <option value="Técnico superior">Técnico superior</option>
+                  <option value="Superior incompleto">Superior incompleto</option>
+                  <option value="Superior">Superior</option>
+                </select>
+              </div>
+
+
+              <div class="input-style" style="width: 48%;">
+                <label>Estado Civil<span style="color: red;">*</span></label>
+                <select formControlName="estado_civil" name="food">
+                  <option value="Soltero"> Soltero</option>
+                  <option value="En una Relacion">En una relación</option>
+                  <option value="Conviviente">Conviviente</option>
+                  <option value="Ex-Conviviente">Ex-Conviviente</option>
+                  <option value="Casado">Casado</option>
+                  <option value="Separado"> Separado</option>
+                  <option value="Divorciado"> Divorciado</option>
+                  <option value="Viudo">Viudo</option>
+                </select>
+              </div>
+
+
+
+              <div class="input-style" style="width: 48%;">
+                <label>Nro Hijos:</label>
+                <input type="text" formControlName="nro_hijos" />
+              </div>
+
+              <div class="input-style" style="width: 48%;">
+                <label>Problema Actual <span style="color: red;">*</span></label>
+                <textarea formControlName="problema_actual"></textarea>
+              </div>
+              <div class="input-style" style="width: 48%;">
+                <label>Antecedentes <span style="color: red;">*</span></label>
+                <textarea formControlName="antecedentes"></textarea>
+
+              </div>
+
+
+
+
+            </form>
+
+          </div>
+
+
+          <div class="form-sesion">
+            <h5>Datos de la sesión</h5>
+            <form [formGroup]="datosatencion" class="formulario">
+
+
+              <div class="input-style" style="width: 48%;">
+                <label>Observaciones Generales <span style="color: red;">*</span></label>
+                <textarea formControlName="observaciones"></textarea>
+
+
+              </div>
+              <div class="input-style" style="width: 48%;">
+                <label>Acciones Realizadas <span style="color: red;">*</span></label>
+                <textarea formControlName="acciones_realizadas"></textarea>
+              </div>
+
+              <div class="input-style" style="width: 48%;">
+                <label>Conclusiones <span style="color: red;">*</span></label>
+                <textarea formControlName="conclusiones"></textarea>
+
+
+              </div>
+
+              <div class="input-style" style="width: 48%;">
+                <label>Recomendaciones <span style="color: red;">*</span></label>
+                <textarea formControlName="recomendaciones"></textarea>
+
+
+
+              </div>
+             
+             
+              <div class="input-style" style="width: 98%;position: relative;">
+                <label>Evidencia <span style="color: red;">*</span></label>
+
+                <input  formControlName="evidencia"  [class.is-invalid]="this.datosatencion.get('evidencia').invalid && this.datosatencion.get('evidencia').touched " class="form-control"/>
+                <div *ngIf="this.datosatencion.get('evidencia').hasError('pattern') && this.datosatencion.get('evidencia').touched " class="invalid-feedback">
+                  (Por favor ingrese una url válida.)
+                </div>
+                <button class="info_ev"><i class="fas fa-question-circle"></i>
+                  <span>Ingrese el link del drive donde adjunto su evidencia.
+                    <label style="color: red;padding: 0;">(Hacerlo publico para
+                      acceder.)</label> </span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div class="btns-form" *ngIf="counter==0">
+              <button mat-button (click)="reset()" data-dismiss="modal"
+                class="btn-step2">Cancelar </button>
+              <button mat-button class="btn-step" (click)="registraratencion()"
+                [disabled]="datapaciente.invalid || datosatencion.invalid">
+                Guardar </button>
+            </div>
+            <div class="btns-form" *ngIf="counter> 0">
+              <button mat-button (click)="reset()" data-dismiss="modal"
+                class="btn-step2">Cancelar </button>
+              <button mat-button class="btn-step" (click)="registraratencion()"
+                [disabled]="datosatencion.invalid">Guardar</button>
+            </div>
+          </div>
         </div>
-
-        <div class="form-personal" *ngIf="counter==0">
-          <h5>Datos Personales del Paciente</h5>
-          <form [formGroup]="datapaciente" class="formulario">
-
-            <div class="input-style" style="width: 48%;">
-              <label class="xd"> Ciudad <span style="color: red;">*</span></label>
-              <input type="text" formControlName="ciudad" />
-            </div>
-
-            <div class="input-style" style="width: 48%;">
-              <label>Religión<span style="color: red;">*</span></label>
-              <input type="text" formControlName="religion" />
-            </div>
-
-            <div class="input-style" style="width: 48%;">
-              <label>Ocupación<span style="color: red;">*</span></label>
-              <input type="text" formControlName="ocupacion" />
-            </div>
-
-            <div class="input-style" style="width: 48%;">
-              <label>Fecha de Nacimiento<span style="color: red;">*</span></label>
-              <input type="date" formControlName="fecha_nacimiento" />
-            </div>
-
-
-
-            <div class="input-style" style="width: 38%;">
-              <label>Grado de Instrucción<span style="color: red;">*</span></label>
-              <select formControlName="grado_educacion" name="food">
-                <option value="No escolarizado">No escolarizado</option>
-                <option value="Primaria incompleta">Primaria incompleta</option>
-                <option value="Primaria"> Primaria</option>
-                <option value="Secundaria incompleta"> Secundaria incompleta</option>
-                <option value="Secundaria">Secundaria</option>
-                <option value="Técnico superior incompleto"> Técnico superior
-                  incompleto</option>
-                <option value="Técnico superior">Técnico superior</option>
-                <option value="Superior incompleto">Superior incompleto</option>
-                <option value="Superior">Superior</option>
-              </select>
-            </div>
-
-
-            <div class="input-style" style="width: 38%;">
-              <label>Estado Civil<span style="color: red;">*</span></label>
-              <select formControlName="estado_civil" name="food">
-                <option value="Soltero"> Soltero</option>
-                <option value="En una Relacion">En una Relación</option>
-                <option value="Conviviente">Conviviente</option>
-                <option value="Casado">Casado</option>
-                <option value="Separado"> Separado</option>
-                <option value="Divorciado"> Divorciado</option>
-                <option value="Viudo">Viudo</option>
-              </select>
-            </div>
-
-
-
-            <div class="input-style" style="width: 18.5%;">
-              <label>Nro Hijos:</label>
-              <input type="text" formControlName="nro_hijos" />
-            </div>
-
-            <div class="input-style" style="width: 48%;">
-              <label>Problema Actual <span style="color: red;">*</span></label>
-              <textarea formControlName="problema_actual" ></textarea>
-            </div>
-            <div class="input-style" style="width: 48%;">
-              <label>Antecedentes <span style="color: red;">*</span></label>
-              <textarea formControlName="antecedentes"></textarea>
-            
-            </div>
-
-
-
-
-          </form>
-
-        </div>
-
-
-        <div class="form-sesion">
-          <h5>Datos de la Sesión</h5>
-          <form [formGroup]="datosatencion" class="formulario">
-
-
-            <div class="input-style" style="width: 48%;">
-              <label>Observaciones Generales <span style="color: red;">*</span></label>
-              <textarea formControlName="observaciones"
-               ></textarea>
-
-
-            </div>
-            <div class="input-style" style="width: 48%;">
-              <label>Acciones Realizadas <span style="color: red;">*</span></label>
-              <textarea formControlName="acciones_realizadas"
-               ></textarea>
-
-
-
-            </div>
-
-            <div class="input-style" style="width: 48%;">
-              <label>Conclusiones <span style="color: red;">*</span></label>
-              <textarea formControlName="conclusiones"
-               ></textarea>
-
-
-            </div>
-
-            <div class="input-style" style="width: 48%;">
-              <label>Recomendaciones <span style="color: red;">*</span></label>
-              <textarea formControlName="recomendaciones"
-               ></textarea>
-
-
-
-            </div>
-
-            <div class="input-style" style="width: 98%;position: relative;">
-              <label>Evidencia <span style="color: red;">*</span></label>
-              <input type="text" formControlName="evidencia" />
-              <button class="info_ev"><i class="fas fa-question-circle"></i>
-              <span >Ingrese el link del drive donde adjunto su evidencia. <label style="color: red;padding: 0;">(Hacerlo publico para acceder.)</label> </span>
-              </button>
-            </div>
-
-          </form>
-        </div>
-      </div>
-      <div class="modal-footer" style="border-top: none;">
-        <div class="btns-form" *ngIf="counter==0">
-          <button mat-button (click)="reset()" data-dismiss="modal"
-            class="btn-step2">Cancelar </button>
-          <button mat-button class="btn-step" (click)="registraratencion()"
-            [disabled]="datapaciente.invalid || datosatencion.invalid">
-            Guardar </button>
-        </div>
-        <div class="btns-form" *ngIf="counter> 0">
-          <button mat-button (click)="reset()" data-dismiss="modal"
-            class="btn-step2">Cancelar </button>
-          <button mat-button class="btn-step" (click)="registraratencion()"
-            [disabled]="datosatencion.invalid">Guardar</button>
-        </div>
+     
       </div>
     </div>
+
+
+   
   </div>
-
-
-  <script>
-    $(document).ready(function(){
-      $('[data-toggle="popover"]').popover();   
-    });
-    </script>
-</div>
 
 </body>
 
@@ -335,45 +463,56 @@
   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-
-      <div class="modal-body">
-        <div style="display: flex;justify-content: center;margin-bottom: 15px;">
+      <app-spinner-blanc *ngIf="cargando2" style="height:80%;" [message]="message"></app-spinner-blanc>
+      <div class="modal-body" *ngIf="!cargando2"  style="border-top: 4px solid #0f3971;">
+        <div style="display: flex;justify-content: start;margin-bottom: 15px;">
           <h5 class="modal-title" style="color: black;font-weight: bold;">Dar de
             Baja la Sesión</h5>
         </div>
-        <label style="font-size: 13px;color: #52a2cb;margin-bottom: 20px;">
-          (Esta acción es
-          irreversible. Si está seguro de continuar introdusca el motivo para
-          dar de baja al paciente.)</label>
+        <label style="font-size: 13px;color: #081d39;margin-bottom: 30px;">
+          Esta acción es
+          irreversible. Si está seguro de continuar introduzca el motivo para
+          dar de baja al paciente.</label>
 
-        <div *ngIf="paciente_info" style="display: flex;flex-direction:
-          row;align-items: center;margin-bottom: 15px;">
-          <label style="min-width: 100px;font-size: 13.5px;margin: 0;">Paciente</label>
-          <input type="text" style="font-size: 14px;font-weight: bold;border:
-            none;background: transparent;" [(ngModel)]="paciente_info.nombre + '
-            ' +paciente_info.apellido" disabled>
-        </div>
+       
 
-        <div style="width: 100%;display: flex;flex-direction: row;margin-bottom:
+        <div style="width: 100%;display: flex;flex-direction: column;margin-bottom:
           10px;">
-          <label style="min-width: 100px;font-size: 13.5px;"> Motivo <span
+          <label style="min-width: 100px;font-size: 13px;font-weight: 500;"> Motivo <span
               style="color: red;">*</span></label>
           <select style="margin-bottom: 10px;" [(ngModel)]="motivo">
             <option value="Cancelado">Caso Trunco</option>
-            <option value="Derivado">Derivación Inmediata</option>
-            <option value="Finalizado"> Terminó 3 Sesiones</option>
+            <option value="Derivacion-Psi" *ngIf="token.hasRole('Interno')">Derivación
+              Inmediata</option>
+            <option value="Derivacion-Ext" *ngIf="token.hasRole('Psicologo')">Derivación
+              a ente externo</option>
+            <option value="Finalizado" *ngIf="counter>=3"> Terminó 3 Sesiones</option>
+
           </select>
         </div>
 
-        <div style="display: flex;flex-direction: row;margin-bottom: 30px;">
-          <label style="min-width: 100px;font-size: 13.5px;">Descripción</label>
-          <textarea style="width: 100%;" [(ngModel)]="detalle_motivo" rows="3"></textarea>
+        <div style="display: flex;flex-direction: column;margin-bottom: 20px;">
+          <label style="min-width: 100px;font-size: 13px;font-weight: 500;">Descripción</label>
+          <textarea style="width: 100%;text-transform: none;" [(ngModel)]="detalle_motivo"   rows="3"></textarea>
         </div>
+        <div *ngIf="paciente_info" style="display: flex;flex-direction: row;align-items: center;margin-bottom: 25px;    justify-content: space-between;">
+         <label style="max-width: 60%;font-size: 13.5px;margin: 0;overflow: hidden;">Paciente: {{paciente_info.nombre + '
+          ' +paciente_info.apellido}}</label>
+          <div   *ngIf="token.hasRole('Psicologo')" class="directorio">
+            <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ0jRU2Pi8FlQQ5jcAtqqtSxaMQxFLePijnh75uUMsAqyasPNcrXwjQplGH3sX3AA/pubhtml?gid=1000716901&single=true" target="_blank">
+              Ver directorio 208 CSMC
+            </a>
+          </div>
+      </div>
+
+      
+     
 
         <div class="btns-form">
           <button data-dismiss="modal"
             class="btn-step2">Cancelar </button>
-          <button class="btn-step" [disabled]="motivo.length == 0" (click)="cancelaratencion()">Guardar</button>
+          <button class="btn-step" [disabled]="!motivo || detalle_motivo.length < 5"
+            (click)="cancelaratencion()">Guardar</button>
         </div>
 
 
@@ -422,8 +561,12 @@
   aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #13c298;
-        color: white;">
+      <div class="modal-header"  style="background-color: #f5f8fd;
+      border-bottom: 0;
+      height: 75px;
+      justify-content: center;
+      position: relative;
+      align-items: center;">
         <h5 *ngIf="aten_paciente" class="modal-title" id="exampleModalLabel">Reporte
           de Sesión {{aten_paciente.nro_sesion}} </h5>
         <button type="button" class="close" data-dismiss="modal"
@@ -462,13 +605,175 @@
           <div class="input-style2" style="width: 98%;">
             <label>Evidencia :</label>
             <a href="{{aten_paciente.evidencia}}" style="padding-left:
-              10px;max-width: 100%;font-size: 13px;" target="_blank">{{aten_paciente.evidencia}}</a>
+              10px;max-width: 60%;font-size: 13px;overflow: hidden;" target="_blank">{{aten_paciente.evidencia}}</a>
           </div>
 
         </form>
 
       </div>
 
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Modal Ver historial-->
+<div class="modal fade" id="ver_hist" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #f5f8fd;
+        border-bottom: 0;
+        height: 100px;
+        justify-content: center;
+        position: relative;
+        align-items: center;">
+        <h5 *ngIf="data_asignacion" class="modal-title" id="exampleModalLabel"
+          style="font-weight: bold;font-size: 16px;">Reporte de atención {{ ' '
+          +data_asignacion.fecha | date : 'dd/MM/yyyy'}}</h5>
+        <i class="fas fa-window-close close test" data-dismiss="modal"
+          aria-label="Close"></i>
+
+
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <div class="left">
+            <label *ngIf="data_asignacion" class="estado"> {{data_asignacion.estado}}</label>
+            <div class="asig_data" *ngIf="data_asignacion">
+              <div class="info_style">
+                <label for="">Dado de baja por</label>
+                <label for="">{{data_asignacion.motivo}}</label>
+              </div>
+              <div class="info_style">
+                <label for="">Categoría</label>
+                <label for="">{{data_asignacion.categoria}}</label>
+              </div>
+              <div class="info_style">
+                <label for="">Antecedentes</label>
+                <label for="">{{data_asignacion.antecedentes}}</label>
+              </div>
+              <div class="info_style">
+                <label for="">Problema actual</label>
+                <label for="">{{data_asignacion.problema_actual}}</label>
+              </div>
+              <div class="info_style">
+                <label for="">Motivo de consulta</label>
+                <label for="">{{data_asignacion.descripcion}}</label>
+              </div>
+            </div>
+            <div style="height: 23%;width: 100%;display: flex;justify-content: center;">
+              <img src="assets/modal_historial.png" style="height: 100%;" alt="">
+            </div>
+          </div>
+
+         
+          <div class="top">
+            <h6>Voluntario Asignado</h6>
+            <div style="   display: flex;padding: 25px;            flex-direction: row;" *ngIf="voluntario_asig">
+              
+              <div class="img">
+                <img src="assets/psicologo.jpg" width="100%" alt="">
+              </div>
+              <div class="data">
+                <div class="info_style" style="width: 100%;">
+                  <label>Nombre completo:</label>
+                  <p for="">{{voluntario_asig.nombre + ' ' + voluntario_asig.apellido}}</p>
+                </div>
+                <div class="info_style" style="width: 45%;">
+                  <label>Sede:</label>
+                  <p for="">{{voluntario_asig.sede}}</p>
+                </div>
+                <div class="info_style" style="width: 45%;">
+                  <label>Ciclo / Grupo</label>
+                  <p >{{voluntario_asig.ciclo + ' ' + '/' + ' ' + voluntario_asig.grupo}}</p>
+                </div>
+
+                <div class="info_style" style="width: 100%;">
+                  <label>Celular:</label>
+                  <p for="">{{voluntario_asig.telefono}}</p>
+                </div>
+              </div>
+            </div>
+
+            
+          </div>
+
+
+
+          <div class="rigth">
+            <h6>
+              Lista de sesiones
+            </h6>
+            
+              <label style="font-size: 15px;padding-left: 10px;"  *ngIf="list_atenciones.length== 0" for="">No se registraron sesiones en esta atención.</label>
+            <div *ngIf="list_atenciones.length> 0">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation" *ngFor="let aten of
+                  list_atenciones">
+                  <a class="nav-link"data-toggle="tab" href="{{'#tab' +
+                    aten.nro_sesion}}" [class.active]="aten.nro_sesion == 1"
+                    role="tab" aria-controls="home" aria-selected="false">{{'Sesion'
+                    +' ' + aten.nro_sesion}} <p style="margin-bottom:
+                      0;font-weight: normal;font-size: 13.5px;">{{aten.fecha_sesion
+                      | date : 'dd/MM/yyyy'}}</p></a>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade" *ngFor="let aten of list_atenciones"
+                  [class.active]="aten.nro_sesion == 1"
+                  [class.show]="aten.nro_sesion == 1" id="{{'tab' +
+                  aten.nro_sesion}}" role="tabpanel">
+                  <form style="display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;">
+
+                    <div class="info_style" style="width: 47%;">
+                      <label>Observaciones Generales:</label>
+                      <textarea [ngModel]="aten.observaciones" disabled
+                        placeholder="Ex. It makes me feel..."
+                        name="observaciones"></textarea>
+                    </div>
+
+                    <div class="info_style" style="width: 47%;">
+                      <label>Acciones Realizadas:</label>
+                      <textarea [ngModel]="aten.acciones_realizadas" disabled
+                        placeholder="Ex. It makes me feel..." name="acciones"></textarea>
+                    </div>
+
+                    <div class="info_style" style="width: 47%;">
+                      <label>Conclusiones:</label>
+                      <textarea [ngModel]="aten.conclusiones" disabled
+                        placeholder="Ex. It makes me feel..."
+                        name="conclusiones"></textarea>
+                    </div>
+
+                    <div class="info_style" style="width: 47%;">
+                      <label>Recomendaciones:</label>
+                      <textarea [ngModel]="aten.recomendaciones" disabled
+                        placeholder="Ex. It makes me feel..."
+                        name="recomendaciones"></textarea>
+                    </div>
+
+                    <div class="info_style" style="width: 98%;height:
+                      50px;margin-top: 25px;">
+                      <label>Evidencia :</label>
+                      <a href="{{aten.evidencia}}" style="max-width:
+                        100%;font-size: 13px;" target="_blank">{{aten.evidencia}}</a>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>

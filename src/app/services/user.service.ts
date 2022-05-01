@@ -20,8 +20,8 @@ export class UserService {
   urlEndpoint3 = "http://localhost:5050/opcion";
   urlEndpoint4 = "http://localhost:5050/psicologo";
   urlEndpoint5 = "http://localhost:5050/paciente";
-  eliminarsolicitud(idpersonal,idpersona):Observable<any>{
-    return this.http.post<any>(this.urlEndpoint4 + '/deletepersona', { idpersonal,idpersona})
+  eliminarsolicitud(idpersonal,idpersona,tipo):Observable<any>{
+    return this.http.post<any>(this.urlEndpoint4 + '/deletepersona', { idpersonal,idpersona,tipo})
    }
 
   get_nombre_usuario(idpersonal):Observable<Persona>{
@@ -32,7 +32,9 @@ export class UserService {
    
     return this.http.get<Persona>(this.urlEndpoint + '/' + idusuario);
   }
-
+derivacion_ext(id, motivo){
+  return this.http.post<any>(this.urlEndpoint5 + '/derivar_externo/' + id,{motivo});
+}
 
   getopciones(roles:Rol[]):Observable<Opciones[]>{
     const idroles=[];
@@ -48,8 +50,11 @@ export class UserService {
   getusers():Observable<Usuario[]>{
     return this.http.get<Usuario[]>(this.urlEndpoint + '/getuserstocompare/getdata')
    }
-   crearusuario(username,password,idpersonal,destino):Observable<any>{
-    return this.http.post<any>(this.urlEndpoint4 + '/crearusuario', { username,password,idpersonal,destino})
+   crearusuario(username,password,idpersonal,destino,rol):Observable<any>{
+    return this.http.post<any>(this.urlEndpoint4 + '/crearusuario', { username,password,idpersonal,destino,rol})
+   }
+   desactivar_usuario(id):Observable<any>{
+    return this.http.delete<any>(this.urlEndpoint3 + '/desactivar_user/' + id)
    }
 
 
@@ -69,7 +74,7 @@ export class UserService {
    finalizar_atencion(id,motivo):Observable<any>{
     return this.http.post<any>(this.urlEndpoint5 + '/finalizar_atencion/' + id,{motivo});
    }
-   derivar_atencion(id,motivo,idpaciente):Observable<any>{
-    return this.http.post<any>(this.urlEndpoint5 + '/derivar_atencion/' + id, {idpaciente,motivo});
+   derivar_atencion(id,motivo,idpaciente,codex):Observable<any>{
+    return this.http.post<any>(this.urlEndpoint5 + '/derivar_atencion/' + id, {idpaciente,motivo,codex});
    }
 }

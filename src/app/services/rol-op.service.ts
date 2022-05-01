@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -12,11 +12,22 @@ export class RolOpService {
   constructor(private auth:AuthService,private http:HttpClient) { }
    url = 'http://localhost:5050/EX3/opcion'
      ///-------------------------Psicologos******************-------------------------------------
-  getpsicologos():Observable<any>{
-   
-    return this.http.get<any>(this.urlEndpoint1 + '/getsolpsi');
+  getpsicologos(tipo,sede):Observable<any>{
+    let params = new HttpParams().set("tipo",tipo).append("sede",sede);
+    return this.http.get<any>(this.urlEndpoint1 + '/getsolpsi',{params:params});
   }
- 
+  listarusuarios(tipo,sede):Observable<any>{
+    let params = new HttpParams().set("tipo",tipo).append("sede",sede);
+    return this.http.get<any>(this.url + '/listarusers',{params:params});
+
+  }
+  listarusuarios_desactivados():Observable<any>{
+   
+    return this.http.get<any>(this.url + '/listarusers_desactives');
+
+  }
+
+
 
 
 
@@ -80,11 +91,7 @@ export class RolOpService {
  
     }
 
-    listarusuarios():Observable<any>{
-      return this.http.get<any>(this.url + '/listarusers');
-
-    }
-
+ 
     agregarrol_user(idusuario,idrol):Observable<string>{
       return this.http.post<string>(this.url +'/asignarrol', {idusuario,idrol});
  
@@ -106,5 +113,8 @@ export class RolOpService {
     }
     deleteroluser(id:number):Observable<any>{
       return this.http.delete<any>(this.url + '/eliminarroluser/' + id );
+    }
+    activar_user(id:number):Observable<any>{
+      return this.http.delete<any>(this.url + '/activar_user/' + id );
     }
 }

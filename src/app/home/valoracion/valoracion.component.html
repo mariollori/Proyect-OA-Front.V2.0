@@ -1,0 +1,37 @@
+<head>
+    <link rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    
+  </head>
+  <app-spinner-loader *ngIf="cargando" [message]="message"></app-spinner-loader>
+<body>
+    <button id="btn-home" (click)="volver()"><i style="margin-right: 15px;" class="fas fa-home"></i>Home</button>
+    <div class="container">
+        <h6>Puntúa nuestra Atención!</h6>
+        <label for="" class="subtitle">Gracias por confiar en nosotros, esperamos haberle dado la atención que merece.</label>
+        <div class="value">
+            <div class="punt">
+                <div class="stars">
+                    <label  for="">Poco Satisfecho</label>
+                    <i class="fas fa-frown" style="color: #ffd43b;width: 20px;height: 20px;" ></i> 
+                    <i style="color: #ffd43b;width: 20px;height: 20px;"  *ngFor="let estrella of puntuacion" (click)="asignar(estrella.valor)" class="{{estrella.icon}}"></i>
+                    <i class="fas fa-grin-stars" style="color: #ffd43b;width: 20px;height: 20px;" ></i>
+                    <label for="">Muy Satisfecho</label>
+                </div>
+                
+            </div>
+             <div class="punt" >
+                 <label for="">DNI</label>
+                 <input type="text" [(ngModel)]="dni">
+             </div>
+             <div class="punt" >
+                 <label for="">¿Qué tal le pareció nuestra atención?</label>
+                 <textarea name="" id="" cols="30" rows="10" [(ngModel)]="descripcion"></textarea>
+             </div>
+             <button class="send" (click)="registrar_puntuacion()">Enviar<i class="far fa-paper-plane" style="margin-left: 3px;"></i></button>
+        </div>
+       
+
+
+    </div>
+</body>    

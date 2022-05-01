@@ -44,7 +44,9 @@ export class HomeComponent implements OnInit {
     this.route.navigate(['/home/loginpsi'])
   }
 
-
+value(){
+  this.route.navigate(['/home/valoracion'])
+}
 
 
 

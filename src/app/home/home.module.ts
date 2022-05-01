@@ -10,6 +10,10 @@ import { FragmentsModule } from '../snipper/fragments.module';
 import { RegistroPacienteComponent } from './registro-paciente/registro-paciente.component';
 import { RegDatoPsicologoComponent } from './reg-dato-psicologo/reg-dato-psicologo.component';
 import { MaterialModule } from '../material/material.module';
+import { ValoracionComponent } from './valoracion/valoracion.component';
+import { ChangePsswComponent } from './change-pssw/change-pssw.component';
+import { ForgotPsswComponent } from './forgot-pssw/forgot-pssw.component';
+
 
 
 /***Angular Material */
@@ -20,6 +24,9 @@ import { MaterialModule } from '../material/material.module';
     LoginpsiComponent,
     RegistroPacienteComponent,
     RegDatoPsicologoComponent,
+    ValoracionComponent,
+    ChangePsswComponent,
+    ForgotPsswComponent,
 
   ],
   imports: [
@@ -28,6 +35,7 @@ import { MaterialModule } from '../material/material.module';
     HomeRoutingModule,
     MaterialModule,
     FormsModule,
+
     ReactiveFormsModule,
   ]
 })

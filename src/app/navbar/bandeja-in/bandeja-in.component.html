@@ -9,129 +9,160 @@
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 </head>
 <body>
+    <app-spinner-loader *ngIf="cargando" [message]="message" ></app-spinner-loader>
     <div class="container">
-        <div style="display: flex;flex-direction: row;    height: 100%;">
+        <div class="container-content">
             <div class="list-asignaciones">
-               <h5 style="text-align: center;font-weight: 600;font-size: 17px;margin-bottom: 10px;">Solicitudes</h5>
+               <div class="top">
+                 <div class="title1" *ngIf="asignaciones">
+                   <b>Solicitudes  <label class="new">{{asignaciones.length + ' ' + 'nuevas'}}</label></b>
+                   
+                 </div>
+                 <select name="" id="" [(ngModel)]="sede" class="select_type" (change)="get_Asignaciones_pendientes()">
+                  <option value="UPeU Lima">UPeU Lima</option>
+                  <option value="UPeU Tarapoto">UPeU Tarapoto</option>
+                  <option value="UPeU Juliaca">UPeU Juliaca</option>
+                </select>
+               </div>
+               <div class="bottom">
+               
                <div class="list">
-                <div class="asignacion" [ngClass]="{ 'xdd' : asig_actual == asig }" *ngFor="let asig of asignaciones">
-                  <div class="top">
-                      <div>
-                          <label style="font-weight: bold;"> <i [class]="asig.genero == 'H' ? 'fas fa-male' : 'fas fa-female'" style="margin-right: 15px;"></i>{{' ' + asig.nombre + ' ' + asig.apellido}}</label>
-                          <label [ngStyle]="{'background':getColor(asig.categoria)}" class="circle" >{{asig.categoria}}</label>
+                <div class="asignacion"  (click)="ver_expediente(asig);fecha_actual=asig.fecha"  [ngClass]="{ 'xdd' : asig_actual == asig }" *ngFor="let asig of asignaciones">
+                  <div class="data">
+                      <div class="circle3" [style.background-color]="getColor(asig.categoria)" >
+                                 <label for="">{{asig.nombre.charAt(0) +  asig.apellido.charAt(0)}}</label>
                       </div>
-                     
-                      <label  style="font-weight: bold;display: flex;align-items: center;">{{asig.fecha | date:'dd/MM/yyyy'}}</label>
-                  </div>
-                  <div class="bottom">
-                      <div class="info">
+                      <div class="details">
+                        <label >{{' ' + asig.nombre + ' ' + asig.apellido}}  </label>
+                          <label style="margin-bottom: 5px;" ><i class="fas fa-map-marker-alt" style="margin-right: 10px ;"></i> {{' ' + asig.departamento }}</label>
                           <label class="description"> {{' ' + asig.descripcion}}</label>
-                          <div class="location">
-                              <label style="margin-bottom: 5px;" ><i class="fas fa-map-marker-alt" style="margin-right: 10px ;"></i> {{' ' + asig.origen }}</label>
-                              <label style="margin-bottom: 5px;" ><i class="fas fa-user-clock" style="margin-right: 10px ;"></i>{{' ' + asig.edad + 'años' }}</label>
-                          </div>
 
                       </div>
-                      <div class="actions">
-                          <button ><i class="fas fa-check-circle" (click)="ver_expediente(asig);" ></i></button>
-                      </div>
+                    </div>
+                    <div class="options">
+                        <label  ></label>
+                        <button ><i class="fas fa-check-circle check"   ></i></button>
                   </div>
               </div>
                </div>
+               </div>
+             
               
     
     
             </div>
             <div class="visualizador">
+              <app-spinner-loader *ngIf="cargando2"  [message]="message"></app-spinner-loader>
                 <div class="no-result" *ngIf="!personal && !paciente">
                     <img src="assets/select_document.gif" width="300px" height="220px" style="margin-bottom: 15px;" alt="">
                     
                    <h6>Seleccione una solicitud para confirmar la asignación.</h6>
                 </div>
-                <div class="result" *ngIf="personal && paciente">
-                    <h6>Datos del Paciente  </h6>
+                <div class="result" id="result" *ngIf="personal && paciente">
+                   <div class="detail-result">
+                     <h5>Detalles de la asignación del consultante <label  [ngStyle]="{'background':getColor(paciente.categoria)}" class="circle2" >{{paciente.categoria}}</label></h5>
+                     <div class="buttons-group">
+                       <a href="#" data-toggle="modal" data-target="#exampleModal2"  (click)="opcion='Psicologo';sede2 = sede;buscar_por_opcion()"><i style="margin-right: 10px;color: #18dbd8;" class="fas fa-flag"></i>Buscar otro disponible</a>
+                      <button (click)="confirmar_asignacion()"><i style="margin-right: 10px;" class="fas fa-check-circle"></i>Confirmar Asignación</button>
+                  </div>
+                   </div>
                     <div class="paciente">
-                        <div class="cont-img">
-                            <img  [src]="paciente.genero == 'H'? 'assets/pach.png' : 'assets/pacm.png' "  width="10%" alt="">
-                            <label style="font-weight: bold;" for="">{{' ' + paciente.nombre + ' ' + paciente.apellido}}</label>
-                           
-                        </div>
+                       
                         <div class="data">
-                            <div class="info_style">
-                                <label for="">Edad</label>
-                                <label for="">{{paciente.edad}}</label>
+                          <label for="" class="vol">Consultante</label>    
+                          <div style="display: flex;justify-content: space-between;flex-direction: row;width: 100%;    padding: 10px 15px;
+                          border: 1px solid #dee2e6;background: #ccd5e1;">
+                            <label style="font-weight: bold;" for="">  <img  [src]="paciente.genero == 'H'? 'assets/pach.png' : 'assets/pacm.png' "  alt="">{{' ' + paciente.nombre + ' ' + paciente.apellido}} </label>
+                            <label style="font-size: 12.5px;" >{{fecha_actual  | date:'longDate'}}</label>
+                          </div>
+
+                          <div class="data-personal" style="width: 100%;">
+                            <h6>Datos del consultante</h6>
+                            <div class="divider">
+                              <div class="pt1" >
+                                <div>
+                                  <label ><i class="fas fa-plus" ></i>Lugar de Procedencia  </label>
+                                  <label for=""> {{  ' ' + paciente.departamento + ', '+ paciente.provincia + ', ' + paciente.distrito }}</label>
+                                </div>
+                                <div>
+                                  <label for=""><i class="fas fa-plus" ></i>Edad</label>
+                                  <label >{{ paciente.edad + ' ' }}años. </label>
+                                </div>
+                                <div>
+                                  <label for=""><i class="fas fa-plus" ></i>Celular</label>
+                                  <label >{{ paciente.telefono}} </label>
+                                </div>
+                              </div>
+                              <div  class="pt1" >
+                                <div  >
+                                  <label for=""><i class="fas fa-plus" ></i>¿Cómo supo de OÍDO AMIGO?</label>
+                                  <label for="">{{paciente.como_conocio}}</label>
+                                </div>
+                                <div >
+                                  <label for=""> <i class="fas fa-plus"></i>Motivo de consulta:</label>
+                                  <label for="">{{paciente.descripcion}}</label>
+                                </div>
+                              </div>
                             </div>
-                            <div class="info_style">
-                                <label for="">Lugar de Consulta</label>
-                                <label for="">{{paciente.origen}}</label>
-                            </div>
-                            <div class="info_style">
-                                <label for="">Categoría</label>
-                                <label  [ngStyle]="{'background':getColor(paciente.categoria)}" class="circle2" >{{paciente.categoria}}</label>
-                            </div>
-                            <div class="info_style">
-                                <label for="">SQR</label>
-                                <button class="cuestionario" (click)="ver_respuestas(paciente.respuestas)" data-toggle="modal" data-target="#exampleModal">Ver SQR del Paciente<i class="fas fa-file-alt" style="margin-left: 10px;"></i></button>
-                            </div>
-                            <div class="info_style">
-                                <label for="">¿Cómo supo de OIDO AMIGO?</label>
-                                <label for="">{{paciente.motivo}}</label>
-                            </div>
-                            <div class="info_style">
-                                <label for="">Celular</label>
-                                <label for="">{{paciente.telefono}}</label>
-                            </div>
-                            <div class="info_style" style="width:100%;padding-left: 25px;">
-                                <label for="">Descripción</label>
-                                <label for="">{{paciente.descripcion}}</label>
+                          </div>
+                          <div class="files">
+                            <label for="">SQR </label>
+                            <button class="cuestionario" (click)="ver_respuestas(paciente.respuestas)" data-toggle="modal" data-target="#exampleModal"><i style="transform: rotate(-45deg);" class="fas fa-paperclip"></i></button>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="personal"  style="padding-top: 0;">
+                      <div class="data"  style="padding-top: 0;"  >
+                        <label for="" class="vol">Voluntario asignado</label>    
+                        <div style="display: flex;width: 100%;    padding: 10px 15px;
+                        border: 1px solid #dee2e6;background: #ccd5e1;">
+                          <label  style="font-weight: bold;text-transform: capitalize;width: 100%;">  <img src="assets/psicologo.jpg" style="margin-right: 10px;width: 4%;"  alt="">{{ '' +personal.nombre + ' ' + personal.apellido}}</label>
+                        </div>
+                        <div class="data-personal" style="width: 100%;">
+                          <h6>Datos del voluntario</h6>
+                          <div class="divider">
+                            <div class="pt1" >
+                              <div>
+                                <label ><i class="fas fa-plus" ></i>Tipo  </label>
+                                <label for="" style="text-transform: capitalize;"> {{  ' ' + personal.tipo + '.' }}</label>
+                              </div>
+                              <div>
+                                <label ><i class="fas fa-plus" ></i>Sede  </label>
+                                <label for=""> {{  ' ' + personal.sede + '.' }}</label>
+                              </div>
+                              <div>
+                                <label for=""><i class="fas fa-plus" ></i>Celular</label>
+                                <label >{{ personal.telefono}} </label>
+                              </div>
                             </div>
 
-                        </div>
-                        
-                    </div>
-                    <h6>Datos del Voluntario</h6>
-                    <div class="personal" style="padding:25px 10px;">
-                        <div class="cont-img">
-                            <img src="assets/psicologo.png"  width="10%" alt="">
-                            <span  style="font-weight: bold;">{{ '' +personal.nombre + ' ' + personal.apellido}}</span>
-                        </div>
-                        <div class="data"  style="    justify-content: flex-start;
-                        padding-left: 30px;">
-                            <div class="info_style">
-                                <label for="">Tipo</label>
-                                <label for="" style="text-transform: capitalize;">{{personal.tipo}}</label>
-                            </div>
-                            <div class="info_style"  >
-                                <label for="">Celular</label>
-                                <label for="">{{personal.telefono}}</label>
-                            </div>
-                            <div class="info_style" *ngIf="personal.tipo == 'estudiante'">
-                                <label for="">Ciclo</label>
+                            <div  class="pt1"  *ngIf="personal.tipo == 'estudiante'">
+                              <div  >
+                                <label for=""><i class="fas fa-plus" ></i>Ciclo</label>
                                 <label for="">{{personal.ciclo}}</label>
-                            </div>
-                            <div class="info_style"  *ngIf="personal.tipo == 'estudiante'">
-                                <label for="">Grupo</label>
+            
+                              </div>
+                              <div >
+                                <label for=""> <i class="fas fa-plus"></i>Grupo</label>
                                 <label for="">{{personal.grupo}}</label>
+            
+                              </div>
+                           
                             </div>
-                         
-
-                            <div class="info_style"   *ngIf="personal.tipo == 'psicologo'" >
-                                <label for="">Grado Académico</label>
+                            <div  class="pt1" *ngIf="personal.tipo == 'psicologo'">
+                              <div  >
+                                <label for=""><i class="fas fa-plus" ></i>Grado académico actual</label>
                                 <label for="">{{personal.grado_academico}}</label>
+            
+                              </div>
+                             
                             </div>
-                            <div class="info_style"   *ngIf="personal.tipo == 'psicologo'" >
-                                <label for="">Universidad</label>
-                                <label for="">{{personal.universidad}}</label>
-                            </div>
-                            
+                          </div>
                         </div>
-                    </div>
-                    <div class="buttons-group">
-                        <button data-toggle="modal" data-target="#exampleModal2">Buscar Otro Disponible <i style="margin-left: 10px;" class="fab fa-searchengin"></i></button>
-                        <button (click)="confirmar_asignacion()">Confirmar Asignacion<i style="margin-left: 10px;" class="fas fa-check-circle"></i></button>
-                    </div>
-                   
-                   
+                      </div>
+                  </div>
+
                 </div>
     
             </div>
@@ -161,45 +192,40 @@
             <label class="title2" >¿A quién desea derivar?</label>
             <div style="display: flex;flex-direction: row;justify-content: space-around;width: 100%;margin-bottom: 20px;">
                 <div>
-                  <button type="button" label="Psicologo"  class=" hov" [ngClass]="{'xdd': opcion == 'Psicologo'}" (click)="opcion='Psicologo';buscar_por_opcion()">
+                  <button type="button" label="Psicologo"  class=" hov" [ngClass]="{'xdd': opcion == 'Psicologo'}" (click)="opcion='Psicologo';sede2= sede;buscar_por_opcion();">
                     <img  src="https://cdn-icons-png.flaticon.com/512/1056/1056496.png" />
                     <div class="div-hov">
                         <label >Psicólogo</label>
-                        <label style="font-size: 12px;color: gray;text-transform: none;font-weight: normal;text-align: start;" >Egresados Voluntarios de la carrera de Psicología.</label>
+                        <label style="font-size: 12px;color: gray;text-transform: none;font-weight: normal;text-align: start;" >Egresados voluntarios de la carrera de Psicología.</label>
 
                     </div>
                     <span></span><span></span><span></span><span></span>
                   </button>
                 </div>
                 
-                <div>
-                  <button  type="button" label="Pastor" class=" hov" [ngClass]="{'xdd': opcion == 'Pastor'}" (click)="opcion='Pastor';buscar_por_opcion()">
-                    <img src="https://cdn-icons-png.flaticon.com/512/186/186726.png" />
-                    <div  class="div-hov">
-                        <label >Consejero Espiritual</label>
-                        <label style="font-size: 12px;color: gray;text-transform: none;font-weight: normal;text-align: start;" >Pastores de las diferentes sedes comprometidos con la mision.</label>
-                    </div>
-                  
-                    <span></span><span></span><span></span><span></span>
-                  </button>
-                </div>
+               
 
                 <div>
-                  <button label="Interno" class=" hov" [ngClass]="{'xdd': opcion == 'Interno'}" (click)="opcion='Interno';buscar_por_opcion()">
+                  <button label="Interno" class=" hov" [ngClass]="{'xdd': opcion == 'Interno'}" (click)="opcion='Interno';sede2= sede;buscar_por_opcion();">
                     <img src="https://cdn-icons-png.flaticon.com/512/3135/3135810.png" />
                     <div  class="div-hov">
                         <label >Interno</label>
-                        <label style="font-size: 12px;color: gray;text-transform: none;font-weight: normal;text-align: start;" >Alumnos del 9no y 10mo ciclo de la carrera de Psicología.</label>
+                        <label style="font-size: 12px;color: gray;text-transform: none;font-weight: normal;text-align: start;" >Alumnos del 9no y 10mo ciclo de la carrera de Psicólogia.</label>
                     </div>
-                    <span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span>  
                   </button>
             
             
                 </div>
               </div>
               <div style="width: 100%;">
-                  
+                <app-spinner-blanc  *ngIf="cargando3"  [message]="message"></app-spinner-blanc>   
             <table datatable [dtOptions]="dtOptions" class="tablaxd" *ngIf="personal_searched && opcion=='Interno'">
+              <select name="" id=" " class="xdd2" [(ngModel)]="sede2" (change)="buscar_por_opcion()">
+                <option value="UPeU Lima">UPeU Lima</option>
+                <option value="UPeU Tarapoto">UPeU Tarapoto</option>
+                <option value="UPeU Juliaca">UPeU Juliaca</option>
+              </select>
                 <thead>
                   <tr class="headtable">
                     <th>#</th>
@@ -226,6 +252,11 @@
                 </tbody>
               </table>
               <table datatable [dtOptions]="dtOptions" class="tablaxd" *ngIf="personal_searched && opcion=='Psicologo'" >
+                <select name="" id=" " class="xdd2" [(ngModel)]="sede2" (change)="buscar_por_opcion()">
+                  <option value="UPeU Lima">UPeU Lima</option>
+                  <option value="UPeU Tarapoto">UPeU Tarapoto</option>
+                  <option value="UPeU Juliaca">UPeU Juliaca</option>
+                </select>
                 <thead>
                   <tr class="headtable">
                     <th>#</th>
@@ -253,8 +284,8 @@
               </div>
         </div>
         <div class="modal-footer" *ngIf="personal_selected" style="justify-content: center;">
-          <button type="button" class="btn btn-secondary" style="    padding: 4px 15px;margin-right: 15px;" data-dismiss="modal">Cancelar Selección</button>
-          <button type="button" class="confirm" (click)="confirm_new_personal()"> {{'Seleccionar usuario: '  + personal_selected.nombre }}</button>
+          <button type="button" class="btn btn-secondary" style="    padding: 4px 15px;margin-right: 15px;" (click)="cancel_Search()" data-dismiss="modal">Cancelar Selección</button>
+          <button type="button" class="confirm" (click)="confirm_new_personal()" data-dismiss="modal" > {{'Seleccionar usuario: '  + personal_selected.nombre }}</button>
         </div>
       </div>
     </div>
@@ -275,7 +306,7 @@
                 <ul class="quizz" >
                     <li class="question"  *ngFor="let pregunta of preguntas;let i=index">
                         <label for="" [ngStyle]="{'background-color': pregunta.grado == 'riesgo' ? 'red' : ( pregunta.grado == 'leve' ? 'green' : 'yellow') }">{{i+1 + '.  ' + '   '}}{{pregunta.name}}</label>
-                        <label for="">{{pregunta.value == 'true' ? 'Si' : ' No'}}</label>
+                        <label for="" [ngStyle]=" {'color': pregunta.value == 'true' ? 'blue' : 'black'}">{{pregunta.value == 'true' ? 'Si' : ' No'}}</label>
                     </li>
                   </ul>
             </div>

@@ -3,7 +3,7 @@ export class Usuario{
     username:string;
     password:string;
     idpersonal:number;
-   
+   rol:number;
   
   
 };

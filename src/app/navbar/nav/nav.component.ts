@@ -7,7 +7,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Opciones } from 'src/app/models/Opciones';
 
 import { ImagenService } from 'src/app/services/imagen.service';
-import { MenuItem } from 'primeng/api';
 
 
 @Component({
@@ -19,7 +18,7 @@ import { MenuItem } from 'primeng/api';
 export class NavComponent implements OnInit ,OnDestroy{
 
   nombre;
-  items: MenuItem[];
+
   click: boolean = false;
   opciones: Opciones[] = [];
   constructor(private auth: AuthService, private route: Router, private service: UserService, public imagenserv: ImagenService) { }
@@ -53,7 +52,7 @@ export class NavComponent implements OnInit ,OnDestroy{
   
   logout() {
     this.auth.logout();
-    this.route.navigate(['loginpsi'])
+    this.route.navigate(['home/loginpsi'])
   }
   enviarperfil() {
     this.route.navigate(['nav/perfil_user'])

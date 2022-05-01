@@ -59,14 +59,29 @@ crearhorario(horario):Observable<any>{
    
     return this.http.get<Persona>(this.urlEndpoint2 + '/dataschool/' + idpersonal);
   }
-  async subirImagen(imagen : File) {
+  async subirImagen_delete(imagen : string,archivo:File,delteimg) {
 
     try {
-      let respuesta = await this.storareRef.child("img/" + imagen.name).put(imagen);
-      console.log(respuesta);
+     
+      let eliminar_foto = await  this.storareRef.child(`img/${delteimg}`).delete();
+      let respuesta = await this.storareRef.child("img/" + imagen).put(archivo);
+    
       return await respuesta.ref.getDownloadURL();
     } catch (err) {
-      console.log(err);
+     
+      return null;
+    }
+
+  }
+  async subirImagen(imagen : string,archivo:File) {
+
+    try {
+     
+      let respuesta = await this.storareRef.child("img/" + imagen).put(archivo);
+    
+      return await respuesta.ref.getDownloadURL();
+    } catch (err) {
+     
       return null;
     }
 
@@ -80,7 +95,7 @@ crearhorario(horario):Observable<any>{
   mostrarimagenfirebase(nombre: string):Observable<string>{
   
     const ref = this.firebas.ref(`img/${nombre}`);
-    console.log(nombre)
+   
     return ref.getDownloadURL();
   }
   

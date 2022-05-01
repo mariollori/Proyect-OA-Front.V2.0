@@ -8,50 +8,32 @@ import { Subscription, interval } from 'rxjs';
 })
 export class CronometroComponent implements OnInit {
   
-  @Input() end :Date; 
-   state:boolean = false;
-  
-  private subscription: Subscription;
-  
-  public dateNow = new Date();
-  
-  milliSecondsInASecond = 1000;
-  hoursInADay = 24;
-  minutesInAnHour = 60;
-  SecondsInAMinute  = 60;
-
-  public timeDifference;
-  public secondsToDday;
-  public minutesToDday;
-  public hoursToDday;
-  public daysToDday;
-
-
-  private getTimeDifference () {
-    var dDay = new Date(this.end);
-    console.log(this.end)
-      this.timeDifference = dDay.getTime() - Date.now() + 18000000;
-      if(dDay.getTime() < (Date.now()+ 18000000)){
-          this.state=true;
-      }else{
-
-        this.allocateTimeUnits(this.timeDifference);
-      }
-  }
-
-private allocateTimeUnits (timeDifference) {
-      this.secondsToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond) % this.SecondsInAMinute);
-      this.minutesToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour) % this.SecondsInAMinute);
-      this.hoursToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute) % this.hoursInADay);
-      this.daysToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute * this.hoursInADay));
-}
+  @Input() puntaje :number; 
+  puntuacion = [
+    { valor: 1, icon: 'far fa-star' },
+    { valor: 2, icon: 'far fa-star' },
+    { valor: 3, icon: 'far fa-star' },
+    { valor: 4, icon: 'far fa-star' },
+    { valor: 5, icon: 'far fa-star' }
+  ]
 
   ngOnInit() {
-     this.subscription = interval(1000)
-         .subscribe(x => { this.getTimeDifference(); });
+     this.asignar(this.puntaje);
   }
+  asignar(valoractual) {
+    for (let index = 0; index < this.puntuacion.length; index++) {
+      if (this.puntuacion[index].valor <= valoractual) {
+        this.puntuacion[index].icon = 'fas fa-star'
+      } else {
+        this.puntuacion[index].icon = 'far fa-star'
+      }
+
+    }
+
+  }
+  
 
  ngOnDestroy() {
-    this.subscription.unsubscribe();
+   
  }
 }

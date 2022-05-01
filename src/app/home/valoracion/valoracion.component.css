@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../../assets/valoracion.png');
+    padding-top: 3%;
+}
+
+.container{
+    width: 700px;
+    height: 90%;
+    margin: 0 auto;
+
+}
+
+h6{
+    color: #444;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-size: 22px;
+    text-align: center;
+}
+.container .subtitle{
+    margin-left: 20%;
+    width: 60%;
+    margin-bottom: 10px;
+    color: #777;
+    text-align: center;
+}
+.value{
+    height: 90%;
+    border-top: 3px solid #0f3971
+    ;
+    background: white;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.punt{
+    width: 100%;
+    display: flex;
+    padding: 10px 70px;
+    
+    flex-direction: column;
+}
+.stars{
+    width: 100%;
+    height: 90px;
+    padding-top: 20px;
+    font-size: 25px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.stars i{
+    margin-right: 25px;
+}
+.punt label{
+    font-size: .875rem;
+    font-weight: 600;
+    color: #525f7f;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+.punt input,.punt textarea{
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #66615b;
+    line-height: normal;
+    padding: 10px;
+    font-size: 14px;
+    width: 100%;
+    
+    box-shadow: none;
+}
+
+.send{
+    background-image: linear-gradient(90deg,#0f3971,#537199,#537199,#0f3971);
+
+    border: none;
+    text-transform: uppercase;
+    color: whitesmoke;
+    padding:10px 25px;
+    border-radius: 25px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+
+
+
+/*Button home*/
+#btn-home{
+    position: absolute;
+    z-index: 9;
+    top: 2%;
+   padding: 5px 15px;
+   border: none;
+   outline: none;
+   color: white;
+   background-color: transparent;
+ 
+    left: 2%;
+  }
+ 
+  #btn-home::before{
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 8px;
+   display: block;
+   border-radius: 50%;
+   background:#0f3971
+   ;
+   width: 34px;
+   height: 34px;
+   z-index: -1;
+   transition: all .3s ease;
+  }
+  #btn-home:hover::before{
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  .stars label{
+    font-weight: normal;
+    font-size: 13px;
+    margin-right: 15px;
+    color: #777;
+    margin-bottom: -5px;
+}

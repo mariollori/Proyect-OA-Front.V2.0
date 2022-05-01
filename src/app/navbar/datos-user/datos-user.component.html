@@ -3,11 +3,11 @@
     rel="stylesheet">
 </head>
 
+<app-spinner-loader *ngIf="cargando" [message]="message" ></app-spinner-loader>
 <body>
-
   <div class="container">
   
-    <div style="display: flex;flex-direction: row;width: 100%;height: 100%;margin-left: 25px;">
+    <div class="container-cont">
 
       <div class="top-content">
        
@@ -16,20 +16,22 @@
        
       
           <div class="perfil">
-            <h3 class="subtitle">Perfil de Usuario</h3>
             <h3 class="name">{{nombrecompleto}}</h3>
-            <label for="" style="font-size: 13px;color: #b3b3b3;"  >{{correo}}</label>
-            <label style="text-transform: capitalize;font-size: 13px;color: green;" > {{tipo}}</label>
-            <label for="" style="font-size: 13px;color: #b3b3b3;" >{{telefono}}</label>
+            <label for=""   >{{correo}}</label>
+            <label style="text-transform: capitalize;color: green;" > {{tipo}}</label>
+            <label for=""  >{{telefono}}</label>
              <button *ngIf="!archivo" class="uploadfoto">
               <i class="fas fa-camera-retro" style="margin: 0; padding: 0;"></i>
-              <label >Cambiar foto</label>
+              <label style="margin-bottom: 0; color: white;">Cambiar foto</label>
               <input type="file" accept=".jpg, .png, .jpeg" style="opacity: 0; width: 100%;height: 100%;cursor: pointer;position: absolute;top: 0;left: 0;" [(ngModel)]="foto"  (change)="mostrar($event)">
             </button>
-           
-              <button *ngIf="archivo"  class="check" (click)="subirfoto()" style="  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"><i class="fas fa-check" ></i></button>
+            <div class="btn-foto-group">
+
+              <button *ngIf="archivo"  class="check" (click)="subirfoto()" style="  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"><i class="fas fa-check" ></i>Actualizar Foto</button>
        
-              <button *ngIf="archivo"   class="uncheck" (click)="eliminarfoto()" style=" box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"> <i class="fas fa-trash"></i></button>
+              <button *ngIf="archivo"   class="uncheck" (click)="eliminarfoto()" style=" box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"> <i class="fas fa-trash"></i>Cancelar</button>
+            </div>
+           
       
             
           </div>
@@ -37,45 +39,43 @@
       <div class="rigth-content">
         
       
-        
+            <h4>Mi Perfil</h4>
             <h5>Informacion Personal</h5>
             <form [formGroup]="datos_personales" class="datapersonal">
-              <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" ><i class="fas fa-user"></i>Nombre Completo</label>
-                <div class="col-sm-3.5 ml-8">
-                  <fieldset [disabled]="!editstate">
-                  <input type="text" formControlName="nombre" placeholder="Nombre"  [disabled]="!editstate"    [class.is-invalid]="this.datos_personales.get('nombre').invalid && this.datos_personales.get('nombre').touched"    class="form-control" >
+              <div class="input-style wi-50" >
+                <label for="staticEmail"  style="font-size: 13px;" >Nombres</label>
+                    <fieldset [disabled]="true">
+                     <input type="text" formControlName="nombre" placeholder="Nombre"  [disabled]="!editstate"    [class.is-invalid]="this.datos_personales.get('nombre').invalid && this.datos_personales.get('nombre').touched"     >
+                    </fieldset>
+              </div>
+              <div class="input-style wi-50" >
+                <label for="staticEmail"  style="font-size: 13px;" >Apellidos</label>
+                <fieldset [disabled]="true">
+                  <input type="text"  formControlName="apellido" placeholder="Apellidos"   [class.is-invalid]="this.datos_personales.get('apellido').invalid && this.datos_personales.get('apellido').touched"  >
                 </fieldset>
-                </div>
-                <div class="col-sm-3 ml-4">
+              </div>
+            
+
+              <div class="input-style">
+                <label for="staticEmail"  style="font-size: 13px;" >Correo</label>
                   <fieldset [disabled]="!editstate">
-                  <input type="text"  formControlName="apellido" placeholder="Apellidos"   [class.is-invalid]="this.datos_personales.get('apellido').invalid && this.datos_personales.get('apellido').touched" class="form-control" >
+                  <input type="text" formControlName="correo" placeholder="Nombre"     [class.is-invalid]="this.datos_personales.get('correo').invalid && this.datos_personales.get('correo').touched"     >
                 </fieldset>
-                </div>
               </div>
 
-              <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" ><i class="fas fa-envelope"></i>Correo</label>
-                <div class="col-sm-3.5 ml-8">
+              <div class="input-style">
+                <label for="staticEmail"  style="font-size: 13px;" >Celular</label>
+                
                   <fieldset [disabled]="!editstate">
-                  <input type="text" formControlName="correo" placeholder="Nombre"     [class.is-invalid]="this.datos_personales.get('correo').invalid && this.datos_personales.get('correo').touched"    class="form-control" >
+                  <input type="text" formControlName="telefono" placeholder="Nombre"    [class.is-invalid]="this.datos_personales.get('telefono').invalid && this.datos_personales.get('telefono').touched"     >
                 </fieldset>
-                </div>
+               
               </div>
 
-              <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" ><i class="fas fa-phone-alt"></i>Celular</label>
-                <div class="col-sm-3.5 ml-8">
-                  <fieldset [disabled]="!editstate">
-                  <input type="text" formControlName="telefono" placeholder="Nombre"    [class.is-invalid]="this.datos_personales.get('telefono').invalid && this.datos_personales.get('telefono').touched"    class="form-control" >
-                </fieldset>
-                </div>
-              </div>
-
-              <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" > <i class="fas fa-venus-mars"></i>Sexo</label>
-                <fieldset [disabled]="!editstate">
-                  <select  formControlName="genero" style="width: 185px;" [class.is-invalid]="this.datos_personales.get('genero').invalid && this.datos_personales.get('genero').touched" class="form-select">
+              <div class="input-style">
+                <label for="staticEmail"  style="font-size: 13px;" > Sexo</label>
+                <fieldset [disabled]="true">
+                  <select  formControlName="genero" [class.is-invalid]="this.datos_personales.get('genero').invalid && this.datos_personales.get('genero').touched" class="form-select">
                     <option value="H">
                       Hombre
                     </option>
@@ -87,41 +87,28 @@
   
               </div>
             
-                <button (click)="  this.editstate = true;" *ngIf="!editstate" class="editbtn">
-                  <i class="fas fa-edit"></i> 
-                </button>
-              
-      
-      
-              <div *ngIf="editstate" class="savebtns">
-                <button (click)="this.editstate = false;" class="btn1">
-                  <i class="fas fa-window-close"></i>
-                </button>
-                <button (click)="save()" class="btn2">
-                  <i class="fas fa-cloud-upload-alt"></i>
-                </button>
-              </div>
-      
-      
-      
-      
+               
             </form>
-           
+            <button (click)="  this.editstate = true;" *ngIf="!editstate" class="editbtn">
+              <i class="fas fa-edit"></i> Editar datos personales
+            </button>
           
-        
-            <h5>Informacion Academica
-            </h5>
+  
+  
+          <div *ngIf="editstate" class="savebtns">
+            <button (click)="this.editstate = false;get_datos_personales()" class="btn1">
+              <i class="fas fa-window-close"></i>Cancelar
+            </button>
+            <button (click)="save()" class="btn2">
+              <i class="fas fa-cloud-upload-alt"></i>Guardar
+            </button>
+          </div>
+            <h5>Informacion Academica</h5>
             <form class="datapersonal" *ngIf="tipo=='estudiante'">
-              <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" >Ciclo</label>
+              <div class="input-style" >
+                <label   style="font-size: 13px;" >Ciclo</label>
                 <fieldset [disabled]="!editstate2">
-                  <select  [(ngModel)]="personal.ciclo"  style="width: 185px;" name="ciclo" class="form-select">
-                    <option value="7">
-                      7
-                    </option>
-                    <option value="8">
-                      8
-                    </option>
+                  <select  [(ngModel)]="personal.ciclo"   name="ciclo" >
                     <option value="9">
                       9
                     </option>
@@ -131,103 +118,101 @@
                   </select>
                 </fieldset>
               </div>
-              <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" >Grupo</label>
-                <div class="col-sm-3.5 ml-8">
+
+              <div class="input-style">
+                  <label   style="font-size: 13px;" >Grupo</label>
                   <fieldset [disabled]="!editstate2">
-                  <input type="text"  [(ngModel)]="personal.ciclo"  name="grupo" class="form-control" >
-                </fieldset>
-                </div>
-                
+                   <input type="text"  [(ngModel)]="personal.grupo"  name="grupo"  >
+                  </fieldset>
               </div>
 
-              <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-3 col-form-label" style="font-size: 13px;" >Codigo</label>
+              <div class="input-style">
+                <label  style="font-size: 13px;" >Codigo</label>
                 <div class="col-sm-3.5 ml-8">
-                  <fieldset [disabled]="!editstate2">
-                    <input type="text" [(ngModel)]="personal.codigo" name="codigo" class="form-control">
+                  <fieldset [disabled]="true">
+                    <input type="text" [(ngModel)]="personal.codigo" name="codigo" >
                 </fieldset>
                 </div>
               </div>
 
-                <button *ngIf="!editstate2" (click)="this.editstate2 = true;" class="editbtn">
-                  <i class="fas fa-edit"></i>
-                </button>        
-        
-              <div *ngIf="editstate2" class="savebtns">
-                <button (click)="this.editstate2 = false;" class="btn1">
-                  <i class="fas fa-window-close"></i>
-                </button>
-                <button (click)="save2()" class="btn2">
-                  <i class="fas fa-cloud-upload-alt"></i>
-                </button>
-              </div>
+             
             </form>
+            <div *ngIf="tipo=='estudiante'">
+
+              <button *ngIf="!editstate2" (click)="this.editstate2 = true;" class="editbtn">
+                <i class="fas fa-edit"></i>Editar datos académicos
+              </button>        
       
+            <div *ngIf="editstate2" class="savebtns">
+              <button (click)="this.editstate2 = false;" class="btn1">
+                <i class="fas fa-window-close"></i> Cancelar
+              </button>
+              <button (click)="save2()" class="btn2">
+                <i class="fas fa-cloud-upload-alt"></i>Guardar
+              </button>
+            </div>
+            </div>
       
         
       
             <form class="datapersonal" *ngIf="tipo=='psicologo'" style="margin-top: 0px;">
+              
+
+            <div class="input-style">
+              <label   style="font-size: 13px;" >Especialidad</label>
               <fieldset [disabled]="!editstate2">
-                <div  class="item">
-                  <label><mat-icon matSuffix>account_balance</mat-icon> Universidad: </label>
-                  <input type="text"  [(ngModel)]="personal.universidad" name="universidad" style="text-transform:
-                    capitalize;" >
-                </div>
+               <input type="text"  [(ngModel)]="personal.especialidad"  name="especialidad"  >
               </fieldset>
-              <fieldset [disabled]="!editstate2">
-                <div  class="item">
-                  <label> <mat-icon matSuffix>grade</mat-icon>Especialidad: </label>
-                  <input  [(ngModel)]="personal.especialidad" name="correo" type="text"
-                    >
-                </div>
-              </fieldset>
-              <fieldset [disabled]="!editstate2">
-                <div  class="item">
-                  <label><mat-icon matSuffix>pin</mat-icon>Colegiatura:
-                  </label>
-                  <input type="text"  [(ngModel)]="personal.n_colegiatura" name="num" style="text-transform:
-                    capitalize;" >
-                </div>
-              </fieldset>
-              <fieldset [disabled]="!editstate2">
-                <div  class="item">
-                  <label><mat-icon matSuffix>history_edu</mat-icon>Grado Academico:
-                  </label>
-                  <input type="text"  [(ngModel)]="personal.grado_academico" name="grado" style="text-transform:
-                    capitalize;" >
-                </div>
-              </fieldset>
-             
-            
-                <button (click)="this.editstate2 = true;"  *ngIf="!editstate2" class="editbtn">
-                  <i class="fas fa-edit"></i> 
-                </button>
-           
-      
-        
-              <div *ngIf="editstate2" class="savebtns"  style="margin-top: 0;">
-                <button (click)="this.editstate2 = false;" class="btn1">
-                  <i class="fas fa-window-close"></i>
-                </button>
-                <button (click)="save2()" class="btn2">
-                  <i class="fas fa-cloud-upload-alt"></i>
-                </button>
-              </div>
+          </div>
+
+          <div class="input-style">
+            <label   style="font-size: 13px;" >Colegiatura</label>
+            <fieldset [disabled]="!editstate2">
+             <input type="text"  [(ngModel)]="personal.n_colegiatura"  name="Colegiatura"  >
+            </fieldset>
+        </div>
+              
+        <div class="input-style" >
+          <label for="staticEmail"  style="font-size: 13px;" >Grado Academico</label>
+          <fieldset [disabled]="!editstate2">
+            <select  [(ngModel)]="personal.grado_academico"   name="grado_academico" >
+              <option value="Bachiller">Bachiller</option>
+              <option value="Licenciado">Licenciado</option>
+              <option value="Magíster">Magíster</option>
+              <option value="Doctor">Doctor</option>
+            </select>
+          </fieldset>
+        </div>
             </form>
+            <div *ngIf="tipo=='psicologo'">
+
+              <button (click)="this.editstate2 = true;"  *ngIf="!editstate2" class="editbtn">
+                <i class="fas fa-edit"></i> 
+              </button>
+         
+    
+      
+            <div *ngIf="editstate2" class="savebtns"  style="margin-top: 0;">
+              <button (click)="this.editstate2 = false;" class="btn1">
+                <i class="fas fa-window-close"></i>
+              </button>
+              <button (click)="save2()" class="btn2">
+                <i class="fas fa-cloud-upload-alt"></i>
+              </button>
+            </div>
+            </div>
 
 
 
-            <div style="width: 100%;background-color: white;border-radius: 4px;height: 100%;overflow: hidden;  ">
+            <div style="width: 100;height: 100%; ">
               <h5 >Horario</h5>
         
-              <form style="padding: 10px;display: flex;flex-direction: row;">
+                <form style="padding: 10px 35px 10px 50px; display: flex;flex-direction: row;">
                 <div class="horarioadd">
                   <div class="horario-input" >
         
                     <label>Dia:</label>
-                    <select [(ngModel)]="dia" style="width: 150px;height:
-                      30px;" name="dia">
+                    <select [(ngModel)]="dia" name="dia">
                       <option *ngFor="let d of dias" value="{{d}}">{{d}}</option>
                     </select>
                   </div>
@@ -257,7 +242,7 @@
                     <label >{{horario.dia}}</label>
                     <label style="text-align: center;">{{horario.horai + ' - ' +
                       horario.horaf}}</label>
-                      <i class="far fa-trash-alt" style="cursor: pointer;color: red;"  (click)="eliminar_horario(horario.idhorario,horario.dia)"></i>
+                      <i class="far fa-trash-alt" style="cursor: pointer;color: white;"  (click)="eliminar_horario(horario.idhorario,horario.dia)"></i>
                     
                    
                   </li>

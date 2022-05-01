@@ -7,7 +7,7 @@
 body{
     width: 100%;
     height: 100%;
-    padding-top: 40px;
+    padding-top: 20px;
     background-color: transparent;
     
 }
@@ -35,13 +35,38 @@ body{
 }
 .xd{
     font-size: 14px;
+    color:  #222b45 ;
+    font-weight: 500;
 }
-
+.xd label{
+    color: #222b45;
+    font-weight: 200;
+}
+.data_personal{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+.data_personal div{
+    display: flex;
+    flex-direction: column;
+    margin-right: 15px;
+    
+}
+.line{
+    width: 1px;
+    height: 100%;
+    background-color: #222b45;
+}
 label{
     margin-bottom: 0;
 }
 /** graaficas **/
 
+table  thead tr{
+    color: white;
+    background: #0f3971;
+}
 .cont-left{
     background-color: white;
     border-radius: 4px;
@@ -80,13 +105,38 @@ label{
 }
 
 .fechas button{
-   background-color: #4caf50;
-   color: white;
-   border-radius: 5px;
-   border:none;
+    background-color: #0f397124;
+
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #0f3971;
+    border-radius: 5px;
+    border: 1px solid #0f3971;
+ 
 }
 
-
+.estado{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 15px;
+}
+.estado select{
+    padding: 5px 10px;
+    font-size: 12px;
+    border: 2px solid rgba(100, 100, 111, 0.2);
+    text-transform: uppercase;
+    width: 100%;
+    height: 100%;
+    background: white;
+    outline: none;
+    border-radius: 5px;
+    color: #9ca7b1;
+}
+.estado .label{
+    font-size: 13px;margin-bottom: 0;color: #9ca7b1;margin-right: 5px;font-weight: 600;
+}
 
 /* Lista de estudiantes asignados*/
 
@@ -99,16 +149,10 @@ label{
     grid-column: 2/4;
     grid-row: 2;
 }
-.cont-rigth h6{
-    text-align: center;
-    font-weight: 600;
-    color: #4caf50;
-    font-size: 17px;
-    margin-bottom: 15px;
-}
+
 .cont-rigth .descrip{
     padding: 5px 10px;
-    background: #4caf50;
+    background: #f9a601;
     color: whitesmoke;
     border-radius: 5px;
     border: none;
@@ -116,23 +160,57 @@ label{
 
 
 /**---------------------Modal de atenciones-------*/
-.result .paciente,.personal{
-
+.paciente{
     padding: 25px 0px 10px 0px;
-    border: 1px solid #f5ede6;
-    margin-bottom: 10px;
-      
+    display: flex;
+flex-direction: column;
+    margin-bottom: 10px;  
    }
-   .paciente  .cont-img,
-   .personal .cont-img{
+
+   .paciente  .cont-img
+  {
      width: 100%;
      display: flex;
-     flex-direction: column;
-     position: relative;
+     flex-direction: row;
+     padding: 10px 15px;
+     border: 0.0625rem solid #e4e9f2;
      align-items: center;
    }
-   .paciente .data,
-   .personal .data{
+
+   .paciente .cont-img .name{
+    font-size: 30px;
+  text-transform: uppercase;
+    font-weight: 700;
+   }
+   .paciente .cont-img .info-initial{
+       width: 65%;
+       display: flex;
+       flex-direction: column;
+   }
+   .info-label{
+        color: #222b45;
+        font-size: 13px;
+        font-weight: 600;
+   }
+   .info-label label{
+         color: #222b45;
+         font-size: 13px;
+         font-weight: normal;
+   }
+   .paciente .cont-img button{
+         background-color: #0f397124;
+         padding: 2px 15px;
+         font-weight: bold;
+         font-size: 13px;
+         text-transform: uppercase;
+         color: #0f3971;
+   
+         border-radius: 5px;
+         border:1px solid #0f3971;
+         
+   }
+   
+   .paciente .data{
      width:100%;
      margin-top: 25px;
      height:auto;
@@ -140,30 +218,53 @@ label{
      flex-wrap:wrap;
    }
    
-
+   .data .datapt1{
+    width: 40%;
+    border: 0.0625rem solid #e4e9f2;
+   }
+   .datapt1 .title ,.datapt2 .title{
+       color: #222b45;
+       width: 100%;
+       font-weight: 600;
+       font-size: 14px;
+       padding: 5px 10px;
+       border-bottom: 0.0625rem solid #e4e9f2;
+   }
+   .data .datapt2{
+       width: 58%;
+       height: auto;
+       margin-left: 15px;
+       border: 0.0625rem solid #e4e9f2;
+   }
+  .cont-datapt1{
+      
+      padding: 10px;
+      
+  }
    .info_style{
-     width:32%;
-     margin-right:10px;
+
+     margin-bottom: 10px;
      display:flex;
-     height:80px;
+     height:auto;
+     max-height: 120px;
      flex-direction:column;
      
    }
    .info_style label{
     font-size: 12px;
-    font-weight: 400;
-    color: #9a9a9a;
+    font-weight: 600;
+    color: #8f9bb3;
     margin-bottom: 5px;
-    text-transform: uppercase;
+   
    }
    .info_style input{
-    background-color: #fff;
+    background-color: #edf1f7;
     border: 1px solid #e3e3e3;
     border-radius: 4px;
-    color: #565656;
-    font-size: 14px;
+    color: black;
+    font-size: 13px;
     padding: 8px 12px;
-    height: 40px;
+    height: auto;
     box-shadow: none;
    }
    .circle2{
@@ -183,33 +284,154 @@ margin-right: 20px;
 display: flex;
   }
   .input-style2 textarea,.info_style textarea{
-    background-color: #fff;
-    border: 1px solid #e3e3e3;
+      background-color: #edf1f7;
+      border: 1px solid #e3e3e3;
     border-radius: 4px;
-    color: #565656;
-    font-size: 14px;
+    color: black;
+    font-size: 13px;
     padding: 8px 12px;
     height: 100px;
     box-shadow: none;
   }
   .input-style2 label{
     font-size: 12px;
-    font-weight: 400;
-    color: #9a9a9a;
+    font-weight: 600;
+    color: #8f9bb3;
     margin-bottom: 5px;
-    text-transform: uppercase;
+}
+
+
+
+
+ .puntaje{
+    display: flex;
+    margin-bottom: 15px;
+    flex-direction: row;
+    width: 90%;
+ }
+.puntaje .total{
+width: 25%;
+display: flex;
+flex-direction: column;
+align-items: center;
+
+}
+.puntaje .total h2{
+    color: #333;
+    font-size: 64px;
+    font-weight: 100;
+    line-height: 64px;
+}
+.puntaje .total p{
+    color: #616161;
+    font-size: 13.5px;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin-bottom: 3px
+}
+.puntaje .individual{
+width: 75%;
+}
+.individual .progres label{
+    display: flex;
+    width: 15px;
+    font-size: 12px;
+    margin-right: 10px;
+    justify-content: center;
+}
+.individual .progres {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+}
+.individual .progres div{
+    width: calc(100% - 25px);
+    
+}
+.list_comments{
+    width: 100%;
+    min-height: 270px;
+    max-height: 275px;
+    overflow-x: hidden;
+    overflow-y: auto;
+   
+}
+.comment{
+    display: flex;
+    width: 100%;
+    min-height: 80px;
+    max-height: 160px;
+    margin-right: 25px;
+    border-radius: 5px;
+    flex-direction: row;
+    background-color: white;
+    border-bottom: 0.0625rem solid #e4e9f2;
+    
+}
+.comment .data{
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-bottom: 15px;
+}
+.comment .data h6{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.comment .data p{
+    font-size: 13px;
+}
+.comment .cont-img{
+    display: flex;
+    align-items: center ;
+    justify-content: center;
+    max-width: 10%;
+}
+.comment .cont-img img{
+    width: 85%;
+}
+ #exampleModalLong .nav-link.active{
+     color: black;
+    font-weight: bold;
+    border-color: #0f3971 #0f3971 ;
   }
 
-
-
- 
-  .nav-link.active{
-    background-color: #f5ede6;
-    color: black;
+  #exampleModalLong .nav-link.active h6{
+    color: white;
+    background: #0f3971;
   }
-  .nav-link{
+  #exampleModalLong .nav-link{
       color: #565656;
+      height: 70px;
+      border: 1px solid #cbcccd;
+      text-align: center;
+      display: flex;
+      padding: 0;
+      flex-direction: row;
+     
       }
+      .nav-link h6{
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 5px;
+        background-color: #cbcccd;
+        height: 100%;
+        }
+        .nav-link div{
+            padding: 10px 5px;
+            font-size: 13.5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          width: 80%;
+            }
+ .tab-content>.active{
+    border: 0.0625rem solid #e4e9f2;
+ }
   a{
       color: black;
   }
@@ -219,3 +441,68 @@ display: flex;
   .modal-lg{
       max-width: 950px;
   }
+
+  /*       QUIZZZZZ       */
+.quizz{
+    width: 100%;
+    list-style: none;
+    padding: 20px;
+}
+.question{
+    display: flex;
+    flex-direction: row;
+    font-size: 14.5px;
+}
+.question label:first-child{
+   width: 90%;
+   padding: 5px 5px;
+   border: 1px solid;
+   margin: 0;
+}
+.question label:last-child{
+    width: 10%;
+    margin: 0;
+    border: 1px solid;
+    text-align: center;
+}
+
+
+.back{
+    background-color: #0f397124;
+    padding: 2px 15px;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #0f3971;
+    border-radius: 5px;
+    border: 1px solid #0f3971;
+    width: 200px;
+        height: 30px;
+        position: absolute;
+        left: calc(98% - 200px);
+        top: 20px;
+}
+
+.xdd{
+    padding-left: 6px;
+    font-size: 14px;
+    color: #081d39;
+    font-weight: 700;
+}
+
+.cont-rigth .nav-link.active {
+    color: #0f3971;
+    border: none;
+    border-bottom: 3px solid #0f3971;
+    
+    background-color: #fff;
+}
+.cont-rigth .nav-tabs .nav-link {
+    text-align: center;
+    width: 50%;
+
+}
+.cont-rigth .tab-content > .active{
+    border: none;
+    padding-top: 20px;
+}

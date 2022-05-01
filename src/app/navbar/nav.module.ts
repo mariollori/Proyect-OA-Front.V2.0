@@ -18,6 +18,7 @@ import { GestOpComponent } from './gest-op/gest-op.component';
 import { NgChartsModule, ThemeService } from 'ng2-charts';
 import { ReporteIComponent } from '../reportes/reporte_individual/reporte-i.component';
 import { BandejaInComponent } from './bandeja-in/bandeja-in.component';
+import { ClipboardModule } from "@angular/cdk/clipboard";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { BandejaInComponent } from './bandeja-in/bandeja-in.component';
     RegistrarAtencionComponent,
     ReportesComponent,    
     ReporteIComponent, 
-    BandejaInComponent
+    BandejaInComponent, 
     
 
   ],
@@ -38,6 +39,7 @@ import { BandejaInComponent } from './bandeja-in/bandeja-in.component';
     NavRoutingModule,
     FragmentsModule,
     NgChartsModule,
+    ClipboardModule,
     FormsModule,
     MaterialModule,
     

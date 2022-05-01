@@ -10,7 +10,8 @@
   <div class="content" *ngIf="opciones">
     <ul class="list-op">
       <li class="child-op"  *ngFor="let op of opciones"  name="opciones" routerLink="{{ op.ruta }}" >
-        <i class="{{ op.icono }}"></i>{{ op.nombre }} 
+        <i class="{{ op.icono }}"></i>
+        <label for="">{{ op.nombre }} </label>
         <span class="tolpit" >{{ op.nombre }}</span>
       </li>
       
@@ -26,12 +27,15 @@
          
         <div >
          
-        <p  *ngIf="nombre" style="color:black;margin-bottom:5px;min-width: 200px;">{{ nombre }}
+        <p  *ngIf="nombre" style="color:white;width: 150px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;">{{ nombre }}
       </p>
         </div>
       </li>
 
-      <li   (click)="logout()" class="footer-son"><i  class="fas fa-door-open"></i>Salir<span class="tolpit" >sallir</span></li> 
+      <li   (click)="logout()" class="footer-son"><i class="fas fa-power-off" style="font-size: 14px;"></i>Salir<span class="tolpit" style="background-color: white;color: red;" >Sallir</span></li> 
   
   </ul>
   </div>
@@ -40,7 +44,9 @@
 
 
 <div class="menu">
-  
+  <div class="line">
+    
+  </div>
 </div>
 
 

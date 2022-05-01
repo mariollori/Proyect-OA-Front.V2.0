@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-spinner-loader',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./spinner-loader.component.css']
 })
 export class SpinnerLoaderComponent implements OnInit {
-
+  @Input() message:String; 
   constructor() { }
 
   ngOnInit() {

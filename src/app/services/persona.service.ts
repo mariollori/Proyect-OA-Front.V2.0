@@ -14,11 +14,17 @@ export class PersonaService {
 
 
   urlEndpoint = "http://localhost:5050/EX3/persona";
+  urlEndpoint2 = "http://localhost:5050/EX3/paciente";
 
   crearpersona(persona:Persona,paciente:Paciente):Observable<String>{
     console.log(persona)
     console.log(paciente)
   
     return this.http.post<String>(this.urlEndpoint + '/postpaciente',{persona,paciente});
+  }
+
+
+  registrar_valoracion(puntaje,dni,descripcion,codex):any{
+    return this.http.post<String>(this.urlEndpoint2 + '/registrar_valoracion',{puntaje,dni,descripcion,codex});
   }
 }

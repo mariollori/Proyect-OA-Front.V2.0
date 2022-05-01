@@ -10,7 +10,7 @@
 .content {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
   display: flex;
 }
 
@@ -19,7 +19,7 @@
 width: 30%;
 position: relative;
 height: 100%;
-background-image: linear-gradient(-45deg, #109b9b 0%, #15d696 100%);
+background: #0f3971;
 }
 .rigth-content .img2{
   position: absolute;
@@ -50,10 +50,12 @@ background-image: linear-gradient(-45deg, #109b9b 0%, #15d696 100%);
   height: 100%;
 }
 .title{
-  color: #14d596; text-align: center;margin-left: 30px;font-size: 17px;font-weight: bold;
+  color: 
+  #0f3971; text-align: center;margin-left: 30px;font-size: 17px;font-weight: bold;
 }
 .subtitle{
-  text-align: left;color: grey;margin-top: 30px;font-size: 13px;width: 100%;margin-left: 30px;
+  text-align: left;color: 
+  #0f3971;margin-top: 30px;font-size: 13px;width: 100%;margin-left: 30px;
 }
 
 #btn-home{
@@ -76,7 +78,7 @@ background-image: linear-gradient(-45deg, #109b9b 0%, #15d696 100%);
  left: 8px;
  display: block;
  border-radius: 50%;
- background:#6193f6;
+ background:#f9a601;
  width: 34px;
  height: 34px;
  z-index: -1;
@@ -117,7 +119,8 @@ background-image: linear-gradient(-45deg, #109b9b 0%, #15d696 100%);
 }
 
 .progress {
-  background-color: rgb(20, 213, 150);;
+  background-color: #f9a601
+  ;
   width: 0%;
   transition: 0.3s;
 }
@@ -152,8 +155,10 @@ background-image: linear-gradient(-45deg, #109b9b 0%, #15d696 100%);
 }
 
 .progress-step-active {
-  background-color: rgb(20, 213, 150);
-  border: 3px solid rgb(20, 213, 150); ;
+  background-color: 
+  #0f3971;
+  border: 3px solid 
+  #0f3971 ;
   color: #f3f3f3;
   box-shadow: inset 0 0 0 2px white;
 }
@@ -195,7 +200,8 @@ background-image: linear-gradient(-45deg, #109b9b 0%, #15d696 100%);
   height: 40px;
   border-radius: 50%;
   left: 97.5%;
-  background-color: #14d58f;
+  background-color: 
+  #0f3971;
   color: white;
   display: flex;
   justify-content: center;
@@ -211,7 +217,8 @@ background-image: linear-gradient(-45deg, #109b9b 0%, #15d696 100%);
   height: 40px;
   border-radius: 50%;
   left: -2.5%;
-  background-color: #14d58f;
+  background-color: 
+  #0f3971;
   color: white;
   display: flex;
   justify-content: center;
@@ -256,18 +263,25 @@ background-image: linear-gradient(-45deg, #109b9b 0%, #15d696 100%);
 }
 
 .horario-input{
-  height: 50px;  
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+ 
 }
 .horario-input label{
   min-width: 80px;
   font-size: 13px;
 }
 .horario-input input,select{
-  padding:3px 10px;
-  border:2px solid #14d596;
-  color:teal;
-  outline:none;
-  font-size:12px
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #66615b;
+  line-height: normal;
+  padding: 10px;
+  font-size: 14px;
+  width: 160px;
 }
 ul{
   width: 60%;
@@ -322,7 +336,36 @@ li{
 }
 
 
- 
- 
+@media only screen and (max-width: 1350px) {
+  .form-stepper{
+    width: 86%;
+    left: 7%;
+  }
 
+}
  
+@media only screen and (max-width: 980px) {
+  .left-content{
+   width: 100%;
+  }
+  .form-stepper{
+    width: 94%;
+    left: 3%;
+  }
+  .rigth-content{
+    display: none;
+  }
+
+}
+@media only screen and (max-width: 760px) {
+  .personaldata form mat-form-field{
+   min-width: 100%;
+  }
+  
+.btn-next{
+  bottom: 0 ;
+}
+.btn-prev{
+
+}
+}

@@ -30,9 +30,8 @@
               "node_modules/datatables.net-dt/css/jquery.dataTables.css",
               "src/styles.css",
               "src/custom.scss",
-              "src/fonts/css/all.css",
-              "node_modules/primeng/resources/themes/saga-green/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "src/fonts/css/all.css"
+           
             
             ],
             "scripts": [
@@ -113,9 +112,8 @@
              
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
-              "src/custom.scss",
-              "node_modules/primeng/resources/themes/saga-green/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "src/custom.scss"
+             
             
              
             ],
