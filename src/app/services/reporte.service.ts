@@ -9,8 +9,8 @@ export class ReporteService {
 
   constructor(private http:HttpClient) { }
 
-  urlEndpoint = "http://localhost:5050/EX3/reporte/";
-  urlEndpoint2 = "http://localhost:5050/EX3/usuario/";
+  urlEndpoint = "https://oidoamigo.upeu.edu.pe/EX3/reporte/";
+  urlEndpoint2 = "https://oidoamigo.upeu.edu.pe/EX3/usuario/";
 
   getAsignaciones(tipo): Observable<any[]> {
     let params = new HttpParams().set("tipo",tipo);

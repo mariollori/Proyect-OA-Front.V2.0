@@ -12,7 +12,7 @@ import { ImagenService } from './imagen.service';
   providedIn: 'root'
 })
 export class AuthService {
-  urlEndpoint = "http://localhost:5050/EX3/auth";
+  urlEndpoint = "https://oidoamigo.upeu.edu.pe/EX3/auth";
 
   constructor(private http: HttpClient,private image:ImagenService) { }
   private _usuario: Usuario;

@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class BandejaService {
 
-  url = "http://localhost:5050/EX3/bandeja/";
-  url2 = "http://localhost:5050/EX3/paciente/";
+  url = "https://oidoamigo.upeu.edu.pe/EX3/bandeja/";
+  url2 = "https://oidoamigo.upeu.edu.pe/EX3/paciente/";
   constructor(private http:HttpClient) { }
 
   get_asignaciones_pendientes(sede):Observable<any[]>{

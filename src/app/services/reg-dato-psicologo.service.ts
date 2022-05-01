@@ -18,7 +18,7 @@ export class RegDatoPsicologoService {
 
   constructor(private http:HttpClient,private auth:AuthService,private firebas:AngularFireStorage) { }
 
-  urlEndpoint = "http://localhost:5050/EX3/datos_psicologo";
+  urlEndpoint = "https://oidoamigo.upeu.edu.pe/EX3/datos_psicologo";
 
   crear_datos_psicologo(persona:Persona,personal_ayuda:Personal_ayuda,horario_psicologo:Horario_psicologo[]):Observable<String>{
     console.log(persona)
@@ -45,7 +45,7 @@ crearhorario(horario):Observable<any>{
   return this.http.post<any>(this.urlEndpoint + '/horario/post/' ,{horario})
 }
 
-  urlEndpoint2 = "http://localhost:5050/EX3/usuario";
+  urlEndpoint2 = "https://oidoamigo.upeu.edu.pe/EX3/usuario";
    changedataper(persona):Observable<any>{
      return this.http.put<any>(this.urlEndpoint2 + '/putdataper',{persona});
 

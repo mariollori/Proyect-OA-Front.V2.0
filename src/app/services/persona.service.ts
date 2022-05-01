@@ -13,8 +13,8 @@ export class PersonaService {
   constructor(private http:HttpClient,private auth:AuthService) { }
 
 
-  urlEndpoint = "http://localhost:5050/EX3/persona";
-  urlEndpoint2 = "http://localhost:5050/EX3/paciente";
+  urlEndpoint = "https://oidoamigo.upeu.edu.pe/EX3/persona";
+  urlEndpoint2 = "https://oidoamigo.upeu.edu.pe/EX3/paciente";
 
   crearpersona(persona:Persona,paciente:Paciente):Observable<String>{
     console.log(persona)

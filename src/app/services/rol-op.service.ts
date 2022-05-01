@@ -8,9 +8,9 @@ import { Opciones } from '../models/Opciones';
   providedIn: 'root'
 })
 export class RolOpService {
-  urlEndpoint1 = "http://localhost:5050/EX3/psicologo";
+  urlEndpoint1 = "https://oidoamigo.upeu.edu.pe/EX3/psicologo";
   constructor(private auth:AuthService,private http:HttpClient) { }
-   url = 'http://localhost:5050/EX3/opcion'
+   url = 'https://oidoamigo.upeu.edu.pe/EX3/opcion'
      ///-------------------------Psicologos******************-------------------------------------
   getpsicologos(tipo,sede):Observable<any>{
     let params = new HttpParams().set("tipo",tipo).append("sede",sede);

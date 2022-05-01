@@ -15,11 +15,11 @@ import { ngxChartsPolyfills } from '@swimlane/ngx-charts/release/polyfills';
 export class UserService {
 
   constructor(private http:HttpClient,private auth:AuthService) { }
-  urlEndpoint = "http://localhost:5050/usuario";
-  urlEndpoint2 = "http://localhost:5050/persona";
-  urlEndpoint3 = "http://localhost:5050/opcion";
-  urlEndpoint4 = "http://localhost:5050/psicologo";
-  urlEndpoint5 = "http://localhost:5050/paciente";
+  urlEndpoint = "https://oidoamigo.upeu.edu.pe/usuario";
+  urlEndpoint2 = "https://oidoamigo.upeu.edu.pe/persona";
+  urlEndpoint3 = "https://oidoamigo.upeu.edu.pe/opcion";
+  urlEndpoint4 = "https://oidoamigo.upeu.edu.pe/psicologo";
+  urlEndpoint5 = "https://oidoamigo.upeu.edu.pe/paciente";
   eliminarsolicitud(idpersonal,idpersona,tipo):Observable<any>{
     return this.http.post<any>(this.urlEndpoint4 + '/deletepersona', { idpersonal,idpersona,tipo})
    }
