@@ -2,15 +2,16 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { dominio } from 'src/environments/environment.prod';
 import { Rol } from '../models/Rol';
 import { Opciones } from '../models/Opciones';
 @Injectable({
   providedIn: 'root'
 })
 export class RolOpService {
-  urlEndpoint1 = "https://oidoamigo.upeu.edu.pe/EX3/psicologo";
+  urlEndpoint1 = `${dominio}/EX3/psicologo`;
   constructor(private auth:AuthService,private http:HttpClient) { }
-   url = 'https://oidoamigo.upeu.edu.pe/EX3/opcion'
+   url =`${dominio}/EX3/opcion`; 
      ///-------------------------Psicologos******************-------------------------------------
   getpsicologos(tipo,sede):Observable<any>{
     let params = new HttpParams().set("tipo",tipo).append("sede",sede);

@@ -1,14 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { dominio } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
 export class BandejaService {
 
-  url = "https://oidoamigo.upeu.edu.pe/EX3/bandeja/";
-  url2 = "https://oidoamigo.upeu.edu.pe/EX3/paciente/";
+  url =  `${dominio}/EX3/bandeja`;
+  url2 =  `${dominio}/EX3/paciente`;
   constructor(private http:HttpClient) { }
 
   get_asignaciones_pendientes(sede):Observable<any[]>{

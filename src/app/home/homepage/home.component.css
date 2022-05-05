@@ -566,3 +566,26 @@ body::after{
             left:0;
         }
     }
+    @media (max-width: 475px){
+      .img-2{
+        width: 50%;
+        left: 25%;
+        top: 32%;
+      }
+      body::after{
+        content: none;
+      }
+      .card label, .card span {
+       
+        font-size: 45px;
+      }
+       
+       
+        .padre{
+          padding: 0;
+        }
+        .card button{
+             margin:0 auto;
+             margin-top: 25px;
+        }
+    }

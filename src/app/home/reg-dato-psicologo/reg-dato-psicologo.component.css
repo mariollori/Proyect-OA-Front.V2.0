@@ -361,11 +361,84 @@ li{
   .personaldata form mat-form-field{
    min-width: 100%;
   }
-  
+  #btn-home{
+    display: none;
+  }
+  .personaldata{
+    padding: 40px 15px 80px 15px;
+  }
+  .form-stepper{
+    width: 100%;
+    left: 0;
+    height: max-content;
+    padding: 0;
+  }
+  .form-step-active{
+    height: max-content;
+  }
+  .subtitle{
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    margin-top: 30px;
+    padding: 0px 10px;
+  }
+  .title{
+    margin-left: 0;
+  }
+  .progressbar{
+    
+    margin: 0 auto;
+    margin-top: 25px;
+    width: 70%;
+  }
 .btn-next{
-  bottom: 0 ;
+  left: 55%;
+  top: 100%;
+  margin-bottom: 15px;
+  width: 40%;
+  top: calc(100% - 65px);
+  border-radius: 5px;
 }
 .btn-prev{
+  left: 5%;
+  top: 100%;
+  margin-bottom: 15px;
+  width: 40%;
+  top: calc(100% - 65px);
+  border-radius: 5px;
+}
+.horario{
+  padding: 40px 10px 65px 10px;
 
+}
+.horario form{
+  flex-direction: column;
+}
+.horarioadd{
+  width: 100%;
+}
+.horario-input input,.horario-input select{
+  width: 100%;
+}
+.boton{
+  width: 100%;
+}
+ul{
+  width: 100%;
+  
+    margin: 15px 0 15px 0;
+    min-height: 110px;
+}
+.savebtn{
+  left: 55%;
+  top: 100%;
+  margin-bottom: 15px;
+  width: 40%;
+  top: calc(100% - 65px);
+  border-radius: 5px;
+  height: 40px;
+  border: none;
+  position: absolute;
 }
 }

@@ -220,6 +220,9 @@ a:hover{
    color: #00ccbe;
    font-weight: 600;
  }
+ .separador{
+   display: none;
+ }
  
 /* body::before{
   content: "";
@@ -313,6 +316,7 @@ font-size: 14px;
    }
   body{
   background-color:white;
+  overflow: auto;
   }
   .logo{
   display: none; 
@@ -326,6 +330,8 @@ font-size: 14px;
   }
   .container{
     min-width: 90%;
+    height: max-content;
+    
     margin: 0 auto;
     left: 0;
   }
@@ -344,9 +350,63 @@ font-size: 14px;
   }
  }
  
+
  @media only screen and (max-width: 425px) {
-   .container{
-     padding-left: 5px;
-     padding-right: 5px;
-   }
+  .separador{
+    display: block;
+    width: 100%;
+    padding: 10px 0px;
+    text-align: center;
+    position: relative;
+  }
+  .separador::after,.separador::before{
+    content: "";
+    height: 1px;
+    width: 45%;
+    background-color: #0f3971;
+    position: absolute;
+  }
+  .separador::after{
+    left: 55%;
+    top: calc(50% - 0.5px);
+  }
+  .separador::before{
+   left: 0;
+   top: calc(50% - 0.5px);
+  }
+  .container{
+    padding-left: 5px;
+    padding: 40px 10px 50px 10px;
+    justify-content: flex-start;
+  
+    padding-right: 5px;
+    top: 0;
+    
+  }
+  .register{
+
+   
+   width: 97%;
+   position: absolute;
+   display: block;
+   background-color: #0f3971;
+   font-size: 14px;
+   color: white;
+   padding:8px 15px;
+   border: none;
+   border-radius: 10px;
+   left: 1.5%;
+   top: 92%;
+   z-index: 12;
+
+ }
+  #btn-home{
+    display: none;
+  }
+  .input-style{
+    min-height: 60px;
+  }
+  .input-style input{
+    height: 50%;
+  }
  }

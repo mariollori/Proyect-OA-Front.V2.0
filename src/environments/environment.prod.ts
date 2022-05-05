@@ -8,4 +8,5 @@ export const environment = {
     storageBucket: 'prueba1-7a347.appspot.com',
     messagingSenderId: '109352717840',
   },
-};
+}
+export const dominio ='http://localhost:5050';

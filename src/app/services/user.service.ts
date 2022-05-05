@@ -5,9 +5,8 @@ import { Rol } from '../models/Rol';
 import { Opciones } from '../models/Opciones';
 import { Persona } from '../models/Persona';
 import { AuthService } from './auth.service';
+import { dominio } from 'src/environments/environment.prod';
 import { Usuario } from '../models/Usuario';
-import { Cancelacion } from '../models/Cancelacion';
-import { ngxChartsPolyfills } from '@swimlane/ngx-charts/release/polyfills';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +14,11 @@ import { ngxChartsPolyfills } from '@swimlane/ngx-charts/release/polyfills';
 export class UserService {
 
   constructor(private http:HttpClient,private auth:AuthService) { }
-  urlEndpoint = "https://oidoamigo.upeu.edu.pe/usuario";
-  urlEndpoint2 = "https://oidoamigo.upeu.edu.pe/persona";
-  urlEndpoint3 = "https://oidoamigo.upeu.edu.pe/opcion";
-  urlEndpoint4 = "https://oidoamigo.upeu.edu.pe/psicologo";
-  urlEndpoint5 = "https://oidoamigo.upeu.edu.pe/paciente";
+  urlEndpoint = `${dominio}/EX3/usuario`; 
+  urlEndpoint2 =`${dominio}/EX3/persona`;  
+  urlEndpoint3 =`${dominio}/EX3/opcion`;  
+  urlEndpoint4 =`${dominio}/EX3/psicologo`; 
+  urlEndpoint5 =`${dominio}/EX3/paciente`;  
   eliminarsolicitud(idpersonal,idpersona,tipo):Observable<any>{
     return this.http.post<any>(this.urlEndpoint4 + '/deletepersona', { idpersonal,idpersona,tipo})
    }

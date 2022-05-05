@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { count } from 'console';
 import { Observable } from 'rxjs';
 import { Rol } from '../models/Rol';
-
+import { dominio } from 'src/environments/environment.prod';
 import { Usuario } from '../models/Usuario';
 import { ImagenService } from './imagen.service';
 
@@ -12,7 +12,8 @@ import { ImagenService } from './imagen.service';
   providedIn: 'root'
 })
 export class AuthService {
-  urlEndpoint = "https://oidoamigo.upeu.edu.pe/EX3/auth";
+  
+  urlEndpoint = `${dominio}/EX3/auth`; 
 
   constructor(private http: HttpClient,private image:ImagenService) { }
   private _usuario: Usuario;

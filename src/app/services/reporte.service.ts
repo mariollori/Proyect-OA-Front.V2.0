@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { dominio } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,8 +9,8 @@ export class ReporteService {
 
   constructor(private http:HttpClient) { }
 
-  urlEndpoint = "https://oidoamigo.upeu.edu.pe/EX3/reporte/";
-  urlEndpoint2 = "https://oidoamigo.upeu.edu.pe/EX3/usuario/";
+  urlEndpoint =`${dominio}/EX3/reporte/`;  
+  urlEndpoint2 = `${dominio}/EX3/usuario/`; 
 
   getAsignaciones(tipo): Observable<any[]> {
     let params = new HttpParams().set("tipo",tipo);

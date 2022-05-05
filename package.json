@@ -27,7 +27,6 @@
     "angular-datatables": "^13.0.1",
     "angularfire2": "^5.4.2",
     "bootstrap": "^4.6.1",
-    "bootstrap-toaster": "^4.1.2",
     "chart.js": "^3.7.1",
     "datatables.net": "^1.11.4",
     "datatables.net-dt": "^1.11.4",
@@ -37,13 +36,11 @@
     "material-icons": "^1.10.4",
     "ng-angular-popup": "^0.1.2",
     "ng2-charts": "^3.0.8",
-    "ngx-doc-viewer": "^2.0.5",
     "rxjs": "~6.4.0",
-    "simple-notify": "^0.5.4",
     "sweetalert2": "^11.3.1",
     "tslib": "^1.10.0",
     "uuid": "^8.3.2",
-    "zone.js": "~0.9.1"
+    "zone.js": "^0.11.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.2.14",

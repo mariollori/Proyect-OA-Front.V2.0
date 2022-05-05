@@ -6,7 +6,7 @@ import { Persona } from '../models/Persona';
 import { Personal_ayuda } from '../models/Personal';
 import { Horario_psicologo } from '../models/Horario_psicologo';
 import { AngularFireStorage } from '@angular/fire/storage';
-
+import { dominio } from 'src/environments/environment.prod';
 import { environment } from 'src/environments/environment';
 import * as firebase from 'firebase';
 firebase.initializeApp(environment.firebase);
@@ -18,8 +18,7 @@ export class RegDatoPsicologoService {
 
   constructor(private http:HttpClient,private auth:AuthService,private firebas:AngularFireStorage) { }
 
-  urlEndpoint = "https://oidoamigo.upeu.edu.pe/EX3/datos_psicologo";
-
+  urlEndpoint = `${dominio}/EX3/datos_psicologo`;
   crear_datos_psicologo(persona:Persona,personal_ayuda:Personal_ayuda,horario_psicologo:Horario_psicologo[]):Observable<String>{
     console.log(persona)
     console.log(personal_ayuda)
@@ -45,7 +44,7 @@ crearhorario(horario):Observable<any>{
   return this.http.post<any>(this.urlEndpoint + '/horario/post/' ,{horario})
 }
 
-  urlEndpoint2 = "https://oidoamigo.upeu.edu.pe/EX3/usuario";
+  urlEndpoint2 = `${dominio}/EX3/usuario`;
    changedataper(persona):Observable<any>{
      return this.http.put<any>(this.urlEndpoint2 + '/putdataper',{persona});
 

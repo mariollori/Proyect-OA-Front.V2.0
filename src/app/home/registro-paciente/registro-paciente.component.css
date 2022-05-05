@@ -396,21 +396,65 @@ font-size:13px
     }
   }
   @media only screen and (max-width: 490px) {
-  
-  
+ 
+   .form-stepper{
+     left: 0;
+     width: 100%;
+   }
+   .subtitle{
+     text-align: center;
+     margin: 0;
+     margin-top: 15px;
+   }
     .question{
       flex-direction: column;
-
+    padding: 2px 0;
     }
+    .quizz{
+      padding: 50px 10px 80px 20px;
+    }
+    .progressbar{
+      width: 78%;
+    }
+    .progress-step::after{
+      width: 80px;
+    }
+    .login-form{
+      height: max-content;
+      padding: 50px 25px 85px;
+    }
+
+    
     .question label{
       width: 100%;
     }
-  }
-  @media only screen and (max-width: 320px) {
-  
-  
+    .btn-next{
+      left: 55%;
+      top: 100%;
+      margin-bottom: 15px;
+      width: 40%;
+      top: calc(100% - 65px);
+      border-radius: 5px;
+    }
+    .btn-prev{
+      left: 5%;
+      top: 100%;
+      margin-bottom: 15px;
+      width: 40%;
+      top: calc(100% - 65px);
+      border-radius: 5px;
+    }
     .btn-step{
-      margin-top: 730px;
-    
+      left: 55%;
+      top: 100%;
+      margin-top: 0;
+      margin-bottom: 15px;
+      width: 40%;
+      top: calc(100% - 65px);
+      border-radius: 5px;
+      height: 40px;
+      border: none;
+      position: absolute;
     }
   }
+ 

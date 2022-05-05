@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { dominio } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
 export class RegistrarAtencionService {
-  urlEndpoint3 = "https://oidoamigo.upeu.edu.pe/EX3/paciente";
+  urlEndpoint3 =`${dominio}/EX3/paciente`; 
 
   constructor(private http:HttpClient) { }
 
