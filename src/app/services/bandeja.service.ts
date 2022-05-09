@@ -7,8 +7,8 @@ import { dominio } from 'src/environments/environment.prod';
 })
 export class BandejaService {
 
-  url =  `${dominio}/EX3/bandeja`;
-  url2 =  `${dominio}/EX3/paciente`;
+  url =  `${dominio}/EX3/bandeja/`;
+  url2 =  `${dominio}/EX3/paciente/`;
   constructor(private http:HttpClient) { }
 
   get_asignaciones_pendientes(sede):Observable<any[]>{

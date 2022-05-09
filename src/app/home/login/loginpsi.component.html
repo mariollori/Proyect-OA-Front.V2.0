@@ -57,7 +57,7 @@
         <i id="show"  (click)="changeicon()"  [class]="show_eye ? 'fas fa-eye-slash' : 'far fa-eye'"></i>
      
     </div>
-    <a  href="home/forgot-password"   >¿Olvidó su contraseña?</a>
+    <a   [routerLink]="['/home/forgot-password']" >¿Olvidó su contraseña?</a>
     
     <button class="login-btn" (click)="login()">Ingresar</button>
     <label for="" class="separador">O</label>
