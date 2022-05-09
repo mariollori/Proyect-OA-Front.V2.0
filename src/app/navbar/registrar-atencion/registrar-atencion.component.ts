@@ -121,7 +121,7 @@ export class RegistrarAtencionComponent implements OnInit {
     this.registerserv.get_paciente_info(id).subscribe(
       data=>{
         this.cargando3=false;
-        this.textValue = 'http://localhost:4200/home/valoracion/'+ data[0].codex;
+        this.textValue = 'https://oidoamigo.netlify.app/#/home/valoracion/'+ data[0].codex;
         this.paciente_info = data[0];
         this.datapaciente.get('religion').setValue(data[0].religion);
         this.datapaciente.get('ocupacion').setValue(data[0].ocupacion);
