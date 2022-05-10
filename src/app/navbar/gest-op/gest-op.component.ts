@@ -1,6 +1,6 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-
+import { NgToastService } from 'ng-angular-popup';
 import { Opciones } from 'src/app/models/Opciones';
 import { Rol } from 'src/app/models/Rol';
 import { Usuario } from 'src/app/models/Usuario';
@@ -45,7 +45,7 @@ export class GestOpComponent implements OnInit {
 
 
   opcionesactualesdelrol:Opciones[]=[];
-  constructor(private rolserv:RolOpService,private userserv:UserService) { }
+  constructor(private rolserv:RolOpService,private userserv:UserService, private toast: NgToastService) { }
   
   // Variables para asignar opc a rol
   opcionesdisponibles:Opciones[]=[];
@@ -591,22 +591,28 @@ listarrolesactuales(id){
 
 
   guardarusuario(){
-    
-    this.userserv.crearusuario(this.usuario.username,this.usuario.password,this.usuario.idpersonal,this.usuarioelement.correo,this.usuario.rol).subscribe(
-      data=>{
-        Swal.fire({
-          icon: 'success',
-          title: 'Registrado',
-          text: 'Usuario creado con exito.',
-         
+    if(this.usuario.rol==null){
+      this.toast.error({detail:"ERROR",summary:'Porfavor verifique los campos',duration:3000}); 
+    }else{
+      this.userserv.crearusuario(this.usuario.username,this.usuario.password,this.usuario.idpersonal,this.usuarioelement.correo,this.usuario.rol).subscribe(
+        data=>{
+          Swal.fire({
+            icon: 'success',
+            title: 'Registrado',
+            text: 'Usuario creado con exito.',
+           
+          }
+            
+          );
+          this.usuario=new Usuario();
+          document.getElementById('crearuser').click();
+          this.get_solicitudes_por_sede();
+          this.listarusuarios();
         }
-          
-        );
-        document.getElementById('crearuser').click();
-        this.get_solicitudes_por_sede();
-        this.listarusuarios();
-      }
-    )
+      )
+    }
+
+    
   }
 
   rechazarsol(element){
