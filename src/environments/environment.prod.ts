@@ -9,4 +9,5 @@ export const environment = {
     messagingSenderId: '109352717840',
   },
 }
-export const dominio ='http://localhost:5050';
+/**http://localhost:5050  */
+export const dominio ='https://backendoa.herokuapp.com';
