@@ -178,7 +178,6 @@ continue(){
         }
       )
     }
-    
  
 
 
@@ -192,6 +191,7 @@ continue(){
     this.part1=this.preguntas.slice(0,10);
     this.part2=this.preguntas.slice(10,19);
     this.continuar=false;
+    document.getElementById("ischeck").click();
     this.valid_use = false;
   }
  

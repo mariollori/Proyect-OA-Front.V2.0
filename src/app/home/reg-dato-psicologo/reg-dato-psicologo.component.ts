@@ -8,6 +8,7 @@ import { Persona } from '../../models/Persona';
 import { Personal_ayuda } from '../../models/Personal';
 import { NgToastService } from 'ng-angular-popup';
 import { RegDatoPsicologoService } from '../../services/reg-dato-psicologo.service';
+
 declare function reset_stepper();
 export class Horario{
   dia:string;
@@ -54,8 +55,7 @@ message;
     s.src = "./assets/js/stepper.js";
     body.appendChild(s);
 
-  
-
+    
     this.tipo='estudiante'
     this.psicologo = new FormGroup({
      
@@ -72,7 +72,7 @@ message;
       genero: new FormControl('', Validators.required),
       edad: new FormControl('',Validators.pattern('^[0-9]{1,2}$')),
       sede: new FormControl('', Validators.required),
-      telefono: new FormControl('',  Validators.compose([Validators.required, Validators.pattern('^[0-9]{9}$')]))
+      telefono: new FormControl('',  Validators.compose([Validators.required]))
     });
     
     this.estudiante = new FormGroup({

@@ -64,14 +64,16 @@
 
               <mat-form-field class="example-full-width">
                 <mat-label>Celular<span style="color: red;">*</span></mat-label>
-                <input matInput formControlName="telefono" type="text" placeholder="999999999" >
+              
+                <input matInput formControlName="telefono" type="text"  placeholder="999999999" >
                 <mat-error *ngIf="registerform.get('telefono').hasError('required')">*requerido</mat-error>
-                  <mat-error *ngIf="registerform.get('telefono').hasError('pattern')">*Debe tener un total de 9 digitos</mat-error>
+              
                 <i class="fas fa-phone-square-alt" matSuffix></i>
               </mat-form-field>
               
               <mat-form-field class="example-full-width">
                 <mat-label>Edad</mat-label>
+
                 <input matInput type="number" formControlName="edad" placeholder="18">
                 <mat-error *ngIf="registerform.get('edad').hasError('pattern')">Introdusca una edad valida.</mat-error>
                 <i class="fas fa-user-clock" matSuffix></i>

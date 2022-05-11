@@ -13,6 +13,7 @@ import { MaterialModule } from '../material/material.module';
 import { ValoracionComponent } from './valoracion/valoracion.component';
 import { ChangePsswComponent } from './change-pssw/change-pssw.component';
 import { ForgotPsswComponent } from './forgot-pssw/forgot-pssw.component';
+import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 
 
 
@@ -37,6 +38,12 @@ import { ForgotPsswComponent } from './forgot-pssw/forgot-pssw.component';
     FormsModule,
 
     ReactiveFormsModule,
+  ]
+  ,providers: [
+    {
+      provide: MAT_RADIO_DEFAULT_OPTIONS,
+      useValue: { color: 'primary' },
+  }
   ]
 })
 export class HomeModule { }

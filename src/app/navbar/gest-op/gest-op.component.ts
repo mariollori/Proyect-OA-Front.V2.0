@@ -592,7 +592,7 @@ listarrolesactuales(id){
 
   guardarusuario(){
     if(this.usuario.rol==null){
-      this.toast.error({detail:"ERROR",summary:'Porfavor verifique los campos',duration:3000}); 
+      this.toast.error({detail:"ERROR",summary:'Porfavor ingrese un rol inicial.',duration:3000}); 
     }else{
       this.userserv.crearusuario(this.usuario.username,this.usuario.password,this.usuario.idpersonal,this.usuarioelement.correo,this.usuario.rol).subscribe(
         data=>{
