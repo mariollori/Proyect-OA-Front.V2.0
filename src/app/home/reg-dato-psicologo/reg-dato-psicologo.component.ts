@@ -60,7 +60,7 @@ message;
     this.psicologo = new FormGroup({
      
       grado_academico: new FormControl('', Validators.required),
-      n_colegiatura: new FormControl('',Validators.pattern('^[0-9]{4}$')),
+      n_colegiatura: new FormControl('',Validators.pattern('^[0-9]{4,6}$')),
       especialidad: new FormControl(''),
       
     });
