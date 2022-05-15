@@ -147,7 +147,16 @@ export class BandejaInComponent implements OnInit {
 
 
   confirmar_asignacion(){
-    this.message ='Confirmando asignación...'
+    Swal.fire({
+      title: '¿Confirmar asignación?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, asignar paciente.'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.message ='Confirmando asignación...'
     this.cargando2= true;
     var myid = uuidv4(); 
     var myid2 = new Date().getTime();
@@ -165,6 +174,9 @@ export class BandejaInComponent implements OnInit {
         this.get_Asignaciones_pendientes();
       }
     )
+      }
+    })
+   
 
     
   }
