@@ -9,6 +9,8 @@ export const environment = {
     messagingSenderId: '109352717840',
   },
 }
-/**http://localhost:5050  */
+
 /**export const dominio ='http://api-oidoamigo.upeu.edu.pe';**/
 export const dominio ='https://backendoa.herokuapp.com';
+
+// export const dominio ='http://localhost:5050';

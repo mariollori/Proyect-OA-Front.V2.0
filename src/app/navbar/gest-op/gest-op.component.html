@@ -93,13 +93,14 @@
                             <select name="" id=""  [(ngModel)]="opcion2" (change)=" listarusuarios()">
                                 <option value="estudiante">Interno</option>
                                 <option value="psicologo">Psicólogo</option>
-                                <option value="Todos">Todos</option>
+                            
                             </select>
 
                         </div>
                     </div>
                     <div class="cont-table">
                         <app-spinner-blanc [message]="'Cargnado usuarios activos.....'" *ngIf="cargando_activos==true"></app-spinner-blanc>
+                        <button (click)="exportexcel()" class="btn-excel"><i class="fas fa-file-excel" style="margin-right: 10px;"></i>Ver en excel</button>
                         <table datatable [dtOptions]="dtOptions" id="list_users" class="tablaxd nowrap" *ngIf="usuariosactivos && !cargando_activos">
                             <thead>
                               <tr class="headtable">
@@ -203,7 +204,7 @@
                 <div class="container" style="margin-top: 10px;padding: 5px">
                     <div class="cont-table">
                         <app-spinner-blanc [message]="'Cargando usuarios dados de baja ...'" *ngIf="cargando_dis==true"></app-spinner-blanc>
-                        <table datatable [dtOptions]="dtOptions" id="list_users" class="tablaxd nowrap" *ngIf="usuarios_desactivados && !cargando_dis">
+                        <table datatable [dtOptions]="dtOptions" class="tablaxd nowrap" *ngIf="usuarios_desactivados && !cargando_dis">
                             <thead>
                               <tr class="headtable">
                                 <th>#</th>

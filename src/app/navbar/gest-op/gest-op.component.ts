@@ -4,9 +4,11 @@ import { NgToastService } from 'ng-angular-popup';
 import { Opciones } from 'src/app/models/Opciones';
 import { Rol } from 'src/app/models/Rol';
 import { Usuario } from 'src/app/models/Usuario';
+import { ExcelService } from 'src/app/services/excel.service';
 import { RolOpService } from 'src/app/services/rol-op.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
+
 
 export interface UsuarioData {
   idusuario:number;
@@ -45,7 +47,7 @@ export class GestOpComponent implements OnInit {
 
 
   opcionesactualesdelrol:Opciones[]=[];
-  constructor(private rolserv:RolOpService,private userserv:UserService, private toast: NgToastService) { }
+  constructor(private rolserv:RolOpService,private userserv:UserService, private toast: NgToastService,private excelserv:ExcelService) { }
   
   // Variables para asignar opc a rol
   opcionesdisponibles:Opciones[]=[];
@@ -153,6 +155,7 @@ usuarios_desactivados;
     this.cargando_activos=true;
     this.rolserv.listarusuarios(this.opcion2,this.sede2).subscribe(
       (data)=>{
+        console.log(data);
        this.cargando_activos=false;
         this.usuariosactivos=data;
       }
@@ -757,7 +760,40 @@ listarrolesactuales(id){
       }
     })
   }
+
+
+
+  exportexcel(): void
+  {
+    var columns;
+    var dataForExcel = [];
+    var i =0;
+    if(this.opcion2=="psicologo"){
+      columns=["Nro.","Nombres completo","Celular","Correo electrónico","Sexo","Grado académico","Nro. Colegiatura","Especialidad"];
+      this.usuariosactivos.forEach((row: any) => {
+        i++;
+       dataForExcel.push(Object.values([i,row.nombre + ' '+ row.apellido,row.telefono,row.correo,row.genero,row.grado_academico,row.n_colegiatura,row.especialidad]));
+     })
+    }else{
+      columns=["Nro.","Nombres completo","Celular","Correo electrónico","Sexo","Ciclo","Grupo","Codigo"];
+      this.usuariosactivos.forEach((row: any) => {
+        i++;
+       dataForExcel.push(Object.values([i,row.nombre + ' '+ row.apellido,row.telefono,row.correo,row.genero,row.ciclo,row.grupo,row.codigo]))
+     })
+    }
+    
+   
+    let reportData = {
+      title: `Registro de ${this.opcion2} de ${this.sede2}`,
+      data: dataForExcel,
+      headers: columns,
+    }
+
+    this.excelserv.exportExcel(reportData);
+  }
 }
+
+
 
 
 

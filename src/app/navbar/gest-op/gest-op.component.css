@@ -317,7 +317,23 @@ body{
 
 
 
-
+.btn-excel{
+    position: absolute;
+    top: 22px;
+    left: 400px;
+    padding: 5px 10px;
+    font-size: 13px;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    z-index: 4;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    background-color: #036c34;
+    transition: transform .3s;
+}
+.btn-excel:hover{
+ transform: scale(1.02);
+}
 
 
 .bysede{
