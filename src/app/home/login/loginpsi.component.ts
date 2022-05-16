@@ -41,8 +41,8 @@ export class LoginpsiComponent implements OnInit {
       this.cargando=true;
       this.auth.login(this.usuario).subscribe(
         response => {
-          this.cargando=false;
           this.auth.guardartoken(response.token);
+          this.cargando=false;
           this.route.navigate(['nav/perfil_user']);
         }, err => {
           this.cargando=false;
