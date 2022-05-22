@@ -8,25 +8,18 @@
   }
 
   body{
-     
-      background-color:#f4f3ef;
-      padding-top: 8vh;
-      height: auto;
-     
-
-
+    background-color: #f4f3ef;
+    padding-top: 5vh;
+    height: auto;
+    padding-left: 10px;
   }
  
 
   .container{
-  
-    min-width: 95%;
-    
-
+    min-width: 97%;
     display: flex;
-  
-    
 }
+
 .top-content{
   width: 27%;
   height: 90%;
@@ -232,6 +225,9 @@ img{
  input:disabled,select:disabled{
    background-color: #edf1f7;
  }
+ .time-container{
+  padding: 10px 35px 10px 50px; display: flex;flex-direction: row;
+ }
 .horarioadd{
   display: flex;
   justify-content: flex-start;
@@ -388,17 +384,22 @@ img{
   height: 150px;
   margin-top: 100px;
   position: relative;
-  bottom: -50px;
+  bottom: -10px;
  }
- .perfil{
-   display: none;
- }
- .top-content{
-   background-size: 100% 100%;
- }
+
+
 }
 @media only screen and (max-width: 960px) {
+    img{
   
+      bottom: -30px;
+    }
+  .perfil{
+    display: none;
+  }
+  .top-content{
+    background-size: 100% 100%;
+  } 
   .input-style{
     width: 95%;
   }
@@ -417,6 +418,23 @@ img{
     width: 95%;
   }
  }
+ @media only screen and (max-width: 725px) {
+   .time-container{
+     padding: 10px 20px 10px 20px;
+     flex-direction: column;
+   }
+  .horarioadd{
+    width: 90%;
+  }
+  .list-horario {
+   
+    width: 100%;
+    min-height: 60px;
+    height: max-content;
+    
+}
+  
+}
  @media only screen and (max-width: 425px) {
   img{
     width: 100px;

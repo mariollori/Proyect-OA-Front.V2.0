@@ -51,12 +51,51 @@ body{
   background: #0f3971;
   z-index: 100;
   width:260px;
-  overflow:hidden;
+  overflow-y:auto;
+  overflow-x: hidden;
   min-height:100vh;
   height:100%;
   position:fixed;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   transition: width .3s;
+}
+.sidebar::-webkit-scrollbar {
+  width: 0px;     /* Tamaño del scroll en vertical */
+    /* Tamaño del scroll en horizontal */
+ 
+}
+
+
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent        /* color of the tracking area */
+}
+
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Cambiamos el fondo cuando esté en active */
+.sidebar::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo cuando esté en active o hover */
+.sidebar::-webkit-scrollbar-track:hover,
+.sidebar::-webkit-scrollbar-track:active {
+background: #d4d4d4;
 }
 .sidebar.cerrar{
   width:75px;
@@ -203,7 +242,7 @@ body{
   
   width:30px;
   height:20px;
- position:fixed;
+ position:absolute;
   transition: margin-left .3s,
     transform .5s;
   top:20px;
@@ -240,6 +279,7 @@ body{
 }
 
 .menu.activo{
+  position: fixed;
   margin-left:270px;
   transform:rotate(1turn);
 }
