@@ -121,6 +121,7 @@ export class BandejaInComponent implements OnInit {
          this.personal = data[0];
          this.cargando2 = false;
         
+        
       }
     )
   }
@@ -206,6 +207,7 @@ export class BandejaInComponent implements OnInit {
   }
   select_new_personal(persona){
     this.personal_selected = persona;
+
   }
   cancel_Search(){
     this.personal_searched=null;

@@ -395,6 +395,7 @@ background: #d4d4d4;
     left: 10px;
     top: 10px;
     margin-left: 0;
+    position: fixed;
   }
   .content{
     height: 70%;
