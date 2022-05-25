@@ -685,6 +685,7 @@ color: #198d8d;
  }
  .list-asignaciones .bottom{
    height: 100%;
+   padding-top: 0;
    width: 100%;
  }
  .list-asignaciones .top{
