@@ -58,37 +58,30 @@ export class ReportesComponent implements OnInit {
   dtOptions: any;
   @ViewChildren(BaseChartDirective) chart: QueryList<BaseChartDirective>;
   constructor(private service: ReporteService, private router: Router, private route: ActivatedRoute) { }
-
-  /**-------------------------Pie Chart -------------------- ------------------------------*/
-  public pieChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
+  public doughnutChartLabels: string[] =['Atendidos', 'En proceso', 'Canceladas', 'Derivacion-Psi', 'Derivacion-Ext'];
+  public chartOptions= {
+    cutout:90,
     plugins: {
-      legend: {
-        display: true,
-        position: 'right',
-
-      },
+      legend: {display: false,position: 'right',},
     }
   };
-  public pieChartDataH: ChartData<'pie', number[], string | string[]> = {
-    labels: ['Atendidos', 'En proceso', 'Canceladas', 'Derivacion-Psi', 'Derivacion-Ext'],
+  /**Donut */
+  public doughnutChartData: ChartData<'doughnut'> = {
+    labels: this.doughnutChartLabels,
     datasets: [
-      {
-        data: [0, 0, 0, 0, 0],
-        backgroundColor: ['#29b2e2', '#0f3971', 'red', '#ffa726', '#66bb6a'],
-        hoverBackgroundColor: ['#29b2e2', '#0f3971', 'red', '#ffa726', '#66bb6a']
-      }]
+      { data: [0, 0, 0, 0, 0] ,backgroundColor: ['#1e88e5', '#26c6da', '#ef5350', '#eceff1', '#745af2'],hoverBackgroundColor: ['#1e88e5', '#26c6da', '#ef5350', '#eceff1', '#745af2']},
+    ]
   };
-  public pieChartDataM: ChartData<'pie', number[], string | string[]> = {
-    labels: ['Atendidos', 'En proceso', 'Canceladas', 'Derivacion-Psi', 'Derivacion-Ext'],
+  
+  /**Donut 2 */
+  public doughnutChartData2: ChartData<'doughnut'> = {
+    labels: this.doughnutChartLabels,
     datasets: [
-      {
-        data: [0, 0, 0, 0, 0],
-        backgroundColor: ['#29b2e2', '#0f3971', 'red', '#ffa726', '#66bb6a'],
-        hoverBackgroundColor: ['#29b2e2', '#0f3971', 'red', '#ffa726', '#66bb6a']
-      }]
+      { data: [0, 0, 0, 0, 0] ,backgroundColor: ['#1e88e5', '#26c6da', '#ef5350', '#eceff1', '#745af2'],hoverBackgroundColor: ['#1e88e5', '#26c6da', '#ef5350', '#eceff1', '#745af2']},
+    ]
   };
-  public pieChartType: ChartType = 'pie';
+ 
+  
 
 
 
@@ -101,7 +94,7 @@ export class ReportesComponent implements OnInit {
     this.dtOptions = {
       responsive: true,
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 22,
       language: {
         "decimal": "",
         "emptyTable": "No hay ningun registro existente..",
@@ -163,25 +156,25 @@ get_reingresos(){
 
     this.service.get_estadisticas_genero('H').subscribe(
       data => {
-        console.log(data)
+        
         for (let index = 0; index < data.length; index++) {
           this.totalH = this.totalH + Number(data[index]['count']);
           switch (data[index].estado) {
             case 'Cancelado':
-              this.pieChartDataH.datasets[0].data[2] = data[index]['count'];
+              this.doughnutChartData.datasets[0].data[2] = data[index]['count'];
               break;
             case 'En Proceso':
-              this.pieChartDataH.datasets[0].data[1] = data[index]['count'];
+              this.doughnutChartData.datasets[0].data[1] = data[index]['count'];
               break;
             case 'Finalizado':
-              this.pieChartDataH.datasets[0].data[0] = data[index]['count'];
+              this.doughnutChartData.datasets[0].data[0] = data[index]['count'];
               break;
             case 'Derivacion-Psi':
-              this.pieChartDataH.datasets[0].data[3] = data[index]['count'];
+              this.doughnutChartData.datasets[0].data[3] = data[index]['count'];
 
               break;
             case 'Derivacion-Ext':
-              this.pieChartDataH.datasets[0].data[4] = data[index]['count'];
+              this.doughnutChartData.datasets[0].data[4] = data[index]['count'];
 
               break;
             default:
@@ -204,19 +197,19 @@ get_reingresos(){
           this.totalM = this.totalM + Number(data[index]['count']);
           switch (data[index].estado) {
             case 'Cancelado':
-              this.pieChartDataM.datasets[0].data[2] = data[index]['count'];
+              this.doughnutChartData2.datasets[0].data[2] = data[index]['count'];
               break;
             case 'En Proceso':
-              this.pieChartDataM.datasets[0].data[1] = data[index]['count'];
+              this.doughnutChartData2.datasets[0].data[1] = data[index]['count'];
               break;
             case 'Finalizado':
-              this.pieChartDataM.datasets[0].data[0] = data[index]['count'];
+              this.doughnutChartData2.datasets[0].data[0] = data[index]['count'];
               break;
             case 'Derivacion-Psi':
-              this.pieChartDataM.datasets[0].data[3] = data[index]['count'];
+              this.doughnutChartData2.datasets[0].data[3] = data[index]['count'];
               break;
             case 'Derivacion-Ext':
-              this.pieChartDataH.datasets[0].data[4] = data[index]['count'];
+              this.doughnutChartData2.datasets[0].data[4] = data[index]['count'];
 
               break;
             default:

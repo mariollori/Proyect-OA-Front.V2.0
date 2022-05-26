@@ -101,10 +101,10 @@ usuarios_desactivados;
 
 
     this.dtOptions = {
-      
+    
       responsive:true,
       pagingType: 'full_numbers',
-      pageLength: 5,
+      pageLength: 8,
       language:{
         "decimal":        "",
         "emptyTable":     "No hay ningun registro existente..",

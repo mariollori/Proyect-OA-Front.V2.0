@@ -306,7 +306,7 @@
                 <ul class="quizz" >
                     <li class="question"  *ngFor="let pregunta of preguntas;let i=index">
                         <label for="" [ngStyle]="{'background-color': pregunta.grado == 'riesgo' ? 'red' : ( pregunta.grado == 'leve' ? 'green' : 'yellow') }">{{i+1 + '.  ' + '   '}}{{pregunta.name}}</label>
-                        <label for="" [ngStyle]=" {'color': pregunta.value == 'true' ? 'blue' : 'black'}">{{pregunta.value == 'true' ? 'Si' : ' No'}}</label>
+                        <label for="" >{{pregunta.value == 'true' ? 'Si' : ' No'}}</label>
                     </li>
                   </ul>
             </div>

@@ -62,7 +62,7 @@
           
         
             
-            <div style="padding-top: 25px;display: flex;flex-wrap: wrap;    
+            <div style="padding-top: 25px;display: flex;flex-wrap: wrap; padding-left: 10px;   
             justify-content: space-around;">
                 <div class="info-personal flexr">
                     <i class="fas fa-flag-checkered  icon"  ></i>
@@ -111,8 +111,19 @@
             </h6>
             <div  class="content-h-m">
                 <div class="h flexc" >    
-                    <label  class="lab">Hombres ➜ {{totalH + ' ' + 'solicitudes'}}</label>
-                    <div class="chart" style="width: 300px;height: 200px;">
+                    <label  class="lab flexr">
+                        <p ><i class="fas fa-male"></i></p>
+                        <span class="flexc"><label style="margin: 0;" for="">Hombres</label>{{totalH + ' ' }}</span>
+                    </label>
+                    <div style="display: block;width: 220px;height: 250px;">
+                        <canvas baseChart
+                        [data]="doughnutChartData"
+                        [options]='chartOptions'
+                        type="doughnut">
+                        </canvas>
+                      </div>
+                      
+                    <!-- <div class="chart" style="width: 300px;height: 200px;">
                         
                         <canvas baseChart 
                               
@@ -121,24 +132,79 @@
                                 [options]="pieChartOptions"
                                >
                         </canvas>
-                      </div>
+                      </div> -->
                 </div>
+                <table class="table ">
+                    <tbody><tr>
+                        <td class="b-0">Atendidos</td>
+                        <td class="text-right  ">{{doughnutChartData.datasets[0].data[0]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Derivados a Psicólogos</td>
+                        <td class="text-right ">{{doughnutChartData.datasets[0].data[3]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Cancelados</td>
+                        <td class="text-right ">{{doughnutChartData.datasets[0].data[2]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Derivados a  externos</td>
+                        <td class="text-right ">{{doughnutChartData.datasets[0].data[4]}}</td>
+                    </tr>
+                    <tr>
+                        <td>En Proceso</td>
+                        <td class="text-right ">{{doughnutChartData.datasets[0].data[1]}}</td>
+                    </tr>
+                </tbody></table>
                 <div class="m flexc" >
-                    <label class="lab" >Mujeres ➜ {{totalM + ' ' + 'solicitudes'}}</label>
-                    <div class="chart"  style="width: 300px;height: 200px;">
+                    <label  class="lab flexr">
+                        <p ><i class="fas fa-female"></i></p>
+                        <span class="flexc"><label style="margin: 0;" for="">Mujeres</label>{{totalM + ' ' }}</span>
+                    </label>
+                    <div style="display: block;width: 220px;height: 250px;">
+                        <canvas baseChart
+                        [data]="doughnutChartData2"
+                        [options]='chartOptions'
+                        type="doughnut">
+                        </canvas>
+                      </div>
+                    <!-- <div class="chart"  style="width: 300px;height: 200px;">
                         <canvas baseChart  
                                 [data]="pieChartDataM"
                                 [type]="pieChartType"
                                 [options]="pieChartOptions"
                                >
                         </canvas>
-                      </div>
+                      </div> -->
                 </div>
-                <div class="re flexc" >
-                    <label class="lab" >Reigresos ➜ {{reingresos}}</label>
-                </div>
+                <table class="table vm font-14">
+                    <tbody><tr>
+                        <td class="b-0">Atendidos</td>
+                        <td class="text-right  ">{{doughnutChartData2.datasets[0].data[0]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Derivados a Psicólogos</td>
+                        <td class="text-right ">{{doughnutChartData2.datasets[0].data[3]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Cancelados</td>
+                        <td class="text-right ">{{doughnutChartData2.datasets[0].data[2]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Derivados a  externos</td>
+                        <td class="text-right ">{{doughnutChartData2.datasets[0].data[4]}}</td>
+                    </tr>
+                    <tr>
+                        <td>En Proceso</td>
+                        <td class="text-right ">{{doughnutChartData2.datasets[0].data[1]}}</td>
+                    </tr>
+                </tbody></table>
+                
+                
             </div>
-            
+            <div class="re flexc" >
+                <label class="lab"  style="margin-top: 10px;">Reigresos({{reingresos}})</label>
+            </div>
 
         </div>
 
@@ -184,7 +250,7 @@
                     
                    
                    <div class="list_vol">
-                    <table datatable id="list_vol" [dtOptions]="dtOptions" class="tablaxd cell-border " *ngIf="personal && opcion=='estudiante'">
+                    <table datatable id="list_vol" [dtOptions]="dtOptions" class="tablaxd cell-border hover  row-border stripe" *ngIf="personal && opcion=='estudiante'">
                         <thead>
                           <tr class="headtable">
                             <th>#</th>
@@ -210,7 +276,7 @@
                     
                         </tbody>
                       </table>
-                      <table datatable [dtOptions]="dtOptions" class="tablaxd" *ngIf="personal && opcion=='psicologo'">
+                      <table datatable [dtOptions]="dtOptions" class="tablaxd cell-border hover  row-border stripe" *ngIf="personal && opcion=='psicologo'">
                         <thead>
                           <tr class="headtable">
                             <th>#</th>
@@ -230,7 +296,7 @@
                             <td>{{ persona.correo }}</td>
                             <td>{{ persona.especialidad }}</td>
                             <td>{{ persona.grado_academico }}</td>
-                            <td><i class="far fa-eye" style="cursor: pointer;width: 20px;height: 20px;" (click)="reporte_personal(persona.idpersonal)"></i> </td>
+                            <td><a  (click)="reporte_personal(persona.idpersonal)" target="_blank"><i class="far fa-eye" style="cursor: pointer;width: 20px;height: 20px;" ></i> </a></td>
         
                           </tr>
                     
@@ -242,7 +308,7 @@
                     <h5 *ngIf="comentarios.length == 0" style="padding: 15px 15px;font-size: 16px;">Aun no se ha registrado observaciones .</h5>
                     <div class="puntaje" *ngIf="comentarios.length > 0">
                       <div class="total">
-                        <h2>{{4.5}}</h2>
+                        <h2>{{total}}</h2>
                         <app-cronometro *ngIf="total" [puntaje]="4.5" class="xd2"></app-cronometro>
                         <p><i class="fas fa-user" style="margin-right: 5px;"></i>{{numero_votantes}} en total</p>
                       </div>

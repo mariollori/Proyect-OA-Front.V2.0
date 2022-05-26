@@ -11,6 +11,7 @@ import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/c
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgToastModule } from 'ng-angular-popup';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -27,7 +28,8 @@ import { NgToastModule } from 'ng-angular-popup';
     AngularFireStorageModule,
     NgToastModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

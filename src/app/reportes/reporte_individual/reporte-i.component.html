@@ -155,7 +155,7 @@
          <h5 *ngIf="comentarios.length == 0">Aun no se ha registrado observaciones para este voluntaio.</h5>
           <div class="puntaje" *ngIf="comentarios.length > 0">
             <div class="total">
-              <h2>{{4.5}}</h2>
+              <h2>{{total}}</h2>
               <app-cronometro *ngIf="total" [puntaje]="4.5" class="xd2"></app-cronometro>
               <p><i class="fas fa-user" style="margin-right: 5px;"></i>{{numero_votantes}} en total</p>
             </div>

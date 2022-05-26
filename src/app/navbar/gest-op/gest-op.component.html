@@ -26,6 +26,7 @@
             <a class="nav-link" id="v-pills-unactive-tab" data-toggle="pill" href="#v-pills-unactive" role="tab" aria-controls="v-pills-unactive" aria-selected="false">Usuarios dados de baja</a>
           </div>
         </div>
+        <div class="divider"></div>
         <div  class="col-9">
           <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -33,7 +34,7 @@
                     
                     <div class="form">
                        <div class="form-one">
-                        <label><button type="button" id="add-btn"  class="btn btn-success" data-toggle="modal" data-target="#createrrolmodal"><i class="fas fa-plus-square"></i></button>Roles Actuales:</label>
+                        <label><button type="button" id="add-btn"    class="btn-green" data-toggle="modal" data-target="#createrrolmodal"><i class="fas fa-plus-square"></i></button>Roles Actuales:</label>
                         <select class="form-select" [(ngModel)]="rolactual">
                             <option value="" selected>-- none --</option>
                             <option *ngFor="let rol of roles" value="{{rol.idrol}}">{{rol.nombre}}</option>
@@ -42,10 +43,10 @@
                        <div class="form-two">
                            <label >Acciones:</label>
                            
-                        <button type="button" class="btn btn-info" data-toggle="modal" (click)="getopcionesrol()" [disabled]="!rolactual" data-target="#deleteoprol"><i class="fas fa-eye"></i>Opciones asignadas</button>
-                        <button type="button"  class="btn btn-danger" [disabled]="!rolactual" (click)="eliminarrol()"> <i class="fas fa-trash-alt"></i>Eliminar rol</button>
-                        <button type="button" class="btn btn-primary" [disabled]="!rolactual" (click)="getrol()" data-toggle="modal" data-target="#modifyrolmodal"> <i class="fas fa-edit"></i>Editar Rol</button>
-                        <button type="button" class="btn btn-dark" [disabled]="!rolactual" (click)="getopcionesdisponibles()" data-toggle="modal" data-target="#agregaropcionrol">
+                        <button type="button"  class="btn-blue"  data-toggle="modal" (click)="getopcionesrol()" [disabled]="!rolactual" data-target="#deleteoprol"><i class="fas fa-eye"></i>Opciones asignadas</button>
+                        <button type="button"   class="btn-red"  [disabled]="!rolactual" (click)="eliminarrol()"> <i class="fas fa-trash-alt"></i>Eliminar rol</button>
+                        <button type="button"  class="btn-green"  [disabled]="!rolactual" (click)="getrol()" data-toggle="modal" data-target="#modifyrolmodal"> <i class="fas fa-edit"></i>Editar Rol</button>
+                        <button type="button"  class="btn-yellow"  [disabled]="!rolactual" (click)="getopcionesdisponibles()" data-toggle="modal" data-target="#agregaropcionrol">
                              <i class="fas fa-plus-circle"></i>Agregar opción a rol
                         </button>
                     </div>
@@ -59,7 +60,7 @@
                    
                     <div class="form">
                         <div class="form-one">
-                            <label> <button type="button" id="add-btn"  class="btn btn-success" data-toggle="modal" data-target="#createropcmodal"><i class="fas fa-plus-square"></i></button>Opciones:  </label>
+                            <label> <button type="button" id="add-btn" class="btn-green" data-toggle="modal" data-target="#createropcmodal"><i class="fas fa-plus-square"></i></button>Opciones:  </label>
                             <select class="form-select" [(ngModel)]="opcionactual">
                                 <option value="" selected>-- none --</option>
                                 <option *ngFor="let opcion of opciones" value="{{opcion.idopcion}}">{{opcion.nombre}}</option>
@@ -67,8 +68,8 @@
                         </div>
                         <div class="form-two">
                             <label >Acciones:</label>
-                            <button type="button"  class="btn btn-danger" (click)="eliminaropc()" [disabled]="!opcionactual"> <i class="fas fa-trash-alt"></i> Eliminar opción</button>
-                            <button type="button" class="btn btn-primary" (click)="getopcion()" [disabled]="!opcionactual" data-toggle="modal" data-target="#modifyopcmodal">
+                            <button type="button"  class="btn-red" (click)="eliminaropc()" [disabled]="!opcionactual"> <i class="fas fa-trash-alt"></i> Eliminar opción</button>
+                            <button type="button" class="btn-green" (click)="getopcion()" [disabled]="!opcionactual" data-toggle="modal" data-target="#modifyopcmodal">
                                 <i class="fas fa-edit"></i>Modificar opción
                             </button>
                         </div>
@@ -97,11 +98,13 @@
                             </select>
 
                         </div>
+                        <button (click)="exportexcel()" class="btn-excel"><i class="fas fa-file-excel" style="margin-right: 10px;"></i>Ver en excel</button>
                     </div>
                     <div class="cont-table">
                         <app-spinner-blanc [message]="'Cargnado usuarios activos.....'" *ngIf="cargando_activos==true"></app-spinner-blanc>
-                        <button (click)="exportexcel()" class="btn-excel"><i class="fas fa-file-excel" style="margin-right: 10px;"></i>Ver en excel</button>
-                        <table datatable [dtOptions]="dtOptions" id="list_users" class="tablaxd nowrap" *ngIf="usuariosactivos && !cargando_activos">
+                        <div class="divider"></div>
+                        <table datatable [dtOptions]="dtOptions" id="list_users" class="tablaxd cell-border hover nowrap row-border stripe" *ngIf="usuariosactivos && !cargando_activos">
+                            
                             <thead>
                               <tr class="headtable">
                                 <th>#</th>
@@ -118,20 +121,19 @@
                                 <td>{{ i+1 }}</td>
                                 <td>{{ post.nombre  + ' ' + post.apellido}}</td>
                                 <td>{{ post.correo }}</td>
-                                <td><button type="button" data-toggle="modal"
-                                    data-target="#detallerol"
-                                    (click)="listarrolesactuales(post.idusuario)"
-                                    class="btn btn-success"><i class="far fa-eye"></i></button></td>
-                                <td> <button type="button" class="btn btn-info"
-                                    data-toggle="modal"
-                                    data-target="#agregarroluser"
-                                    (click)="agregarrol_user(post.idusuario)"><i class="fas fa-user-plus"></i></button></td>
-                                    <td> <button type="button" class="btn btn-danger"
-                                        (click)="desactivar_usuario(post.idusuario)"><i class="fas fa-user-slash"></i></button></td>
+                                <td>
+                                    <button class="btn-green"  data-toggle="modal" data-target="#detallerol" (click)="listarrolesactuales(post.idusuario)"><i class="far fa-eye"></i></button>
+                                </td>
+                                <td>
+                                    <button class="btn-blue" data-toggle="modal" data-target="#agregarroluser" (click)="agregarrol_user(post.idusuario)"><i class="fas fa-user-plus"></i></button></td>
+                                <td>
+                                    <button type="button" class="btn-red" (click)="desactivar_usuario(post.idusuario)"><i class="fas fa-user-slash"></i></button></td>
                               </tr>
                         
                             </tbody>
+                            <div class="divider"></div>
                           </table>
+                        
                     </div>
                
                 </div>
@@ -158,7 +160,8 @@
                     </div>
                     <div class="cont-table">
                         <app-spinner-blanc [message]="'Cargnado solicitudes...'" *ngIf="cargando_sol==true"></app-spinner-blanc>
-                        <table datatable [dtOptions]="dtOptions" class="tablaxd" id="example" *ngIf="solicitudesdeusuario && !cargando_sol">
+                        <div class="divider"></div>
+                        <table datatable [dtOptions]="dtOptions" class="tablaxd cell-border hover nowrap row-border stripe" id="example" *ngIf="solicitudesdeusuario && !cargando_sol">
                      
                             <thead>
                              
@@ -186,14 +189,15 @@
                                 <td> <button type="button" data-toggle="modal"
                                     data-target="#detallepsi"
                                     (click)="detallepsi(post)"
-                                    class="btn btn-success"><i class="far fa-eye"></i></button></td>
-                                <td> <button type="button"class="btn btn-info"
+                                    class="btn-green"><i class="far fa-eye"></i></button></td>
+                                <td> <button type="button" class="btn-blue"
                                     data-toggle="modal" data-target="#crearuser"(click)="crearuser(post)"><i class="fas fa-user-plus"></i></button></td>
-                                <td> <button type="button" class="btn btn-danger"
+                                <td> <button type="button" class="btn-red"
                                     (click)="rechazarsol(post)" ><i class="fas fa-user-times"></i></button></td>
                               </tr>
                         
                             </tbody>
+                            <div class="divider"></div>
                           </table>
                     </div>
                    
@@ -204,7 +208,8 @@
                 <div class="container" style="margin-top: 10px;padding: 5px">
                     <div class="cont-table">
                         <app-spinner-blanc [message]="'Cargando usuarios dados de baja ...'" *ngIf="cargando_dis==true"></app-spinner-blanc>
-                        <table datatable [dtOptions]="dtOptions" class="tablaxd nowrap" *ngIf="usuarios_desactivados && !cargando_dis">
+                        <div class="divider"></div>
+                        <table datatable [dtOptions]="dtOptions" class="tablaxd cell-border hover nowrap row-border stripe" *ngIf="usuarios_desactivados && !cargando_dis">
                             <thead>
                               <tr class="headtable">
                                 <th>#</th>
@@ -222,11 +227,12 @@
                                 <td>{{ post.sede}}</td>
                                 <td>{{ post.tipo}}</td>
                                 <td>{{ post.correo }}</td>
-                                    <td> <button type="button" style="background-color: green;border-color: green;" class="btn btn-danger"
+                                    <td> <button type="button" class="btn-green" 
                                         (click)=" activar_usuario(post.idusuario)"><i class="fas fa-user-slash"></i></button></td>
                               </tr>
                         
                             </tbody>
+                            <div class="divider"></div>
                           </table>
 
                     </div>

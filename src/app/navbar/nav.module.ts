@@ -19,7 +19,7 @@ import { NgChartsModule, ThemeService } from 'ng2-charts';
 import { ReporteIComponent } from '../reportes/reporte_individual/reporte-i.component';
 import { BandejaInComponent } from './bandeja-in/bandeja-in.component';
 import { ClipboardModule } from "@angular/cdk/clipboard";
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     NavComponent,
@@ -42,7 +42,7 @@ import { ClipboardModule } from "@angular/cdk/clipboard";
     ClipboardModule,
     FormsModule,
     MaterialModule,
-    
+    NgbModule,
     DataTablesModule,
   ],
   providers:[
