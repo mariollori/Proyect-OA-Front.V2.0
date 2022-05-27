@@ -143,9 +143,9 @@ continue(){
       this.pacienteform.get('respuestas').setValue(this.cadena_respuestas.toString())
       var riesgomod = this.preguntas.filter(x=> x.grado=='moderado' && x.value=='true');
       var riesgofuerte =  this.preguntas.filter(x=>x.grado=='riesgo' && x.value=='true' );
-      if(riesgofuerte.length>0){
+      if(this.preguntas[10].value =='true' || this.preguntas[11].value == 'true' || riesgofuerte.length>=3){
          this.pacienteform.get('categoria').setValue('Riesgo')
-      }else if(riesgomod.length>0){
+      }else if(riesgomod.length>0 || riesgofuerte.length<3){
          this.pacienteform.get('categoria').setValue('Moderado') 
       }else{
         this.pacienteform.get('categoria').setValue('Leve')
@@ -156,12 +156,8 @@ continue(){
         (data) => {
           this.cargando= false;
           Swal.fire({
+            icon:'success',
             title: '¡Su consulta fue registrada!',
-            
-         
-            imageUrl: 'http://www.360inmovalencia.com/images/mail.gif',
-            imageWidth: 190,
-            imageAlt: 'Gracias.',
             text: data.toString(),
             
           })
