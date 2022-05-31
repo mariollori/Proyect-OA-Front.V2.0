@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SpinnerBlancComponent } from './spinner-blanc/spinner-blanc.component';
 import { SpinnerLoaderComponent } from './spinner-loader/spinner-loader.component';
 import { CronometroComponent } from './cronometro/cronometro/cronometro.component';
+import { SpinnerHomeComponent } from './spinner-home/spinner-home.component';
 
 
 
@@ -11,6 +12,7 @@ import { CronometroComponent } from './cronometro/cronometro/cronometro.componen
     SpinnerBlancComponent,
     SpinnerLoaderComponent,
     CronometroComponent,
+    SpinnerHomeComponent,
   ],
   imports: [
     CommonModule
@@ -20,6 +22,7 @@ import { CronometroComponent } from './cronometro/cronometro/cronometro.componen
     SpinnerBlancComponent,
     SpinnerLoaderComponent,
     CronometroComponent,
+    SpinnerHomeComponent,
   ]
 })
 export class FragmentsModule { }

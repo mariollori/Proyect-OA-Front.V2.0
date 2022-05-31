@@ -13,7 +13,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgToastModule } from 'ng-angular-popup';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
+import { FormsModule } from '@angular/forms';
+import { FragmentsModule } from './snipper/fragments.module';
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 
 @NgModule({
   declarations: [
@@ -24,12 +26,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     CommonModule,
     BrowserModule,
+FragmentsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
     NgToastModule,
     HttpClientModule,
+    FormsModule,
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    SlimLoadingBarModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

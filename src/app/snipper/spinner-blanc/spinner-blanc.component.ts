@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./spinner-blanc.component.css']
 })
 export class SpinnerBlancComponent implements OnInit {
-  @Input() message:String; 
+  @Input() message:String='Cargando...'; 
   constructor() { }
 
   ngOnInit() {

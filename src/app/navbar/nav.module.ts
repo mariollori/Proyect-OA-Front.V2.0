@@ -20,6 +20,7 @@ import { ReporteIComponent } from '../reportes/reporte_individual/reporte-i.comp
 import { BandejaInComponent } from './bandeja-in/bandeja-in.component';
 import { ClipboardModule } from "@angular/cdk/clipboard";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     NavComponent,

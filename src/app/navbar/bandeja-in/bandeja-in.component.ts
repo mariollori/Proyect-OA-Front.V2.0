@@ -93,6 +93,8 @@ export class BandejaInComponent implements OnInit {
 
   }
   get_Asignaciones_pendientes(){
+    this.paciente=null;
+    this.personal=null;
     this.message="Cargando datos..."
     this.cargando = true;
     this.service.get_asignaciones_pendientes(this.sede).subscribe(

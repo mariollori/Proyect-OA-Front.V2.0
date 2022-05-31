@@ -247,7 +247,7 @@
     <div class="list-pac" >
     <app-spinner-blanc *ngIf="cargando" style="height:80%;" [message]="message"></app-spinner-blanc>
       <h5 class="title" *ngIf="!cargando" >Consultas iniciadas</h5>
-      <div class="card2" [ngClass]="{ 'xdd' : asig_actual == pac }" *ngFor="let
+      <div class="card2" [ngClass]="{ 'xdd' : asig_actual== pac }" *ngFor="let
         pac of pacientes_asignados">
         <div class="left">
           <label for="" style="font-size: 18px;font-weight: bold;text-align:
