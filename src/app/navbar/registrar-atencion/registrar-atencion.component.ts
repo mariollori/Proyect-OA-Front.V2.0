@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
@@ -20,16 +20,19 @@ export class RegistrarAtencionComponent implements OnInit {
   pacientes_asignados:any = [];
   asig_actual;
   atenciones_registradas;
-  paciente_info;
+  paciente_info:any;
   validate_url =/^https:\/*(?:\w+(?::\w+)?@)?[^\s\/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-\/]*)?$/;
   counter;
   datapaciente:FormGroup;
   datosatencion:FormGroup;
-  
+ 
   textValue;
   aten_paciente;
   historial=[];
   /** Pregunta */
+  
+
+
   preguntas = [
   
     {id:1,grado:'leve',name:'¿Sus ganas de comer han aumentado o disminuido?',value:''},
@@ -122,15 +125,17 @@ export class RegistrarAtencionComponent implements OnInit {
       data=>{
         this.cargando3=false;
         this.textValue = 'https://oidoamigo.netlify.app/#/home/valoracion/'+ data[0].codex;
-        this.paciente_info = data[0];
-        this.datapaciente.get('religion').setValue(data[0].religion);
-        this.datapaciente.get('ocupacion').setValue(data[0].ocupacion);
-        this.datapaciente.get('fecha_nacimiento').setValue(data[0].fecha_nacimiento);
-        this.datapaciente.get('grado_educacion').setValue(data[0].grado_educacion);
-        this.datapaciente.get('estado_civil').setValue(data[0].estado_civil);
-        this.datapaciente.get('nro_hijos').setValue(data[0].nro_hijos);
-        this.datapaciente.get('problema_actual').setValue(data[0].problema_actual);
-        this.datapaciente.get('antecedentes').setValue(data[0].antecedentes);
+         this.paciente_info= data[0];
+          this.datapaciente.get('religion').setValue(data[0].religion);
+          this.datapaciente.get('ocupacion').setValue(data[0].ocupacion);
+          this.datapaciente.get('fecha_nacimiento').setValue(data[0].fecha_nacimiento);
+          this.datapaciente.get('grado_educacion').setValue(data[0].grado_educacion);
+          this.datapaciente.get('estado_civil').setValue(data[0].estado_civil);
+          this.datapaciente.get('nro_hijos').setValue(data[0].nro_hijos);
+          this.datapaciente.get('problema_actual').setValue(data[0].problema_actual);
+          this.datapaciente.get('antecedentes').setValue(data[0].antecedentes);
+        
+      
       }
         );
   }

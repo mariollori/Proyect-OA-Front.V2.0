@@ -155,8 +155,7 @@ usuarios_desactivados;
     this.cargando_activos=true;
     this.rolserv.listarusuarios(this.opcion2,this.sede2).subscribe(
       (data)=>{
-        console.log(data);
-       this.cargando_activos=false;
+            this.cargando_activos=false;
         this.usuariosactivos=data;
       }
     )

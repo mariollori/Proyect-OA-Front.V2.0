@@ -9,9 +9,11 @@
   <div class="container">
     <div class="no-data" *ngIf="!paciente_info">
       <img
-        src="assets/registro_Atencion.png"
+        src="assets/registro_Atencion.jpg"
         width="250px" style="margin-bottom: 35px;" alt="">
-      <label style="font-weight: bold;color:#777;">Seleccione una consulta para
+      <label style="    font-weight: 500;
+      color: #3f5958;
+      font-size: 16px;">Seleccione una consulta para
         ver la
         información correspondiente.</label>
 
@@ -19,57 +21,49 @@
     <div class="cont-view-data" *ngIf="paciente_info">
       <app-spinner-loader *ngIf="cargando3" [message]="message" ></app-spinner-loader>
       <div class="view_data">
-        <div class="data_personal">
-          <div style="text-align: center;width: 15%;padding-top: 10px;">
-            <img [src]="paciente_info.genero == 'H'?
-              'assets/pach.png' :
-              'assets/pacm.png'" width="80px" alt="">
-          </div>
-          <div class="info_paciente">
-            <div class="paciente_data">
-              <label class="name">{{paciente_info.nombre + ' ' +
-                paciente_info.apellido}}</label>
-              <label class="category" [ngStyle]="{'background-color':
-                paciente_info.categoria
-                == 'Riesgo' ? 'red' : ( paciente_info.categoria == 'Leve' ?
-                'green'
-                :'#ffb800') }" >{{paciente_info.categoria}}</label>
-              <label class="date">{{asig_actual.fecha | date:'dd/MM/yyyy'}}</label>
+        <div class="top_data">
+          <div class="data_personal">
+            <div style="text-align: center;width: 15%;">
+              <img [src]="paciente_info.genero == 'H'?
+                'assets/pach.png' :
+                'assets/pacm.png'" width="80px" alt="">
             </div>
-            <div class="paciente_data_2">
-              <label for="" style="margin-left: 0;">{{paciente_info.genero == 'H'
-                ? 'Hombre' : 'Mujer' }}</label>
-              <label for="">{{paciente_info.departamento + ', ' + paciente_info.provincia + ', ' + paciente_info.distrito }}</label>
-              <label for="">{{paciente_info.edad + ' ' + 'años'}}</label>
-              <label for="">{{paciente_info.telefono}}</label>
-  
+            <div class="info_paciente">
+              <div class="paciente_data">
+                <label class="name">{{paciente_info.nombre + ' ' +
+                  paciente_info.apellido}}</label>
+                <label class="category" [ngStyle]="{'background-color':
+                  paciente_info.categoria
+                  == 'Riesgo' ? 'red' : ( paciente_info.categoria == 'Leve' ?
+                  'green'
+                  :'#ffb800') }" >{{paciente_info.categoria}}</label>
+                <label class="date">{{asig_actual.fecha | date:'dd/MM/yyyy'}}</label>
+              </div>
+              <label class="zona"><i class="fas fa-map-marker-alt"></i>{{paciente_info.departamento + ', ' + paciente_info.provincia + ', ' + paciente_info.distrito }}</label>
+              <div class="paciente_data_2">
+                <label for=""><i class="fas fa-user-clock"></i>{{paciente_info.edad + ' ' + 'años'}}</label>
+                <label for="" style="margin-left: 15px;"><i class="fas fa-phone-volume"></i>{{paciente_info.telefono}}</label>
+    
+              </div>
             </div>
-  
+    
+    
           </div>
-  
-  
+          <div class="options">
+            
+              <button data-toggle="modal" class="button red" data-target="#cancelaratencion">
+                Dar de Baja la Consulta
+              </button>
+             
+          </div>
         </div>
-        <div class="options">
-          <div class="card-btns2">
-            <button data-toggle="modal" data-target="#cancelaratencion">
-              Dar de Baja la Consulta
-            </button>
-
-            <div class="clipboard">
-              <p [(ngModel)]="textValue">{{textValue}}</p>
-              <button  cdkCopyToClipboard="{{textValue}}">Copiar</button>
-            </div>
-  
-  
-          </div>
-  
-        </div>
+       
         <div class="list_reports">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
               <a class="nav-link active" id="home-tab" data-toggle="tab"
                 href="#home" role="tab" aria-controls="home" aria-selected="true">Datos
-                de la Atención</a>
+                de la Asignación</a>
             </li>
             <li class="nav-item" role="presentation">
               <a class="nav-link" id="profile-tab" data-toggle="tab"
@@ -80,6 +74,48 @@
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel"
               aria-labelledby="home-tab">
+              
+              <div class="clipboard" >
+                <label for="">Link de valoración de atención<button type="button" style=" margin: 0px 5px;
+                  padding: 0;" class="btn btn-outline-secondary" ngbTooltip="Recuerde que debe haber terminado la atención(minimo 3 sesiones) para compartir el enlace."
+                  tooltipClass="my-custom-class">
+                  <i class="fas fa-question-circle"></i>
+                </button>: </label>
+                <div class="link-cont">
+                  <p [(ngModel)]="textValue">{{textValue}}</p>
+                  <button class="button green" cdkCopyToClipboard="{{textValue}}">Copiar</button>
+                </div>
+              </div>
+              <div class="datos_consulta" *ngIf="paciente_info.como_conocio">
+                <h6>Datos de Consulta</h6>
+                <div class="bottom" >
+                  <div class="pt1">
+                    <div>
+                      <label for=""><i class="fas fa-plus"></i>¿Cómo supo de OÍDO
+                        AMIGO?</label>
+                      <label for="">{{paciente_info.como_conocio}}</label>
+  
+                    </div>
+                    <div>
+                      <label for=""> <i class="fas fa-plus"></i>Motivo de
+                        consulta:</label>
+                      <label for="">{{paciente_info.descripcion}}</label>
+  
+                    </div>
+                  </div>
+                  <div class="pt2">
+                    <button data-target="#register_aten"
+                      data-toggle="modal" class="button blue">
+                      Registrar nueva atención
+                    </button>
+                    <button data-toggle="modal" data-target="#exampleModal" style="margin-top: 15px;"
+                      (click)="ver_respuestas(paciente_info.respuestas)" class="button green">
+                      SQR del consultante
+                    </button>
+                  </div>
+  
+                </div>
+              </div>
               <div class="datos_consulta" *ngIf="paciente_info.ocupacion">
                 <h6>Datos extra del consultante</h6>
                 <div class="bottom">
@@ -129,36 +165,7 @@
   
                 </div>
               </div>
-              <div class="datos_consulta">
-                <h6>Datos de Consulta</h6>
-                <div class="bottom">
-                  <div class="pt1">
-                    <div>
-                      <label for=""><i class="fas fa-plus"></i>¿Cómo supo de OÍDO
-                        AMIGO?</label>
-                      <label for="">{{paciente_info.como_conocio}}</label>
-  
-                    </div>
-                    <div>
-                      <label for=""> <i class="fas fa-plus"></i>Motivo de
-                        consulta:</label>
-                      <label for="">{{paciente_info.descripcion}}</label>
-  
-                    </div>
-                  </div>
-                  <div class="pt2">
-                    <button data-target="#register_aten"
-                      data-toggle="modal">
-                      Nueva Atención
-                    </button>
-                    <button data-toggle="modal" data-target="#exampleModal"
-                      (click)="ver_respuestas(paciente_info.respuestas)">
-                      SQR del consultante
-                    </button>
-                  </div>
-  
-                </div>
-              </div>
+             
               <div class="list-reportes" style="width: 90%;margin: 0 auto;">
                 <h6>Reportes Registrados</h6>
                 <label style="padding: 25px; font-size: 14px;"
@@ -179,7 +186,7 @@
                       <tr *ngFor="let aten of atenciones_registradas">
                         <td>{{aten.nro_sesion}}</td>
                         <td>{{aten.fecha_sesion | date:'dd/MM/yyyy'}}</td>
-                        <td><button class="ver_atencion"
+                        <td><button class="button grey"
                             (click)="mostrar_asignacion_id(aten)"
                             data-toggle="modal"
                             data-target="#verasignacion"><i class="fas fa-eye"
@@ -246,31 +253,28 @@
   
     <div class="list-pac" >
     <app-spinner-blanc *ngIf="cargando" style="height:80%;" [message]="message"></app-spinner-blanc>
-      <h5 class="title" *ngIf="!cargando" >Consultas iniciadas</h5>
-      <div class="card2"  (click)="get_info_case(pac)" [ngClass]="{ 'xdd' : asig_actual== pac }" *ngFor="let
-        pac of pacientes_asignados">
-        <div class="left">
-          <label for="" style="font-size: 18px;font-weight: bold;text-align:
-            center;">{{pac.fecha |
-            date:'MMM d'}} </label>
-          <i class="far fa-check-circle"
-            style="color:#29b2e2;cursor: pointer;"></i>
-
+      
+        <h5 class="title" *ngIf="!cargando" >Consultas iniciadas</h5>
+        <div class="container-card2">
+          <div class="card2"  (click)="get_info_case(pac)" [ngClass]="{ 'xdd' : asig_actual== pac }" *ngFor="let pac of pacientes_asignados">
+          <div class="left">
+            <label >{{pac.fecha | date:'MMM d'}} </label>
+            <i class="far fa-check-circle" ></i>
+          </div>
+          <div class="rigth">
+            <div class="head">
+              <label >{{pac.nombre + ' ' + pac.apellido}}</label>
+              <span class="category" [ngStyle]="{'background-color': pac.categoria== 'Riesgo' ? 'red' : ( pac.categoria == 'Leve' ? 'green'
+              :'#ffb800') }">{{pac.categoria}}</span>
+            </div>
+            <label class="description">{{pac.descripcion}}</label>
+            <label class="nro_a" ><i class="far fa-file-alt" style="margin-right:10px;font-size: 13px;color: #29b2e2;"></i>{{pac.nro_atenciones
+              }} {{pac.nro_atenciones == 1 ? 'Atencion' :'Atenciones' }}</label>
+          </div>
+  
         </div>
-        <div class="rigth">
-
-          <label >
-            {{pac.nombre + pac.apellido}} <label class="category"
-              [ngStyle]="{'background-color': pac.categoria
-              == 'Riesgo' ? 'red' : ( pac.categoria == 'Leve' ? 'green'
-              :'#ffb800') }" style="color: white;">{{pac.categoria}}</label></label>
-          <label >{{pac.descripcion}}</label>
-          <label ><i class="far
-              fa-file-alt" style="margin-right:10px;font-size: 13px;"></i>{{pac.nro_atenciones
-            }} {{pac.nro_atenciones == 1 ? 'Atencion' :'Atenciones' }}</label>
         </div>
-
-      </div>
+   
 
 
 
@@ -279,7 +283,7 @@
 
     </div>
 
-    <h5 class="title-d2">Consultas iniciadas</h5>
+    
 
 
 
@@ -671,7 +675,7 @@
             </div>
           </div>
 
-         
+          
           <div class="top">
             <h6>Voluntario Asignado</h6>
             <div style="   display: flex;padding: 25px;            flex-direction: row;" *ngIf="voluntario_asig">
@@ -703,7 +707,7 @@
             
           </div>
 
-
+          
 
           <div class="rigth">
             <h6>
