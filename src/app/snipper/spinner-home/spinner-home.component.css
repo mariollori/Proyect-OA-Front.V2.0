@@ -95,3 +95,14 @@ bodY {
       transform: scale(0);
     }
   }
+
+  
+  @media only screen and (max-width: 450px) {
+    img{
+     display: none;
+  }
+  .container{
+    width: 100%;
+    justify-content: center;
+  }
+  }
