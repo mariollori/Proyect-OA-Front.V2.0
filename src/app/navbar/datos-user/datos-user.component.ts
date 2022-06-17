@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ImagenService } from 'src/app/services/imagen.service';
 import { RegDatoPsicologoService } from 'src/app/services/reg-dato-psicologo.service';
 import Swal from 'sweetalert2';
+import { data } from 'jquery';
+import { ExcelService } from 'src/app/services/excel.service';
 
 @Component({
   selector: 'app-datos-user',
@@ -21,7 +23,7 @@ export class DatosUserComponent implements OnInit {
   cargando=false;
 message;
 
-  constructor(private service: RegDatoPsicologoService, private token: AuthService, private imagenserv: ImagenService) { }
+  constructor(private service: RegDatoPsicologoService, private token: AuthService, private imagenserv: ImagenService,private excelserv:ExcelService) { }
 
   /*Manejo de foto*/
   archivo: File;
@@ -37,7 +39,7 @@ message;
   // Form de datos personales
 
   datos_personales: FormGroup;
-
+   qtoaño:any[];
 
   horarios: Horario_psicologo[] = []
   // Controladores de horario
@@ -60,9 +62,15 @@ message;
 
     this.get_datos_personales()
     this.get_datos_academicos()
-    this.get_horarios()
-  }
+    this.get_horarios();
+    // this.get_5toaño()
 
+  }
+// get_5toaño(){
+//   this.service.get_5toaño().subscribe(x=>{
+//     this.qtoaño= x as any[];
+//   })
+// }
   get_datos_personales() {
     this.service.getdatapersonal(this.token.usuario.idpersonal).subscribe(
       data => {
@@ -258,4 +266,27 @@ message;
     this.get_datos_academicos();
   }
 
+
+  // exportexcel(): void
+  // {
+  //   var columns;
+  //   var dataForExcel = [];
+  //   var i =0;
+  
+
+  //     columns=["Nro.","Nombres completo","Correo electrónico","Sede","Sexo","Ciclo","Grupo","Codigo","Nro Pacientes"];
+  //     this.qtoaño.forEach((row: any) => {
+  //       i++;
+  //      dataForExcel.push(Object.values([i,row.nombre + ' '+ row.apellido,row.correo,row.sede,row.genero,row.ciclo,row.grupo,row.codigo,row.nro_pacientes]))
+  //     })
+    
+   
+  //   let reportData = {
+  //     title: `Registro de Estudiantes de 5to Año`,
+  //     data: dataForExcel,
+  //     headers: columns,
+  //   }
+
+  //   this.excelserv.exportExcel(reportData);
+  // }
 }
