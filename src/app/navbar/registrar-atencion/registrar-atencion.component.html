@@ -423,9 +423,9 @@
               <div class="input-style" style="width: 98%;position: relative;">
                 <label>Evidencia <span style="color: red;">*</span></label>
 
-                <input  formControlName="evidencia"  [class.is-invalid]="this.datosatencion.get('evidencia').invalid && this.datosatencion.get('evidencia').touched " class="form-control"/>
-                <div *ngIf="this.datosatencion.get('evidencia').hasError('pattern') && this.datosatencion.get('evidencia').touched " class="invalid-feedback">
-                  (Por favor ingrese una url válida.)
+                <input  formControlName="evidencia"   class="form-control"/>
+                <div *ngIf="this.datosatencion.get('evidencia').hasError('required') && this.datosatencion.get('evidencia').touched " class="invalid-feedback">
+                  (Por favor ingrese una url.)
                 </div>
                 <button class="info_ev"><i class="fas fa-question-circle"></i>
                   <span>Ingrese el link del drive donde adjunto su evidencia.
