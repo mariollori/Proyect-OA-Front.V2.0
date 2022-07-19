@@ -101,7 +101,7 @@ export class RegistrarAtencionComponent implements OnInit {
       acciones_realizadas: new FormControl('', Validators.required),
       conclusiones :new FormControl('', Validators.required),
       observaciones :new FormControl('', Validators.required),
-      evidencia:new FormControl('', [Validators.required,Validators.pattern(this.validate_url)]),
+      evidencia:new FormControl('', [Validators.required]),
       recomendaciones :new FormControl('', Validators.required),
     });
     this.get_pacientes_asignados();
